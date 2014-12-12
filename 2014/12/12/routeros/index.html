@@ -20,7 +20,7 @@ RouterOS 的安装
     <meta property="og:image" content="undefined"/>
   
 
-  <link href="/favicon.png" rel="icon">
+  <link href="/favicon.PNG" rel="icon">
   <link rel="alternate" href="/atom.xml" title="修罗恶鬼的博客" type="application/atom+xml">
   <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
   <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
@@ -78,7 +78,7 @@ RouterOS 的安装
 <li>使用U盘启动工具进入电脑中，格盘，重新分区，就分一个盘，然后再格一次盘（为了保险）。</li>
 <li>将刻好的光盘放入电脑中，然后按F12，选择由光盘启动。</li>
 </ul>
-<p>如果看到如下截图，表示成功：<br><img src="http://pan.baidu.com/s/1gd7YxCf/routeros.jpg" alt="routeros 安装界面"><br>新手建立全部安装，就是把上图中的功能全部勾选，然后下一步。在系统提示的 Do you want to keep old configuration？ [y/n]： 中选择n，不保留以前设置。接着在Continue? [y/n]: 中选择y。然后一直回车。<strong>注意，最后问你是否重启的时候，一定要把光盘取出再重启。</strong>重启后出现下图，那么系统安装成功：<br><img src="http://pan.baidu.com/s/1gd7YxCf/rossuccess.jpg" alt="routeros 安装成功"></p>
+<p>如果看到如下截图，表示成功：<br><img src="image/routeros.jpg" alt="routeros 安装界面"><br>新手建立全部安装，就是把上图中的功能全部勾选，然后下一步。在系统提示的 Do you want to keep old configuration？ [y/n]： 中选择n，不保留以前设置。接着在Continue? [y/n]: 中选择y。然后一直回车。<strong>注意，最后问你是否重启的时候，一定要把光盘取出再重启。</strong>重启后出现下图，那么系统安装成功：<br><img src="image/rossuccess.jpg" alt="routeros 安装成功"></p>
 <h1 id="RouterOs的配置">RouterOs的配置</h1>
 <p>RouterOS搭建VPN有两种方法，一种是<a href="http://wenku.baidu.com/link?url=5VW6Y1CarvQ9NGsPdZgjvB63YycgJNdae9l3QhV6RZ9dUNjAuOAusK4u-LHzwLHSNzXnLsdjTTYsVuK9VeFDALdqqRfFJopUb8A3aRGtxpO" target="_blank" rel="external">routeros命令行</a>，一种是使用 <a href="http://www.baidu.com/s?wd=routeros%20winbox&amp;rsv_spt=1&amp;issp=1&amp;f=8&amp;rsv_bp=0&amp;rsv_idx=2&amp;ie=utf-8&amp;tn=baiduhome_pg&amp;rsv_enter=1&amp;oq=ultrA&amp;inputT=3961&amp;rsv_pq=e9c65ed30000b5c4&amp;rsv_t=8a5be7nVJdk3OrBHGCieL%2BIp%2F9uIjSS%2Bjie1o9ebQCvaRPed8KVDSKYfG0a1u1lCh%2B7r&amp;rsv_sug3=25&amp;rsv_sug4=1465&amp;rsv_sug1=15&amp;rsv_sug2=0&amp;rsv_sug=1&amp;bs=routeros%20%E5%91%BD%E4%BB%A4" target="_blank" rel="external">winbox</a>。这里着重介绍如何使用命令行进行配置。</p>
 <h2 id="需要的工具：-1">需要的工具：</h2>
@@ -88,16 +88,16 @@ RouterOS 的安装
 <h2 id="操作步骤-1">操作步骤</h2>
 <ul>
 <li><h3 id="分配网卡ip地址">分配网卡ip地址</h3>
-<p>这一步必须在routeros系统的机器上进行。routeros的开机界面如下（以下是通过ssh远程上去的，机器实际界面和这个一样）。<br><img src="http://pan.baidu.com/s/1gd7YxCf/routeros1.png" alt="routeros开机界面"><br>输入<code>ip address print</code> 就可以查看到当前的连接状态：<br><img src="http://pan.baidu.com/s/1gd7YxCf/routeros2.png" alt="routeros网卡状态"><br>如果是一台空机器的话，NETWORK 和 ADRESS 项应该就是空的，只有网卡而没有ip地址。输入命令：<br><code>ip address add ip-address=10.250.95.40 interface=ether1</code><br>这样网卡1的ip地址就被设置为10.250.95.40。设置好了以后使用winbox就可以连接，或者直接在浏览器中输入地址也可以访问。否则就无法连接。</p>
+<p>这一步必须在routeros系统的机器上进行。routeros的开机界面如下（以下是通过ssh远程上去的，机器实际界面和这个一样）。<br><img src="image/routeros1.PNG" alt="routeros开机界面"><br>输入<code>ip address print</code> 就可以查看到当前的连接状态：<br><img src="image/routeros2.PNG" alt="routeros网卡状态"><br>如果是一台空机器的话，NETWORK 和 ADRESS 项应该就是空的，只有网卡而没有ip地址。输入命令：<br><code>ip address add ip-address=10.250.95.40 interface=ether1</code><br>这样网卡1的ip地址就被设置为10.250.95.40。设置好了以后使用winbox就可以连接，或者直接在浏览器中输入地址也可以访问。否则就无法连接。</p>
 </li>
 <li><h3 id="建立ip_pool_用于给连接进来的用户分配ip">建立ip pool 用于给连接进来的用户分配ip</h3>
-<p>建立命令为：<br><code>ip pool add name=test ranges=192.168.1.1-192.168.1.253</code> 之后使用<code>ip pool print</code> 命令就可以查看当前当前建立的账户。<br><img src="http://pan.baidu.com/s/1gd7YxCf/routeros3.png" alt="建立ip pool"></p>
+<p>建立命令为：<br><code>ip pool add name=test ranges=192.168.1.1-192.168.1.253</code> 之后使用<code>ip pool print</code> 命令就可以查看当前当前建立的账户。<br><img src="image/routeros3.PNG" alt="建立ip pool"></p>
 </li>
 <li><h3 id="为用户建立配置文件">为用户建立配置文件</h3>
-<p>建立命令为：<br><code>ppp profile add name=&quot;test&quot; local-address=222.198.XXX.XXX remote-address=test</code> 这里要注意了<strong>local-adrdress必须是可以上网的网卡的地址</strong>。使用命令 <code>ppp profile print</code> 就可以查看建立的配置文件。<br><img src="http://pan.baidu.com/s/1gd7YxCf/routeros4.png" alt="建立配置文件"><br><img src="image/routeros5.png" alt="查看配置文件"></p>
+<p>建立命令为：<br><code>ppp profile add name=&quot;test&quot; local-address=222.198.XXX.XXX remote-address=test</code> 这里要注意了<strong>local-adrdress必须是可以上网的网卡的地址</strong>。使用命令 <code>ppp profile print</code> 就可以查看建立的配置文件。<br><img src="image/routeros4.PNG" alt="建立配置文件"><br><img src="image/routeros5.PNG" alt="查看配置文件"></p>
 </li>
 <li><h3 id="建立账户，用户连接vpn服务器">建立账户，用户连接vpn服务器</h3>
-<p>建立命令为：<br><code>ppp secret add name=test password=123456 service=pptp profile=test</code> 然后使用 <code>ppp secret print</code> 就可以查看建立起来的账户。<br><img src="http://pan.baidu.com/s/1gd7YxCf/routeros6.png" alt="routeros6.png"></p>
+<p>建立命令为：<br><code>ppp secret add name=test password=123456 service=pptp profile=test</code> 然后使用 <code>ppp secret print</code> 就可以查看建立起来的账户。<br><img src="image/routeros6.PNG" alt="routeros6.PNG"></p>
 </li>
 </ul>
 <p><strong>完成以后就可以使用vpn拨号了。</strong></p>
