@@ -60,6 +60,10 @@ RouterOS搭建VPN有两种方法，一种是[routeros命令行](http://wenku.bai
 
 **完成以后就可以使用vpn拨号了。**
 
++ ### 共享网络
+vpn建立以后，只能是连进这个路由，还不能通过routeros上网，要在再加一条命令，将网络共享出来。
+`ip firewall nat add chain=srcnat sction=masquerade` 执行这条命令以后就可以共享网络了。
+
 关于这些命令具体是什么意思，这里不多介绍了，可以参考一下[这个资料](http://www.baidu.com/s?wd=routeros%20%E5%91%BD%E4%BB%A4&rsv_spt=1&issp=1&f=8&rsv_bp=0&rsv_idx=2&ie=utf-8&tn=baiduhome_pg&rsv_enter=1&oq=ultrA&inputT=5414&rsv_pq=8551265500009fdc&rsv_t=f0ef%2BcwRfD%2FpsgN4xjvp8P6RQjXf0aadlqwDWNUQgsp6BA93paLVQI9mnFMlLoQg%2FNM2&rsv_sug3=16&rsv_sug4=986&rsv_sug1=13&rsv_sug2=0&rsv_sug=2&bs=ultraiso)
 
 最后感谢实验室各位师兄,在你们的帮助下才搭建起来了这个VPN服务器.
