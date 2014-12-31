@@ -9,8 +9,8 @@
   <meta name="description" content="MathJax 用于在网页编写数学公式，该博文用于测试mathjax在github上搭建的博客是否可用，以及mathjax的一些基本用法。
 
 
-MathJax示例一，在句子中的数学公式。
-首先通过一段话来展示mathjax的魅力，这段话是用来介绍贝叶斯定理（Bayes）的。贝叶斯（Bayes）定理:">
+MathJax示例，在句子中的数学公式。
+首先通过一段话来展示mathjax的魅力，这段话是用来介绍贝叶斯定理（Bayes）的。贝叶斯（Bayes）定理: ">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -67,8 +67,19 @@ MathJax示例一，在句子中的数学公式。
         <p>MathJax 用于在网页编写数学公式，该博文用于测试mathjax在github上搭建的博客是否可用，以及mathjax的一些基本用法。</p>
 <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
-<h1 id="MathJax示例一，在句子中的数学公式。">MathJax示例一，在句子中的数学公式。</h1>
-<p>首先通过一段话来展示mathjax的魅力，这段话是用来介绍贝叶斯定理（Bayes）的。<br>贝叶斯（Bayes）定理:<br>\[ \begin{matrix}<br>P(w_{i}|X)=\frac{P(X|w_{i})P(w_{i})}{\sum_{j=1}^{n}P(X|w_{j})P(w_{j})}<br>\end{matrix} \]<br>Bayes定理的意思是，在\(X\)特征空间下，\(w_{i}\)类事件出现的概率\(P(X|w_{i})\)乘上\((w_{i}\)类事件出现的概率\(P(w_{i})\)然后再除以待分类事件按的概率\(\sum_{j=1}^{n}P(X|w_{j})P(w_{j}) \) 就是出现\(X\)特征下,事件被归为\(w_{i}\)的概率.</p>
+<h1 id="MathJax示例，在句子中的数学公式。">MathJax示例，在句子中的数学公式。</h1>
+<p>首先通过一段话来展示mathjax的魅力，这段话是用来介绍贝叶斯定理（Bayes）的。<br>贝叶斯（Bayes）定理:<br>    \[ P(w_{i}|X)=\frac{P(X|w_{i})P(w_{i})}{\sum_{j=1}^{n}P(X|w_{j})P(w_{j})}  \]<br>Bayes定理的意思是，在\(X\)特征空间下，\(w_{i}\)类事件出现的概率\(P(X|w_{i})\)乘上\((w_{i}\)类事件出现的概率\(P(w_{i})\)然后再除以待分类事件按的概率\(\sum_{j=1}^{n}P(X|w_{j})P(w_{j}) \) 就是出现\(X\)特征下,事件被归为\(w_{i}\)的概率.<br>这段话中的公式都不是图片，<strong>随着字体的放大，公式也会放大</strong>，这就是mathjax，一个html中的公式编辑器。</p>
+<h1 id="MathJax_用法">MathJax 用法</h1>
+<p>MathJax的语法和latex是基本一样的，下面是几个使用的例子。更多的例子可以去<a href="http://www.mathjax.org/demos/tex-samples/" target="_blank" rel="external">官网</a></p>
+<h2 id="例子一:">例子一:</h2>
+<p>源码：<br>    <code>\[ \left( \sum\_{k=1}^n a\_k b\_k \right)^2 \leq \left( \sum\_{k=1}^n a\_k^2 \right) \left( \sum\_{k=1}^n b\_k^2 \right) \]</code></p>
+<p>效果：<br>    \[ \left( \sum_{k=1}^n a_k b_k \right)^2 \leq \left( \sum_{k=1}^n a_k^2 \right) \left( \sum_{k=1}^n b_k^2 \right) \]</p>
+<h2 id="例子二:">例子二:</h2>
+<p>源码：<br>    <code>\[P(E)   = {n \choose k} p^k (1-p)^{ n-k} \]</code><br>效果：<br>    \[P(E)   = {n \choose k} p^k (1-p)^{ n-k} \]</p>
+<h2 id="例子三:">例子三:</h2>
+<p>源码：<br>    <code>\[ \frac{1}{(\sqrt{\phi \sqrt{5}}-\phi) e^{\frac25 \pi}} = 1+\frac{e^{-2\pi}} {1+\frac{e^{-4\pi}} {1+\frac{e^{-6\pi}}{1+\frac{e^{-8\pi}} {1+\ldots} } } } \]</code><br>效果：<br>    \[ \frac{1}{(\sqrt{\phi \sqrt{5}}-\phi) e^{\frac25 \pi}} = 1+\frac{e^{-2\pi}} {1+\frac{e^{-4\pi}} {1+\frac{e^{-6\pi}}{1+\frac{e^{-8\pi}} {1+\ldots} } } } \]</p>
+<h2 id="例子四:">例子四:</h2>
+<p>源码：<br><code>\[\mathbf{V}_1 \times \mathbf{V}_2 =  \begin{vmatrix}\mathbf{i} &amp;#038; \mathbf{j} &amp;#038; \mathbf{k} \\ \frac{\partial X}{\partial u} &amp;#038;  \frac{\partial Y}{\partial u} &amp;#038; 0 \\               \frac{\partial X}{\partial v} &amp;#038;  \frac{\partial Y}{\partial v} &amp;#038; 0    \end{vmatrix}  \]</code><br>效果：<br>\[\mathbf{V}_1 \times \mathbf{V}_2 =  \begin{vmatrix}\mathbf{i} &#038; \mathbf{j} &#038; \mathbf{k} \\ \frac{\partial X}{\partial u} &#038;  \frac{\partial Y}{\partial u} &#038; 0 \\               \frac{\partial X}{\partial v} &#038;  \frac{\partial Y}{\partial v} &#038; 0    \end{vmatrix}  \]</p>
 
       
     </div>
