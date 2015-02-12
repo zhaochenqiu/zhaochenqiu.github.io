@@ -1,0 +1,187 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>cygwin下源代码安装WordNet | 修罗恶鬼的博客</title>
+  <meta name="author" content="修罗恶鬼">
+  
+  <meta name="description" content="cygwin是一个linux模拟器，和linux十分相似，包括系统文件结构，常用的命令，以及软件的安装方式。但是通常cygwin软件是通过cygwin的安装程序以添加组件的方式安装的，和linux的源代码安装差别很大。经过测试发现cyginw下同样可以使用源码编译方式安装，这里就记录使用源代码编译的">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="cygwin下源代码安装WordNet"/>
+  <meta property="og:site_name" content="修罗恶鬼的博客"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  <link href="/favicon.png" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="修罗恶鬼的博客" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+
+</head>
+
+
+<body>
+  <header id="header" class="inner"><div class="alignleft">
+  <h1><a href="/">修罗恶鬼的博客</a></h1>
+  <h2><a href="/"></a></h2>
+</div>
+<nav id="main-nav" class="alignright">
+  <ul>
+    
+      <li><a href="/">Home</a></li>
+    
+      <li><a href="/archives">Archives</a></li>
+    
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+<div class="clearfix"></div></header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2015-02-07T11:19:11.000Z"><a href="/2015/02/07/wordnet/">Feb 7 2015</a></time>
+      
+      
+  
+    <h1 class="title">cygwin下源代码安装WordNet</h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>cygwin是一个linux模拟器，和linux十分相似，包括系统文件结构，常用的命令，以及软件的<strong>安装方式</strong>。但是通常cygwin软件是通过cygwin的安装程序以添加组件的方式安装的，和linux的<strong>源代码安装</strong>差别很大。经过测试发现cyginw下同样可以使用源码编译方式安装，这里就<strong>记录使用源代码编译的方式安装wordnet的过程</strong>。</p>
+<h1 id="WordNet介绍以及下载">WordNet介绍以及下载</h1>
+<h2 id="WordNet介绍">WordNet介绍</h2>
+<p><a href="http://wordnet.princeton.edu/" target="_blank" rel="external">WordNet</a>是一个英语的词汇数据库。或者说是一个英语的字典，功能就是可以查询各种单词的意思，同义词，近义词，反义词等等。他的使用很简单，可以直接使用命令行，例如下图，查询Apple单词的意思：<br><img src="http://i2.tietuku.com/5a83e05cb688219c.png" alt="wordnet"><br>除了命令行的操作，更多的是直接使用WordNet开发的编程接口<a href="http://wordnet.princeton.edu/wordnet/man/wnintro.3WN.html" target="_blank" rel="external">进行编程</a>。</p>
+<h2 id="WordNet下载">WordNet下载</h2>
+<p>WordNet现在有两个比较通用的版本，一个是直接的release文件 <a href="http://wordnetcode.princeton.edu/2.1" target="_blank" rel="external">2.1版本</a>。另一个就是<strong>源代码包，也就是我们使用的，<a href="http://wordnetcode.princeton.edu/3.0/WordNet-3.0.tar.gz" target="_blank" rel="external">下载地址</a></strong></p>
+<h1 id="WordNet的源码编译安装">WordNet的源码编译安装</h1>
+<h2 id="步骤一configure">步骤一configure</h2>
+<p>WordNet源代码下载以后解压就得到下面的一些源码，在include文件中就可以找到wordnet中的各种头文件。<br><img src="http://i2.tietuku.com/6948d5012493d82a.png" alt="WordNet源码"><br>然后执行configure命令。<br><img src="http://i2.tietuku.com/7de7c617fc2bd150.png" alt="configure命令执行"><br><img src="http://i2.tietuku.com/ca48f8aca630b311.png" alt="condigure命令执行"></p>
+<h2 id="步骤二make">步骤二make</h2>
+<p>执行完configure后，在该目录下就就已经生成好了<strong>Makefile</strong>,然后使用gcc的make命令就可以编译生成wordnet了<br><img src="http://i2.tietuku.com/631230d4761cc1fc.png" alt="编译生成wordnet"><br>第一次编译通常会失败，因为一般都会缺少几个库文件，如上图就缺少几个xlib的库文件，然后使用cygwin的安装程序把库文件补全就可以了。<br><img src="http://i2.tietuku.com/df997f4be1258261.png" alt="补全库文件"><br><img src="http://i2.tietuku.com/e279944f6a0236c7.png" alt="补全库文件"><br><img src="http://i2.tietuku.com/102efda6ecfa98b0.png" alt="补全库文件"></p>
+<p>补全完库文件以后就可以编译生成，以下就是编译好的wordnet。<br><img src="http://i2.tietuku.com/2141b4722b31339f.png" alt="wordnet源程序"><br>执行wn命令就可以看到wordnet的返回结果。<br><img src="http://i2.tietuku.com/6df908bbf24c9413.png" alt="wordnet执行结果"></p>
+<h1 id="WordNet安装测试">WordNet安装测试</h1>
+<p>WordNet的的代码调用，关于wordnet的调用可以参考<a href="http://wordnet.princeton.edu/wordnet/man/wnintro.3WN.html" target="_blank" rel="external">官网</a>。</p>
+<p>cygwin下源代码安装WordNet和linux基本一致，第一步configure，然后使用make编译生成。需要注意就是一些缺少的软件包。同时cygwin是安装在window下的，因此window同样可以使用WordNet只需要把对应的动态库拷进来即可（一般是mintty.dll）。</p>
+
+      
+    </div>
+    <footer>
+      
+        
+        
+  
+  <div class="tags">
+    <a href="/tags/linux/">linux</a>
+  </div>
+
+        
+  <div class="addthis addthis_toolbox addthis_default_style">
+    
+      <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
+    
+    
+      <a class="addthis_button_tweet"></a>
+    
+    
+      <a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
+    
+    
+      <a class="addthis_button_pinterest_pinit" pi:pinit:layout="horizontal"></a>
+    
+    <a class="addthis_counter addthis_pill_style"></a>
+  </div>
+  <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js"></script>
+
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+  <!-- 多说评论框 start -->
+  <div class="ds-thread" data-thread-key="请将此处替换成文章在你的站点中的ID" data-title="请替换成文章的标题" data-url="请替换成文章的网址"></div>
+<!-- 多说评论框 end -->
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"zhaochenqiu"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+     || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+  </script>
+<!-- 多说公共JS代码 end -->
+</section>
+
+</div></div>
+    <aside id="sidebar" class="alignright">
+  <div class="search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="Search">
+    <input type="hidden" name="q" value="site:yoursite.com">
+  </form>
+</div>
+
+  
+
+  
+<div class="widget tag">
+  <h3 class="title">Tags</h3>
+  <ul class="entry">
+  
+    <li><a href="/tags/linux/">linux</a><small>1</small></li>
+  
+    <li><a href="/tags/数学公式/">数学公式</a><small>1</small></li>
+  
+    <li><a href="/tags/计算机网络/">计算机网络</a><small>1</small></li>
+  
+  </ul>
+</div>
+
+</aside>
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div class="alignleft">
+  
+  &copy; 2015 修罗恶鬼
+  
+</div>
+<div class="clearfix"></div></footer>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+</body>
+</html>
