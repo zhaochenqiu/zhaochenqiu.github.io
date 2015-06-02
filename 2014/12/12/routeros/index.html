@@ -3,25 +3,24 @@
 <head>
   <meta charset="utf-8">
   
-  <title>RouterOS 的安装和VPN配置 | 修罗恶鬼的博客</title>
-  <meta name="author" content="修罗恶鬼">
+  <title>RouterOS 的安装和VPN配置 | Hexo</title>
+  <meta name="author" content="John Doe">
   
   <meta name="description" content="RouterOs 是一个linux路由操作系统，或者叫做软路由，简单的说就是可以把一个普通的PC机变成一个功能强大的路由器。通过这个系统可以搭建VPN服务器然后分网，而且支持各种网络操作，是一个非常强大的linux系统。
-RouterOS 的安装
-开始这一步要有足够的耐心，因为根据人品的不同，这一步">
+RouterOS 的安装开始这一步要有足够的耐心，因为根据人品的不同，这一步可">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
   <meta property="og:title" content="RouterOS 的安装和VPN配置"/>
-  <meta property="og:site_name" content="修罗恶鬼的博客"/>
+  <meta property="og:site_name" content="Hexo"/>
 
   
     <meta property="og:image" content="undefined"/>
   
 
   <link href="/favicon.png" rel="icon">
-  <link rel="alternate" href="/atom.xml" title="修罗恶鬼的博客" type="application/atom+xml">
+  <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
   <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
   <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
   
@@ -31,7 +30,7 @@ RouterOS 的安装
 
 <body>
   <header id="header" class="inner"><div class="alignleft">
-  <h1><a href="/">修罗恶鬼的博客</a></h1>
+  <h1><a href="/">Hexo</a></h1>
   <h2><a href="/"></a></h2>
 </div>
 <nav id="main-nav" class="alignright">
@@ -52,58 +51,48 @@ RouterOS 的安装
     <header>
       
         <div class="icon"></div>
-        <time datetime="2014-12-11T16:43:22.000Z"><a href="/2014/12/12/routeros/">Dec 12 2014</a></time>
+        <time datetime="2014-12-11T16:43:22.000Z"><a href="/2014/12/12/routeros/">2014-12-12</a></time>
       
       
   
     <h1 class="title">RouterOS 的安装和VPN配置</h1>
+    <h1 >hellsinghtitle</h1>
   
 
     </header>
     <div class="entry">
       
         <p>RouterOs 是一个linux路由操作系统，或者叫做软路由，简单的说就是可以把一个普通的PC机变成一个功能强大的路由器。通过这个系统可以搭建VPN服务器然后分网，而且支持各种网络操作，是一个非常强大的linux系统。</p>
-<h1 id="RouterOS_的安装">RouterOS 的安装</h1>
-<p>开始这一步要有足够的耐心，因为根据人品的不同，这一步可能变的特别简单或者特别难。网上也有很多关于安装的教程，这里只记录我们当时是怎么安装成功的，避免以后的人走弯路。</p>
-<h2 id="需要的工具：">需要的工具：</h2>
-<ul>
+<h1 id="RouterOS_的安装">RouterOS 的安装</h1><p>开始这一步要有足够的耐心，因为根据人品的不同，这一步可能变的特别简单或者特别难。网上也有很多关于安装的教程，这里只记录我们当时是怎么安装成功的，避免以后的人走弯路。</p>
+<h2 id="需要的工具：">需要的工具：</h2><ul>
 <li>routeros系统：这里使用的是routeros5.24 完美破解版，<a href="http://download.csdn.net/download/ljr929201012/7852219" target="_blank" rel="external">下载地址</a></li>
 <li>光盘刻录工具：这里使用ultraiso，<a href="http://rj.baidu.com/soft/detail/11522.html?ald" target="_blank" rel="external">下载地址</a></li>
 <li>光盘一张：虽然routeros5.24是支持U盘安装的，但这里没实验成功，因此使用光盘比较保险。</li>
 <li>电脑一台：用来安装routeros，最好使用双网卡。</li>
 </ul>
-<h2 id="操作步骤">操作步骤</h2>
-<ul>
+<h2 id="操作步骤">操作步骤</h2><ul>
 <li>把routeros5.24 刻录进光盘中。</li>
 <li>使用U盘启动工具进入电脑中，格盘，重新分区，就分一个盘，然后再格一次盘（为了保险）。</li>
 <li>将刻好的光盘放入电脑中，然后按F12，选择由光盘启动。</li>
 </ul>
 <p>如果看到如下截图，表示成功：<br><img src="http://i3.tietuku.com/1dc4710efffe480a.jpg" alt="routeros 安装界面"><br>新手建立全部安装，就是把上图中的功能全部勾选，然后下一步。在系统提示的 Do you want to keep old configuration？ [y/n]： 中选择n，不保留以前设置。接着在Continue? [y/n]: 中选择y。然后一直回车。<strong>注意，最后问你是否重启的时候，一定要把光盘取出再重启。</strong>重启后出现下图，那么系统安装成功：<br><img src="http://i3.tietuku.com/64a23fe1cbf33704.jpg" alt="routeros 安装成功"></p>
-<h1 id="RouterOs的配置">RouterOs的配置</h1>
-<p>RouterOS搭建VPN有两种方法，一种是<a href="http://wenku.baidu.com/link?url=5VW6Y1CarvQ9NGsPdZgjvB63YycgJNdae9l3QhV6RZ9dUNjAuOAusK4u-LHzwLHSNzXnLsdjTTYsVuK9VeFDALdqqRfFJopUb8A3aRGtxpO" target="_blank" rel="external">routeros命令行</a>，一种是使用 <a href="http://www.baidu.com/s?wd=routeros%20winbox&amp;rsv_spt=1&amp;issp=1&amp;f=8&amp;rsv_bp=0&amp;rsv_idx=2&amp;ie=utf-8&amp;tn=baiduhome_pg&amp;rsv_enter=1&amp;oq=ultrA&amp;inputT=3961&amp;rsv_pq=e9c65ed30000b5c4&amp;rsv_t=8a5be7nVJdk3OrBHGCieL%2BIp%2F9uIjSS%2Bjie1o9ebQCvaRPed8KVDSKYfG0a1u1lCh%2B7r&amp;rsv_sug3=25&amp;rsv_sug4=1465&amp;rsv_sug1=15&amp;rsv_sug2=0&amp;rsv_sug=1&amp;bs=routeros%20%E5%91%BD%E4%BB%A4" target="_blank" rel="external">winbox</a>。这里着重介绍如何使用命令行进行配置。</p>
-<h2 id="需要的工具：-1">需要的工具：</h2>
-<ul>
+<h1 id="RouterOs的配置">RouterOs的配置</h1><p>RouterOS搭建VPN有两种方法，一种是<a href="http://wenku.baidu.com/link?url=5VW6Y1CarvQ9NGsPdZgjvB63YycgJNdae9l3QhV6RZ9dUNjAuOAusK4u-LHzwLHSNzXnLsdjTTYsVuK9VeFDALdqqRfFJopUb8A3aRGtxpO" target="_blank" rel="external">routeros命令行</a>，一种是使用 <a href="http://www.baidu.com/s?wd=routeros%20winbox&amp;rsv_spt=1&amp;issp=1&amp;f=8&amp;rsv_bp=0&amp;rsv_idx=2&amp;ie=utf-8&amp;tn=baiduhome_pg&amp;rsv_enter=1&amp;oq=ultrA&amp;inputT=3961&amp;rsv_pq=e9c65ed30000b5c4&amp;rsv_t=8a5be7nVJdk3OrBHGCieL%2BIp%2F9uIjSS%2Bjie1o9ebQCvaRPed8KVDSKYfG0a1u1lCh%2B7r&amp;rsv_sug3=25&amp;rsv_sug4=1465&amp;rsv_sug1=15&amp;rsv_sug2=0&amp;rsv_sug=1&amp;bs=routeros%20%E5%91%BD%E4%BB%A4" target="_blank" rel="external">winbox</a>。这里着重介绍如何使用命令行进行配置。</p>
+<h2 id="需要的工具：-1">需要的工具：</h2><ul>
 <li>linux 操作系统并已经安装ssh</li>
 </ul>
-<h2 id="操作步骤-1">操作步骤</h2>
-<ul>
-<li><h3 id="分配网卡ip地址">分配网卡ip地址</h3>
-<p>这一步必须在routeros系统的机器上进行。routeros的开机界面如下（以下是通过ssh远程上去的，机器实际界面和这个一样）。<br><img src="http://i3.tietuku.com/90d986a4d80f2d12.png" alt="routeros开机界面"><br>输入<code>ip address print</code> 就可以查看到当前的连接状态：<br><img src="http://i3.tietuku.com/566840956bcdd283.png" alt="routeros网卡状态"><br>如果是一台空机器的话，NETWORK 和 ADRESS 项应该就是空的，只有网卡而没有ip地址。输入命令：<br><code>ip address add ip-address=10.250.95.40 interface=ether1</code><br>这样网卡1的ip地址就被设置为10.250.95.40。设置好了以后使用winbox就可以连接，或者直接在浏览器中输入地址也可以访问。否则就无法连接。</p>
+<h2 id="操作步骤-1">操作步骤</h2><ul>
+<li><h3 id="分配网卡ip地址">分配网卡ip地址</h3><p>这一步必须在routeros系统的机器上进行。routeros的开机界面如下（以下是通过ssh远程上去的，机器实际界面和这个一样）。<br><img src="http://i3.tietuku.com/90d986a4d80f2d12.png" alt="routeros开机界面"><br>输入<code>ip address print</code> 就可以查看到当前的连接状态：<br><img src="http://i3.tietuku.com/566840956bcdd283.png" alt="routeros网卡状态"><br>如果是一台空机器的话，NETWORK 和 ADRESS 项应该就是空的，只有网卡而没有ip地址。输入命令：<br><code>ip address add ip-address=10.250.95.40 interface=ether1</code><br>这样网卡1的ip地址就被设置为10.250.95.40。设置好了以后使用winbox就可以连接，或者直接在浏览器中输入地址也可以访问。否则就无法连接。</p>
 </li>
-<li><h3 id="建立ip_pool_用于给连接进来的用户分配ip">建立ip pool 用于给连接进来的用户分配ip</h3>
-<p>建立命令为：<br><code>ip pool add name=test ranges=192.168.1.1-192.168.1.253</code> 之后使用<code>ip pool print</code> 命令就可以查看当前当前建立的账户。<br><img src="http://i3.tietuku.com/0e34e0c76e0e6eb9.png" alt="建立ip pool"></p>
+<li><h3 id="建立ip_pool_用于给连接进来的用户分配ip">建立ip pool 用于给连接进来的用户分配ip</h3><p>建立命令为：<br><code>ip pool add name=test ranges=192.168.1.1-192.168.1.253</code> 之后使用<code>ip pool print</code> 命令就可以查看当前当前建立的账户。<br><img src="http://i3.tietuku.com/0e34e0c76e0e6eb9.png" alt="建立ip pool"></p>
 </li>
-<li><h3 id="为用户建立配置文件">为用户建立配置文件</h3>
-<p>建立命令为：<br><code>ppp profile add name=&quot;test&quot; local-address=222.198.XXX.XXX remote-address=test</code> 这里要注意了<strong>local-adrdress必须是可以上网的网卡的地址</strong>。使用命令 <code>ppp profile print</code> 就可以查看建立的配置文件。<br><img src="http://i3.tietuku.com/a3f838fcac5f63c5.png" alt="建立配置文件"><br><img src="http://i3.tietuku.com/1a106b99a70cb782.png" alt="查看配置文件"></p>
+<li><h3 id="为用户建立配置文件">为用户建立配置文件</h3><p>建立命令为：<br><code>ppp profile add name=&quot;test&quot; local-address=222.198.XXX.XXX remote-address=test</code> 这里要注意了<strong>local-adrdress必须是可以上网的网卡的地址</strong>。使用命令 <code>ppp profile print</code> 就可以查看建立的配置文件。<br><img src="http://i3.tietuku.com/a3f838fcac5f63c5.png" alt="建立配置文件"><br><img src="http://i3.tietuku.com/1a106b99a70cb782.png" alt="查看配置文件"></p>
 </li>
-<li><h3 id="建立账户，用户连接vpn服务器">建立账户，用户连接vpn服务器</h3>
-<p>建立命令为：<br><code>ppp secret add name=test password=123456 service=pptp profile=test</code> 然后使用 <code>ppp secret print</code> 就可以查看建立起来的账户。<br><img src="http://i3.tietuku.com/22307875799597b2.png" alt="建立VPN连接"></p>
+<li><h3 id="建立账户，用户连接vpn服务器">建立账户，用户连接vpn服务器</h3><p>建立命令为：<br><code>ppp secret add name=test password=123456 service=pptp profile=test</code> 然后使用 <code>ppp secret print</code> 就可以查看建立起来的账户。<br><img src="http://i3.tietuku.com/22307875799597b2.png" alt="建立VPN连接"></p>
 </li>
 </ul>
 <p><strong>完成以后就可以使用vpn拨号了。</strong></p>
 <ul>
-<li><h3 id="共享网络">共享网络</h3>
-vpn建立以后，只能是连进这个路由，还不能通过routeros上网，要在再加一条命令，将网络共享出来。<br><code>ip firewall nat add chain=srcnat sction=masquerae</code></li>
+<li><h3 id="共享网络">共享网络</h3>vpn建立以后，只能是连进这个路由，还不能通过routeros上网，要在再加一条命令，将网络共享出来。<br><code>ip firewall nat add chain=srcnat sction=masquerae</code></li>
 </ul>
 <p>关于这些命令具体是什么意思，这里不多介绍了，可以参考一下<a href="http://www.baidu.com/s?wd=routeros%20%E5%91%BD%E4%BB%A4&amp;rsv_spt=1&amp;issp=1&amp;f=8&amp;rsv_bp=0&amp;rsv_idx=2&amp;ie=utf-8&amp;tn=baiduhome_pg&amp;rsv_enter=1&amp;oq=ultrA&amp;inputT=5414&amp;rsv_pq=8551265500009fdc&amp;rsv_t=f0ef%2BcwRfD%2FpsgN4xjvp8P6RQjXf0aadlqwDWNUQgsp6BA93paLVQI9mnFMlLoQg%2FNM2&amp;rsv_sug3=16&amp;rsv_sug4=986&amp;rsv_sug1=13&amp;rsv_sug2=0&amp;rsv_sug=2&amp;bs=ultraiso" target="_blank" rel="external">这个资料</a></p>
 <p>最后感谢实验室各位师兄,在你们的帮助下才搭建起来了这个VPN服务器.</p>
@@ -144,54 +133,31 @@ vpn建立以后，只能是连进这个路由，还不能通过routeros上网，
 </article>
 
 
-<section id="comments">
-  <div id="disqus_thread">
-    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-  </div>
-  <!-- 多说评论框 start -->
+<section id="comment">
+  <h1 class="title">留言</h1>
+
   
-<section id="comments">
-  <div id="disqus_thread">
-    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-  </div>
-  <!-- 多说评论框 start -->
-  <div class="ds-thread" data-thread-key="'{% disqus_id_for object_for_comments %}" data-title="'{{ object_for_comments|escapejs }}" data-url="http{% if request.is_secure %}s{% endif %}://{{ request.META.HTTP_HOST }}{{ object_for_comments.get_absolute_url }}"></div>
-<!-- 多说评论框 end -->
-<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
-<script type="text/javascript">
-var duoshuoQuery = {short_name:"zhaochenqiu"};
-  (function() {
-    var ds = document.createElement('script');
-    ds.type = 'text/javascript';ds.async = true;
-    ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
-    ds.charset = 'UTF-8';
-    (document.getElementsByTagName('head')[0] 
-     || document.getElementsByTagName('body')[0]).appendChild(ds);
-  })();
-  </script>
-<!-- 多说公共JS代码 end -->
-</section>
-<!-- 多说评论框 end -->
-<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
-<script type="text/javascript">
-var duoshuoQuery = {short_name:"zhaochenqiu"};
-  (function() {
-    var ds = document.createElement('script');
-    ds.type = 'text/javascript';ds.async = true;
-    ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
-    ds.charset = 'UTF-8';
-    (document.getElementsByTagName('head')[0] 
-     || document.getElementsByTagName('body')[0]).appendChild(ds);
-  })();
-  </script>
-<!-- 多说公共JS代码 end -->
+      <div id="fb-root"></div>
+<script>
+  (function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=123456789012345";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+</script>
+
+<div class="fb-comments" data-href="http://yoursite.com/2014/12/12/routeros/index.html" data-num-posts="5" data-width="840" data-colorscheme="light"></div>
+      
+  
 </section>
 
 </div></div>
     <aside id="sidebar" class="alignright">
   <div class="search">
   <form action="//google.com/search" method="get" accept-charset="utf-8">
-    <input type="search" name="q" results="0" placeholder="Search">
+    <input type="search" name="q" results="0" placeholder="搜尋">
     <input type="hidden" name="q" value="site:yoursite.com">
   </form>
 </div>
@@ -200,12 +166,20 @@ var duoshuoQuery = {short_name:"zhaochenqiu"};
 
   
 <div class="widget tag">
-  <h3 class="title">Tags</h3>
+  <h3 class="title">標籤</h3>
   <ul class="entry">
+  
+    <li><a href="/tags/LeetCode/">LeetCode</a><small>1</small></li>
+  
+    <li><a href="/tags/linux/">linux</a><small>0</small></li>
+  
+    <li><a href="/tags/the-tags-of-analyze/">the tags of analyze</a><small>0</small></li>
   
     <li><a href="/tags/数学公式/">数学公式</a><small>1</small></li>
   
     <li><a href="/tags/计算机网络/">计算机网络</a><small>1</small></li>
+  
+    <li><a href="/tags/这是-analyze-的tags/">这是 analyze 的tags</a><small>1</small></li>
   
   </ul>
 </div>
@@ -215,7 +189,7 @@ var duoshuoQuery = {short_name:"zhaochenqiu"};
   </div>
   <footer id="footer" class="inner"><div class="alignleft">
   
-  &copy; 2014 修罗恶鬼
+  &copy; 2015 John Doe
   
 </div>
 <div class="clearfix"></div></footer>
