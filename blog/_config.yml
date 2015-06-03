@@ -3,11 +3,19 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
+<<<<<<< HEAD
 title: 修罗恶鬼的博客
 subtitle:  
 description:
 author: hellsing
 language: zh-CN
+=======
+title: Hexo
+subtitle:
+description:
+author: John Doe
+language:
+>>>>>>> origin/master
 timezone:
 
 # URL
@@ -35,7 +43,11 @@ external_link: true # Open external links in new tab
 filename_case: 0
 render_drafts: false
 post_asset_folder: false
+<<<<<<< HEAD
 relative_link: true
+=======
+relative_link: false
+>>>>>>> origin/master
 future: true
 highlight:
   enable: true

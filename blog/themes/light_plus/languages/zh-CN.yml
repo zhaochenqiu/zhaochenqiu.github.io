@@ -9,4 +9,8 @@ comment: 留言
 archive_a: 归档
 archive_b: 归档：%s
 page: 第 %d 页
+<<<<<<< HEAD
 recent_posts: 最新文章
+=======
+recent_posts: 最新文章
+>>>>>>> origin/master

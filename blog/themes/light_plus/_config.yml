@@ -1,16 +1,25 @@
 menu:
+<<<<<<< HEAD
   主页: /
   档案: /archives
   个人信息:
   相册:
 
+=======
+  Home: /
+  Archives: /archives
+>>>>>>> origin/master
 
 widgets:
 - search
 - category
 - tag
 
+<<<<<<< HEAD
 excerpt_link: 阅读全文
+=======
+excerpt_link: Read More
+>>>>>>> origin/master
 
 twitter:
   username:
