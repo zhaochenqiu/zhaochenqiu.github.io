@@ -1,6 +1,7 @@
 title: MathJax示例
 date: 2014-12-30 14:01:56
 tags: 数学公式
+abstract:  <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> 来看一个例子： \[ P(w\_{i}|X)=\frac{P(X|w\_{i})P(w\_{i})}{\sum\_{j=1}^{n}P(X|w\_{j})P(w\_{j})}  \] 这个公式不是图片，是不是很漂亮
 ---
 
 MathJax 用于在网页编写数学公式，该博文用于测试mathjax在github上搭建的博客是否可用，以及mathjax的一些基本用法。

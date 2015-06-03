@@ -317,7 +317,7 @@ article .entry pre {
   font-family: Monaco, Menlo, Consolas, Courier New, monospace;
 }
 article .entry code {
-  background: #eee;
+  background: #000;
   color: #666;
   padding: 0 5px;
   margin: 0 2px;
@@ -327,7 +327,7 @@ article .entry code {
   border-radius: 3px;
 }
 article .entry pre {
-  background: #eee;
+  background: #000;
   border: 1px solid #ddd;
   margin-top: 15px;
   overflow: auto;
@@ -685,7 +685,7 @@ article footer .addthis iframe {
   color: #258fb8;
 }
 figure.highlight {
-  background: #eee;
+  background: #000;
   border: 1px solid #ddd;
   margin-top: 15px;
   padding: 7px 15px;
