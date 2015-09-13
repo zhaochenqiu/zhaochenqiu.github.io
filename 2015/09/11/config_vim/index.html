@@ -1,0 +1,523 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>vim配置笔记 | 修罗恶鬼的博客</title>
+  <meta name="author" content="awakening">
+  
+  <meta name="description" content="– 为了熟悉vim，来来回回折腾了也快一年了。作为传说中的编辑器之神，vim的扩展功能确实让人着迷。这里记录下我自己的vim配置，希望对喜欢vim的人有所帮助 –
+为什么要使用vim ？这个问题真的是太难回答了,不可否认，在实际项目的开发中，很少会用到vim。但vim就没用了么？答案肯定是否定的，毕">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="vim配置笔记"/>
+  <meta property="og:site_name" content="修罗恶鬼的博客"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  <link href="/favicon.png" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="修罗恶鬼的博客" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+
+</head>
+
+
+<body>
+  <header id="header" class="inner"><div class="alignleft">
+  <h1><a href="/">修罗恶鬼的博客</a></h1>
+  <h2><a href="/"></a></h2>
+</div>
+<nav id="main-nav" class="alignright">
+  <ul>
+    
+      <li><a href="zhaochenqiu.github.io">主页</a></li>
+    
+      <li><a href="zhaochenqiu.github.io">测试</a></li>
+    
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+<div class="clearfix"></div></header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2015-09-11T12:27:01.000Z"><a href="/2015/09/11/config_vim/">2015-09-11</a></time>
+      
+      
+  
+    <h1 class="title">vim配置笔记</h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>– 为了熟悉vim，来来回回折腾了也快一年了。作为传说中的编辑器之神，vim的扩展功能确实让人着迷。<strong>这里记录下我自己的<br>vim配置，希望对喜欢vim的人有所帮助</strong> –</p>
+<h2 id="为什么要使用vim_？">为什么要使用vim ？</h2><p>这个问题真的是太难回答了,不可否认，在实际项目的开发中，很少会用到vim。但vim就没用了么？答案肯定是否定的，毕竟那么多的高手最后都选择用vim而抛弃了IDE（当然也有用emacs）。stackoverflow上有一个回答vim的可以看<a href="http://stackoverflow.com/questions/597077/what-are-the-benefits-of-learning-vim" target="_blank" rel="external">这里</a>。此外，以前一个老师跟我说一句话，他说<strong>一切都是为了效率</strong>。我觉这句话回答了为什么要使用vim。vim确实很难上手，但是一旦上手，确实比IDE的效率要高。首先，你的双手可以一直不离开键盘。再者，vim的扩展性足以让他成为任何一个IDE。最后，IDE都是针对某一类特定的软件开发，他的效率高只是针对某一类软件，而对于其他类的软件效率就会降低，而vim因为他命令行的特性，其软件开发的类型，完全取决于开发者的配置。理论上vim可以开发任何类型的软件。</p>
+<h2 id="看完这篇博文你能得到什么？">看完这篇博文你能得到什么？</h2><p>这篇博文记录我的vim配置过程。其中包括我希望达到的效果和所使用的方法。对想学vim但又不知道怎么入手的人有很大的帮助。当然，如果是高手就请不要笑话我了</p>
+<h2 id="我的vim配置">我的vim配置</h2><p>我的vim是在cygwin下安装的,但是和普通的vim是几乎一样的。先截一张我的vim的效果图：<br><img src="http://i3.tietuku.com/903bf9b97b34ff5d.png" alt="效果截图"></p>
+<h3 id="vim_基本配置">vim 基本配置</h3><p>这一段介绍vim的一些基本配置，包括一些简单的vim语法。<br>首先是一些外观上的设置，显示行号</p>
+<pre><code><span class="keyword">set</span> <span class="type">number</span>
+</code></pre><p>打开语法高亮</p>
+<pre><code>syntax <span class="function_start"><span class="keyword">on</span></span>
+</code></pre><p>设置tab键位的空格为4格，启动自动缩进，只能缩进</p>
+<pre><code><span class="built_in">set</span> tabstop=<span class="number">4</span>
+<span class="built_in">set</span> shiftwidth=<span class="number">4</span>
+<span class="built_in">set</span> softtabstop=<span class="number">4</span>
+<span class="built_in">set</span> autoindent    <span class="string">"always set autoindenting on"</span>
+<span class="built_in">set</span> smartindent    <span class="string">"set smart indent"</span>
+<span class="built_in">set</span> smarttab    <span class="string">"use tabs at the start of a line, spaces elsewhere"</span>
+</code></pre><p>不生成临时文件</p>
+<pre><code><span class="keyword">set</span> foldmethod=marker
+<span class="keyword">set</span> noswapfile
+<span class="keyword">set</span> nowritebackup
+<span class="keyword">set</span> nobackup
+</code></pre><p>设置行折叠,当然也有不折叠的</p>
+<pre><code><span class="built_in">set</span> <span class="operator">wrap</span>
+<span class="built_in">set</span> nowrap
+</code></pre><p>之后加一个自动换行,其中，<code>tw</code>的意思是textwidth</p>
+<pre><code><span class="built_in">set</span> tw=<span class="number">72</span>
+</code></pre><p>接着是一个比较蛋疼的，vim的编码环境。</p>
+<pre><code><span class="string">" =====================
+</span><span class="string">" 多语言环境
+</span><span class="string">" 默认为 UTF-8 编码
+</span><span class="string">" =====================
+</span><span class="keyword">if</span> <span class="built_in">has</span>(<span class="string">"multi_byte"</span>)
+    <span class="keyword">set</span> encoding=utf-<span class="number">8</span>
+    <span class="string">" English messages only
+</span>    <span class="string">"language messages zh_CN.utf-8
+</span>
+    <span class="keyword">if</span> <span class="built_in">has</span>(<span class="string">'win32'</span>)
+        <span class="keyword">language</span> english
+        <span class="keyword">let</span> &amp;termencoding=&amp;encoding
+    <span class="keyword">endif</span>
+
+    <span class="keyword">set</span> fencs=ucs-bom,utf-<span class="number">8</span>,gbk,cp936,latin1
+    <span class="keyword">set</span> formatoptions+=mM
+    <span class="keyword">set</span> nobomb <span class="string">" 不使用 Unicode 签名
+</span>
+    <span class="keyword">if</span> <span class="variable">v:lang</span> =~? <span class="string">'^\(zh\)\|\(ja\)\|\(ko\)'</span>
+        <span class="keyword">set</span> ambiwidth=double
+    <span class="keyword">endif</span>
+<span class="keyword">else</span>
+    <span class="keyword">echoerr</span> <span class="string">"Sorry, this version of (g)vim was not compiled with +multi_byte"</span>
+<span class="keyword">endif</span>
+</code></pre><p>最后加上一个刻有可无的功能，高亮当前行和列</p>
+<pre><code><span class="built_in">set</span> cursorline
+hi CursorLine   cterm=<span class="literal">NONE</span> ctermbg=darkred ctermfg=white guibg=darkred guifg=white
+
+<span class="built_in">set</span> cursorcolumn
+hi CursorColumn cterm=<span class="literal">NONE</span> ctermbg=darkred ctermfg=white guibg=darkred guifg=white
+</code></pre><p>至此，vim的基本配置已经完成了。</p>
+<h3 id="代码自动补全">代码自动补全</h3><p>vim补全的快捷键是<code>ctrl+p</code>.虽然我不是很喜欢插件，但补全确认是装插件比较好。我用的插件是neocomplete.这里直接介绍下载，安装方法。关于他的介绍可以看<a href="https://github.com/Shougo/neocomplete.vim" target="_blank" rel="external">这里</a>首先下载neocomplete，<a href="https://github.com/Shougo/neocomplete.vim" target="_blank" rel="external">下载地址</a>下载好了之后，只需要把<code>autoload</code>和<code>plugin</code>两个文件夹方法vim的安装目录去就可以了。直接拷贝。安装之后，还需要进行vim的配置。最简单的配置方法是</p>
+<pre><code><span class="built_in">let</span> g:neocomplcache_<span class="built_in">enable</span>_quick_match = <span class="number">1</span>
+</code></pre><p>当然，neocomplete的作者也给出他的配置，如果没有特殊的需求是可以直接用的，需要的人可以看<a href="http://foocoder.com/blog/mei-ri-vimcha-jian-qiang-da-de-zi-dong-bu-quan-neocomplete-dot-vim.html/" target="_blank" rel="external">这里</a>或者<a href="https://github.com/Shougo/neocomplete.vim" target="_blank" rel="external">这里</a>这样代码的自动补全功能已经完成。但是如果自己配过的人一定已经发现，这个补全功能的配置巨丑无比。所以要再增加两行补全窗口的配置方案。</p>
+<pre><code>highlight Pmenu  ctermbg=darkgrey ctermfg=<span class="keyword">black</span>    guibg=darkgrey  guifg=<span class="keyword">black</span>
+highlight PmenuSel guibg=lightgrey guifg=<span class="keyword">black</span>
+</code></pre><p>其中<code>Pmenu</code>就是补全弹出的窗口，而<code>PmenuSel</code>就是选择的窗口。<code>ctermbg</code>和<br><code>ctermfg</code>就是前景和背景颜色。</p>
+<h3 id="一键编译运行">一键编译运行</h3><p>一键编译运行有很多中实现方式，我是利用两个bat实现编译和运行。<code>build.bat</code>和<code>run.bat</code>.当然linux下利用shell就行了。我的环境是win8，所以利用bat。而一键编译运行就变成了在vim中一键执行<code>build.bat</code>和<code>run.bat</code>.首先是两个执行函数。</p>
+<pre><code><span class="function"><span class="keyword">func</span>! <span class="title">Run</span><span class="params">()</span> </span>
+    exec <span class="string">'w'</span>
+    exec <span class="string">'!./run.bat'</span>    
+<span class="keyword">endfunc</span>
+
+<span class="function"><span class="keyword">func</span>! <span class="title">Complie</span><span class="params">()</span></span>
+    exec <span class="string">'w'</span>
+    exec <span class="string">'!./build.bat'</span>
+<span class="keyword">endfunc</span>
+</code></pre><p>接着就是两个键位映射操作</p>
+<pre><code>map &lt;f5&gt; :call <span class="function"><span class="title">Run</span><span class="params">()</span></span>&lt;CR&gt;
+map &lt;f7&gt; :call <span class="function"><span class="title">Complie</span><span class="params">()</span></span>&lt;CR&gt;
+</code></pre><p>我的编译和运行分别是<code>F7</code>和<code>F5</code></p>
+<h3 id="黑客帝国">黑客帝国</h3><p>首先声明，这不是我写的，是抄的网上的。介于可能很多同学用不了谷歌，所以我把结果直接贴上，原文在<a href="https://www.google.com/webhp?sourceid=chrome-instant&amp;ion=1&amp;espv=2&amp;ie=UTF-8#q=matrix.vim" target="_blank" rel="external">这里</a>需翻墙.下面这段直接贴进去，然后按F11就可以执行了。附上一张效果图<br><img src="http://i3.tietuku.com/65e1e7a6841adf0f.jpg" alt="黑客帝国"></p>
+<pre><code>function! s:Rand()
+   let b:seed = b:seed * 22695477 + 1
+   <span class="keyword">if</span> b:seed &lt; 0
+      <span class="keyword">return</span> -b:seed
+   endif
+   <span class="keyword">return</span> b:seed
+endfunction
+
+function! s:CreateObject(i)
+   <span class="keyword">while</span> 1
+      let b:x{a:i} = s:Rand() % b:columns
+      <span class="keyword">if</span> b:reserve{b:x{a:i}} &gt; 4
+         <span class="keyword">break</span>
+      endif
+   endwhile
+   let b:y{a:i} = 1
+   let b:t{a:i} = s:Rand() % b:s{b:x{a:i}}
+   let b:head{a:i} = s:Rand() % 4
+   let b:len{a:i} = s:Rand() % b:<span class="keyword">h</span> + 3
+   let b:reserve{b:x{a:i}} = 1 - b:len{a:i}
+endfunction
+
+function! s:DrawObject(i)
+   let x = b:x{a:i} * 2 + 1
+   let y = b:y{a:i}
+
+   " Draw head
+   <span class="keyword">if</span> y &lt;= b:<span class="literal">h</span>
+      <span class="keyword">if</span> b:head{a:i}
+         silent! exec 'norm! :' . y . nr2char(13) . x . '|R' . b:<span class="keyword">d</span>[s:Rand()%b:dl] . '_' . nr2char(27)
+         <span class="keyword">if</span> y &gt; 1
+            silent! exec 'norm! kR' . ((s:Rand() % 2) ? '`' : ' ') . nr2char(27)
+         endif
+      <span class="keyword">else</span>
+         let a = ((s:Rand() % 2) ? '`' : ' ') . nr2char(27)
+         silent! exec 'norm! :'. y . nr2char(13) . x . '|R' . b:<span class="keyword">d</span>[s:Rand() % b:dl] . a
+      endif
+   <span class="keyword">else</span>
+      <span class="keyword">if</span> b:head{a:i} &amp;&amp; y == b:<span class="keyword">h</span> + 1
+         silent! exec 'norm! :' . b:<span class="keyword">h</span> . nr2char(13) . (x + 1) . '|R' . ((s:Rand() % 2) ? '`' : ' ') . nr2char(27)
+      endif
+   endif
+
+   " Draw tail
+   let y = y - b:len{a:i}
+   <span class="keyword">if</span> 1 &lt;= y &amp;&amp; y &lt;= b:<span class="literal">h</span>
+      silent! exec 'norm! :'. y . nr2char(13) . x . '|R  ' . nr2char(27)
+   endif
+   let b:reserve{b:x{a:i}} = <span class="literal">y</span>
+endfunction
+
+function! s:Animate()
+   let i = 0
+
+   <span class="keyword">while</span> i &lt; b:objcount
+      " Animate object
+      <span class="keyword">if</span> b:t{i} &lt;= 0
+         <span class="keyword">if</span> b:y{i} - b:len{i} &lt;= b:<span class="literal">h</span>
+            " Draw
+            call s:DrawObject(i)
+            let b:t{i} = b:s{b:x{i}}
+            let b:y{i} = b:y{i} + 1
+         <span class="keyword">else</span>
+            " Regenerate
+            call s:CreateObject(i)
+         endif
+      endif
+
+      let b:t{i} = b:t{i} - 1
+      let i = i + 1
+   endwhile
+   redraw
+   <span class="keyword">if</span> getchar(1)
+      let b:<span class="keyword">run</span> = 0
+   endif
+   <span class="keyword">sleep</span> 20m
+endfunction
+
+function! s:Reset()
+   " <span class="keyword">Clear</span> screen
+   let b:w = winwidth(0)
+   let b:<span class="keyword">h</span> = winheight(0)
+   exec 'norm! gg"_dG' . b:<span class="keyword">h</span> . 'O' . nr2char(27) . 'gg'
+   redraw
+   <span class="keyword">if</span> b:w &lt; 10 || b:<span class="keyword">h</span> &lt; 8
+      let b:<span class="keyword">run</span> = 0
+      <span class="literal">return</span>
+   endif
+
+   " <span class="keyword">Set</span> number of columns.  This is rounded down due to <span class="keyword">line</span> wrapping
+   " at the last column <span class="keyword">if</span> the screen width is even.  <span class="keyword">So</span> you end up
+   " seeing the cursor blinking a lot at the right side of the screen.
+   " Alternatively, ':<span class="keyword">set</span> rl' before running the script to have it
+   " blink <span class="keyword">on</span> the left side.
+   let b:columns = (b:w - 1) / 2
+
+   " Initialize columns.
+   let i = 0
+   <span class="keyword">while</span> i &lt; b:columns
+      " <span class="keyword">Set</span> delay time.  Each column gets the same delay time.
+      let b:s{i} = s:Rand() % (s:maxdelay - s:mindelay) + s:mindelay
+
+      " Unreserve column
+      let b:reserve{i} = b:<span class="literal">h</span>
+      let i = i + 1
+   endwhile
+
+   " Initialize objects
+   let b:objcount = b:columns - 2
+   let i = 0
+   <span class="keyword">while</span> i &lt; b:objcount
+      call s:CreateObject(i)
+      let i = i + 1
+   endwhile
+endfunction
+
+function! s:Init()
+   " Create new buffer and hide the existing buffers.  Hiding the
+   " existing buffers without switching to a new buffer preserves
+   " undo history.
+   exec 'mksession! ' . s:session_file
+   let s:num_orig_win = winnr(<span class="string">"$"</span>)
+
+   " <span class="keyword">move</span> to top <span class="keyword">window</span>, <span class="keyword">so</span> created <span class="keyword">window</span> will become <span class="keyword">window</span> 1,
+   " then attempt to create new <span class="keyword">window</span>
+   1 wincmd <span class="literal">w</span>
+   silent! new
+
+   " check that there really is <span class="keyword">an</span> additional <span class="keyword">window</span>
+   <span class="keyword">if</span> winnr(<span class="string">"$"</span>) != s:num_orig_win + 1
+      <span class="keyword">return</span> 1
+   endif
+   let s:newbuf = bufnr('%')
+
+   " <span class="keyword">close</span> all but <span class="keyword">window</span> 1, <span class="keyword">which</span> is the new <span class="keyword">window</span>
+   only
+
+   setl bh=delete bt=nofile <span class="keyword">ma</span> nolist nonu noro noswf <span class="keyword">tw</span>=0 nowrap
+
+   " <span class="keyword">Set</span> GUI options
+   <span class="keyword">if</span> has('gui')
+      let s:o_gcr = &amp;gcr
+      let s:o_go = &amp;go
+      <span class="keyword">set</span> gcr=a:ver1-blinkon0 go=
+   endif
+   <span class="keyword">if</span> has('cmdline_info')
+      let s:o_ru = &amp;<span class="keyword">ru</span>
+      let s:o_sc = &amp;<span class="keyword">sc</span>
+      <span class="keyword">set</span> noru nosc
+   endif
+   <span class="keyword">if</span> has('title')
+      let s:o_ts = &amp;titlestring
+      exec '<span class="keyword">set</span> titlestring=\ '
+   endif
+   <span class="keyword">if</span> v:<span class="keyword">version</span> &gt;= 700
+      let s:o_spell = &amp;spell
+      let s:o_cul = &amp;cul
+      let s:o_cuc = &amp;cuc
+      <span class="keyword">set</span> nospell nocul nocuc
+   endif
+   let s:o_ch = &amp;ch
+   let s:o_ls = &amp;<span class="keyword">ls</span>
+   let s:o_lz = &amp;lz
+   let s:o_siso = &amp;siso
+   let s:o_sm = &amp;sm
+   let s:o_smd = &amp;smd
+   let s:o_so = &amp;<span class="keyword">so</span>
+   let s:o_ve = &amp;ve
+   <span class="keyword">set</span> ch=1 <span class="keyword">ls</span>=0 lz nosm nosmd siso=0 <span class="keyword">so</span>=0 ve=all
+
+   " Initialize PRNG
+   let b:seed = localtime()
+   let b:<span class="keyword">run</span> = 1
+
+   " <span class="keyword">Clear</span> screen and initialize objects
+   call s:Reset()
+
+   " <span class="keyword">Set</span> colors.  Output looks better <span class="keyword">if</span> your color scheme has black
+   " background.  I would rather not have the script change the
+   " current color scheme since there is <span class="keyword">no</span> good way to <span class="keyword">restore</span> them
+   " afterwards.
+   hi MatrixHidden ctermfg=Black ctermbg=Black guifg=#000000 guibg=#000000
+   hi MatrixNormal ctermfg=DarkGreen ctermbg=Black guifg=#008000 guibg=#000000
+   hi MatrixBold ctermfg=LightGreen ctermbg=Black guifg=#00ff00 guibg=#000000
+   hi MatrixHead ctermfg=White ctermbg=Black guifg=#ffffff guibg=#000000
+   sy match MatrixNormal /^.*/ contains=MatrixHidden
+   sy match MatrixHidden contained /.`/ contains=MatrixBold
+   sy match MatrixHidden contained /._/ contains=MatrixHead
+   sy match MatrixBold contained /.\(`\)\@=/
+   sy match MatrixHead contained /.\(_\)\@=/
+
+   " Create random <span class="keyword">char</span> dictionary
+   let b:<span class="keyword">d</span> = ''
+   let i = 33
+   <span class="keyword">while</span> i &lt; 127
+      <span class="keyword">if</span> i != 95 &amp;&amp; i != 96
+         let b:<span class="keyword">d</span> = b:<span class="keyword">d</span> . nr2char(i)
+      endif
+      let i = i + 1
+   endwhile
+   let b:dl = <span class="literal">strlen</span>(b:<span class="keyword">d</span>)
+   <span class="keyword">return</span> 0
+endfunction
+
+function! s:Cleanup()
+   " <span class="keyword">Restore</span> options
+   <span class="keyword">if</span> has('gui')
+      let &amp;gcr = s:o_gcr
+      let &amp;go = s:o_go
+      unlet s:o_gcr s:o_go
+   endif
+   <span class="keyword">if</span> has('cmdline_info')
+      let &amp;<span class="keyword">ru</span> = s:o_ru
+      let &amp;<span class="keyword">sc</span> = s:o_sc
+      unlet s:o_ru s:o_sc
+   endif
+   <span class="keyword">if</span> has('title')
+      let &amp;titlestring = s:o_ts
+      unlet s:o_ts
+   endif
+   <span class="keyword">if</span> v:<span class="keyword">version</span> &gt;= 700
+      let &amp;spell = s:o_spell
+      let &amp;cul = s:o_cul
+      let &amp;cuc = s:o_cuc
+      unlet s:o_cul s:o_cuc
+   endif
+   let &amp;ch = s:o_ch
+   let &amp;<span class="keyword">ls</span> = s:o_ls
+   let &amp;lz = s:o_lz
+   let &amp;siso = s:o_siso
+   let &amp;sm = s:o_sm
+   let &amp;smd = s:o_smd
+   let &amp;<span class="keyword">so</span> = s:o_so
+   let &amp;ve = s:o_ve
+   unlet s:o_ch s:o_ls s:o_lz s:o_siso s:o_sm s:o_smd s:o_so s:o_ve
+
+   " <span class="keyword">Restore</span> old buffers
+   exec 'source ' . s:session_file
+   exec 'bwipe ' . s:newbuf
+   unlet s:newbuf
+
+   " <span class="keyword">Clear</span> keystroke
+   let c = getchar(0)
+endfunction
+
+function! <span class="literal">Matrix</span>()
+   <span class="keyword">if</span> s:Init()
+      echohl ErrorMsg
+      echon 'Can not create <span class="keyword">window</span>'
+      echohl None
+      <span class="literal">return</span>
+   endif
+
+   <span class="keyword">while</span> b:<span class="keyword">run</span>
+      <span class="keyword">if</span> b:w != winwidth(0) || b:<span class="keyword">h</span> != winheight(0)
+         call s:Reset()
+      <span class="keyword">else</span>
+         call s:Animate()
+      endif
+   endwhile
+
+   call s:Cleanup()
+endfunction
+
+
+<span class="keyword">if</span> !has('virtualedit') || !has('windows') || !has('<span class="keyword">syntax</span>')
+   echohl ErrorMsg
+   echon 'Not enough features, need at least +virtualedit, +windows and +<span class="keyword">syntax</span>'
+   echohl None
+<span class="keyword">else</span>
+   command! <span class="keyword">Matrix</span> call <span class="literal">Matrix</span>()
+endif
+
+map &lt;f11&gt; :call <span class="literal">Matrix</span>()&lt;CR&gt;
+</code></pre>
+      
+    </div>
+    <footer>
+      
+        
+        
+  
+  <div class="tags">
+    <a href="/tags/linux/">linux</a>
+  </div>
+
+        
+  <div class="addthis addthis_toolbox addthis_default_style">
+    
+      <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
+    
+    
+      <a class="addthis_button_tweet"></a>
+    
+    
+      <a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
+    
+    
+      <a class="addthis_button_pinterest_pinit" pi:pinit:layout="horizontal"></a>
+    
+    <a class="addthis_counter addthis_pill_style"></a>
+  </div>
+  <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js"></script>
+
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+<section id="comment">
+  <h1 class="title">留言</h1>
+
+  
+      <div id="fb-root"></div>
+<script>
+  (function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=123456789012345";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+</script>
+
+<div class="fb-comments" data-href="http://yoursite.com/2015/09/11/config_vim/index.html" data-num-posts="5" data-width="840" data-colorscheme="light"></div>
+      
+  
+</section>
+
+</div></div>
+    <aside id="sidebar" class="alignright">
+  <div class="search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="搜索">
+    <input type="hidden" name="q" value="site:yoursite.com">
+  </form>
+</div>
+
+  
+
+  
+<div class="widget tag">
+  <h3 class="title">标签</h3>
+  <ul class="entry">
+  
+    <li><a href="/tags/linux/">linux</a><small>1</small></li>
+  
+    <li><a href="/tags/数学公式/">数学公式</a><small>1</small></li>
+  
+    <li><a href="/tags/计算机网络/">计算机网络</a><small>1</small></li>
+  
+  </ul>
+</div>
+
+</aside>
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div class="alignleft">
+  
+  &copy; 2015 awakening
+  
+</div>
+<div class="clearfix"></div></footer>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+</body>
+</html>
