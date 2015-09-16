@@ -1,0 +1,286 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>leetcode Two Sum | 修罗恶鬼的博客</title>
+  <meta name="author" content="awakening">
+  
+  <meta name="description" content="– 一直在玩leetcode，找几个有意思而且效果好的算法写写。这是次是利用哈希的思想解决Two Sum。最后结果显示超越了99%的使用c++的人。记录下我整个解决的思路和实现过程，希望对喜欢算法的人有帮助 –
+
+
+
+看完这篇博文你能得到什么？Two Sum问题网上找得到很多答案。这里从一种不一样的">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="leetcode Two Sum"/>
+  <meta property="og:site_name" content="修罗恶鬼的博客"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  <link href="/favicon.png" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="修罗恶鬼的博客" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+
+</head>
+
+
+<body>
+  <header id="header" class="inner"><div class="alignleft">
+  <h1><a href="/">修罗恶鬼的博客</a></h1>
+  <h2><a href="/"></a></h2>
+</div>
+<nav id="main-nav" class="alignright">
+  <ul>
+    
+      <li><a href="zhaochenqiu.github.io">主页</a></li>
+    
+      <li><a href="zhaochenqiu.github.io">测试</a></li>
+    
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+<div class="clearfix"></div></header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2015-09-15T16:15:07.000Z"><a href="/2015/09/16/twoSum/">2015-09-16</a></time>
+      
+      
+  
+    <h1 class="title">leetcode Two Sum</h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>– 一直在玩leetcode，找几个有意思而且效果好的算法写写。这是次是利用哈希的思想解决Two Sum。<strong>最后结果显示超越了99%的使用<code>c++</code>的人。记录下我整个解决的思路和实现过程，希望对喜欢算法的人有帮助</strong> –</p>
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+<h2 id="看完这篇博文你能得到什么？">看完这篇博文你能得到什么？</h2><p>Two Sum问题网上找得到很多答案。这里从一种不一样的角度去解决这个问题，<strong>不使用对比查找，而是直接使用哈希去映射</strong>。这样可以极大的提高查找的速度。</p>
+<h2 id="Two_Sum问题简介">Two Sum问题简介</h2><blockquote>
+<p>Given an array of integers, find two numbers such that they add up to a specific target number.<br>The function twoSum should return indices of the two numbers such that they add up to the target, where index1 must be less than index2. Please note that your returned answers (both index1 and index2) are not zero-based.<br>You may assume that each input would have exactly one solution.</p>
+<p>Input: numbers={2, 7, 11, 15}, target=9<br>Output: index1=1, index2=2</p>
+</blockquote>
+<p>大致翻译一下啊，就是说有一个排好序的数组<code>numbers</code>,一个数字<code>target=9</code>,现在求这个数据中那两个数相加等于<code>target</code>,输出这两个数字所在的位置。leetcode的借口定义如下：</p>
+<pre><code><span class="keyword">class</span> Solution 
+{
+<span class="keyword">public</span>:
+
+    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; twoSum(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &amp;numbers, <span class="keyword">int</span> target) 
+    {
+    }
+};
+</code></pre><p>这个意思就是，他输入的是一个<code>vector&lt;int&gt;</code>，然后要求输出一个保存了结果的<code>vector&lt;int&gt;</code>。</p>
+<h2 id="问题分析思路">问题分析思路</h2><p>最直观最简单的解法就是做一个嵌套的循环,遍历所有可能的组合，这样查找的次数就是\(n + (n - 1) + (n - 2) … + 2\).这样的复杂度是是\(O(n_2)\),显然是不行的。再反观题意<strong>两个数字相加等于<code>target</code>,意味着，一旦知道第一个数字那么肯定就能知道第二个数字，所以这个问题就变成了一个查找问题</strong>。及知道了一个数字为<code>num1</code>,那么第二个数字的值就是<code>target - num1</code>,然后在数组中找出这个数字即可，二分查找就够了。这样一来，复杂度就变成了\(O(nlogn)\).好像效率还不错，但是还有更快的方法吗？首先第一轮的主循环\(n\)次是不可能跑的掉的。因为每一个数字都有可能成为<code>target</code>的解。所以<strong>重点应是放在第二个数组的查找上</strong>。这个时候当然是祭出最快的查找方法-<strong>哈希</strong>因此重点就变成了如何设计这个哈希，让他可以在这个问题中发挥作用。</p>
+<h2 id="问题解法">问题解法</h2><p>设计一个哈希表\(poslist\)，首先表中所有的数字变成-1。接着输入一个\(num1\)，然后把\(poslist\)中\(num1\)位置的数字变成另一个非-1的数字（为了方便直接变成\(num1\)所在的位置），及改变他的标识位。然后计算出另一个数字\(num2=target-num1\)。接着查询\(poslist\)中\(num2\)的位置标识位是否为-1，如果不是，那么就已经找到了这两个数字。这个时候终止循环，输出\(poslist\)中存储的\(num1\)和\(num2\)的位置即可。如果以题目中的例子，就是如下图(为了方便，我的哈希直接使用数组下标，虽然会比较耗内存，但是方便，而且实际中已经有很多很好的哈希函数了，内存肯定不是问题，<strong>这里这么做只是为了方便，并不推荐这么做</strong>):</p>
+<p>首先输入的\(num1=2\),然后将对应哈希表中的数据改成\(num1\)中的位置1，同时查询\(num2=tart-num1=7\),发现表中的内容的是-1，因此继续下一个数字。</p>
+<p><img src="http://i3.tietuku.com/ff2d4b48e76cae4d.png" alt="第一次数据输入"></p>
+<p>这次输入的数字\(num1=7\),计算得到的\(num2=2\);发现找到了最终结果，此时输出哈希表的结果，然后终止循环.</p>
+<p><img src="http://i3.tietuku.com/045c292ec61aed1d.png" alt="第二次数据输入"></p>
+<p>这样一来，相当于数组中的每一个数字只被查找了一次，那么算法复杂度为\(O(n)\),几乎已经达到了极限。下面图是运行结果，<strong>超过了99%的</strong>的c++提交结果。说明这种方法确实也达到了极限。</p>
+<p><img src="http://i3.tietuku.com/fc3add1ae975ccb5.png" alt="运行结果"><br><img src="http://i3.tietuku.com/cbb2a3bcf168f446.png" alt="运行结果"></p>
+<h2 id="示例代码">示例代码</h2><pre><code>class <span class="type">Solution</span> 
+{
+public:
+
+    vector&lt;<span class="type">int</span>&gt; twoSum(vector&lt;<span class="type">int</span>&gt; &amp;numbers, <span class="type">int</span> target) 
+    {
+        vector&lt;<span class="type">int</span>&gt; <span class="literal">result</span>;
+
+        <span class="type">int</span> offset = numbers[<span class="number">0</span>];
+        <span class="type">int</span> i;
+        <span class="type">int</span> oldpos = -<span class="number">1</span>;
+        <span class="type">int</span> search = -<span class="number">1</span>;
+        <span class="type">int</span>* poslist = <span class="type">NULL</span>;
+
+        <span class="keyword">for</span> (i = <span class="number">0</span>;i != numbers.size();i ++)
+        {
+            <span class="keyword">if</span> (offset &gt; numbers[i])
+            {
+                offset = numbers[i];
+            }
+        }
+
+        target  = target - <span class="number">2</span>*offset;
+        poslist = new <span class="type">int</span> [target + <span class="number">1</span>];
+
+        <span class="keyword">for</span> (i = <span class="number">0</span>;i != numbers.size();i ++)
+        {
+            numbers[i] = numbers[i] - offset;
+        }
+
+        <span class="keyword">for</span> (i = <span class="number">0</span>;i != target + <span class="number">1</span>;i ++)
+        {
+            poslist[i] = -<span class="number">1</span>;
+        }
+
+        <span class="keyword">for</span> (i = <span class="number">0</span>;i != numbers.size();i ++)
+        {
+            <span class="keyword">if</span> (numbers[i] &lt;= target)
+            {
+                oldpos = poslist[numbers[i]];
+                poslist[numbers[i]] = i;
+
+                search = target - numbers[i];
+
+                <span class="keyword">if</span> (poslist[search] &gt;= <span class="number">0</span>)
+                {
+                    <span class="keyword">if</span> (search == numbers[i])
+                    {
+                        <span class="keyword">if</span> (oldpos != -<span class="number">1</span>)
+                        {
+                            search = i;
+                            <span class="keyword">break</span>;
+                        }
+                    }
+                    <span class="keyword">else</span>
+                    {
+                        oldpos = i;
+                        search = poslist[search];
+                        <span class="keyword">break</span>;
+                    }
+                }
+            }
+        }
+
+        oldpos ++;
+        search ++;
+
+        <span class="keyword">if</span> (oldpos &gt; search)
+        {
+            <span class="literal">result</span>.push_back(search);
+            <span class="literal">result</span>.push_back(oldpos);
+        }
+        <span class="keyword">else</span>
+        {
+            <span class="literal">result</span>.push_back(oldpos);
+            <span class="literal">result</span>.push_back(search);
+        }
+
+        delete [] poslist;
+
+        <span class="keyword">return</span> <span class="literal">result</span>;
+    }
+};
+</code></pre>
+      
+    </div>
+    <footer>
+      
+        
+        
+  
+  <div class="tags">
+    <a href="/tags/算法/">算法</a>
+  </div>
+
+        
+  <div class="addthis addthis_toolbox addthis_default_style">
+    
+      <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
+    
+    
+      <a class="addthis_button_tweet"></a>
+    
+    
+      <a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
+    
+    
+      <a class="addthis_button_pinterest_pinit" pi:pinit:layout="horizontal"></a>
+    
+    <a class="addthis_counter addthis_pill_style"></a>
+  </div>
+  <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js"></script>
+
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+<section id="comment">
+  <h1 class="title">留言</h1>
+
+  
+      <div id="fb-root"></div>
+<script>
+  (function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=123456789012345";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+</script>
+
+<div class="fb-comments" data-href="http://yoursite.com/2015/09/16/twoSum/index.html" data-num-posts="5" data-width="840" data-colorscheme="light"></div>
+      
+  
+</section>
+
+</div></div>
+    <aside id="sidebar" class="alignright">
+  <div class="search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="搜尋">
+    <input type="hidden" name="q" value="site:yoursite.com">
+  </form>
+</div>
+
+  
+
+  
+<div class="widget tag">
+  <h3 class="title">標籤</h3>
+  <ul class="entry">
+  
+    <li><a href="/tags/linux/">linux</a><small>1</small></li>
+  
+    <li><a href="/tags/数学公式/">数学公式</a><small>1</small></li>
+  
+    <li><a href="/tags/算法/">算法</a><small>1</small></li>
+  
+    <li><a href="/tags/计算机网络/">计算机网络</a><small>1</small></li>
+  
+  </ul>
+</div>
+
+</aside>
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div class="alignleft">
+  
+  &copy; 2015 awakening
+  
+</div>
+<div class="clearfix"></div></footer>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+</body>
+</html>
