@@ -53,7 +53,7 @@ routeros系统：这里使用的是routeros5.24 完美破解版，下载地址
     <header>
       
         <div class="icon"></div>
-        <time datetime="2014-12-11T15:43:22.000Z"><a href="/2014/12/12/routeros/">2014-12-12</a></time>
+        <time datetime="2014-12-11T16:43:22.000Z"><a href="/2014/12/12/routeros/">2014-12-12</a></time>
       
       
   
@@ -83,7 +83,7 @@ routeros系统：这里使用的是routeros5.24 完美破解版，下载地址
 <h2 id="操作步骤-1">操作步骤</h2><ul>
 <li><h3 id="分配网卡ip地址">分配网卡ip地址</h3><p>这一步必须在routeros系统的机器上进行。routeros的开机界面如下（以下是通过ssh远程上去的，机器实际界面和这个一样）。<br><img src="http://i3.tietuku.com/90d986a4d80f2d12.png" alt="routeros开机界面"><br>输入<code>ip address print</code> 就可以查看到当前的连接状态：<br><img src="http://i3.tietuku.com/566840956bcdd283.png" alt="routeros网卡状态"><br>如果是一台空机器的话，NETWORK 和 ADRESS 项应该就是空的，只有网卡而没有ip地址。输入命令：<br><code>ip address add ip-address=10.250.95.40 interface=ether1</code><br>这样网卡1的ip地址就被设置为10.250.95.40。设置好了以后使用winbox就可以连接，或者直接在浏览器中输入地址也可以访问。否则就无法连接。</p>
 </li>
-<li><h3 id="建立ip_pool_用于给连接进来的用户分配ip">建立ip pool 用于给连接进来的用户分配ip</h3><p>建立命令为：<br><code>ip pool add name=test ranges=192.168.1.1-192.168.1.253</code> 之后使用<code>ip pool print</code> 命令就可以查看当前当前建立的账户。<br><img src="http://i3.tietuku.com/0e34e0c76e0e6eb9.png" alt="建立ip pool"></p>
+<li><h3 id="建立ip_pool_用于给连接进来的用户分配ip">建立ip pool 用于给连接进来的用户分配ip</h3><p>建立命令为：<br><code>ip pool add name=test ranges=192.168.1.1-192.168.1.253</code> 之后使用<code>ip pool print</code> 命令就可以查看当前当前建立的账户。<br><img src="http://i13.tietuku.com/6051603bed6fcbb5.png" alt="建立ip pool"></p>
 </li>
 <li><h3 id="为用户建立配置文件">为用户建立配置文件</h3><p>建立命令为：<br><code>ppp profile add name=&quot;test&quot; local-address=222.198.XXX.XXX remote-address=test</code> 这里要注意了<strong>local-adrdress必须是可以上网的网卡的地址</strong>。使用命令 <code>ppp profile print</code> 就可以查看建立的配置文件。<br><img src="http://i3.tietuku.com/a3f838fcac5f63c5.png" alt="建立配置文件"><br><img src="http://i3.tietuku.com/1a106b99a70cb782.png" alt="查看配置文件"></p>
 </li>
