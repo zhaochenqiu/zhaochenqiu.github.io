@@ -1,247 +1,37 @@
-<!DOCTYPE HTML>
 <html>
 <head>
-  <meta charset="utf-8">
-  
-  <title>修罗恶鬼的博客</title>
-  <meta name="author" content="awakening">
-  
-  
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-
-  
-  <meta property="og:site_name" content="修罗恶鬼的博客"/>
-
-  
-    <meta property="og:image" content="undefined"/>
-  
-
-  <link href="/favicon.png" rel="icon">
-  <link rel="alternate" href="/atom.xml" title="修罗恶鬼的博客" type="application/atom+xml">
-  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
-  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
-  
-
+   <script type="text/javascript" src="http://cdn.hcharts.cn/jquery/jquery-1.8.3.min.js"></script>
+   <script type="text/javascript" src="http://cdn.hcharts.cn/highcharts/highcharts.js"></script>
+   <script>
+	 $(function () { 
+	    $('#container').highcharts({
+	        chart: {
+	            type: 'column'
+	        },
+	        title: {
+	            text: 'My first Highcharts chart'
+	        },
+	        xAxis: {
+	            categories: ['my', 'first', 'chart']
+	        },
+	        yAxis: {
+	            title: {
+	                text: 'something'
+	            }
+	        },
+	        series: [{
+	            name: 'Jane',
+	            data: [1, 0, 4]
+	        }, {
+	            name: 'John',
+	            data: [5, 7, 3]
+	        }]
+	    });
+	});
+   </script>
 </head>
-
-
+	
 <body>
-  <header id="header" class="inner"><div class="alignleft">
-  <h1><a href="/">修罗恶鬼的博客</a></h1>
-  <h2><a href="/"></a></h2>
-</div>
-<nav id="main-nav" class="alignright">
-  <ul>
-    
-      <li><a href="zhaochenqiu.github.io">主页</a></li>
-    
-      <li><a href="zhaochenqiu.github.io">测试</a></li>
-    
-  </ul>
-  <div class="clearfix"></div>
-</nav>
-<div class="clearfix"></div></header>
-  <div id="content" class="inner">
-    <div id="main-col" class="alignleft"><div id="wrapper">
-  <article class="post">
-  
-  <div class="post-content">
-    <header>
-      
-        <div class="icon"></div>
-        <time datetime="2015-09-15T16:15:07.000Z"><a href="/2015/09/16/twoSum/">2015-09-16</a></time>
-      
-      
-  
-    <h1 class="title"><a href="/2015/09/16/twoSum/">leetcode Two Sum</a></h1>
-  
-
-    </header>
-    <div class="entry">
-      
-        一直在刷leetcode，写几个觉的有意思的，同时效果也比较好的算法，写写思想和实现过程，希望对看到的人有帮助。算法全部原创，没有抄袭。这次是leetcode的Two Sum问题,使用哈希的思想，最后结果超过了99%的人。
-      
-    </div>
-    <footer>
-      
-        
-          <div class="alignleft">
-            <a href="/2015/09/16/twoSum/#more" class="more-link">Read More</a>
-          </div>
-        
-        
-      
-      <div class="clearfix"></div>
-    </footer>
-  </div>
-</article>
-
-
-
-
-  <article class="post">
-  
-  <div class="post-content">
-    <header>
-      
-        <div class="icon"></div>
-        <time datetime="2015-09-11T12:27:01.000Z"><a href="/2015/09/11/config_vim/">2015-09-11</a></time>
-      
-      
-  
-    <h1 class="title"><a href="/2015/09/11/config_vim/">vim配置笔记</a></h1>
-  
-
-    </header>
-    <div class="entry">
-      
-        传说中的编辑器之神，我也终于算是入门了。记录下vim的配置，将其打造成炫酷的开发环境
-      
-    </div>
-    <footer>
-      
-        
-          <div class="alignleft">
-            <a href="/2015/09/11/config_vim/#more" class="more-link">Read More</a>
-          </div>
-        
-        
-      
-      <div class="clearfix"></div>
-    </footer>
-  </div>
-</article>
-
-
-
-
-  <article class="post">
-  
-  <div class="post-content">
-    <header>
-      
-        <div class="icon"></div>
-        <time datetime="2014-12-30T05:01:56.000Z"><a href="/2014/12/30/mathjax/">2014-12-30</a></time>
-      
-      
-  
-    <h1 class="title"><a href="/2014/12/30/mathjax/">MathJax示例</a></h1>
-  
-
-    </header>
-    <div class="entry">
-      
-        MathJax 用于在网页编写数学公式，该博文用于测试mathjax在github上搭建的博客是否可用，以及mathjax的一些基本用法。
-      
-    </div>
-    <footer>
-      
-        
-          <div class="alignleft">
-            <a href="/2014/12/30/mathjax/#more" class="more-link">Read More</a>
-          </div>
-        
-        
-      
-      <div class="clearfix"></div>
-    </footer>
-  </div>
-</article>
-
-
-
-
-  <article class="post">
-  
-  <div class="post-content">
-    <header>
-      
-        <div class="icon"></div>
-        <time datetime="2014-12-11T16:43:22.000Z"><a href="/2014/12/12/routeros/">2014-12-12</a></time>
-      
-      
-  
-    <h1 class="title"><a href="/2014/12/12/routeros/">RouterOS 的安装和VPN配置</a></h1>
-  
-
-    </header>
-    <div class="entry">
-      
-        RouterOs 是一个linux路由操作系统，或者叫做软路由，简单的说就是可以把一个普通的PC机变成一个功能强大的路由器。通过这个系统可以搭建VPN服务器然后分网，而且支持各种网络操作，是一个非常强大的linux系统。
-      
-    </div>
-    <footer>
-      
-        
-          <div class="alignleft">
-            <a href="/2014/12/12/routeros/#more" class="more-link">Read More</a>
-          </div>
-        
-        
-      
-      <div class="clearfix"></div>
-    </footer>
-  </div>
-</article>
-
-
-
-
-
-<nav id="pagination">
-  
-  
-  <div class="clearfix"></div>
-</nav></div></div>
-    <aside id="sidebar" class="alignright">
-  <div class="search">
-  <form action="//google.com/search" method="get" accept-charset="utf-8">
-    <input type="search" name="q" results="0" placeholder="搜尋">
-    <input type="hidden" name="q" value="site:yoursite.com">
-  </form>
-</div>
-
-  
-
-  
-<div class="widget tag">
-  <h3 class="title">標籤</h3>
-  <ul class="entry">
-  
-    <li><a href="/tags/linux/">linux</a><small>1</small></li>
-  
-    <li><a href="/tags/数学公式/">数学公式</a><small>1</small></li>
-  
-    <li><a href="/tags/算法/">算法</a><small>1</small></li>
-  
-    <li><a href="/tags/计算机网络/">计算机网络</a><small>1</small></li>
-  
-  </ul>
-</div>
-
-</aside>
-    <div class="clearfix"></div>
-  </div>
-  <footer id="footer" class="inner"><div class="alignleft">
-  
-  &copy; 2015 awakening
-  
-</div>
-<div class="clearfix"></div></footer>
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
-<script src="/js/jquery.imagesloaded.min.js"></script>
-<script src="/js/gallery.js"></script>
-
-
-
-
-<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
-<script src="/fancybox/jquery.fancybox.pack.js"></script>
-<script type="text/javascript">
-(function($){
-  $('.fancybox').fancybox();
-})(jQuery);
-</script>
-
+   <div id="container" style="min-width:800px;height:400px;"></div>
 </body>
 </html>
