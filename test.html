@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>  
+<head>  
+	<meta charset="utf-8">  
+	<title>testset</title>  
+</head>
+
+<body>  
+	begin document
+    <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script> 
+	<script>
+			d3.csv("data.csv",function(error,csvdata){       
+					var str = d3.csv.format( csvdata );           
+					console.log(str.length);  
+					console.log(str);     
+				});  
+	</script>  
+	<br></br>
+	end document
+</body>  
+</html>  
