@@ -4,7 +4,7 @@ tags: 图像处理
 abstract: 找一种方法，可以让不会看三维图片的人，也可以看到内容，**但只是看到内容，没有那种立体感了**
 ---
 -- 比较喜欢看三维图片，觉的那种立体感特别好。但有时候跟不会看的人就没法交流。这里弄一了一个可以看到三维图片内容的小程序，但这个程序只能看内容，想体会那种立体感还是要去学[怎么看](http://www.liuhs.com/3d.htm)。先来一张三维图片：
-![](http://www.liuhs.com/lianxi.jpg)
+![](https://thumbnail0.baidupcs.com/thumbnail/510d823590de2ea9f1d6b8ea88ad9a23?fid=1124629257-250528-44395575683695&time=1499410800&rt=sh&sign=FDTAER-DCb740ccc5511e5e8fedcff06b081203-1wNPXPYogb8LdPyIWRecq3y4t40%3D&expires=8h&chkv=0&chkbd=0&chkpc=&dp-logid=4351763674840998094&dp-callid=0&size=c710_u400&quality=100&vuk=-&ft=video)
 **你能看出这是一个“3D”字吗**？
 
 <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
@@ -111,13 +111,12 @@ abstract: 找一种方法，可以让不会看三维图片的人，也可以看�
     re_img = subimg;
     
 下面是展示的一些结果：
-![](http://i12.tietuku.com/58245c1e834a7d71.png)
-![](http://i12.tietuku.com/4cff2efba81b62c3.png)
-![](http://i12.tietuku.com/90de2ea9f1d6b8ea.png)
-![](http://i12.tietuku.com/51b2a31a7a218f64.png)
-![](http://i12.tietuku.com/befb4b9fb84a5694.png)
-![](http://i12.tietuku.com/1346bbf81b647597.png)
-![](http://i12.tietuku.com/4361aed4eabf3f6d.png)
-![](http://i12.tietuku.com/80a253fb3668b614.png)
-![](http://i12.tietuku.com/88f3645b9cc95c58.png)
-![](http://i12.tietuku.com/5ce4ee6a7543d3dd.png)
+![](https://thumbnail0.baidupcs.com/thumbnail/8bc8e41b88f3645b9cc95c5800976387?fid=1124629257-250528-216667013962545&time=1499407200&rt=sh&sign=FDTAER-DCb740ccc5511e5e8fedcff06b081203-LPrpn28EtWATLPIEpeVJ0Cdqeys%3D&expires=8h&chkv=0&chkbd=0&chkpc=&dp-logid=4351540266995038768&dp-callid=0&size=c710_u400&quality=100&vuk=-&ft=video)
+![](https://thumbnail0.baidupcs.com/thumbnail/94a0d6ae80a253fb3668b614aa68a5ad?fid=1124629257-250528-820294603898830&time=1499407200&rt=sh&sign=FDTAER-DCb740ccc5511e5e8fedcff06b081203-IdycSfwDtS3HZfhPw9t0RToxMDs%3D&expires=8h&chkv=0&chkbd=0&chkpc=&dp-logid=4351548941826973239&dp-callid=0&size=c710_u400&quality=100&vuk=-&ft=video)
+![](https://thumbnail0.baidupcs.com/thumbnail/c80a350f51b2a31a7a218f64a1bec3af?fid=1124629257-250528-544544821161225&time=1499410800&rt=sh&sign=FDTAER-DCb740ccc5511e5e8fedcff06b081203-ZvcfRBZz3Q6ipn1PtaijuFQ%2BoMc%3D&expires=8h&chkv=0&chkbd=0&chkpc=&dp-logid=4351558103576538383&dp-callid=0&size=c710_u400&quality=100&vuk=-&ft=video)
+![](https://thumbnail0.baidupcs.com/thumbnail/c206b9375ce4ee6a7543d3ddf7b6d5eb?fid=1124629257-250528-233438908982727&time=1499410800&rt=sh&sign=FDTAER-DCb740ccc5511e5e8fedcff06b081203-Qwi7X69vd%2BfDJmw2ufWnIdldgWc%3D&expires=8h&chkv=0&chkbd=0&chkpc=&dp-logid=4351565525431269248&dp-callid=0&size=c710_u400&quality=100&vuk=-&ft=video)
+![](https://thumbnail0.baidupcs.com/thumbnail/53247d264cff2efba81b62c37b6733ae?fid=1124629257-250528-566282431397342&time=1499410800&rt=sh&sign=FDTAER-DCb740ccc5511e5e8fedcff06b081203-6CN6eE9KFibACEa0Cl%2FwmYe1z88%3D&expires=8h&chkv=0&chkbd=0&chkpc=&dp-logid=4351573049457970250&dp-callid=0&size=c710_u400&quality=100&vuk=-&ft=video)
+![](https://thumbnail0.baidupcs.com/thumbnail/00e28524befb4b9fb84a5694f8f24b6d?fid=1124629257-250528-500529312475684&time=1499410800&rt=sh&sign=FDTAER-DCb740ccc5511e5e8fedcff06b081203-naKrJerK2lvcCxuyd3Fu0fhcKaI%3D&expires=8h&chkv=0&chkbd=0&chkpc=&dp-logid=4351592734435880155&dp-callid=0&size=c710_u400&quality=100&vuk=-&ft=video)
+![](https://thumbnail0.baidupcs.com/thumbnail/92d1bb0658245c1e834a7d71e45740c5?fid=1124629257-250528-455419085213683&time=1499410800&rt=sh&sign=FDTAER-DCb740ccc5511e5e8fedcff06b081203-Weymbb2rfSvKMcCr6shrafC4D4I%3D&expires=8h&chkv=0&chkbd=0&chkpc=&dp-logid=4351597692101680534&dp-callid=0&size=c710_u400&quality=100&vuk=-&ft=video)
+![](https://thumbnail0.baidupcs.com/thumbnail/7ffa7c854361aed4eabf3f6d368d280d?fid=1124629257-250528-719876588382043&time=1499410800&rt=sh&sign=FDTAER-DCb740ccc5511e5e8fedcff06b081203-8DpnF1iECLvzLWn%2FjneZDFqwXno%3D&expires=8h&chkv=0&chkbd=0&chkpc=&dp-logid=4351600817758343097&dp-callid=0&size=c710_u400&quality=100&vuk=-&ft=video)
+![](https://thumbnail0.baidupcs.com/thumbnail/4d88c9f11346bbf81b64759726c13da9?fid=1124629257-250528-144105465724966&time=1499410800&rt=sh&sign=FDTAER-DCb740ccc5511e5e8fedcff06b081203-cOCr5Jif%2B3Eo4%2F%2F25ksDXUtYLPI%3D&expires=8h&chkv=0&chkbd=0&chkpc=&dp-logid=4351603626359501357&dp-callid=0&size=c710_u400&quality=100&vuk=-&ft=video)
