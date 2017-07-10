@@ -70,8 +70,11 @@
 
 <h2 id="看完这篇博文你能得到什么？">看完这篇博文你能得到什么？</h2><p>Two Sum问题网上找得到很多答案。这里从一种不一样的角度去解决这个问题，<strong>不使用对比查找，而是直接使用哈希去映射</strong>。这样可以极大的提高查找的速度。</p>
 <h2 id="Two_Sum问题简介">Two Sum问题简介</h2><blockquote>
-<p>Given an array of integers, find two numbers such that they add up to a specific target number.<br>The function twoSum should return indices of the two numbers such that they add up to the target, where index1 must be less than index2. Please note that your returned answers (both index1 and index2) are not zero-based.<br>You may assume that each input would have exactly one solution.</p>
-<p>Input: numbers={2, 7, 11, 15}, target=9<br>Output: index1=1, index2=2</p>
+<p>Given an array of integers, find two numbers such that they add up to a specific target number.
+The function twoSum should return indices of the two numbers such that they add up to the target, where index1 must be less than index2. Please note that your returned answers (both index1 and index2) are not zero-based.
+You may assume that each input would have exactly one solution.</p>
+<p>Input: numbers={2, 7, 11, 15}, target=9
+Output: index1=1, index2=2</p>
 </blockquote>
 <p>大致翻译一下啊，就是说有一个排好序的数组<code>numbers</code>,一个数字<code>target=9</code>,现在求这个数据中那两个数相加等于<code>target</code>,输出这两个数字所在的位置。leetcode的借口定义如下：</p>
 <pre><code><span class="keyword">class</span> Solution 
@@ -90,7 +93,8 @@
 <p>这次输入的数字\(num1=7\),计算得到的\(num2=2\);发现找到了最终结果，此时输出哈希表的结果，然后终止循环.</p>
 <p><img src="http://i3.tietuku.com/045c292ec61aed1d.png" alt="第二次数据输入"></p>
 <p>这样一来，相当于数组中的每一个数字只被查找了一次，那么算法复杂度为\(O(n)\),几乎已经达到了极限。下面图是运行结果，<strong>超过了99%的</strong>的c++提交结果。说明这种方法确实也达到了极限。</p>
-<p><img src="http://i3.tietuku.com/fc3add1ae975ccb5.png" alt="运行结果"><br><img src="http://i3.tietuku.com/cbb2a3bcf168f446.png" alt="运行结果"></p>
+<p><img src="http://i3.tietuku.com/fc3add1ae975ccb5.png" alt="运行结果">
+<img src="http://i3.tietuku.com/cbb2a3bcf168f446.png" alt="运行结果"></p>
 <h2 id="示例代码">示例代码</h2><pre><code>class <span class="type">Solution</span> 
 {
 public:
@@ -253,11 +257,13 @@ public:
   
     <li><a href="/tags/linux/">linux</a><small>1</small></li>
   
-    <li><a href="/tags/图像处理/">图像处理</a><small>1</small></li>
+    <li><a href="/tags/图像处理/">图像处理</a><small>2</small></li>
   
     <li><a href="/tags/数学公式/">数学公式</a><small>1</small></li>
   
     <li><a href="/tags/算法/">算法</a><small>1</small></li>
+  
+    <li><a href="/tags/计算机/">计算机</a><small>1</small></li>
   
     <li><a href="/tags/计算机网络/">计算机网络</a><small>1</small></li>
   

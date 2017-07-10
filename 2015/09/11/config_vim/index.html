@@ -6,8 +6,9 @@
   <title>vim配置笔记 | AnonymousQ</title>
   <meta name="author" content="AnonymousQ">
   
-  <meta name="description" content="– 为了熟悉vim，来来回回折腾了也快一年了。作为传说中的编辑器之神，vim的扩展功能确实让人着迷。这里记录下我自己的vim配置，希望对喜欢vim的人有所帮助 –
-为什么要使用vim ？这个问题真的是太难回答了,不可否认，在实际项目的开发中，很少会用到vim。但vim就没用了么？答案肯定是否定的，毕">
+  <meta name="description" content="– 为了熟悉vim，来来回回折腾了也快一年了。作为传说中的编辑器之神，vim的扩展功能确实让人着迷。这里记录下我自己的
+vim配置，希望对喜欢vim的人有所帮助 –
+为什么要使用vim ？这个问题真的是太难回答了,不可否认，在实际项目的开发中，很少会用到vim。但vim就没用了么？答案肯定是否定的，">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -61,11 +62,14 @@
     </header>
     <div class="entry">
       
-        <p>– 为了熟悉vim，来来回回折腾了也快一年了。作为传说中的编辑器之神，vim的扩展功能确实让人着迷。<strong>这里记录下我自己的<br>vim配置，希望对喜欢vim的人有所帮助</strong> –</p>
+        <p>– 为了熟悉vim，来来回回折腾了也快一年了。作为传说中的编辑器之神，vim的扩展功能确实让人着迷。<strong>这里记录下我自己的
+vim配置，希望对喜欢vim的人有所帮助</strong> –</p>
 <h2 id="为什么要使用vim_？">为什么要使用vim ？</h2><p>这个问题真的是太难回答了,不可否认，在实际项目的开发中，很少会用到vim。但vim就没用了么？答案肯定是否定的，毕竟那么多的高手最后都选择用vim而抛弃了IDE（当然也有用emacs）。stackoverflow上有一个回答vim的可以看<a href="http://stackoverflow.com/questions/597077/what-are-the-benefits-of-learning-vim" target="_blank" rel="external">这里</a>。此外，以前一个老师跟我说一句话，他说<strong>一切都是为了效率</strong>。我觉这句话回答了为什么要使用vim。vim确实很难上手，但是一旦上手，确实比IDE的效率要高。首先，你的双手可以一直不离开键盘。再者，vim的扩展性足以让他成为任何一个IDE。最后，IDE都是针对某一类特定的软件开发，他的效率高只是针对某一类软件，而对于其他类的软件效率就会降低，而vim因为他命令行的特性，其软件开发的类型，完全取决于开发者的配置。理论上vim可以开发任何类型的软件。</p>
 <h2 id="看完这篇博文你能得到什么？">看完这篇博文你能得到什么？</h2><p>这篇博文记录我的vim配置过程。其中包括我希望达到的效果和所使用的方法。对想学vim但又不知道怎么入手的人有很大的帮助。当然，如果是高手就请不要笑话我了</p>
-<h2 id="我的vim配置">我的vim配置</h2><p>我的vim是在cygwin下安装的,但是和普通的vim是几乎一样的。先截一张我的vim的效果图：<br><img src="http://i3.tietuku.com/903bf9b97b34ff5d.png" alt="效果截图"></p>
-<h3 id="vim_基本配置">vim 基本配置</h3><p>这一段介绍vim的一些基本配置，包括一些简单的vim语法。<br>首先是一些外观上的设置，显示行号</p>
+<h2 id="我的vim配置">我的vim配置</h2><p>我的vim是在cygwin下安装的,但是和普通的vim是几乎一样的。先截一张我的vim的效果图：
+<img src="http://i3.tietuku.com/903bf9b97b34ff5d.png" alt="效果截图"></p>
+<h3 id="vim_基本配置">vim 基本配置</h3><p>这一段介绍vim的一些基本配置，包括一些简单的vim语法。
+首先是一些外观上的设置，显示行号</p>
 <pre><code><span class="keyword">set</span> <span class="type">number</span>
 </code></pre><p>打开语法高亮</p>
 <pre><code>syntax <span class="function_start"><span class="keyword">on</span></span>
@@ -123,7 +127,8 @@ hi CursorColumn cterm=<span class="literal">NONE</span> ctermbg=darkred ctermfg=
 </code></pre><p>当然，neocomplete的作者也给出他的配置，如果没有特殊的需求是可以直接用的，需要的人可以看<a href="http://foocoder.com/blog/mei-ri-vimcha-jian-qiang-da-de-zi-dong-bu-quan-neocomplete-dot-vim.html/" target="_blank" rel="external">这里</a>或者<a href="https://github.com/Shougo/neocomplete.vim" target="_blank" rel="external">这里</a>这样代码的自动补全功能已经完成。但是如果自己配过的人一定已经发现，这个补全功能的配置巨丑无比。所以要再增加两行补全窗口的配置方案。</p>
 <pre><code>highlight Pmenu  ctermbg=darkgrey ctermfg=<span class="keyword">black</span>    guibg=darkgrey  guifg=<span class="keyword">black</span>
 highlight PmenuSel guibg=lightgrey guifg=<span class="keyword">black</span>
-</code></pre><p>其中<code>Pmenu</code>就是补全弹出的窗口，而<code>PmenuSel</code>就是选择的窗口。<code>ctermbg</code>和<br><code>ctermfg</code>就是前景和背景颜色。</p>
+</code></pre><p>其中<code>Pmenu</code>就是补全弹出的窗口，而<code>PmenuSel</code>就是选择的窗口。<code>ctermbg</code>和
+<code>ctermfg</code>就是前景和背景颜色。</p>
 <h3 id="一键编译运行">一键编译运行</h3><p>一键编译运行有很多中实现方式，我是利用两个bat实现编译和运行。<code>build.bat</code>和<code>run.bat</code>.当然linux下利用shell就行了。我的环境是win8，所以利用bat。而一键编译运行就变成了在vim中一键执行<code>build.bat</code>和<code>run.bat</code>.首先是两个执行函数。</p>
 <pre><code><span class="function"><span class="keyword">func</span>! <span class="title">Run</span><span class="params">()</span> </span>
     exec <span class="string">'w'</span>
@@ -138,7 +143,8 @@ highlight PmenuSel guibg=lightgrey guifg=<span class="keyword">black</span>
 <pre><code>map &lt;f5&gt; :call <span class="function"><span class="title">Run</span><span class="params">()</span></span>&lt;CR&gt;
 map &lt;f7&gt; :call <span class="function"><span class="title">Complie</span><span class="params">()</span></span>&lt;CR&gt;
 </code></pre><p>我的编译和运行分别是<code>F7</code>和<code>F5</code></p>
-<h3 id="黑客帝国">黑客帝国</h3><p>首先声明，这不是我写的，是抄的网上的。介于可能很多同学用不了谷歌，所以我把结果直接贴上，原文在<a href="https://www.google.com/webhp?sourceid=chrome-instant&amp;ion=1&amp;espv=2&amp;ie=UTF-8#q=matrix.vim" target="_blank" rel="external">这里</a>需翻墙.下面这段直接贴进去，然后按F11就可以执行了。附上一张效果图<br><img src="http://i3.tietuku.com/65e1e7a6841adf0f.jpg" alt="黑客帝国"></p>
+<h3 id="黑客帝国">黑客帝国</h3><p>首先声明，这不是我写的，是抄的网上的。介于可能很多同学用不了谷歌，所以我把结果直接贴上，原文在<a href="https://www.google.com/webhp?sourceid=chrome-instant&amp;ion=1&amp;espv=2&amp;ie=UTF-8#q=matrix.vim" target="_blank" rel="external">这里</a>需翻墙.下面这段直接贴进去，然后按F11就可以执行了。附上一张效果图
+<img src="http://i3.tietuku.com/65e1e7a6841adf0f.jpg" alt="黑客帝国"></p>
 <pre><code>function! s:Rand()
    let b:seed = b:seed * 22695477 + 1
    <span class="keyword">if</span> b:seed &lt; 0
@@ -492,11 +498,13 @@ map &lt;f11&gt; :call <span class="literal">Matrix</span>()&lt;CR&gt;
   
     <li><a href="/tags/linux/">linux</a><small>1</small></li>
   
-    <li><a href="/tags/图像处理/">图像处理</a><small>1</small></li>
+    <li><a href="/tags/图像处理/">图像处理</a><small>2</small></li>
   
     <li><a href="/tags/数学公式/">数学公式</a><small>1</small></li>
   
     <li><a href="/tags/算法/">算法</a><small>1</small></li>
+  
+    <li><a href="/tags/计算机/">计算机</a><small>1</small></li>
   
     <li><a href="/tags/计算机网络/">计算机网络</a><small>1</small></li>
   

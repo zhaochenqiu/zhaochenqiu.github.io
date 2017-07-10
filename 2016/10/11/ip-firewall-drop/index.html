@@ -6,8 +6,9 @@
   <title>routeros 封锁特定网站 | AnonymousQ</title>
   <meta name="author" content="AnonymousQ">
   
-  <meta name="description" content="先设置一个在adress list，包括一些特定的网站。然后再ip firewall 的rule里面，对这个list中的链接全部drop。这里拿百度做实验，测试封锁百度。为了直观，全程用winbox，但转化成routeros命令效率更高。
-首先找到百度的地址，去网上百度就可以知道：202.108.2">
+  <meta name="description" content="先设置一个在adress list，包括一些特定的网站。然后再ip firewall 的rule里面，对这个list中的链接全部drop。
+这里拿百度做实验，测试封锁百度。为了直观，全程用winbox，但转化成routeros命令效率更高。
+首先找到百度的地址，去网上百度就可以知道：202.108.">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -61,17 +62,27 @@
     </header>
     <div class="entry">
       
-        <p>先设置一个在adress list，包括一些特定的网站。然后再ip firewall 的rule里面，对这个list中的链接全部drop。<br>这里拿百度做实验，测试封锁百度。为了直观，全程用winbox，但转化成routeros命令效率更高。</p>
+        <p>先设置一个在adress list，包括一些特定的网站。然后再ip firewall 的rule里面，对这个list中的链接全部drop。
+这里拿百度做实验，测试封锁百度。为了直观，全程用winbox，但转化成routeros命令效率更高。</p>
 <p>首先找到百度的地址，去网上百度就可以知道：202.108.22.5</p>
-<p>先设置一个ip address，testdroplist，并把百度加进去<br><img src="http://i1.piimg.com/8927/819e3218921d382b.png" alt=""></p>
-<p>然后就设置ip firewall 的规则。Forward的意思是 进出都检查，如果是input就是只检查进入。<br><img src="http://i1.piimg.com/8927/4c0eb76e798f5662.png" alt=""></p>
-<p>然后再advanced中的目的地址把testdroplist 包含进去<br><img src="http://i1.piimg.com/8927/e5b19257977f83d0.png" alt=""></p>
-<p>这步选择行为，drop是直接下线的意思，reject拒绝也可以封网<br><img src="http://i1.piimg.com/8927/4b52fcc0bf66c741.png" alt=""></p>
-<p>别忘了加注释，不然你都不知道这个写着干嘛<br><img src="http://i1.piimg.com/8927/249e442650fdb8b1.png" alt=""></p>
-<p>加了之后就是这样<br><img src="http://i1.piimg.com/8927/17d7e033c9b38c72.png" alt=""></p>
-<p>然后百度就上不去了<br><img src="http://i1.piimg.com/8927/f1b85911ce7f3eff.png" alt=""></p>
-<p>之后别忘记enable 这个规则，不然影响使用百度了<br><img src="http://i1.piimg.com/8927/fc0afe2539b2f405.png" alt=""></p>
-<p>enable之后就可以正常用了.<br><img src="http://i1.piimg.com/8927/c0fd157bb6aa0868.png" alt=""></p>
+<p>先设置一个ip address，testdroplist，并把百度加进去
+<img src="http://i1.piimg.com/8927/819e3218921d382b.png" alt=""></p>
+<p>然后就设置ip firewall 的规则。Forward的意思是 进出都检查，如果是input就是只检查进入。
+<img src="http://i1.piimg.com/8927/4c0eb76e798f5662.png" alt=""></p>
+<p>然后再advanced中的目的地址把testdroplist 包含进去
+<img src="http://i1.piimg.com/8927/e5b19257977f83d0.png" alt=""></p>
+<p>这步选择行为，drop是直接下线的意思，reject拒绝也可以封网
+<img src="http://i1.piimg.com/8927/4b52fcc0bf66c741.png" alt=""></p>
+<p>别忘了加注释，不然你都不知道这个写着干嘛
+<img src="http://i1.piimg.com/8927/249e442650fdb8b1.png" alt=""></p>
+<p>加了之后就是这样
+<img src="http://i1.piimg.com/8927/17d7e033c9b38c72.png" alt=""></p>
+<p>然后百度就上不去了
+<img src="http://i1.piimg.com/8927/f1b85911ce7f3eff.png" alt=""></p>
+<p>之后别忘记enable 这个规则，不然影响使用百度了
+<img src="http://i1.piimg.com/8927/fc0afe2539b2f405.png" alt=""></p>
+<p>enable之后就可以正常用了.
+<img src="http://i1.piimg.com/8927/c0fd157bb6aa0868.png" alt=""></p>
 
       
     </div>
@@ -151,11 +162,13 @@
   
     <li><a href="/tags/linux/">linux</a><small>1</small></li>
   
-    <li><a href="/tags/图像处理/">图像处理</a><small>1</small></li>
+    <li><a href="/tags/图像处理/">图像处理</a><small>2</small></li>
   
     <li><a href="/tags/数学公式/">数学公式</a><small>1</small></li>
   
     <li><a href="/tags/算法/">算法</a><small>1</small></li>
+  
+    <li><a href="/tags/计算机/">计算机</a><small>1</small></li>
   
     <li><a href="/tags/计算机网络/">计算机网络</a><small>1</small></li>
   
