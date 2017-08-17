@@ -133,3 +133,10 @@ matlab2010 版本不够，必须升级，这里使用matlab2014a
 这里装的驱动是`384.76-desktop-win8-win7-64bit-international-whql.exe`。这一步很重要，这一步过了，再装CUDA才可以
 
 
+
+装了之后不行，要替换R2014a\bin\win64\mexopts
+
+http://www.cnblogs.com/Yan47/p/6418129.html
+
+CUDA下载地址
+https://developer.nvidia.com/cuda-downloads
