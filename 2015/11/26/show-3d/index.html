@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   
-  <title>查看三维图片 | AnonymousQ</title>
-  <meta name="author" content="AnonymousQ">
+  <title>查看三维图片 | Chenqiu&#39; blog</title>
+  <meta name="author" content="Chenqiu Zhao">
   
   <meta name="description" content="– 比较喜欢看三维图片，觉的那种立体感特别好。但有时候跟不会看的人就没法交流。这里弄一了一个可以看到三维图片内容的小程序，但这个程序只能看内容，想体会那种立体感还是要去学怎么看。先来一张三维图片：
 
@@ -18,14 +18,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
   <meta property="og:title" content="查看三维图片"/>
-  <meta property="og:site_name" content="AnonymousQ"/>
+  <meta property="og:site_name" content="Chenqiu&#39; blog"/>
 
   
     <meta property="og:image" content="undefined"/>
   
 
   <link href="/favicon.png" rel="icon">
-  <link rel="alternate" href="/atom.xml" title="AnonymousQ" type="application/atom+xml">
+  <link rel="alternate" href="/atom.xml" title="Chenqiu&#39; blog" type="application/atom+xml">
   <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
   <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
   
@@ -35,7 +35,7 @@
 
 <body>
   <header id="header" class="inner"><div class="alignleft">
-  <h1><a href="/">AnonymousQ</a></h1>
+  <h1><a href="/">Chenqiu&#39; blog</a></h1>
   <h2><a href="/">Do What You Like, Like What You Do</a></h2>
 </div>
 <nav id="main-nav" class="alignright">
@@ -72,9 +72,9 @@
 <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
 
-<h2 id="三维图片原理">三维图片原理</h2><p>人有两只眼，两只眼有一定距离，这就造成物体的影象在两眼中有一些差异，见右图，由图可见，由于物体与眼的距离不同，两眼的视角会有所不同，由于视角的不同所看到是影象也会有一些差异，大脑会根据这种差异感觉到立体的景象。利用这种原理，三维图片会在水平方向生成一系列重复的图案，当这些图案在两只眼中重合时，就看到了立体的影象。具体可以<a href="http://www.liuhs.com/3d.htm" target="_blank" rel="external">看这里</a>。</p>
-<h2 id="算法原理">算法原理</h2><p>三维图片会在水平方向生成一系列<strong>重复的图案</strong>，当这些图案在两只眼中重合时，就看到了立体的影象。所以说，图像中那些重复的重复图案，就是立体影像的内容。那么只需要找到立体图像中那些重图案，然后把这些重复图案高亮出来，就可以看到三维图片中的内容了。</p>
-<h2 id="算法过程">算法过程</h2><p>目的就是找出图像中的重复图案，因为三维图像上的重复图案是水平的，因此将图像水平平移\(offset\),个单位，之后和原图像相减，这样，重复的部分就会变黑。假设图像为\(f(x,y)\),运算之后的图像为\(f’(x,y)\)。运算如下：
+<h2 id="三维图片原理"><a href="#三维图片原理" class="headerlink" title="三维图片原理"></a>三维图片原理</h2><p>人有两只眼，两只眼有一定距离，这就造成物体的影象在两眼中有一些差异，见右图，由图可见，由于物体与眼的距离不同，两眼的视角会有所不同，由于视角的不同所看到是影象也会有一些差异，大脑会根据这种差异感觉到立体的景象。利用这种原理，三维图片会在水平方向生成一系列重复的图案，当这些图案在两只眼中重合时，就看到了立体的影象。具体可以<a href="http://www.liuhs.com/3d.htm" target="_blank" rel="external">看这里</a>。</p>
+<h2 id="算法原理"><a href="#算法原理" class="headerlink" title="算法原理"></a>算法原理</h2><p>三维图片会在水平方向生成一系列<strong>重复的图案</strong>，当这些图案在两只眼中重合时，就看到了立体的影象。所以说，图像中那些重复的重复图案，就是立体影像的内容。那么只需要找到立体图像中那些重图案，然后把这些重复图案高亮出来，就可以看到三维图片中的内容了。</p>
+<h2 id="算法过程"><a href="#算法过程" class="headerlink" title="算法过程"></a>算法过程</h2><p>目的就是找出图像中的重复图案，因为三维图像上的重复图案是水平的，因此将图像水平平移\(offset\),个单位，之后和原图像相减，这样，重复的部分就会变黑。假设图像为\(f(x,y)\),运算之后的图像为\(f’(x,y)\)。运算如下：
 \[f’(x,y) = f(x,y) - f(x+offset,y)\]
 此时图像\(f’(x,y)\)会随着\(offset\)变化而变化，而且当\(offset\)变化到一个特定的值的时候，\(f’(x,y)\)中重复的部分就会变黑，接着就可以看到三维图片中的内容了。
 首先，<strong>手动的调节\(offset\)的值</strong>，查看是否可以看到内容。程序源码:</p>
@@ -82,12 +82,12 @@
 close all
 clc
 
-addpath(<span class="string">'../../common'</span>);
+addpath(&apos;../../common&apos;);
 
-srcimg = double(imread(<span class="string">'image2.jpg'</span>));
+srcimg = double(imread(&apos;image2.jpg&apos;));
 
 global g_displayMatrixImage
-g_displayMatrixImage = <span class="number">1</span>;
+g_displayMatrixImage = 1;
 
 img = srcimg;
 
@@ -98,25 +98,25 @@ img2 = img;
 
 store_value = [];
 
-<span class="keyword">for</span> i = <span class="number">3</span>:column_img - <span class="number">3</span>
-    showimg1 = img1<span class="comment">(:,i:column_img,:)</span>;
-    showimg2 = img2<span class="comment">(:,1:column_img - i + 1,:)</span>;
+for i = 3:column_img - 3
+    showimg1 = img1(:,i:column_img,:);
+    showimg2 = img2(:,1:column_img - i + 1,:);
 
     subimg = abs(showimg1 - showimg2);
-    sumimg = sum(subimg,<span class="number">3</span>);
+    sumimg = sum(subimg,3);
 
     sumvalue = sum(sum(sumimg));
 
-    count = row_img * (column_img - i + <span class="number">1</span>);
-    count = max([count <span class="number">1</span>]);
+    count = row_img * (column_img - i + 1);
+    count = max([count 1]);
 
-    <span class="keyword">value</span> = sumvalue/count;
-    store_value = [store_value ; <span class="keyword">value</span>];
+    value = sumvalue/count;
+    store_value = [store_value ; value];
 
-    displayMatrixImage(<span class="number">1</span>,<span class="number">1</span>,<span class="number">3</span>,showimg1,showimg2,subimg);
+    displayMatrixImage(1,1,3,showimg1,showimg2,subimg);
 
-    input(<span class="string">'pause'</span>)
-<span class="keyword">end</span>
+    input(&apos;pause&apos;)
+end
 </code></pre><p>这样得到的一些中间图像结果为:
 <img src="http://i5.tietuku.com/a6cedf15ca0e34ce.png" alt="">
 <img src="http://i5.tietuku.com/60e0408f3118d57d.png" alt="">
@@ -126,39 +126,39 @@ store_value = [];
 明显有一个值的跳跃，在进一步加工，将\(sum(f’(x,y))\)取一个均值。得到如下图：
 <img src="http://i13.tietuku.com/ff0cc5f29486dff9.png" alt="">
 之后的算法的就很简单了，找出极值就行了。代码：</p>
-<pre><code><span class="keyword">function</span> [re_pos re_img] = find3DImg(img) 
+<pre><code>function [re_pos re_img] = find3DImg(img) 
 
 [row_img column_img byte_img] = size(img);
 
-minvalue    = <span class="number">800</span>;
-store_pos    = -<span class="number">1</span>;
+minvalue    = 800;
+store_pos    = -1;
 
 img1 = img;
 img2 = img;
 
-<span class="keyword">for</span> i = <span class="number">10</span>:column_img - <span class="number">10</span>
-    showimg1 = img1<span class="comment">(:,i:column_img,:)</span>;
-    showimg2 = img2<span class="comment">(:,1:column_img - i + 1,:)</span>;
+for i = 10:column_img - 10
+    showimg1 = img1(:,i:column_img,:);
+    showimg2 = img2(:,1:column_img - i + 1,:);
 
     subimg = abs(showimg1 - showimg2);
-    sumimg = sum(subimg,<span class="number">3</span>);
+    sumimg = sum(subimg,3);
 
     sumvalue = sum(sum(sumimg));
 
-    count = row_img * (column_img - i + <span class="number">1</span>);
-    count = max([count <span class="number">1</span>]);
+    count = row_img * (column_img - i + 1);
+    count = max([count 1]);
 
-    <span class="keyword">value</span> = sumvalue/count;
+    value = sumvalue/count;
 
-    <span class="keyword">if</span> <span class="keyword">value</span> &lt; minvalue
-        minvalue = <span class="keyword">value</span>;
+    if value &lt; minvalue
+        minvalue = value;
         store_pos = i;
-    <span class="keyword">end</span>
-<span class="keyword">end</span>
+    end
+end
 
 
-showimg1 = img1<span class="comment">(:,store_pos:column_img,:)</span>;
-showimg2 = img2<span class="comment">(:,1:column_img - store_pos + 1,:)</span>;
+showimg1 = img1(:,store_pos:column_img,:);
+showimg2 = img2(:,1:column_img - store_pos + 1,:);
 
 subimg = abs(showimg1 - showimg2);
 
@@ -212,7 +212,7 @@ re_img = subimg;
 
 
 <section id="comment">
-  <h1 class="title">留言</h1>
+  <h1 class="title">Kommentare</h1>
 
   
       <div id="fb-root"></div>
@@ -235,7 +235,7 @@ re_img = subimg;
     <aside id="sidebar" class="alignright">
   <div class="search">
   <form action="//google.com/search" method="get" accept-charset="utf-8">
-    <input type="search" name="q" results="0" placeholder="搜尋">
+    <input type="search" name="q" results="0" placeholder="Suche">
     <input type="hidden" name="q" value="site:yoursite.com">
   </form>
 </div>
@@ -244,7 +244,7 @@ re_img = subimg;
 
   
 <div class="widget tag">
-  <h3 class="title">標籤</h3>
+  <h3 class="title">Tags</h3>
   <ul class="entry">
   
     <li><a href="/tags/C-数据结构/">C++/数据结构</a><small>1</small></li>
@@ -271,7 +271,7 @@ re_img = subimg;
   </div>
   <footer id="footer" class="inner"><div class="alignleft">
   
-  &copy; 2017 AnonymousQ
+  &copy; 2017 Chenqiu Zhao
   
 </div>
 <div class="clearfix"></div></footer>
