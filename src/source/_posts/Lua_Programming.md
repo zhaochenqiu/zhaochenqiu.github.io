@@ -14,6 +14,7 @@ Then run 'th hello.lua'
 # Factorial of a given number
 The following program defines a function to compute the factorial of a given number,
 asks the user for a number, and print its factorial:
+
     -- defines a factorial function
     function fact (n)
         if n == 0 then
@@ -72,6 +73,7 @@ Then, in the interactive mode,  type following:
 Lua is a dynamically typed language. Each value carries its own type.
 There are eight basic types in Lua: nil, boolean, number, string, userdata, function, thread, and table
 Type the codes shown following:
+
     print(type("Hello world"))  --> string
     print(type(10.4*3))         --> number
     print(type(print))          --> function

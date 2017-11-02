@@ -1,0 +1,388 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Lua Programming | Chenqiu&#39; blog</title>
+  <meta name="author" content="Chenqiu Zhao">
+  
+  <meta name="description" content="First lua programTo keep with the tradition, the first program just prints “Hello World”
+    print(“Hello World”);
+You can input the code in th comman">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="Lua Programming"/>
+  <meta property="og:site_name" content="Chenqiu&#39; blog"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  <link href="/favicon.png" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="Chenqiu&#39; blog" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+
+</head>
+
+
+<body>
+  <header id="header" class="inner"><div class="alignleft">
+  <h1><a href="/">Chenqiu&#39; blog</a></h1>
+  <h2><a href="/">Do What You Like, Like What You Do</a></h2>
+</div>
+<nav id="main-nav" class="alignright">
+  <ul>
+    
+      <li><a href="zhaochenqiu.github.io">Home</a></li>
+    
+      <li><a href="zhaochenqiu.github.io">Archives</a></li>
+    
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+<div class="clearfix"></div></header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2017-10-31T16:00:00.000Z"><a href="/2017/11/01/Lua_Programming/">2017-11-01</a></time>
+      
+      
+  
+    <h1 class="title">Lua Programming</h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <h1 id="First-lua-program"><a href="#First-lua-program" class="headerlink" title="First lua program"></a>First lua program</h1><p>To keep with the tradition, the first program just prints “Hello World”
+    print(“Hello World”);
+You can input the code in th command line,
+or save it into a file such as “hello.lua”.
+Then run ‘th hello.lua’</p>
+<h1 id="Factorial-of-a-given-number"><a href="#Factorial-of-a-given-number" class="headerlink" title="Factorial of a given number"></a>Factorial of a given number</h1><p>The following program defines a function to compute the factorial of a given number,
+asks the user for a number, and print its factorial:</p>
+<pre><code>-- defines a factorial function
+function fact (n)
+    if n == 0 then
+        return 1
+    else
+        return n * fact(n - 1)
+    end
+end
+
+print(&quot;enter a number:&quot;)
+a = io.read(&quot;*number&quot;)
+print(fact(a))
+</code></pre><h1 id="Chunks"><a href="#Chunks" class="headerlink" title="Chunks"></a>Chunks</h1><p>The piece of code that Lua executes is called a <em>chunk</em>.
+Both the semicolons and line break play no role in Lua’s syntax.
+The following four chunks are all valid and equivalent:
+    a = 1
+    b = a*2</p>
+<pre><code>a = 1;
+b = a*2;
+
+a = 1 ; b = a*2
+
+a = 1   b = a*2    -- ugly, but valid
+</code></pre><h1 id="Call-functions-from-files"><a href="#Call-functions-from-files" class="headerlink" title="Call functions from files"></a>Call functions from files</h1><p>Let’s denote that there is a file lib1.lua
+    – file ‘lib1.lua’
+    function norm (x, y)
+        local n2 = x^2 + y^2
+        return math.sqrt(n2)
+    end</p>
+<pre><code>function twice (x)
+    return 2 * x
+end
+</code></pre><p>Then, in interactive mode, type following commands:</p>
+<pre><code>&gt; dofile(&quot;lib1.lua&quot;)   -- load your library
+&gt; n = norm(3.4, 1.0)
+&gt; print(twice(n))      --&gt; 7.0880180586677
+</code></pre><h1 id="Global-Variables"><a href="#Global-Variables" class="headerlink" title="Global Variables"></a>Global Variables</h1><p>All the variables in Lua re global variables, even the variables defined in a function.
+Example, if we have a lua chunks named “lib2.lua” contains codes like following:
+    function testfun (x)
+        g_a = x
+    end
+Then, in the interactive mode,  type following:</p>
+<pre><code>&gt; dofile(&quot;lib2.lua&quot;)
+&gt; testfun(20)
+&gt; print(g_a)
+</code></pre><h1 id="Eight-basic-typles-in-Lua"><a href="#Eight-basic-typles-in-Lua" class="headerlink" title="Eight basic typles in Lua"></a>Eight basic typles in Lua</h1><p>Lua is a dynamically typed language. Each value carries its own type.
+There are eight basic types in Lua: nil, boolean, number, string, userdata, function, thread, and table
+Type the codes shown following:</p>
+<pre><code>print(type(&quot;Hello world&quot;))  --&gt; string
+print(type(10.4*3))         --&gt; number
+print(type(print))          --&gt; function
+print(type(type))           --&gt; function
+print(type(true))           --&gt; boolean
+print(type(nil))            --&gt; nil
+print(type(type(X)))        --&gt; string
+
+print(type(a))   --&gt; nil   (`a&apos; is not initialized)
+a = 10
+print(type(a))   --&gt; number
+a = &quot;a string!!&quot;
+print(type(a))   --&gt; string
+a = print        -- yes, this is valid!
+a(type(a))       --&gt; function
+</code></pre><h1 id="Tables"><a href="#Tables" class="headerlink" title="Tables"></a>Tables</h1><p>The table type implements associative arrays. An associative array is an array that can be indexed not only with numbers, but also with strings or any other value of the language,
+except nil. Moreover, tables have no fixed size; you can add as many elements as you want to a table dynamically.
+Tables in Lua are neither values nor variables; they are objects. <strong>You create tables by means of a constructor expression, which in its simplest form is written as {}:</strong></p>
+<pre><code>-- create a table in Lua
+a = {}
+k = &quot;x&quot;
+a[k] = 10
+a[20] = &quot;great&quot;
+print(a[&quot;x&quot;])
+k = 20
+print(a[k])
+a[&quot;x&quot;] = a[&quot;x&quot;] + 1
+print(a[&quot;x&quot;])
+</code></pre><p>In my opinion, the table just like a mixture of dynamic array and hash array.</p>
+<p>A table is anonymous, there is no fixed relationship between a variable that holds a table and the table itself:</p>
+<pre><code>a = {}
+a[&quot;x&quot;] = 10
+b = a      -- `b&apos; refers to the same table as `a&apos;
+print(b[&quot;x&quot;])  --&gt; 10
+b[&quot;x&quot;] = 20
+print(a[&quot;x&quot;])  --&gt; 20
+a = nil    -- now only `b&apos; still refers to the table
+b = nil    -- now there are no references left to the table
+</code></pre><p>The Lua has garbage recollection, the Lua management will eventually delete the table, to which there is no references.
+There are some tricks about using table:</p>
+<pre><code>a.x = 10                    -- same as a[&quot;x&quot;] = 10
+print(a.x)                  -- same as print(a[&quot;x&quot;])
+print(a.y)                  -- same as print(a[&quot;y&quot;])
+a = {}
+x = &quot;y&quot;
+a[x] = 10                 -- put 10 in field &quot;y&quot;
+print(a[x])   --&gt; 10      -- value of field &quot;y&quot;
+print(a.x)    --&gt; nil     -- value of field &quot;x&quot; (undefined)
+print(a.y)    --&gt; 10      -- value of field &quot;y&quot;
+</code></pre><h1 id="Operators"><a href="#Operators" class="headerlink" title="Operators"></a>Operators</h1><h2 id="Arithmetic-Operators"><a href="#Arithmetic-Operators" class="headerlink" title="Arithmetic Operators"></a>Arithmetic Operators</h2><p>Lua supports the usual arithmetic operators: the binary <code>+´ (addition),</code>-´ (subtraction), <code>*´ (multiplication),</code>/´ (division), and the unary `-´ (negation). All of them operate on real numbers. 
+Lua provides the following relational operators:</p>
+<pre><code>&lt;   &gt;   &lt;=  &gt;=  ==  ~=
+</code></pre><p>All these operators always result in true or false. </p>
+<h2 id="Logical-Operators"><a href="#Logical-Operators" class="headerlink" title="Logical Operators"></a>Logical Operators</h2><p>The logical operators are and, or, and not. Like control structures, all logical operators consider false and nil as false and anything else as true. The operator and returns its first argument if it is false; otherwise, it returns its second argument. The operator or returns its first argument if it is not false; otherwise, it returns its second argument:</p>
+<pre><code>print(4 and 5)         --&gt; 5
+print(nil and 13)      --&gt; nil
+print(false and 13)    --&gt; false
+print(4 or 5)          --&gt; 4
+print(false or 5)      --&gt; 5
+</code></pre><h2 id="Concatenation"><a href="#Concatenation" class="headerlink" title="Concatenation"></a>Concatenation</h2><pre><code>print(&quot;Hello &quot; .. &quot;World&quot;)  --&gt; Hello World
+print(0 .. 1)               --&gt; 01
+a = &quot;Hello&quot;
+print(a .. &quot; World&quot;)   --&gt; Hello World
+print(a)               --&gt; Hello
+</code></pre><h2 id="Precedence"><a href="#Precedence" class="headerlink" title="Precedence"></a>Precedence</h2><p>Operator precedence in Lua follows the table below, from the higher to the lower priority:</p>
+<pre><code>^
+not  - (unary)
+*   /
++   -
+..
+&lt;   &gt;   &lt;=  &gt;=  ~=  ==
+and
+or
+</code></pre><p>Some examples of precedence</p>
+<pre><code>a+i &lt; b/2+1          &lt;--&gt;       (a+i) &lt; ((b/2)+1)
+5+x^2*8              &lt;--&gt;       5+((x^2)*8)
+a &lt; y and y &lt;= z     &lt;--&gt;       (a &lt; y) and (y &lt;= z)
+-x^2                 &lt;--&gt;       -(x^2)
+x^y^z                &lt;--&gt;       x^(y^z)
+</code></pre><h1 id="Statements"><a href="#Statements" class="headerlink" title="Statements"></a>Statements</h1><h2 id="Local-Variables-and-Blocks"><a href="#Local-Variables-and-Blocks" class="headerlink" title="Local Variables and Blocks"></a>Local Variables and Blocks</h2><p>Besides global variables, Lua supports local variables. We create local variables with the local statement: </p>
+<pre><code>j = 10         -- global variable
+local i = 1    -- local variable
+x = 10
+local i = 1        -- local to the chunk
+
+while i&lt;=x do
+  local x = i*2    -- local to the while body
+  print(x)         --&gt; 2, 4, 6, 8, ...
+  i = i + 1
+end
+
+if i &gt; 20 then
+  local x          -- local to the &quot;then&quot; body
+  x = 20
+  print(x + 2)
+else
+  print(x)         --&gt; 10  (the global one)
+end
+
+print(x)           --&gt; 10  (the global one)
+</code></pre><h2 id="if-then-else"><a href="#if-then-else" class="headerlink" title="if then else"></a>if then else</h2><pre><code>if a&lt;0 then a = 0 end
+
+if a&lt;b then return a else return b end
+
+if line &gt; MAXLINES then
+  showpage()
+  line = 0
+end
+</code></pre><p>When you write nested ifs, you can use elseif. It is similar to an else followed by an if, but it avoids the need for multiple ends:</p>
+<pre><code>if op == &quot;+&quot; then
+  r = a + b
+elseif op == &quot;-&quot; then
+  r = a - b
+elseif op == &quot;*&quot; then
+  r = a*b
+elseif op == &quot;/&quot; then
+  r = a/b
+else
+  error(&quot;invalid operation&quot;)
+end
+</code></pre><h2 id="for"><a href="#for" class="headerlink" title="for"></a>for</h2><pre><code>for i = 1,10 do
+    print(i)
+end
+
+for i = 1,10,0.5 do
+    print(i)
+end
+
+a = {&quot;a&quot;, &quot;b&quot;, &quot;c&quot;, &quot;d&quot;, &quot;e&quot;}
+
+for i, v in ipairs(a) do
+    a[v] = i
+end
+</code></pre><h2 id="Functions"><a href="#Functions" class="headerlink" title="Functions"></a>Functions</h2><p>Run a Lua brunk, dofile(“exp6.lua”), dofile ‘exp6.lua’
+In Lua, a function is a value with the same rights as conventional values like numbers and strings.</p>
+<pre><code>a = {p = print}
+a.p(&quot;Hello World&quot;) --&gt; Hello World
+print = math.sin  -- `print&apos; now refers to the sine function
+a.p(print(1))     --&gt; 0.841470
+sin = a.p         -- `sin&apos; now refers to the print function
+sin(10, 20)       --&gt; 10      20
+</code></pre><h1 id="Common-functions-in-Lua"><a href="#Common-functions-in-Lua" class="headerlink" title="Common functions in Lua"></a>Common functions in Lua</h1><h2 id="convert-string-to-in"><a href="#convert-string-to-in" class="headerlink" title="convert string to in"></a>convert string to in</h2><pre><code>print(tonumber(&quot;10&quot;))       --&gt; 10
+print(tonumber(&quot;+10&quot;))      --&gt; 10
+print(tonumber(&quot;-10&quot;))      --&gt; -10
+print(tonumber(&quot;sdfsdf&quot;))   --&gt; nil
+print(tonumber(fs))         --&gt; nil
+</code></pre><h2 id="find-a-substr-in-string"><a href="#find-a-substr-in-string" class="headerlink" title="find a substr in string"></a>find a substr in string</h2><pre><code>s, e = string.find(&quot;hello Lua users&quot;, &quot;Lua&quot;)
+
+print(s, e)   --&gt;  7      9
+</code></pre>
+      
+    </div>
+    <footer>
+      
+        
+        
+  
+  <div class="tags">
+    <a href="/tags/Lua/">Lua</a>
+  </div>
+
+        
+  <div class="addthis addthis_toolbox addthis_default_style">
+    
+      <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
+    
+    
+      <a class="addthis_button_tweet"></a>
+    
+    
+      <a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
+    
+    
+      <a class="addthis_button_pinterest_pinit" pi:pinit:layout="horizontal"></a>
+    
+    <a class="addthis_counter addthis_pill_style"></a>
+  </div>
+  <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js"></script>
+
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+<section id="comment">
+  <h1 class="title">Kommentare</h1>
+
+  
+      <div id="fb-root"></div>
+<script>
+  (function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=123456789012345";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+</script>
+
+<div class="fb-comments" data-href="http://yoursite.com/2017/11/01/Lua_Programming/index.html" data-num-posts="5" data-width="840" data-colorscheme="light"></div>
+      
+  
+</section>
+
+</div></div>
+    <aside id="sidebar" class="alignright">
+  <div class="search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="Suche">
+    <input type="hidden" name="q" value="site:yoursite.com">
+  </form>
+</div>
+
+  
+
+  
+<div class="widget tag">
+  <h3 class="title">Tags</h3>
+  <ul class="entry">
+  
+    <li><a href="/tags/C-数据结构/">C++/数据结构</a><small>1</small></li>
+  
+    <li><a href="/tags/Lua/">Lua</a><small>1</small></li>
+  
+    <li><a href="/tags/RouterOs/">RouterOs</a><small>1</small></li>
+  
+    <li><a href="/tags/linux/">linux</a><small>1</small></li>
+  
+    <li><a href="/tags/图像处理/">图像处理</a><small>2</small></li>
+  
+    <li><a href="/tags/数学公式/">数学公式</a><small>1</small></li>
+  
+    <li><a href="/tags/算法/">算法</a><small>1</small></li>
+  
+    <li><a href="/tags/计算机/">计算机</a><small>1</small></li>
+  
+    <li><a href="/tags/计算机网络/">计算机网络</a><small>1</small></li>
+  
+  </ul>
+</div>
+
+</aside>
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div class="alignleft">
+  
+  &copy; 2017 Chenqiu Zhao
+  
+</div>
+<div class="clearfix"></div></footer>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+</body>
+</html>
