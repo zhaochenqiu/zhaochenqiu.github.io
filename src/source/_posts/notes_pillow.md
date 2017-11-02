@@ -1,4 +1,4 @@
-title: 抱枕笔记
+title: 笔记
 date: 2017-07-10
 tags: 计算机
 abstract: 记录所有重要的，说过的知识点
