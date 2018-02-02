@@ -254,6 +254,7 @@ In Lua, a function is a value with the same rights as conventional values like n
     sin(10, 20)       --> 10      20
 
 
+
 # Common functions in Lua
 ## convert string to in
     print(tonumber("10"))       --> 10
