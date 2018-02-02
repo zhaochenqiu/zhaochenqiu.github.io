@@ -3,17 +3,17 @@
 <head>
   <meta charset="utf-8">
   
-  <title>routeros 封锁特定网站 | Chenqiu&#39; blog</title>
+  <title>一台机器挂两个github账号 | Chenqiu&#39; blog</title>
   <meta name="author" content="Chenqiu Zhao">
   
-  <meta name="description" content="先设置一个在adress list，包括一些特定的网站。然后再ip firewall 的rule里面，对这个list中的链接全部drop。
-这里拿百度做实验，测试封锁百度。为了直观，全程用winbox，但转化成routeros命令效率更高。
-首先找到百度的地址，去网上百度就可以知道：202.108.">
+  <meta name="description" content="MathJax示例，在句子中的数学公式。首先通过一段话来展示mathjax的魅力，这段话是用来介绍贝叶斯定理（Bayes）的。
+贝叶斯（Bayes）定理:
+    \[ P(w_{i}|X)=\frac{P(X|w_{i})P(w_{i})}{\sum_{j=1}^{n}P(X|w_{j})P(w_">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  <meta property="og:title" content="routeros 封锁特定网站"/>
+  <meta property="og:title" content="一台机器挂两个github账号"/>
   <meta property="og:site_name" content="Chenqiu&#39; blog"/>
 
   
@@ -52,37 +52,40 @@
     <header>
       
         <div class="icon"></div>
-        <time datetime="2016-10-10T17:21:14.000Z"><a href="/2016/10/11/ip-firewall-drop/">2016-10-11</a></time>
+        <time datetime="2018-02-02T09:08:56.000Z"><a href="/2018/02/02/notes1/">2018-02-02</a></time>
       
       
   
-    <h1 class="title">routeros 封锁特定网站</h1>
+    <h1 class="title">一台机器挂两个github账号</h1>
   
 
     </header>
     <div class="entry">
       
-        <p>先设置一个在adress list，包括一些特定的网站。然后再ip firewall 的rule里面，对这个list中的链接全部drop。
-这里拿百度做实验，测试封锁百度。为了直观，全程用winbox，但转化成routeros命令效率更高。</p>
-<p>首先找到百度的地址，去网上百度就可以知道：202.108.22.5</p>
-<p>先设置一个ip address，testdroplist，并把百度加进去
-<img src="http://i1.piimg.com/8927/819e3218921d382b.png" alt=""></p>
-<p>然后就设置ip firewall 的规则。Forward的意思是 进出都检查，如果是input就是只检查进入。
-<img src="http://i1.piimg.com/8927/4c0eb76e798f5662.png" alt=""></p>
-<p>然后再advanced中的目的地址把testdroplist 包含进去
-<img src="http://i1.piimg.com/8927/e5b19257977f83d0.png" alt=""></p>
-<p>这步选择行为，drop是直接下线的意思，reject拒绝也可以封网
-<img src="http://i1.piimg.com/8927/4b52fcc0bf66c741.png" alt=""></p>
-<p>别忘了加注释，不然你都不知道这个写着干嘛
-<img src="http://i1.piimg.com/8927/249e442650fdb8b1.png" alt=""></p>
-<p>加了之后就是这样
-<img src="http://i1.piimg.com/8927/17d7e033c9b38c72.png" alt=""></p>
-<p>然后百度就上不去了
-<img src="http://i1.piimg.com/8927/f1b85911ce7f3eff.png" alt=""></p>
-<p>之后别忘记enable 这个规则，不然影响使用百度了
-<img src="http://i1.piimg.com/8927/fc0afe2539b2f405.png" alt=""></p>
-<p>enable之后就可以正常用了.
-<img src="http://i1.piimg.com/8927/c0fd157bb6aa0868.png" alt=""></p>
+        <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+<h1 id="MathJax示例，在句子中的数学公式。"><a href="#MathJax示例，在句子中的数学公式。" class="headerlink" title="MathJax示例，在句子中的数学公式。"></a>MathJax示例，在句子中的数学公式。</h1><p>首先通过一段话来展示mathjax的魅力，这段话是用来介绍贝叶斯定理（Bayes）的。
+贝叶斯（Bayes）定理:
+    \[ P(w_{i}|X)=\frac{P(X|w_{i})P(w_{i})}{\sum_{j=1}^{n}P(X|w_{j})P(w_{j})}  \]
+Bayes定理的意思是，在\(X\)特征空间下，\(w_{i}\)类事件出现的概率\(P(X|w_{i})\)乘上\((w_{i}\)类事件出现的概率\(P(w_{i})\)然后再除以待分类事件按的概率\(\sum_{j=1}^{n}P(X|w_{j})P(w_{j}) \) 就是出现\(X\)特征下,事件被归为\(w_{i}\)的概率.
+这段话中的公式都不是图片，<strong>随着字体的放大，公式也会放大</strong>，这就是mathjax，一个html中的公式编辑器。</p>
+<h1 id="MathJax-用法"><a href="#MathJax-用法" class="headerlink" title="MathJax 用法"></a>MathJax 用法</h1><p>MathJax的语法和latex是基本一样的，下面是几个使用的例子。更多的例子可以去<a href="http://www.mathjax.org/demos/tex-samples/" target="_blank" rel="external">官网</a></p>
+<h2 id="例子一"><a href="#例子一" class="headerlink" title="例子一:"></a>例子一:</h2><p>源码：
+    <code>\[ \left( \sum\_{k=1}^n a\_k b\_k \right)^2 \leq \left( \sum\_{k=1}^n a\_k^2 \right) \left( \sum\_{k=1}^n b\_k^2 \right) \]</code></p>
+<p>效果：
+    \[ \left( \sum_{k=1}^n a_k b_k \right)^2 \leq \left( \sum_{k=1}^n a_k^2 \right) \left( \sum_{k=1}^n b_k^2 \right) \]</p>
+<h2 id="例子二"><a href="#例子二" class="headerlink" title="例子二:"></a>例子二:</h2><p>源码：
+    <code>\[P(E)   = {n \choose k} p^k (1-p)^{ n-k} \]</code>
+效果：
+    \[P(E)   = {n \choose k} p^k (1-p)^{ n-k} \]</p>
+<h2 id="例子三"><a href="#例子三" class="headerlink" title="例子三:"></a>例子三:</h2><p>源码：
+    <code>\[ \frac{1}{(\sqrt{\phi \sqrt{5}}-\phi) e^{\frac25 \pi}} = 1+\frac{e^{-2\pi}} {1+\frac{e^{-4\pi}} {1+\frac{e^{-6\pi}}{1+\frac{e^{-8\pi}} {1+\ldots} } } } \]</code>
+效果：
+    \[ \frac{1}{(\sqrt{\phi \sqrt{5}}-\phi) e^{\frac25 \pi}} = 1+\frac{e^{-2\pi}} {1+\frac{e^{-4\pi}} {1+\frac{e^{-6\pi}}{1+\frac{e^{-8\pi}} {1+\ldots} } } } \]</p>
+<h2 id="例子四"><a href="#例子四" class="headerlink" title="例子四:"></a>例子四:</h2><p>源码：
+<code>\[\mathbf{V}_1 \times \mathbf{V}_2 =  \begin{vmatrix}\mathbf{i} &amp;#038; \mathbf{j} &amp;#038; \mathbf{k} \\ \frac{\partial X}{\partial u} &amp;#038;  \frac{\partial Y}{\partial u} &amp;#038; 0 \\               \frac{\partial X}{\partial v} &amp;#038;  \frac{\partial Y}{\partial v} &amp;#038; 0    \end{vmatrix}  \]</code>
+效果：
+\[\mathbf{V}_1 \times \mathbf{V}_2 =  \begin{vmatrix}\mathbf{i} &#038; \mathbf{j} &#038; \mathbf{k} \\ \frac{\partial X}{\partial u} &#038;  \frac{\partial Y}{\partial u} &#038; 0 \\               \frac{\partial X}{\partial v} &#038;  \frac{\partial Y}{\partial v} &#038; 0    \end{vmatrix}  \]</p>
 
       
     </div>
@@ -92,7 +95,7 @@
         
   
   <div class="tags">
-    <a href="/tags/RouterOs/">RouterOs</a>
+    <a href="/tags/Linux/">Linux</a>
   </div>
 
         
@@ -135,7 +138,7 @@
   }(document, 'script', 'facebook-jssdk'));
 </script>
 
-<div class="fb-comments" data-href="http://yoursite.com/2016/10/11/ip-firewall-drop/index.html" data-num-posts="5" data-width="840" data-colorscheme="light"></div>
+<div class="fb-comments" data-href="http://yoursite.com/2018/02/02/notes1/index.html" data-num-posts="5" data-width="840" data-colorscheme="light"></div>
       
   
 </section>

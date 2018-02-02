@@ -1,7 +1,7 @@
-title: MathJax示例
-date: 2014-12-30 14:01:56
-tags: 数学公式
-abstract: MathJax 用于在网页编写数学公式，该博文用于测试mathjax在github上搭建的博客是否可用，以及mathjax的一些基本用法。
+title: 一台机器挂两个github账号
+date: 2018-02-02 17:08:56
+tags: Linux
+abstract: 使用ssh连github不需要输入密码，一个public key只能在github上用一次，所以提出一个方法在同一个电脑上生成两个key,分布用于不同的github账号
 ---
 
 

@@ -68,16 +68,17 @@ You can input the code in th command line,
 or save it into a file such as “hello.lua”.
 Then run ‘th hello.lua’</p>
 <h1 id="Factorial-of-a-given-number"><a href="#Factorial-of-a-given-number" class="headerlink" title="Factorial of a given number"></a>Factorial of a given number</h1><p>The following program defines a function to compute the factorial of a given number,
-asks the user for a number, and print its factorial:
-    – defines a factorial function
-    function fact (n)
-        if n == 0 then
-            return 1
-        else
-            return n * fact(n - 1)
-        end
-    end</p>
-<pre><code>print(&quot;enter a number:&quot;)
+asks the user for a number, and print its factorial:</p>
+<pre><code>-- defines a factorial function
+function fact (n)
+    if n == 0 then
+        return 1
+    else
+        return n * fact(n - 1)
+    end
+end
+
+print(&quot;enter a number:&quot;)
 a = io.read(&quot;*number&quot;)
 print(fact(a))
 </code></pre><h1 id="Chunks"><a href="#Chunks" class="headerlink" title="Chunks"></a>Chunks</h1><p>The piece of code that Lua executes is called a <em>chunk</em>.
@@ -115,15 +116,16 @@ Then, in the interactive mode,  type following:</p>
 &gt; print(g_a)
 </code></pre><h1 id="Eight-basic-typles-in-Lua"><a href="#Eight-basic-typles-in-Lua" class="headerlink" title="Eight basic typles in Lua"></a>Eight basic typles in Lua</h1><p>Lua is a dynamically typed language. Each value carries its own type.
 There are eight basic types in Lua: nil, boolean, number, string, userdata, function, thread, and table
-Type the codes shown following:
-    print(type(“Hello world”))  –&gt; string
-    print(type(10.4*3))         –&gt; number
-    print(type(print))          –&gt; function
-    print(type(type))           –&gt; function
-    print(type(true))           –&gt; boolean
-    print(type(nil))            –&gt; nil
-    print(type(type(X)))        –&gt; string</p>
-<pre><code>print(type(a))   --&gt; nil   (`a&apos; is not initialized)
+Type the codes shown following:</p>
+<pre><code>print(type(&quot;Hello world&quot;))  --&gt; string
+print(type(10.4*3))         --&gt; number
+print(type(print))          --&gt; function
+print(type(type))           --&gt; function
+print(type(true))           --&gt; boolean
+print(type(nil))            --&gt; nil
+print(type(type(X)))        --&gt; string
+
+print(type(a))   --&gt; nil   (`a&apos; is not initialized)
 a = 10
 print(type(a))   --&gt; number
 a = &quot;a string!!&quot;
@@ -339,11 +341,11 @@ print(s, e)   --&gt;  7      9
   
     <li><a href="/tags/C-数据结构/">C++/数据结构</a><small>1</small></li>
   
+    <li><a href="/tags/Linux/">Linux</a><small>2</small></li>
+  
     <li><a href="/tags/Lua/">Lua</a><small>1</small></li>
   
     <li><a href="/tags/RouterOs/">RouterOs</a><small>1</small></li>
-  
-    <li><a href="/tags/linux/">linux</a><small>1</small></li>
   
     <li><a href="/tags/图像处理/">图像处理</a><small>2</small></li>
   
@@ -363,7 +365,7 @@ print(s, e)   --&gt;  7      9
   </div>
   <footer id="footer" class="inner"><div class="alignleft">
   
-  &copy; 2017 Chenqiu Zhao
+  &copy; 2018 Chenqiu Zhao
   
 </div>
 <div class="clearfix"></div></footer>
