@@ -1,7 +1,7 @@
 title: 一台机器挂两个github账号
 date: 2018-02-02 17:08:56
 tags: Linux
-abstract: 使用ssh连github不需要输入密码，一个public key只能在github上用一次，所以提出一个方法在同一个电脑上生成两个key,分布用于不同的github账号
+abstract: 使用ssh连github不需要输入密码，一个public key只能在github上用一次，所以在网上找一个方法可以在同一个电脑上生成两个key,分布用于不同的github账号。本文记录过程.
 ---
 
 
