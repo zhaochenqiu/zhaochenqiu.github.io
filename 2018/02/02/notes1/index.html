@@ -6,9 +6,8 @@
   <title>一台机器挂两个github账号 | Chenqiu&#39; blog</title>
   <meta name="author" content="Chenqiu Zhao">
   
-  <meta name="description" content="MathJax示例，在句子中的数学公式。首先通过一段话来展示mathjax的魅力，这段话是用来介绍贝叶斯定理（Bayes）的。
-贝叶斯（Bayes）定理:
-    \[ P(w_{i}|X)=\frac{P(X|w_{i})P(w_{i})}{\sum_{j=1}^{n}P(X|w_{j})P(w_">
+  <meta name="description" content="生成多个公钥公钥的生成命令是’ssh-keygen’,但是如果本身已经存在一个公钥，会要求你输入一个新的名字，效果如下
+12345678910111213141516171819202122cqzhao@imi-cqzhao:~/.ssh$ ssh-keygen        Generating ">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -64,28 +63,18 @@
       
         <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
-<h1 id="MathJax示例，在句子中的数学公式。"><a href="#MathJax示例，在句子中的数学公式。" class="headerlink" title="MathJax示例，在句子中的数学公式。"></a>MathJax示例，在句子中的数学公式。</h1><p>首先通过一段话来展示mathjax的魅力，这段话是用来介绍贝叶斯定理（Bayes）的。
-贝叶斯（Bayes）定理:
-    \[ P(w_{i}|X)=\frac{P(X|w_{i})P(w_{i})}{\sum_{j=1}^{n}P(X|w_{j})P(w_{j})}  \]
-Bayes定理的意思是，在\(X\)特征空间下，\(w_{i}\)类事件出现的概率\(P(X|w_{i})\)乘上\((w_{i}\)类事件出现的概率\(P(w_{i})\)然后再除以待分类事件按的概率\(\sum_{j=1}^{n}P(X|w_{j})P(w_{j}) \) 就是出现\(X\)特征下,事件被归为\(w_{i}\)的概率.
-这段话中的公式都不是图片，<strong>随着字体的放大，公式也会放大</strong>，这就是mathjax，一个html中的公式编辑器。</p>
-<h1 id="MathJax-用法"><a href="#MathJax-用法" class="headerlink" title="MathJax 用法"></a>MathJax 用法</h1><p>MathJax的语法和latex是基本一样的，下面是几个使用的例子。更多的例子可以去<a href="http://www.mathjax.org/demos/tex-samples/" target="_blank" rel="external">官网</a></p>
-<h2 id="例子一"><a href="#例子一" class="headerlink" title="例子一:"></a>例子一:</h2><p>源码：
-    <code>\[ \left( \sum\_{k=1}^n a\_k b\_k \right)^2 \leq \left( \sum\_{k=1}^n a\_k^2 \right) \left( \sum\_{k=1}^n b\_k^2 \right) \]</code></p>
-<p>效果：
-    \[ \left( \sum_{k=1}^n a_k b_k \right)^2 \leq \left( \sum_{k=1}^n a_k^2 \right) \left( \sum_{k=1}^n b_k^2 \right) \]</p>
-<h2 id="例子二"><a href="#例子二" class="headerlink" title="例子二:"></a>例子二:</h2><p>源码：
-    <code>\[P(E)   = {n \choose k} p^k (1-p)^{ n-k} \]</code>
-效果：
-    \[P(E)   = {n \choose k} p^k (1-p)^{ n-k} \]</p>
-<h2 id="例子三"><a href="#例子三" class="headerlink" title="例子三:"></a>例子三:</h2><p>源码：
-    <code>\[ \frac{1}{(\sqrt{\phi \sqrt{5}}-\phi) e^{\frac25 \pi}} = 1+\frac{e^{-2\pi}} {1+\frac{e^{-4\pi}} {1+\frac{e^{-6\pi}}{1+\frac{e^{-8\pi}} {1+\ldots} } } } \]</code>
-效果：
-    \[ \frac{1}{(\sqrt{\phi \sqrt{5}}-\phi) e^{\frac25 \pi}} = 1+\frac{e^{-2\pi}} {1+\frac{e^{-4\pi}} {1+\frac{e^{-6\pi}}{1+\frac{e^{-8\pi}} {1+\ldots} } } } \]</p>
-<h2 id="例子四"><a href="#例子四" class="headerlink" title="例子四:"></a>例子四:</h2><p>源码：
-<code>\[\mathbf{V}_1 \times \mathbf{V}_2 =  \begin{vmatrix}\mathbf{i} &amp;#038; \mathbf{j} &amp;#038; \mathbf{k} \\ \frac{\partial X}{\partial u} &amp;#038;  \frac{\partial Y}{\partial u} &amp;#038; 0 \\               \frac{\partial X}{\partial v} &amp;#038;  \frac{\partial Y}{\partial v} &amp;#038; 0    \end{vmatrix}  \]</code>
-效果：
-\[\mathbf{V}_1 \times \mathbf{V}_2 =  \begin{vmatrix}\mathbf{i} &#038; \mathbf{j} &#038; \mathbf{k} \\ \frac{\partial X}{\partial u} &#038;  \frac{\partial Y}{\partial u} &#038; 0 \\               \frac{\partial X}{\partial v} &#038;  \frac{\partial Y}{\partial v} &#038; 0    \end{vmatrix}  \]</p>
+<h2 id="生成多个公钥"><a href="#生成多个公钥" class="headerlink" title="生成多个公钥"></a>生成多个公钥</h2><p>公钥的生成命令是’ssh-keygen’,但是如果本身已经存在一个公钥，会要求你输入一个新的名字，效果如下
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">cqzhao@imi-cqzhao:~/.ssh$ ssh-keygen</div><div class="line">        Generating public/private rsa key pair.</div><div class="line">        Enter file in which to save the key (/home/cqzhao/.ssh/id_rsa): id_rsa_rxy</div><div class="line">        Enter passphrase (empty for no passphrase): </div><div class="line">        Enter same passphrase again: </div><div class="line">        Your identification has been saved in test.</div><div class="line">        Your public key has been saved in test.pub.</div><div class="line">        The key fingerprint is:</div><div class="line">        SHA256:pn1jf3OjCNI2Z0vntsYfm5lZ4FkY+7nZPsc3Y9WTNSY cqzhao@imi-cqzhao</div><div class="line">        The key&apos;s randomart image is:</div><div class="line">        +---[RSA 2048]----+</div><div class="line">        |                 |</div><div class="line">        |                 |</div><div class="line">        |              .  |</div><div class="line">        |             E *.|</div><div class="line">        |        S     * *|</div><div class="line">        |       +.    . B+|</div><div class="line">        |      ...=++..o+=|</div><div class="line">        |        oo*o=+o*^|</div><div class="line">        |           o+==&amp;X|</div><div class="line">        +----[SHA256]-----+</div><div class="line">cqzhao@imi-cqzhao:~/.ssh$</div></pre></td></tr></table></figure></p>
+<p>接着就会发现当先目录下多两个文件<strong>id_rsa_rxy</strong>和<strong>id_rsa_rxy.pub</strong>。接着就是把id_rsa_rxy.pub里的公钥丢到github里去。注意该文件里所有的字符，包括空格都是公钥的一部分。</p>
+<h1 id="配置公钥文件"><a href="#配置公钥文件" class="headerlink" title="配置公钥文件"></a>配置公钥文件</h1><p>现在电脑里有了两对公钥私钥，效果如下:
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">qzhao@imi-cqzhao:~/.ssh$ ls -l</div><div class="line">total 28</div><div class="line">drwxrwxr-x 2 cqzhao cqzhao 4096 Feb  2 11:00 backup</div><div class="line">-rw-rw-r-- 1 cqzhao cqzhao  155 Feb  2 14:53 config</div><div class="line">-rw------- 1 cqzhao cqzhao 1766 Feb  2 11:20 id_rsa</div><div class="line">-rw-r--r-- 1 cqzhao cqzhao  399 Feb  2 11:27 id_rsa.pub</div><div class="line">-rw------- 1 cqzhao cqzhao 1766 Feb  2 14:13 id_rsa_rxy</div><div class="line">-rw-r--r-- 1 cqzhao cqzhao  399 Feb  2 14:13 id_rsa_rxy.pub</div><div class="line">-rw-r--r-- 1 cqzhao cqzhao 1770 Dec  1 15:26 known_hosts</div><div class="line">cqzhao@imi-cqzhao:~/.ssh$ i</div></pre></td></tr></table></figure></p>
+<p>配置的目的就是根据主机的不用自动选择公钥私钥。github使用ssh连接时需要配置主机，也就是需要<strong>git remote</strong>一波。
+那么使用两个github账号也就是说要两个github的仓库并且是由不同的人创建。而且在配置remote的时候，主机的名字要特别设置的不一样如下
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">cqzhao@imi-cqzhao:/data/projects/blog_github$ git remote -v</div><div class="line">remote_github	git@github.com:zhaochenqiu/zhaochenqiu.github.io.git (fetch)</div><div class="line">remote_github	git@github.com:zhaochenqiu/zhaochenqiu.github.io.git (push)</div><div class="line">remote_imi	/home/cqzhao/repository/blog/ (fetch)</div><div class="line">remote_imi	/home/cqzhao/repository/blog/ (push)</div><div class="line">cqzhao@imi-cqzhao:/data/projects/blog_github$ </div><div class="line"></div><div class="line">cqzhao@imi-cqzhao:/data/projects/latex/draft_DFTL$ git remote -v</div><div class="line">origin	git@github.com:HsinyuJen/draft_DFTL.git (fetch)</div><div class="line">origin	git@github.com:HsinyuJen/draft_DFTL.git (push)</div><div class="line">remote_github	git@rxy.github.com:HsinyuJen/draft_DFTL.git (fetch)</div><div class="line">remote_github	git@rxy.github.com:HsinyuJen/draft_DFTL.git (push)</div><div class="line">cqzhao@imi-cqzhao:/data/projects/latex/draft_DFTL$</div></pre></td></tr></table></figure></p>
+<p>注意上面的两个github主机，一个是<code>git@github.com:XXX</code>，一个是<code>git@rxy.github.com:</code>。而<strong>rxy.github</strong>其实是我们自己定义的一个主机。
+根据这两个不同的主机名，就可以使用不用的key,所以在<strong>.ssh</strong>目录下要新建一个<strong>config</strong>文件。然后内容如下
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">Host rxy.github.com</div><div class="line">HostName github.com</div><div class="line">User git</div><div class="line">IdentityFile ~/.ssh/id_rsa_rxy</div><div class="line"></div><div class="line">Host github.com</div><div class="line">HostName github.com</div><div class="line">User git</div><div class="line">IdentityFile ~/.ssh/id_rsa</div></pre></td></tr></table></figure></p>
+<p>这样提交的时候，ssh就会自动根据配置文件来选择合适的key。</p>
 
       
     </div>
@@ -124,7 +113,7 @@ Bayes定理的意思是，在\(X\)特征空间下，\(w_{i}\)类事件出现的�
 
 
 <section id="comment">
-  <h1 class="title">Kommentare</h1>
+  <h1 class="title">Comentarios</h1>
 
   
       <div id="fb-root"></div>
@@ -147,7 +136,7 @@ Bayes定理的意思是，在\(X\)特征空间下，\(w_{i}\)类事件出现的�
     <aside id="sidebar" class="alignright">
   <div class="search">
   <form action="//google.com/search" method="get" accept-charset="utf-8">
-    <input type="search" name="q" results="0" placeholder="Suche">
+    <input type="search" name="q" results="0" placeholder="Buscar">
     <input type="hidden" name="q" value="site:yoursite.com">
   </form>
 </div>
@@ -156,7 +145,7 @@ Bayes定理的意思是，在\(X\)特征空间下，\(w_{i}\)类事件出现的�
 
   
 <div class="widget tag">
-  <h3 class="title">Tags</h3>
+  <h3 class="title">Etiquetas</h3>
   <ul class="entry">
   
     <li><a href="/tags/C-数据结构/">C++/数据结构</a><small>1</small></li>
@@ -173,7 +162,7 @@ Bayes定理的意思是，在\(X\)特征空间下，\(w_{i}\)类事件出现的�
   
     <li><a href="/tags/算法/">算法</a><small>1</small></li>
   
-    <li><a href="/tags/计算机/">计算机</a><small>1</small></li>
+    <li><a href="/tags/计算机/">计算机</a><small>0</small></li>
   
     <li><a href="/tags/计算机网络/">计算机网络</a><small>1</small></li>
   
