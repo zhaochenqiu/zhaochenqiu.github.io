@@ -1,14 +1,15 @@
 title: 一台机器挂两个github账号
 date: 2018-02-02 17:08:56
 tags: Linux
-abstract: 使用ssh连github不需要输入密码。但是一个public key只能在github上用一次，所以记录下在网上找到的解决方法。同一个电脑上生成两个key,分布用于不同的github账号。
 ---
-
+使用ssh连github不需要输入密码。但是一个public key只能在github上用一次，所以记录下在网上找到的解决方法。同一个电脑上生成两个key,分布用于不同的github账号。
+<!--more-->
 
 
 <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
-## 生成多个公钥
+
+# 生成多个公钥
 公钥的生成命令是'ssh-keygen',但是如果本身已经存在一个公钥，会要求你输入一个新的名字，效果如下
 ```
 cqzhao@imi-cqzhao:~/.ssh$ ssh-keygen

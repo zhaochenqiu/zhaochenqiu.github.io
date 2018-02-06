@@ -1,8 +1,10 @@
 title: routeros 封锁特定网站
 date: 2016-10-11 01:21:14
 tags: RouterOs
-abstract: routeros 下通过ip firewall 中的rule 封锁特定的网站，这里用百度实验
 ---
+routeros 下通过ip firewall 中的rule 封锁特定的网站，这里用百度实验
+<!--more-->
+
 
 先设置一个在adress list，包括一些特定的网站。然后再ip firewall 的rule里面，对这个list中的链接全部drop。
 这里拿百度做实验，测试封锁百度。为了直观，全程用winbox，但转化成routeros命令效率更高。

@@ -1,8 +1,9 @@
 title: leetcode Two Sum
 date: 2015-9-16 01:15:07
 tags: 算法
-abstract: 一直在刷leetcode，写几个觉的有意思的，同时效果也比较好的算法，写写思想和实现过程，希望对看到的人有帮助。算法全部原创，没有抄袭。这次是leetcode的Two Sum问题,使用哈希的思想，最后结果超过了99%的人。
 ---
+一直在刷leetcode，写几个觉的有意思的，同时效果也比较好的算法，写写思想和实现过程，希望对看到的人有帮助。算法全部原创，没有抄袭。这次是leetcode的Two Sum问题,使用哈希的思想，最后结果超过了99%的人。
+<!--more-->
 -- 一直在玩leetcode，找几个有意思而且效果好的算法写写。这是次是利用哈希的思想解决Two Sum。**最后结果显示超越了99%的使用`c++`的人。记录下我整个解决的思路和实现过程，希望对喜欢算法的人有帮助** --
 
 <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>

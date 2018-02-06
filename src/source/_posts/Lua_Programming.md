@@ -1,8 +1,9 @@
 title: Lua Programming
 date: 2017-11-01
 tags: Lua
-abstract: The records of learning lua. All the sources code are captured from "Programming in Lua"
 ---
+The records of learning lua. All the sources code are captured from "Programming in Lua"
+<!--more-->
 
 # First lua program
 To keep with the tradition, the first program just prints "Hello World"

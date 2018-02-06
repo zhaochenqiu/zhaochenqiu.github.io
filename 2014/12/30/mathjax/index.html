@@ -1,68 +1,377 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html>
 <head>
   <meta charset="utf-8">
   
-  <title>MathJax示例 | Chenqiu&#39; blog</title>
-  <meta name="author" content="Chenqiu Zhao">
-  
-  <meta name="description" content="MathJax示例，在句子中的数学公式。首先通过一段话来展示mathjax的魅力，这段话是用来介绍贝叶斯定理（Bayes）的。
-贝叶斯（Bayes）定理:
-    \[ P(w_{i}|X)=\frac{P(X|w_{i})P(w_{i})}{\sum_{j=1}^{n}P(X|w_{j})P(w_">
-  
-  
+  <title>MathJax示例 | Zhao, Chenqiu&#39; Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-
-  <meta property="og:title" content="MathJax示例"/>
-  <meta property="og:site_name" content="Chenqiu&#39; blog"/>
-
+  <meta name="description" content="MathJax 用于在网页编写数学公式，该博文用于测试mathjax在github上搭建的博客是否可用，以及mathjax的一些基本用法。">
+<meta name="keywords" content="数学公式">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MathJax示例">
+<meta property="og:url" content="http://yoursite.com/2014/12/30/mathjax/index.html">
+<meta property="og:site_name" content="Zhao, Chenqiu&#39; Blog">
+<meta property="og:description" content="MathJax 用于在网页编写数学公式，该博文用于测试mathjax在github上搭建的博客是否可用，以及mathjax的一些基本用法。">
+<meta property="og:updated_time" content="2018-02-06T05:44:10.670Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="MathJax示例">
+<meta name="twitter:description" content="MathJax 用于在网页编写数学公式，该博文用于测试mathjax在github上搭建的博客是否可用，以及mathjax的一些基本用法。">
   
-    <meta property="og:image" content="undefined"/>
+    <link rel="alternative" href="/atom.xml" title="Zhao, Chenqiu&#39; Blog" type="application/atom+xml">
   
-
-  <link href="/favicon.png" rel="icon">
-  <link rel="alternate" href="/atom.xml" title="Chenqiu&#39; blog" type="application/atom+xml">
-  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
-  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
   
-
+    <link rel="icon" href="/http://oayoilchh.bkt.clouddn.com/2016/07/27/18:05:26%20">
+  
+  
+      <link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  
+  
+      <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  
+  <!-- 加载特效 -->
+    <script src="/js/pace.js"></script>
+    <link href="/css/pace/pace-theme-flash.css" rel="stylesheet" />
+  <script>
+      var yiliaConfig = {
+          rootUrl: '/',
+          fancybox: true,
+          animate: true,
+          isHome: false,
+          isPost: true,
+          isArchive: false,
+          isTag: false,
+          isCategory: false,
+          open_in_new: false
+      }
+  </script>
 </head>
-
-
 <body>
-  <header id="header" class="inner"><div class="alignleft">
-  <h1><a href="/">Chenqiu&#39; blog</a></h1>
-  <h2><a href="/">Do What You Like, Like What You Do</a></h2>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        <script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+        <a href="/" class="profilepic">
+            
+            <img lazy-src="img/head.jpg" class="js-avatar">
+            
+        </a>
+        <hgroup>
+          <h1 class="header-author"><a href="/">Zhao, Chenqiu</a></h1>
+        </hgroup>
+        
+        <p class="header-subtitle">Do What You Like, Like What You Do</p>
+        
+        
+            <form>
+                <input type="text" class="st-default-search-input search" id="local-search-input" placeholder="搜索一下" autocomplete="off">
+            </form>
+            <div id="local-search-result"></div>
+        
+        
+            <script type="text/javascript">
+                (function() {
+                    'use strict';
+                    function getMatchData(keyword, data) {
+                        var matchData = [];
+                        for(var i =0;i<data.length;i++){
+                            if(data[i].title.toLowerCase().indexOf(keyword)>=0) 
+                                matchData.push(data[i])
+                        }
+                        return matchData;
+                    }
+                    var $input = $('#local-search-input');
+                    var $resultContent = $('#local-search-result');
+                    $input.keyup(function(){
+                        $.ajax({
+                            url: '/search.json',
+                            dataType: "json",
+                            success: function( json ) {
+                                var str='<ul class=\"search-result-list\">';                
+                                var keyword = $input.val().trim().toLowerCase();
+                                $resultContent.innerHTML = "";
+                                if ($input.val().trim().length <= 0) {
+                                    $resultContent.empty();
+                                    $('#switch-area').show();
+                                    return;
+                                }
+                                var results = getMatchData(keyword, json);
+                                if(results.length === 0){
+                                    $resultContent.empty();
+                                    $('#switch-area').show();
+                                    return;
+                                } 
+                                for(var i =0; i<results.length; i++){
+                                    str += "<li><a href='"+ results[i].url +"' class='search-result-title'>"+ results[i].title +"</a></li>";
+                                }
+                                str += "</ul>";
+                                $resultContent.empty();
+                                $resultContent.append(str);
+                                $('#switch-area').hide();
+                            }
+                        });
+                    });
+                })();
+            </script>
+        
+        
+            <div id="switch-btn" class="switch-btn">
+                <div class="icon">
+                    <div class="icon-ctn">
+                        <div class="icon-wrap icon-house" data-idx="0">
+                            <div class="birdhouse"></div>
+                            <div class="birdhouse_holes"></div>
+                        </div>
+                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
+                            <div class="ribbon"></div>
+                        </div>
+                        
+                        <div class="icon-wrap icon-link hide" data-idx="2">
+                            <div class="loopback_l"></div>
+                            <div class="loopback_r"></div>
+                        </div>
+                        
+                        
+                        <div class="icon-wrap icon-me hide" data-idx="3">
+                            <div class="user"></div>
+                            <div class="shoulder"></div>
+                        </div>
+                        
+                    </div>
+                </div>
+                <div class="tips-box hide">
+                    <div class="tips-arrow"></div>
+                    <ul class="tips-inner">
+                        <li>菜单</li>
+                        <li>标签</li>
+                        
+                        <li>友情链接</li>
+                        
+                        
+                        <li>关于我</li>
+                        
+                    </ul>
+                </div>
+            </div>
+        
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a  href="http://bestwing.me">博客首页</a></li>
+                        
+                            <li><a  href="/archives">文章归档</a></li>
+                        
+                            <li><a  href="/CTFStudy">学习导航</a></li>
+                        
+                            <li><a  href="/PWNABLE">PWNABLE</a></li>
+                        
+                            <li><a  href="/resume">个人简历</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fl mail"  target="_blank" href="http://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&email=kvH99PT39-Dn_efS5PvivOPjvPH9-w" title="mail">mail</a>
+                            
+                                <a class="fl github"  target="_blank" href="https://github.com/WinMin" title="github">github</a>
+                            
+                                <a class="fl zhihu"  target="_blank" href="https://www.zhihu.com/people/Swings" title="zhihu">zhihu</a>
+                            
+                                <a class="fl weibo"  target="_blank" href="http://weibo.com/2672317963/profile?topnav=1&wvr=6&is_all=1" title="weibo">weibo</a>
+                            
+                                <a class="fl rss"  target="_blank" href="/atom.xml" title="rss">rss</a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                <section class="switch-part switch-part2">
+                    <div class="widget tagcloud" id="js-tagcloud">
+                        <a href="/tags/C-数据结构/" style="font-size: 10px;">C++/数据结构</a> <a href="/tags/Linux/" style="font-size: 20px;">Linux</a> <a href="/tags/Lua/" style="font-size: 10px;">Lua</a> <a href="/tags/RouterOs/" style="font-size: 10px;">RouterOs</a> <a href="/tags/图像处理/" style="font-size: 10px;">图像处理</a> <a href="/tags/数学公式/" style="font-size: 10px;">数学公式</a> <a href="/tags/算法/" style="font-size: 10px;">算法</a> <a href="/tags/计算机网络/" style="font-size: 10px;">计算机网络</a>
+                    </div>
+                </section>
+                
+                
+                <section class="switch-part switch-part3">
+                    <div id="js-friends">
+                    
+                      <a target="_blank"  class="main-nav-link switch-friends-link" href="http://ring3.xyz/">Yllen</a>
+                    
+                      <a target="_blank"  class="main-nav-link switch-friends-link" href="http://mxny.org/">麦香浓郁</a>
+                    
+                      <a target="_blank"  class="main-nav-link switch-friends-link" href="http://whereisk0shl.top/">K0sh1</a>
+                    
+                      <a target="_blank"  class="main-nav-link switch-friends-link" href="http://www.ycjcl.cc/">信鑫</a>
+                    
+                      <a target="_blank"  class="main-nav-link switch-friends-link" href="http://bystudent.com/">ByStundet表哥</a>
+                    
+                      <a target="_blank"  class="main-nav-link switch-friends-link" href="https://www.jarviswang.me/">汪神_Jarvis</a>
+                    
+                      <a target="_blank"  class="main-nav-link switch-friends-link" href="http://sh3ll.me/">Chu</a>
+                    
+                      <a target="_blank"  class="main-nav-link switch-friends-link" href="https://www.hackfun.org/">4ido10n</a>
+                    
+                      <a target="_blank"  class="main-nav-link switch-friends-link" href="http://www.cnblogs.com/iamstudy">L3m0n</a>
+                    
+                      <a target="_blank"  class="main-nav-link switch-friends-link" href="http://o0xmuhe.me/">muhe</a>
+                    
+                      <a target="_blank"  class="main-nav-link switch-friends-link" href="http://blog.nuptzj.cn/">_画船听雨</a>
+                    
+                      <a target="_blank"  class="main-nav-link switch-friends-link" href="http://www.virzz.com/index.html">Virink</a>
+                    
+                      <a target="_blank"  class="main-nav-link switch-friends-link" href="http://www.sqlsec.com/">国光</a>
+                    
+                      <a target="_blank"  class="main-nav-link switch-friends-link" href="http://www.bodkin.ren/">老锥</a>
+                    
+                      <a target="_blank"  class="main-nav-link switch-friends-link" href="http://www.cizel.cn/">C1zel</a>
+                    
+                      <a target="_blank"  class="main-nav-link switch-friends-link" href="http://1phan.cc">1phan</a>
+                    
+                      <a target="_blank"  class="main-nav-link switch-friends-link" href="https://www.liuil.top/">liuil</a>
+                    
+                      <a target="_blank"  class="main-nav-link switch-friends-link" href="http://www.cnblogs.com/Ox9A82/">Ox9A82</a>
+                    
+                      <a target="_blank"  class="main-nav-link switch-friends-link" href="http://burnegg.com/">burnegg</a>
+                    
+                      <a target="_blank"  class="main-nav-link switch-friends-link" href="https://jwrsec.cn/">jwr-sec</a>
+                    
+                      <a target="_blank"  class="main-nav-link switch-friends-link" href="http://sudalover.cn/">苏打</a>
+                    
+                      <a target="_blank"  class="main-nav-link switch-friends-link" href="http://blog.binklac.com">VeroFess</a>
+                    
+                      <a target="_blank"  class="main-nav-link switch-friends-link" href="http://www.bendawang.site/">bendawang</a>
+                    
+                      <a target="_blank"  class="main-nav-link switch-friends-link" href="http://weeklyalgo.codes/">hook</a>
+                    
+                      <a target="_blank"  class="main-nav-link switch-friends-link" href="http://www.flier.net.cn/">Flier&#39;blog</a>
+                    
+                      <a target="_blank"  class="main-nav-link switch-friends-link" href="http://www.mutepig.club">mutepig</a>
+                    
+                      <a target="_blank"  class="main-nav-link switch-friends-link" href="https://blog.iret.xyz/list.aspx">Silver</a>
+                    
+                      <a target="_blank"  class="main-nav-link switch-friends-link" href="http://simp1e.leanote.com/">Simple</a>
+                    
+                      <a target="_blank"  class="main-nav-link switch-friends-link" href="http://processor.pub/">Processor</a>
+                    
+                    </div>
+                </section>
+                
+                
+                
+                <section class="switch-part switch-part4">
+                
+                    <div id="js-aboutme">一只淹死在二进制海洋里的二进制狗</div>
+                </section>
+                
+            </div>
+        </div>
+    </header>
 </div>
-<nav id="main-nav" class="alignright">
-  <ul>
-    
-      <li><a href="zhaochenqiu.github.io">Home</a></li>
-    
-      <li><a href="zhaochenqiu.github.io">Archives</a></li>
-    
-  </ul>
-  <div class="clearfix"></div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="Me">Zhao, Chenqiu</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                
+                    <img lazy-src="/img/head.jpg" class="js-avatar">
+                
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="Me">Zhao, Chenqiu</a></h1>
+            </hgroup>
+            
+            <p class="header-subtitle">Do What You Like, Like What You Do</p>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="http://bestwing.me">博客首页</a></li>
+                
+                    <li><a href="/archives">文章归档</a></li>
+                
+                    <li><a href="/CTFStudy">学习导航</a></li>
+                
+                    <li><a href="/PWNABLE">PWNABLE</a></li>
+                
+                    <li><a href="/resume">个人简历</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                <div class="social">
+                    
+                        <a class="mail" target="_blank" href="http://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&email=kvH99PT39-Dn_efS5PvivOPjvPH9-w" title="mail">mail</a>
+                    
+                        <a class="github" target="_blank" href="https://github.com/WinMin" title="github">github</a>
+                    
+                        <a class="zhihu" target="_blank" href="https://www.zhihu.com/people/Swings" title="zhihu">zhihu</a>
+                    
+                        <a class="weibo" target="_blank" href="http://weibo.com/2672317963/profile?topnav=1&wvr=6&is_all=1" title="weibo">weibo</a>
+                    
+                        <a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+                    
+                </div>
+            </nav>
+        </header>                
+    </div>
 </nav>
-<div class="clearfix"></div></header>
-  <div id="content" class="inner">
-    <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
+      <div class="body-wrap"><article id="post-mathjax" class="article article-type-post" itemscope itemprop="blogPost">
   
-  <div class="post-content">
-    <header>
-      
-        <div class="icon"></div>
-        <time datetime="2014-12-30T06:01:56.000Z"><a href="/2014/12/30/mathjax/">2014-12-30</a></time>
-      
-      
+    <div class="article-meta">
+      <a href="/2014/12/30/mathjax/" class="article-date">
+      <time datetime="2014-12-30T06:01:56.000Z" itemprop="datePublished">2014-12-30</time>
+</a>
+    </div>
   
-    <h1 class="title">MathJax示例</h1>
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      MathJax示例
+    </h1>
   
 
-    </header>
-    <div class="entry">
+      </header>
       
-        <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <div class="article-info article-info-post">
+        
+
+        
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/数学公式/">数学公式</a></li></ul>
+    </div>
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <p>MathJax 用于在网页编写数学公式，该博文用于测试mathjax在github上搭建的博客是否可用，以及mathjax的一些基本用法。
+<a id="more"></a></p>
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
 <h1 id="MathJax示例，在句子中的数学公式。"><a href="#MathJax示例，在句子中的数学公式。" class="headerlink" title="MathJax示例，在句子中的数学公式。"></a>MathJax示例，在句子中的数学公式。</h1><p>首先通过一段话来展示mathjax的魅力，这段话是用来介绍贝叶斯定理（Bayes）的。
 贝叶斯（Bayes）定理:
@@ -88,121 +397,315 @@ Bayes定理的意思是，在\(X\)特征空间下，\(w_{i}\)类事件出现的�
 \[\mathbf{V}_1 \times \mathbf{V}_2 =  \begin{vmatrix}\mathbf{i} &#038; \mathbf{j} &#038; \mathbf{k} \\ \frac{\partial X}{\partial u} &#038;  \frac{\partial Y}{\partial u} &#038; 0 \\               \frac{\partial X}{\partial v} &#038;  \frac{\partial Y}{\partial v} &#038; 0    \end{vmatrix}  \]</p>
 
       
+      
+        <div class="page-reward">
+          <p><a href="javascript:void(0)" onclick="dashangToggle()" class="dashang">赏</a></p>
+          <div class="hide_box"></div>
+          <div class="shang_box">
+            <a class="shang_close" href="javascript:void(0)" onclick="dashangToggle()">×</a>
+            <div class="shang_tit">
+              <p>纯属好玩</p>
+            </div>
+            <div class="shang_payimg">
+              <img src="/img/alipayimg.jpg" alt="扫码支持" title="扫一扫" />
+            </div>
+              <div class="pay_explain">扫码打赏，你说多少就多少</div>
+            <div class="shang_payselect">
+              
+                <div class="pay_item checked" data-id="alipay">
+                  <span class="radiobox"></span>
+                  <span class="pay_logo"><img src="/img/alipay.png" alt="支付宝" /></span>
+                </div>
+              
+              
+                <div class="pay_item" data-id="wechat">
+                  <span class="radiobox"></span>
+                  <span class="pay_logo"><img src="/img/weixin.png" alt="微信" /></span>
+                </div>
+              
+            </div>
+            <div class="shang_info">
+              <p>打开<span id="shang_pay_txt">支付宝</span>扫一扫，即可进行扫码打赏哦</p>
+            </div>
+          </div>
+        </div>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/zepto/1.2.0/zepto.min.js"></script>
+        <script type="text/javascript">
+          $(".pay_item").click(function(){
+            $(this).addClass('checked').siblings('.pay_item').removeClass('checked');
+            var dataid=$(this).attr('data-id');
+            $(".shang_payimg img").attr("src","/img/"+dataid+"img.jpg");
+            $("#shang_pay_txt").text(dataid=="alipay"?"支付宝":"微信");
+          });
+          function dashangToggle(){
+            
+            $(".hide_box").fadeToggle();
+            $(".shang_box").fadeToggle();
+          }
+        </script>
+      
     </div>
-    <footer>
-      
-        
-        
+    
+  </div>
   
-  <div class="tags">
-    <a href="/tags/数学公式/">数学公式</a>
-  </div>
+    
+    <div class="copyright">
+        <p><span>本文标题:</span><a href="/2014/12/30/mathjax/">MathJax示例</a></p>
+        <p><span>文章作者:</span><a href="/" title="访问 Zhao, Chenqiu 的个人博客">Zhao, Chenqiu</a></p>
+        <p><span>发布时间:</span>2014年12月30日 - 14时01分</p>
+        <p><span>最后更新:</span>2018年02月06日 - 13时44分</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/2014/12/30/mathjax/" title="MathJax示例">http://yoursite.com/2014/12/30/mathjax/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://yoursite.com/2014/12/30/mathjax/　　作者: Zhao, Chenqiu" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <script src="/js/clipboard.min.js"></script>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
+        </p>
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" title="中国大陆 (CC BY-NC-SA 3.0 CN)" target = "_blank">"署名-非商用-相同方式共享 3.0"</a> 转载请保留原文链接及作者。
+        </p>
+    </div>
 
+
+
+<nav id="article-nav">
+  
+    <a href="/2015/09/11/config_vim/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
         
-  <div class="addthis addthis_toolbox addthis_default_style">
-    
-      <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
-    
-    
-      <a class="addthis_button_tweet"></a>
-    
-    
-      <a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
-    
-    
-      <a class="addthis_button_pinterest_pinit" pi:pinit:layout="horizontal"></a>
-    
-    <a class="addthis_counter addthis_pill_style"></a>
-  </div>
-  <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js"></script>
+          vim配置笔记
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2014/12/12/routeros/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">RouterOS 的安装和VPN配置</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
 
-      
-      <div class="clearfix"></div>
-    </footer>
-  </div>
+  
 </article>
 
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#MathJax示例，在句子中的数学公式。"><span class="toc-number">1.</span> <span class="toc-text">MathJax示例，在句子中的数学公式。</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#MathJax-用法"><span class="toc-number">2.</span> <span class="toc-text">MathJax 用法</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#例子一"><span class="toc-number">2.1.</span> <span class="toc-text">例子一:</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#例子二"><span class="toc-number">2.2.</span> <span class="toc-text">例子二:</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#例子三"><span class="toc-number">2.3.</span> <span class="toc-text">例子三:</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#例子四"><span class="toc-number">2.4.</span> <span class="toc-text">例子四:</span></a></li></ol></li></ol>
+</div>
+<input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
 
-<section id="comment">
-  <h1 class="title">Kommentare</h1>
-
-  
-      <div id="fb-root"></div>
+<script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
 <script>
-  (function(d, s, id) {
-    var js, fjs = d.getElementsByTagName(s)[0];
-    if (d.getElementById(id)) return;
-    js = d.createElement(s); js.id = id;
-    js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=123456789012345";
-    fjs.parentNode.insertBefore(js, fjs);
-  }(document, 'script', 'facebook-jssdk'));
+    var valueHide = "隐藏目录";
+    var valueShow = "显示目录";
+
+    if ($(".left-col").is(":hidden")) {
+        $("#tocButton").attr("value", valueShow);
+    }
+    $("#tocButton").click(function() {
+        if ($("#toc").is(":hidden")) {
+            $("#tocButton").attr("value", valueHide);
+            $("#toc").slideDown(320);
+        }
+        else {
+            $("#tocButton").attr("value", valueShow);
+            $("#toc").slideUp(350);
+        }
+    })
+    if ($(".toc").length < 1) {
+        $("#toc, #tocButton").hide();
+    }
 </script>
 
-<div class="fb-comments" data-href="http://yoursite.com/2014/12/30/mathjax/index.html" data-num-posts="5" data-width="840" data-colorscheme="light"></div>
-      
-  
+
+
+
+
+<div class="bdsharebuttonbox">
+	<a href="#" class="fx fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+	<a href="#" class="fx fa-weixin bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+	<a href="#" class="fx fa-qq bds_sqq" data-cmd="sqq" title="分享到QQ好友"></a>
+	<a href="#" class="fx fa-facebook-official bds_fbook" data-cmd="fbook" title="分享到Facebook"></a>
+	<a href="#" class="fx fa-twitter bds_twi" data-cmd="twi" title="分享到Twitter"></a>
+	<a href="#" class="fx fa-linkedin bds_linkedin" data-cmd="linkedin" title="分享到linkedin"></a>
+	<a href="#" class="fx fa-files-o bds_copy" data-cmd="copy" title="分享到复制网址"></a>
+</div>
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"2","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+
+
+
+
+    
+        <section id="comments">
+  <div id="disqus_thread"></div>
+    <script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'swing'; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 </section>
+    
 
-</div></div>
-    <aside id="sidebar" class="alignright">
-  <div class="search">
-  <form action="//google.com/search" method="get" accept-charset="utf-8">
-    <input type="search" name="q" results="0" placeholder="Suche">
-    <input type="hidden" name="q" value="site:yoursite.com">
-  </form>
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/2015/09/11/config_vim/" title="上一篇: vim配置笔记">
+                <i class="fa fa-angle-left"></i>
+            </a>
+        
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+        
+            <a href="/2014/12/12/routeros/" title="下一篇: RouterOS 的安装和VPN配置">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2018/02/02/notes1/">一台机器挂两个github账号</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/11/01/Lua_Programming/">Lua Programming</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/11/ip-firewall-drop/">routeros 封锁特定网站</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/11/26/show-3d/">查看三维图片</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/09/16/twoSum/">leetcode Two Sum</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/09/11/config_vim/">vim配置笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/2014/12/30/mathjax/">MathJax示例</a></li><li class="post-list-item"><a class="post-list-link" href="/2014/12/12/routeros/">RouterOS 的安装和VPN配置</a></li><li class="post-list-item"><a class="post-list-link" href="/2013/10/13/studytree/">利用索引树去统计单词出现频率</a></li></ul>
+    <script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+    <script>
+        $(".post-list").addClass("toc-article");
+        $(".post-list-item a").attr("target","_blank");
+        $("#post-nav-button > a:nth-child(2)").click(function() {
+            $(".fa-bars, .fa-times").toggle();
+            $(".post-list").toggle(300);
+            if ($(".toc").length > 0) {
+                $("#toc, #tocButton").toggle(200, function() {
+                    if ($(".switch-area").is(":visible")) {
+                        $("#tocButton").attr("value", valueHide);
+                        }
+                    })
+            }
+            else {
+            }
+        })
+    </script>
+
+
+
+    <script>
+        
+    </script>
 </div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                &copy; 2018 Zhao, Chenqiu
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="http://bestwing.me" target="_blank">Sw'blog</a> by Swing
+            </div>
+        </div>
+        
+            <div class="visit">
+                
+                    <span id="busuanzi_container_site_pv" style='display:none'>
+                        <span id="site-visit" >海贼到访数: 
+                            <span id="busuanzi_value_site_uv"></span>
+                        </span>
+                    </span>
+                
+                
+                    <span>, </span>
+                
+                
+                    <span id="busuanzi_container_page_pv" style='display:none'>
+                        <span id="page-visit">本页阅读量: 
+                            <span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    </span>
+                
+            </div>
+        
+    </div>
+</footer>
 
-  
+    </div>
+    <script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script src="/js/main.js"></script>
 
-  
-<div class="widget tag">
-  <h3 class="title">Tags</h3>
-  <ul class="entry">
-  
-    <li><a href="/tags/C-数据结构/">C++/数据结构</a><small>1</small></li>
-  
-    <li><a href="/tags/Linux/">Linux</a><small>2</small></li>
-  
-    <li><a href="/tags/Lua/">Lua</a><small>1</small></li>
-  
-    <li><a href="/tags/RouterOs/">RouterOs</a><small>1</small></li>
-  
-    <li><a href="/tags/图像处理/">图像处理</a><small>2</small></li>
-  
-    <li><a href="/tags/数学公式/">数学公式</a><small>1</small></li>
-  
-    <li><a href="/tags/算法/">算法</a><small>1</small></li>
-  
-    <li><a href="/tags/计算机/">计算机</a><small>0</small></li>
-  
-    <li><a href="/tags/计算机网络/">计算机网络</a><small>1</small></li>
-  
-  </ul>
+    <script>
+        $(document).ready(function() {
+            var backgroundnum = 24;
+            var backgroundimg = "url(/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
+            $("#mobile-nav").css({"background-image": backgroundimg,"background-size": "cover","background-position": "center"});
+            $(".left-col").css({"background-image": backgroundimg,"background-size": "cover","background-position": "center"});
+        })
+    </script>
+
+
+
+
+
+<div class="scroll" id="scroll">
+    <a href="#"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer"><i class="fa fa-arrow-down"></i></a>
 </div>
-
-</aside>
-    <div class="clearfix"></div>
-  </div>
-  <footer id="footer" class="inner"><div class="alignleft">
-  
-  &copy; 2018 Chenqiu Zhao
-  
-</div>
-<div class="clearfix"></div></footer>
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
-<script src="/js/jquery.imagesloaded.min.js"></script>
-<script src="/js/gallery.js"></script>
-
-
-
-
-<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
-<script src="/fancybox/jquery.fancybox.pack.js"></script>
-<script type="text/javascript">
-(function($){
-  $('.fancybox').fancybox();
-})(jQuery);
+<script>
+    $(document).ready(function() {
+        if ($("#comments").length < 1) {
+            $("#scroll > a:nth-child(2)").hide();
+        };
+    })
 </script>
 
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+
+  <script language="javascript">
+    $(function() {
+        $("a[title]").each(function() {
+            var a = $(this);
+            var title = a.attr('title');
+            if (title == undefined || title == "") return;
+            a.data('title', title).removeAttr('title').hover(
+
+            function() {
+                var offset = a.offset();
+                $("<div id=\"anchortitlecontainer\"></div>").appendTo($("body")).html(title).css({
+                    top: offset.top - a.outerHeight() - 15,
+                    left: offset.left + a.outerWidth()/2 + 1
+                }).fadeIn(function() {
+                    var pop = $(this);
+                    setTimeout(function() {
+                        pop.remove();
+                    }, pop.text().length * 800);
+                });
+            }, function() {
+                $("#anchortitlecontainer").remove();
+            });
+        });
+    });
+</script>
+
+
+    <script type="text/javascript">
+      window.onload = function(){
+        document.getElementById("search").onclick = function(){
+            console.log("search")
+            search();
+        }
+      }
+      function search(){
+        (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+        (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+        e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+        })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+        _st('install','A1Pz-LKMXbrzcFg2FWi6','2.0.0');
+      }
+    </script>
+
+  </div>
 </body>
 </html>

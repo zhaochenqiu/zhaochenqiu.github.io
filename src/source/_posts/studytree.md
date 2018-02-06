@@ -1,8 +1,10 @@
 title: 利用索引树去统计单词出现频率
 date: 2013-10-13 13:26:04
 tags: C++/数据结构
-abstract: 一个统计词频的程序，利用多路树实现
 ---
+一个统计词频的程序，利用多路树实现
+<!--more-->
+
 -- 一个统计词频的程序，利用多路树实现 --
 
 <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>

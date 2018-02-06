@@ -1,8 +1,10 @@
 title: 查看三维图片
 date: 2015-11-26 23:20:55
 tags: 图像处理
-abstract: 找一种方法，可以让不会看三维图片的人，也可以看到内容，**但只是看到内容，没有那种立体感了**
 ---
+找一种方法，可以让不会看三维图片的人，也可以看到内容，**但只是看到内容，没有那种立体感了**
+<!--more-->
+
 -- 比较喜欢看三维图片，觉的那种立体感特别好。但有时候跟不会看的人就没法交流。这里弄一了一个可以看到三维图片内容的小程序，但这个程序只能看内容，想体会那种立体感还是要去学[怎么看](http://www.liuhs.com/3d.htm)。先来一张三维图片：
 ![](https://thumbnail0.baidupcs.com/thumbnail/510d823590de2ea9f1d6b8ea88ad9a23?fid=1124629257-250528-44395575683695&time=1499410800&rt=sh&sign=FDTAER-DCb740ccc5511e5e8fedcff06b081203-1wNPXPYogb8LdPyIWRecq3y4t40%3D&expires=8h&chkv=0&chkbd=0&chkpc=&dp-logid=4351763674840998094&dp-callid=0&size=c710_u400&quality=100&vuk=-&ft=video)
 **你能看出这是一个“3D”字吗**？

@@ -3,10 +3,10 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: Chenqiu' blog
+title: Zhao, Chenqiu' Blog
 subtitle: Do What You Like, Like What You Do
 description: 
-author: Chenqiu Zhao
+author: Zhao, Chenqiu
 language:
 timezone:
 
@@ -62,7 +62,8 @@ pagination_dir: page
 # Extensions
 ## Plugins: http://hexo.io/plugins/
 ## Themes: http://hexo.io/themes/
-theme: lightq
+# theme: lightq
+theme: Sw
 
 # Deployment
 ## Docs: http://hexo.io/docs/deployment.html
@@ -72,3 +73,7 @@ deploy:
 marked:
   gfm: true
   breaks: false
+
+search:
+  path: search.json
+  field: post
