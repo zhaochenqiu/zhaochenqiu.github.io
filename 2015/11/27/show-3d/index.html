@@ -1,0 +1,295 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>查看三维图片 | Zhao, Chenqiu&#39; Blog</title>
+  <meta name="author" content="Zhao, Chenqiu">
+  
+  <meta name="description" content="找一种方法，可以让不会看三维图片的人，也可以看到内容，但只是看到内容，没有那种立体感了">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="查看三维图片"/>
+  <meta property="og:site_name" content="Zhao, Chenqiu&#39; Blog"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  <link href="/favicon.png" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="Zhao, Chenqiu&#39; Blog" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+
+</head>
+
+
+<body>
+  <header id="header" class="inner"><div class="alignleft">
+  <h1><a href="/">Zhao, Chenqiu&#39; Blog</a></h1>
+  <h2><a href="/">Do What You Like, Like What You Do</a></h2>
+</div>
+<nav id="main-nav" class="alignright">
+  <ul>
+    
+      <li><a href="/">Home</a></li>
+    
+      <li><a href="/archives">Archives</a></li>
+    
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+<div class="clearfix"></div>
+</header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2015-11-26T15:20:55.000Z"><a href="/2015/11/27/show-3d/">2015-11-27</a></time>
+      
+      
+  
+    <h1 class="title">查看三维图片</h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>找一种方法，可以让不会看三维图片的人，也可以看到内容，<strong>但只是看到内容，没有那种立体感了</strong>
+<a id="more"></a></p>
+<p>– 比较喜欢看三维图片，觉的那种立体感特别好。但有时候跟不会看的人就没法交流。这里弄一了一个可以看到三维图片内容的小程序，但这个程序只能看内容，想体会那种立体感还是要去学<a href="http://www.liuhs.com/3d.htm" target="_blank" rel="external">怎么看</a>。先来一张三维图片：
+<img src="https://thumbnail0.baidupcs.com/thumbnail/510d823590de2ea9f1d6b8ea88ad9a23?fid=1124629257-250528-44395575683695&amp;time=1499410800&amp;rt=sh&amp;sign=FDTAER-DCb740ccc5511e5e8fedcff06b081203-1wNPXPYogb8LdPyIWRecq3y4t40%3D&amp;expires=8h&amp;chkv=0&amp;chkbd=0&amp;chkpc=&amp;dp-logid=4351763674840998094&amp;dp-callid=0&amp;size=c710_u400&amp;quality=100&amp;vuk=-&amp;ft=video" alt="">
+<strong>你能看出这是一个“3D”字吗</strong>？</p>
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+<h2 id="三维图片原理">三维图片原理</h2><p>人有两只眼，两只眼有一定距离，这就造成物体的影象在两眼中有一些差异，见右图，由图可见，由于物体与眼的距离不同，两眼的视角会有所不同，由于视角的不同所看到是影象也会有一些差异，大脑会根据这种差异感觉到立体的景象。利用这种原理，三维图片会在水平方向生成一系列重复的图案，当这些图案在两只眼中重合时，就看到了立体的影象。具体可以<a href="http://www.liuhs.com/3d.htm" target="_blank" rel="external">看这里</a>。</p>
+<h2 id="算法原理">算法原理</h2><p>三维图片会在水平方向生成一系列<strong>重复的图案</strong>，当这些图案在两只眼中重合时，就看到了立体的影象。所以说，图像中那些重复的重复图案，就是立体影像的内容。那么只需要找到立体图像中那些重图案，然后把这些重复图案高亮出来，就可以看到三维图片中的内容了。</p>
+<h2 id="算法过程">算法过程</h2><p>目的就是找出图像中的重复图案，因为三维图像上的重复图案是水平的，因此将图像水平平移\(offset\),个单位，之后和原图像相减，这样，重复的部分就会变黑。假设图像为\(f(x,y)\),运算之后的图像为\(f’(x,y)\)。运算如下：
+\[f’(x,y) = f(x,y) - f(x+offset,y)\]
+此时图像\(f’(x,y)\)会随着\(offset\)变化而变化，而且当\(offset\)变化到一个特定的值的时候，\(f’(x,y)\)中重复的部分就会变黑，接着就可以看到三维图片中的内容了。
+首先，<strong>手动的调节\(offset\)的值</strong>，查看是否可以看到内容。程序源码:</p>
+<pre><code>clear all
+close all
+clc
+
+addpath(<span class="string">'../../common'</span>);
+
+srcimg = double(imread(<span class="string">'image2.jpg'</span>));
+
+global g_displayMatrixImage
+g_displayMatrixImage = <span class="number">1</span>;
+
+img = srcimg;
+
+[row_img column_img byte_img] = size(img);
+
+img1 = img;
+img2 = img;
+
+store_value = [];
+
+<span class="keyword">for</span> i = <span class="number">3</span>:column_img - <span class="number">3</span>
+    showimg1 = img1<span class="comment">(:,i:column_img,:)</span>;
+    showimg2 = img2<span class="comment">(:,1:column_img - i + 1,:)</span>;
+
+    subimg = abs(showimg1 - showimg2);
+    sumimg = sum(subimg,<span class="number">3</span>);
+
+    sumvalue = sum(sum(sumimg));
+
+    count = row_img * (column_img - i + <span class="number">1</span>);
+    count = max([count <span class="number">1</span>]);
+
+    <span class="keyword">value</span> = sumvalue/count;
+    store_value = [store_value ; <span class="keyword">value</span>];
+
+    displayMatrixImage(<span class="number">1</span>,<span class="number">1</span>,<span class="number">3</span>,showimg1,showimg2,subimg);
+
+    input(<span class="string">'pause'</span>)
+<span class="keyword">end</span>
+</code></pre><p>这样得到的一些中间图像结果为:
+<img src="http://i5.tietuku.com/a6cedf15ca0e34ce.png" alt="">
+<img src="http://i5.tietuku.com/60e0408f3118d57d.png" alt="">
+<img src="http://i5.tietuku.com/9aa72b54fcd046e8.png" alt="">
+可以看到，当\(offset\)在某一个特定值的时候，三维图片中的图像就会显示出来，接下来的问题就是如何找出这个值。这个值的特点是会让图像部分变黑，也就是说\(sum(f’(x,y))\)的值会产生一个跳跃。下图是\(offset-sum(f’(x,y))\)曲线。
+<img src="http://i13.tietuku.com/e61efa50752e7584.png" alt="">.
+明显有一个值的跳跃，在进一步加工，将\(sum(f’(x,y))\)取一个均值。得到如下图：
+<img src="http://i13.tietuku.com/ff0cc5f29486dff9.png" alt="">
+之后的算法的就很简单了，找出极值就行了。代码：</p>
+<pre><code><span class="keyword">function</span> [re_pos re_img] = find3DImg(img) 
+
+[row_img column_img byte_img] = size(img);
+
+minvalue    = <span class="number">800</span>;
+store_pos    = -<span class="number">1</span>;
+
+img1 = img;
+img2 = img;
+
+<span class="keyword">for</span> i = <span class="number">10</span>:column_img - <span class="number">10</span>
+    showimg1 = img1<span class="comment">(:,i:column_img,:)</span>;
+    showimg2 = img2<span class="comment">(:,1:column_img - i + 1,:)</span>;
+
+    subimg = abs(showimg1 - showimg2);
+    sumimg = sum(subimg,<span class="number">3</span>);
+
+    sumvalue = sum(sum(sumimg));
+
+    count = row_img * (column_img - i + <span class="number">1</span>);
+    count = max([count <span class="number">1</span>]);
+
+    <span class="keyword">value</span> = sumvalue/count;
+
+    <span class="keyword">if</span> <span class="keyword">value</span> &lt; minvalue
+        minvalue = <span class="keyword">value</span>;
+        store_pos = i;
+    <span class="keyword">end</span>
+<span class="keyword">end</span>
+
+
+showimg1 = img1<span class="comment">(:,store_pos:column_img,:)</span>;
+showimg2 = img2<span class="comment">(:,1:column_img - store_pos + 1,:)</span>;
+
+subimg = abs(showimg1 - showimg2);
+
+re_pos = store_pos;
+re_img = subimg;
+</code></pre><p>下面是展示的一些结果：
+<img src="https://thumbnail0.baidupcs.com/thumbnail/8bc8e41b88f3645b9cc95c5800976387?fid=1124629257-250528-216667013962545&amp;time=1499407200&amp;rt=sh&amp;sign=FDTAER-DCb740ccc5511e5e8fedcff06b081203-LPrpn28EtWATLPIEpeVJ0Cdqeys%3D&amp;expires=8h&amp;chkv=0&amp;chkbd=0&amp;chkpc=&amp;dp-logid=4351540266995038768&amp;dp-callid=0&amp;size=c710_u400&amp;quality=100&amp;vuk=-&amp;ft=video" alt="">
+<img src="https://thumbnail0.baidupcs.com/thumbnail/94a0d6ae80a253fb3668b614aa68a5ad?fid=1124629257-250528-820294603898830&amp;time=1499407200&amp;rt=sh&amp;sign=FDTAER-DCb740ccc5511e5e8fedcff06b081203-IdycSfwDtS3HZfhPw9t0RToxMDs%3D&amp;expires=8h&amp;chkv=0&amp;chkbd=0&amp;chkpc=&amp;dp-logid=4351548941826973239&amp;dp-callid=0&amp;size=c710_u400&amp;quality=100&amp;vuk=-&amp;ft=video" alt="">
+<img src="https://thumbnail0.baidupcs.com/thumbnail/c80a350f51b2a31a7a218f64a1bec3af?fid=1124629257-250528-544544821161225&amp;time=1499410800&amp;rt=sh&amp;sign=FDTAER-DCb740ccc5511e5e8fedcff06b081203-ZvcfRBZz3Q6ipn1PtaijuFQ%2BoMc%3D&amp;expires=8h&amp;chkv=0&amp;chkbd=0&amp;chkpc=&amp;dp-logid=4351558103576538383&amp;dp-callid=0&amp;size=c710_u400&amp;quality=100&amp;vuk=-&amp;ft=video" alt="">
+<img src="https://thumbnail0.baidupcs.com/thumbnail/c206b9375ce4ee6a7543d3ddf7b6d5eb?fid=1124629257-250528-233438908982727&amp;time=1499410800&amp;rt=sh&amp;sign=FDTAER-DCb740ccc5511e5e8fedcff06b081203-Qwi7X69vd%2BfDJmw2ufWnIdldgWc%3D&amp;expires=8h&amp;chkv=0&amp;chkbd=0&amp;chkpc=&amp;dp-logid=4351565525431269248&amp;dp-callid=0&amp;size=c710_u400&amp;quality=100&amp;vuk=-&amp;ft=video" alt="">
+<img src="https://thumbnail0.baidupcs.com/thumbnail/53247d264cff2efba81b62c37b6733ae?fid=1124629257-250528-566282431397342&amp;time=1499410800&amp;rt=sh&amp;sign=FDTAER-DCb740ccc5511e5e8fedcff06b081203-6CN6eE9KFibACEa0Cl%2FwmYe1z88%3D&amp;expires=8h&amp;chkv=0&amp;chkbd=0&amp;chkpc=&amp;dp-logid=4351573049457970250&amp;dp-callid=0&amp;size=c710_u400&amp;quality=100&amp;vuk=-&amp;ft=video" alt="">
+<img src="https://thumbnail0.baidupcs.com/thumbnail/00e28524befb4b9fb84a5694f8f24b6d?fid=1124629257-250528-500529312475684&amp;time=1499410800&amp;rt=sh&amp;sign=FDTAER-DCb740ccc5511e5e8fedcff06b081203-naKrJerK2lvcCxuyd3Fu0fhcKaI%3D&amp;expires=8h&amp;chkv=0&amp;chkbd=0&amp;chkpc=&amp;dp-logid=4351592734435880155&amp;dp-callid=0&amp;size=c710_u400&amp;quality=100&amp;vuk=-&amp;ft=video" alt="">
+<img src="https://thumbnail0.baidupcs.com/thumbnail/92d1bb0658245c1e834a7d71e45740c5?fid=1124629257-250528-455419085213683&amp;time=1499410800&amp;rt=sh&amp;sign=FDTAER-DCb740ccc5511e5e8fedcff06b081203-Weymbb2rfSvKMcCr6shrafC4D4I%3D&amp;expires=8h&amp;chkv=0&amp;chkbd=0&amp;chkpc=&amp;dp-logid=4351597692101680534&amp;dp-callid=0&amp;size=c710_u400&amp;quality=100&amp;vuk=-&amp;ft=video" alt="">
+<img src="https://thumbnail0.baidupcs.com/thumbnail/7ffa7c854361aed4eabf3f6d368d280d?fid=1124629257-250528-719876588382043&amp;time=1499410800&amp;rt=sh&amp;sign=FDTAER-DCb740ccc5511e5e8fedcff06b081203-8DpnF1iECLvzLWn%2FjneZDFqwXno%3D&amp;expires=8h&amp;chkv=0&amp;chkbd=0&amp;chkpc=&amp;dp-logid=4351600817758343097&amp;dp-callid=0&amp;size=c710_u400&amp;quality=100&amp;vuk=-&amp;ft=video" alt="">
+<img src="https://thumbnail0.baidupcs.com/thumbnail/4d88c9f11346bbf81b64759726c13da9?fid=1124629257-250528-144105465724966&amp;time=1499410800&amp;rt=sh&amp;sign=FDTAER-DCb740ccc5511e5e8fedcff06b081203-cOCr5Jif%2B3Eo4%2F%2F25ksDXUtYLPI%3D&amp;expires=8h&amp;chkv=0&amp;chkbd=0&amp;chkpc=&amp;dp-logid=4351603626359501357&amp;dp-callid=0&amp;size=c710_u400&amp;quality=100&amp;vuk=-&amp;ft=video" alt=""></p>
+
+      
+    </div>
+    <footer>
+      
+        
+        
+  
+  <div class="tags">
+    <a href="/tags/图像处理/">图像处理</a>
+  </div>
+
+        
+  <div class="addthis addthis_toolbox addthis_default_style">
+    
+      <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
+    
+    
+      <a class="addthis_button_tweet"></a>
+    
+    
+      <a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
+    
+    
+      <a class="addthis_button_pinterest_pinit" pi:pinit:layout="horizontal"></a>
+    
+    <a class="addthis_counter addthis_pill_style"></a>
+  </div>
+  <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js"></script>
+
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+<section id="comment">
+  <h1 class="title">留言</h1>
+
+  
+      <div id="fb-root"></div>
+<script>
+  (function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=123456789012345";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+</script>
+
+<div class="fb-comments" data-href="http://yoursite.com/2015/11/27/show-3d/index.html" data-num-posts="5" data-width="840" data-colorscheme="light"></div>
+      
+  
+</section>
+
+</div></div>
+    <aside id="sidebar" class="alignright">
+  <div class="search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="搜尋">
+    <input type="hidden" name="q" value="site:yoursite.com">
+  </form>
+</div>
+
+  
+
+  
+<div class="widget tag">
+  <h3 class="title">標籤</h3>
+  <ul class="entry">
+  
+    <li><a href="/tags/C-数据结构/">C++/数据结构</a><small>1</small></li>
+  
+    <li><a href="/tags/Linux/">Linux</a><small>2</small></li>
+  
+    <li><a href="/tags/Lua/">Lua</a><small>1</small></li>
+  
+    <li><a href="/tags/RouterOs/">RouterOs</a><small>1</small></li>
+  
+    <li><a href="/tags/linux/">linux</a><small>0</small></li>
+  
+    <li><a href="/tags/图像处理/">图像处理</a><small>1</small></li>
+  
+    <li><a href="/tags/数学公式/">数学公式</a><small>1</small></li>
+  
+    <li><a href="/tags/算法/">算法</a><small>1</small></li>
+  
+    <li><a href="/tags/计算机/">计算机</a><small>0</small></li>
+  
+    <li><a href="/tags/计算机网络/">计算机网络</a><small>1</small></li>
+  
+  </ul>
+</div>
+
+</aside>
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div class="alignleft">
+  
+  &copy; 2018 Zhao, Chenqiu
+  
+</div>
+<div class="clearfix"></div></footer>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+</body>
+</html>

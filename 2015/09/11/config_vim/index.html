@@ -1,481 +1,170 @@
-<!DOCTYPE html>
+<!DOCTYPE HTML>
 <html>
 <head>
   <meta charset="utf-8">
   
   <title>vim配置笔记 | Zhao, Chenqiu&#39; Blog</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="author" content="Zhao, Chenqiu">
+  
   <meta name="description" content="传说中的编辑器之神，我也终于算是入门了。记录下vim的配置，将其打造成炫酷的开发环境">
-<meta name="keywords" content="Linux">
-<meta property="og:type" content="article">
-<meta property="og:title" content="vim配置笔记">
-<meta property="og:url" content="http://yoursite.com/2015/09/11/config_vim/index.html">
-<meta property="og:site_name" content="Zhao, Chenqiu&#39; Blog">
-<meta property="og:description" content="传说中的编辑器之神，我也终于算是入门了。记录下vim的配置，将其打造成炫酷的开发环境">
-<meta property="og:image" content="http://i3.tietuku.com/903bf9b97b34ff5d.png">
-<meta property="og:image" content="http://i3.tietuku.com/65e1e7a6841adf0f.jpg">
-<meta property="og:updated_time" content="2018-02-06T05:44:42.022Z">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="vim配置笔记">
-<meta name="twitter:description" content="传说中的编辑器之神，我也终于算是入门了。记录下vim的配置，将其打造成炫酷的开发环境">
-<meta name="twitter:image" content="http://i3.tietuku.com/903bf9b97b34ff5d.png">
-  
-    <link rel="alternative" href="/atom.xml" title="Zhao, Chenqiu&#39; Blog" type="application/atom+xml">
   
   
-    <link rel="icon" href="/http://oayoilchh.bkt.clouddn.com/2016/07/27/18:05:26%20">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="vim配置笔记"/>
+  <meta property="og:site_name" content="Zhao, Chenqiu&#39; Blog"/>
+
   
+    <meta property="og:image" content="undefined"/>
   
-      <link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css">
+
+  <link href="/favicon.png" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="Zhao, Chenqiu&#39; Blog" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
   
-  <link rel="stylesheet" href="/css/style.css">
-  <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css">
-  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-  
-  
-      <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
-  
-  <!-- 加载特效 -->
-    <script src="/js/pace.js"></script>
-    <link href="/css/pace/pace-theme-flash.css" rel="stylesheet" />
-  <script>
-      var yiliaConfig = {
-          rootUrl: '/',
-          fancybox: true,
-          animate: true,
-          isHome: false,
-          isPost: true,
-          isArchive: false,
-          isTag: false,
-          isCategory: false,
-          open_in_new: false
-      }
-  </script>
+
 </head>
+
+
 <body>
-  <div id="container">
-    <div class="left-col">
-    <div class="overlay"></div>
-<div class="intrude-less">
-    <header id="header" class="inner">
-        <script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
-        <a href="/" class="profilepic">
-            
-            <img lazy-src="img/head.jpg" class="js-avatar">
-            
-        </a>
-        <hgroup>
-          <h1 class="header-author"><a href="/">Zhao, Chenqiu</a></h1>
-        </hgroup>
-        
-        <p class="header-subtitle">Do What You Like, Like What You Do</p>
-        
-        
-            <form>
-                <input type="text" class="st-default-search-input search" id="local-search-input" placeholder="搜索一下" autocomplete="off">
-            </form>
-            <div id="local-search-result"></div>
-        
-        
-            <script type="text/javascript">
-                (function() {
-                    'use strict';
-                    function getMatchData(keyword, data) {
-                        var matchData = [];
-                        for(var i =0;i<data.length;i++){
-                            if(data[i].title.toLowerCase().indexOf(keyword)>=0) 
-                                matchData.push(data[i])
-                        }
-                        return matchData;
-                    }
-                    var $input = $('#local-search-input');
-                    var $resultContent = $('#local-search-result');
-                    $input.keyup(function(){
-                        $.ajax({
-                            url: '/search.json',
-                            dataType: "json",
-                            success: function( json ) {
-                                var str='<ul class=\"search-result-list\">';                
-                                var keyword = $input.val().trim().toLowerCase();
-                                $resultContent.innerHTML = "";
-                                if ($input.val().trim().length <= 0) {
-                                    $resultContent.empty();
-                                    $('#switch-area').show();
-                                    return;
-                                }
-                                var results = getMatchData(keyword, json);
-                                if(results.length === 0){
-                                    $resultContent.empty();
-                                    $('#switch-area').show();
-                                    return;
-                                } 
-                                for(var i =0; i<results.length; i++){
-                                    str += "<li><a href='"+ results[i].url +"' class='search-result-title'>"+ results[i].title +"</a></li>";
-                                }
-                                str += "</ul>";
-                                $resultContent.empty();
-                                $resultContent.append(str);
-                                $('#switch-area').hide();
-                            }
-                        });
-                    });
-                })();
-            </script>
-        
-        
-            <div id="switch-btn" class="switch-btn">
-                <div class="icon">
-                    <div class="icon-ctn">
-                        <div class="icon-wrap icon-house" data-idx="0">
-                            <div class="birdhouse"></div>
-                            <div class="birdhouse_holes"></div>
-                        </div>
-                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
-                            <div class="ribbon"></div>
-                        </div>
-                        
-                        <div class="icon-wrap icon-link hide" data-idx="2">
-                            <div class="loopback_l"></div>
-                            <div class="loopback_r"></div>
-                        </div>
-                        
-                        
-                        <div class="icon-wrap icon-me hide" data-idx="3">
-                            <div class="user"></div>
-                            <div class="shoulder"></div>
-                        </div>
-                        
-                    </div>
-                </div>
-                <div class="tips-box hide">
-                    <div class="tips-arrow"></div>
-                    <ul class="tips-inner">
-                        <li>菜单</li>
-                        <li>标签</li>
-                        
-                        <li>友情链接</li>
-                        
-                        
-                        <li>关于我</li>
-                        
-                    </ul>
-                </div>
-            </div>
-        
-        <div id="switch-area" class="switch-area">
-            <div class="switch-wrap">
-                <section class="switch-part switch-part1">
-                    <nav class="header-menu">
-                        <ul>
-                        
-                            <li><a  href="http://bestwing.me">博客首页</a></li>
-                        
-                            <li><a  href="/archives">文章归档</a></li>
-                        
-                            <li><a  href="/CTFStudy">学习导航</a></li>
-                        
-                            <li><a  href="/PWNABLE">PWNABLE</a></li>
-                        
-                            <li><a  href="/resume">个人简历</a></li>
-                        
-                        </ul>
-                    </nav>
-                    <nav class="header-nav">
-                        <ul class="social">
-                            
-                                <a class="fl mail"  target="_blank" href="http://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&email=kvH99PT39-Dn_efS5PvivOPjvPH9-w" title="mail">mail</a>
-                            
-                                <a class="fl github"  target="_blank" href="https://github.com/WinMin" title="github">github</a>
-                            
-                                <a class="fl zhihu"  target="_blank" href="https://www.zhihu.com/people/Swings" title="zhihu">zhihu</a>
-                            
-                                <a class="fl weibo"  target="_blank" href="http://weibo.com/2672317963/profile?topnav=1&wvr=6&is_all=1" title="weibo">weibo</a>
-                            
-                                <a class="fl rss"  target="_blank" href="/atom.xml" title="rss">rss</a>
-                            
-                        </ul>
-                    </nav>
-                </section>
-                
-                <section class="switch-part switch-part2">
-                    <div class="widget tagcloud" id="js-tagcloud">
-                        <a href="/tags/C-数据结构/" style="font-size: 10px;">C++/数据结构</a> <a href="/tags/Linux/" style="font-size: 20px;">Linux</a> <a href="/tags/Lua/" style="font-size: 10px;">Lua</a> <a href="/tags/RouterOs/" style="font-size: 10px;">RouterOs</a> <a href="/tags/图像处理/" style="font-size: 10px;">图像处理</a> <a href="/tags/数学公式/" style="font-size: 10px;">数学公式</a> <a href="/tags/算法/" style="font-size: 10px;">算法</a> <a href="/tags/计算机网络/" style="font-size: 10px;">计算机网络</a>
-                    </div>
-                </section>
-                
-                
-                <section class="switch-part switch-part3">
-                    <div id="js-friends">
-                    
-                      <a target="_blank"  class="main-nav-link switch-friends-link" href="http://ring3.xyz/">Yllen</a>
-                    
-                      <a target="_blank"  class="main-nav-link switch-friends-link" href="http://mxny.org/">麦香浓郁</a>
-                    
-                      <a target="_blank"  class="main-nav-link switch-friends-link" href="http://whereisk0shl.top/">K0sh1</a>
-                    
-                      <a target="_blank"  class="main-nav-link switch-friends-link" href="http://www.ycjcl.cc/">信鑫</a>
-                    
-                      <a target="_blank"  class="main-nav-link switch-friends-link" href="http://bystudent.com/">ByStundet表哥</a>
-                    
-                      <a target="_blank"  class="main-nav-link switch-friends-link" href="https://www.jarviswang.me/">汪神_Jarvis</a>
-                    
-                      <a target="_blank"  class="main-nav-link switch-friends-link" href="http://sh3ll.me/">Chu</a>
-                    
-                      <a target="_blank"  class="main-nav-link switch-friends-link" href="https://www.hackfun.org/">4ido10n</a>
-                    
-                      <a target="_blank"  class="main-nav-link switch-friends-link" href="http://www.cnblogs.com/iamstudy">L3m0n</a>
-                    
-                      <a target="_blank"  class="main-nav-link switch-friends-link" href="http://o0xmuhe.me/">muhe</a>
-                    
-                      <a target="_blank"  class="main-nav-link switch-friends-link" href="http://blog.nuptzj.cn/">_画船听雨</a>
-                    
-                      <a target="_blank"  class="main-nav-link switch-friends-link" href="http://www.virzz.com/index.html">Virink</a>
-                    
-                      <a target="_blank"  class="main-nav-link switch-friends-link" href="http://www.sqlsec.com/">国光</a>
-                    
-                      <a target="_blank"  class="main-nav-link switch-friends-link" href="http://www.bodkin.ren/">老锥</a>
-                    
-                      <a target="_blank"  class="main-nav-link switch-friends-link" href="http://www.cizel.cn/">C1zel</a>
-                    
-                      <a target="_blank"  class="main-nav-link switch-friends-link" href="http://1phan.cc">1phan</a>
-                    
-                      <a target="_blank"  class="main-nav-link switch-friends-link" href="https://www.liuil.top/">liuil</a>
-                    
-                      <a target="_blank"  class="main-nav-link switch-friends-link" href="http://www.cnblogs.com/Ox9A82/">Ox9A82</a>
-                    
-                      <a target="_blank"  class="main-nav-link switch-friends-link" href="http://burnegg.com/">burnegg</a>
-                    
-                      <a target="_blank"  class="main-nav-link switch-friends-link" href="https://jwrsec.cn/">jwr-sec</a>
-                    
-                      <a target="_blank"  class="main-nav-link switch-friends-link" href="http://sudalover.cn/">苏打</a>
-                    
-                      <a target="_blank"  class="main-nav-link switch-friends-link" href="http://blog.binklac.com">VeroFess</a>
-                    
-                      <a target="_blank"  class="main-nav-link switch-friends-link" href="http://www.bendawang.site/">bendawang</a>
-                    
-                      <a target="_blank"  class="main-nav-link switch-friends-link" href="http://weeklyalgo.codes/">hook</a>
-                    
-                      <a target="_blank"  class="main-nav-link switch-friends-link" href="http://www.flier.net.cn/">Flier&#39;blog</a>
-                    
-                      <a target="_blank"  class="main-nav-link switch-friends-link" href="http://www.mutepig.club">mutepig</a>
-                    
-                      <a target="_blank"  class="main-nav-link switch-friends-link" href="https://blog.iret.xyz/list.aspx">Silver</a>
-                    
-                      <a target="_blank"  class="main-nav-link switch-friends-link" href="http://simp1e.leanote.com/">Simple</a>
-                    
-                      <a target="_blank"  class="main-nav-link switch-friends-link" href="http://processor.pub/">Processor</a>
-                    
-                    </div>
-                </section>
-                
-                
-                
-                <section class="switch-part switch-part4">
-                
-                    <div id="js-aboutme">一只淹死在二进制海洋里的二进制狗</div>
-                </section>
-                
-            </div>
-        </div>
-    </header>
+  <header id="header" class="inner"><div class="alignleft">
+  <h1><a href="/">Zhao, Chenqiu&#39; Blog</a></h1>
+  <h2><a href="/">Do What You Like, Like What You Do</a></h2>
 </div>
-
-    </div>
-    <div class="mid-col">
-      <nav id="mobile-nav">
-      <div class="overlay">
-          <div class="slider-trigger"></div>
-          <h1 class="header-author js-mobile-header hide"><a href="/" title="Me">Zhao, Chenqiu</a></h1>
-      </div>
-    <div class="intrude-less">
-        <header id="header" class="inner">
-            <a href="/" class="profilepic">
-                
-                    <img lazy-src="/img/head.jpg" class="js-avatar">
-                
-            </a>
-            <hgroup>
-              <h1 class="header-author"><a href="/" title="Me">Zhao, Chenqiu</a></h1>
-            </hgroup>
-            
-            <p class="header-subtitle">Do What You Like, Like What You Do</p>
-            
-            <nav class="header-menu">
-                <ul>
-                
-                    <li><a href="http://bestwing.me">博客首页</a></li>
-                
-                    <li><a href="/archives">文章归档</a></li>
-                
-                    <li><a href="/CTFStudy">学习导航</a></li>
-                
-                    <li><a href="/PWNABLE">PWNABLE</a></li>
-                
-                    <li><a href="/resume">个人简历</a></li>
-                
-                <div class="clearfix"></div>
-                </ul>
-            </nav>
-            <nav class="header-nav">
-                <div class="social">
-                    
-                        <a class="mail" target="_blank" href="http://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&email=kvH99PT39-Dn_efS5PvivOPjvPH9-w" title="mail">mail</a>
-                    
-                        <a class="github" target="_blank" href="https://github.com/WinMin" title="github">github</a>
-                    
-                        <a class="zhihu" target="_blank" href="https://www.zhihu.com/people/Swings" title="zhihu">zhihu</a>
-                    
-                        <a class="weibo" target="_blank" href="http://weibo.com/2672317963/profile?topnav=1&wvr=6&is_all=1" title="weibo">weibo</a>
-                    
-                        <a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
-                    
-                </div>
-            </nav>
-        </header>                
-    </div>
+<nav id="main-nav" class="alignright">
+  <ul>
+    
+      <li><a href="/">Home</a></li>
+    
+      <li><a href="/archives">Archives</a></li>
+    
+  </ul>
+  <div class="clearfix"></div>
 </nav>
-      <div class="body-wrap"><article id="post-config_vim" class="article article-type-post" itemscope itemprop="blogPost">
+<div class="clearfix"></div>
+</header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
   
-    <div class="article-meta">
-      <a href="/2015/09/11/config_vim/" class="article-date">
-      <time datetime="2015-09-11T13:27:01.000Z" itemprop="datePublished">2015-09-11</time>
-</a>
-    </div>
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2015-09-11T13:27:01.000Z"><a href="/2015/09/11/config_vim/">2015-09-11</a></time>
+      
+      
   
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="article-title" itemprop="name">
-      vim配置笔记
-    </h1>
+    <h1 class="title">vim配置笔记</h1>
   
 
-      </header>
+    </header>
+    <div class="entry">
       
-      <div class="article-info article-info-post">
-        
-
-        
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li></ul>
-    </div>
-
-        <div class="clearfix"></div>
-      </div>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
         <p>传说中的编辑器之神，我也终于算是入门了。记录下vim的配置，将其打造成炫酷的开发环境
 <a id="more"></a></p>
 <p>– 为了熟悉vim，来来回回折腾了也快一年了。作为传说中的编辑器之神，vim的扩展功能确实让人着迷。<strong>这里记录下我自己的
 vim配置，希望对喜欢vim的人有所帮助</strong> –</p>
-<h2 id="为什么要使用vim-？"><a href="#为什么要使用vim-？" class="headerlink" title="为什么要使用vim ？"></a>为什么要使用vim ？</h2><p>这个问题真的是太难回答了,不可否认，在实际项目的开发中，很少会用到vim。但vim就没用了么？答案肯定是否定的，毕竟那么多的高手最后都选择用vim而抛弃了IDE（当然也有用emacs）。stackoverflow上有一个回答vim的可以看<a href="http://stackoverflow.com/questions/597077/what-are-the-benefits-of-learning-vim" target="_blank" rel="external">这里</a>。此外，以前一个老师跟我说一句话，他说<strong>一切都是为了效率</strong>。我觉这句话回答了为什么要使用vim。vim确实很难上手，但是一旦上手，确实比IDE的效率要高。首先，你的双手可以一直不离开键盘。再者，vim的扩展性足以让他成为任何一个IDE。最后，IDE都是针对某一类特定的软件开发，他的效率高只是针对某一类软件，而对于其他类的软件效率就会降低，而vim因为他命令行的特性，其软件开发的类型，完全取决于开发者的配置。理论上vim可以开发任何类型的软件。</p>
-<h2 id="看完这篇博文你能得到什么？"><a href="#看完这篇博文你能得到什么？" class="headerlink" title="看完这篇博文你能得到什么？"></a>看完这篇博文你能得到什么？</h2><p>这篇博文记录我的vim配置过程。其中包括我希望达到的效果和所使用的方法。对想学vim但又不知道怎么入手的人有很大的帮助。当然，如果是高手就请不要笑话我了</p>
-<h2 id="我的vim配置"><a href="#我的vim配置" class="headerlink" title="我的vim配置"></a>我的vim配置</h2><p>我的vim是在cygwin下安装的,但是和普通的vim是几乎一样的。先截一张我的vim的效果图：
+<h2 id="为什么要使用vim_？">为什么要使用vim ？</h2><p>这个问题真的是太难回答了,不可否认，在实际项目的开发中，很少会用到vim。但vim就没用了么？答案肯定是否定的，毕竟那么多的高手最后都选择用vim而抛弃了IDE（当然也有用emacs）。stackoverflow上有一个回答vim的可以看<a href="http://stackoverflow.com/questions/597077/what-are-the-benefits-of-learning-vim" target="_blank" rel="external">这里</a>。此外，以前一个老师跟我说一句话，他说<strong>一切都是为了效率</strong>。我觉这句话回答了为什么要使用vim。vim确实很难上手，但是一旦上手，确实比IDE的效率要高。首先，你的双手可以一直不离开键盘。再者，vim的扩展性足以让他成为任何一个IDE。最后，IDE都是针对某一类特定的软件开发，他的效率高只是针对某一类软件，而对于其他类的软件效率就会降低，而vim因为他命令行的特性，其软件开发的类型，完全取决于开发者的配置。理论上vim可以开发任何类型的软件。</p>
+<h2 id="看完这篇博文你能得到什么？">看完这篇博文你能得到什么？</h2><p>这篇博文记录我的vim配置过程。其中包括我希望达到的效果和所使用的方法。对想学vim但又不知道怎么入手的人有很大的帮助。当然，如果是高手就请不要笑话我了</p>
+<h2 id="我的vim配置">我的vim配置</h2><p>我的vim是在cygwin下安装的,但是和普通的vim是几乎一样的。先截一张我的vim的效果图：
 <img src="http://i3.tietuku.com/903bf9b97b34ff5d.png" alt="效果截图"></p>
-<h3 id="vim-基本配置"><a href="#vim-基本配置" class="headerlink" title="vim 基本配置"></a>vim 基本配置</h3><p>这一段介绍vim的一些基本配置，包括一些简单的vim语法。
+<h3 id="vim_基本配置">vim 基本配置</h3><p>这一段介绍vim的一些基本配置，包括一些简单的vim语法。
 首先是一些外观上的设置，显示行号</p>
-<pre><code>set number
+<pre><code><span class="keyword">set</span> <span class="type">number</span>
 </code></pre><p>打开语法高亮</p>
-<pre><code>syntax on
+<pre><code>syntax <span class="function_start"><span class="keyword">on</span></span>
 </code></pre><p>设置tab键位的空格为4格，启动自动缩进，只能缩进</p>
-<pre><code>set tabstop=4
-set shiftwidth=4
-set softtabstop=4
-set autoindent    &quot;always set autoindenting on&quot;
-set smartindent    &quot;set smart indent&quot;
-set smarttab    &quot;use tabs at the start of a line, spaces elsewhere&quot;
+<pre><code><span class="built_in">set</span> tabstop=<span class="number">4</span>
+<span class="built_in">set</span> shiftwidth=<span class="number">4</span>
+<span class="built_in">set</span> softtabstop=<span class="number">4</span>
+<span class="built_in">set</span> autoindent    <span class="string">"always set autoindenting on"</span>
+<span class="built_in">set</span> smartindent    <span class="string">"set smart indent"</span>
+<span class="built_in">set</span> smarttab    <span class="string">"use tabs at the start of a line, spaces elsewhere"</span>
 </code></pre><p>不生成临时文件</p>
-<pre><code>set foldmethod=marker
-set noswapfile
-set nowritebackup
-set nobackup
+<pre><code><span class="keyword">set</span> foldmethod=marker
+<span class="keyword">set</span> noswapfile
+<span class="keyword">set</span> nowritebackup
+<span class="keyword">set</span> nobackup
 </code></pre><p>设置行折叠,当然也有不折叠的</p>
-<pre><code>set wrap
-set nowrap
+<pre><code><span class="built_in">set</span> <span class="operator">wrap</span>
+<span class="built_in">set</span> nowrap
 </code></pre><p>之后加一个自动换行,其中，<code>tw</code>的意思是textwidth</p>
-<pre><code>set tw=72
+<pre><code><span class="built_in">set</span> tw=<span class="number">72</span>
 </code></pre><p>接着是一个比较蛋疼的，vim的编码环境。</p>
-<pre><code>&quot; =====================
-&quot; 多语言环境
-&quot; 默认为 UTF-8 编码
-&quot; =====================
-if has(&quot;multi_byte&quot;)
-    set encoding=utf-8
-    &quot; English messages only
-    &quot;language messages zh_CN.utf-8
+<pre><code><span class="string">" =====================
+</span><span class="string">" 多语言环境
+</span><span class="string">" 默认为 UTF-8 编码
+</span><span class="string">" =====================
+</span><span class="keyword">if</span> <span class="built_in">has</span>(<span class="string">"multi_byte"</span>)
+    <span class="keyword">set</span> encoding=utf-<span class="number">8</span>
+    <span class="string">" English messages only
+</span>    <span class="string">"language messages zh_CN.utf-8
+</span>
+    <span class="keyword">if</span> <span class="built_in">has</span>(<span class="string">'win32'</span>)
+        <span class="keyword">language</span> english
+        <span class="keyword">let</span> &amp;termencoding=&amp;encoding
+    <span class="keyword">endif</span>
 
-    if has(&apos;win32&apos;)
-        language english
-        let &amp;termencoding=&amp;encoding
-    endif
-
-    set fencs=ucs-bom,utf-8,gbk,cp936,latin1
-    set formatoptions+=mM
-    set nobomb &quot; 不使用 Unicode 签名
-
-    if v:lang =~? &apos;^\(zh\)\|\(ja\)\|\(ko\)&apos;
-        set ambiwidth=double
-    endif
-else
-    echoerr &quot;Sorry, this version of (g)vim was not compiled with +multi_byte&quot;
-endif
+    <span class="keyword">set</span> fencs=ucs-bom,utf-<span class="number">8</span>,gbk,cp936,latin1
+    <span class="keyword">set</span> formatoptions+=mM
+    <span class="keyword">set</span> nobomb <span class="string">" 不使用 Unicode 签名
+</span>
+    <span class="keyword">if</span> <span class="variable">v:lang</span> =~? <span class="string">'^\(zh\)\|\(ja\)\|\(ko\)'</span>
+        <span class="keyword">set</span> ambiwidth=double
+    <span class="keyword">endif</span>
+<span class="keyword">else</span>
+    <span class="keyword">echoerr</span> <span class="string">"Sorry, this version of (g)vim was not compiled with +multi_byte"</span>
+<span class="keyword">endif</span>
 </code></pre><p>最后加上一个刻有可无的功能，高亮当前行和列</p>
-<pre><code>set cursorline
-hi CursorLine   cterm=NONE ctermbg=darkred ctermfg=white guibg=darkred guifg=white
+<pre><code><span class="built_in">set</span> cursorline
+hi CursorLine   cterm=<span class="literal">NONE</span> ctermbg=darkred ctermfg=white guibg=darkred guifg=white
 
-set cursorcolumn
-hi CursorColumn cterm=NONE ctermbg=darkred ctermfg=white guibg=darkred guifg=white
+<span class="built_in">set</span> cursorcolumn
+hi CursorColumn cterm=<span class="literal">NONE</span> ctermbg=darkred ctermfg=white guibg=darkred guifg=white
 </code></pre><p>至此，vim的基本配置已经完成了。</p>
-<h3 id="代码自动补全"><a href="#代码自动补全" class="headerlink" title="代码自动补全"></a>代码自动补全</h3><p>vim补全的快捷键是<code>ctrl+p</code>.虽然我不是很喜欢插件，但补全确认是装插件比较好。我用的插件是neocomplete.这里直接介绍下载，安装方法。关于他的介绍可以看<a href="https://github.com/Shougo/neocomplete.vim" target="_blank" rel="external">这里</a>首先下载neocomplete，<a href="https://github.com/Shougo/neocomplete.vim" target="_blank" rel="external">下载地址</a>下载好了之后，只需要把<code>autoload</code>和<code>plugin</code>两个文件夹方法vim的安装目录去就可以了。直接拷贝。安装之后，还需要进行vim的配置。最简单的配置方法是</p>
-<pre><code>let g:neocomplcache_enable_quick_match = 1
+<h3 id="代码自动补全">代码自动补全</h3><p>vim补全的快捷键是<code>ctrl+p</code>.虽然我不是很喜欢插件，但补全确认是装插件比较好。我用的插件是neocomplete.这里直接介绍下载，安装方法。关于他的介绍可以看<a href="https://github.com/Shougo/neocomplete.vim" target="_blank" rel="external">这里</a>首先下载neocomplete，<a href="https://github.com/Shougo/neocomplete.vim" target="_blank" rel="external">下载地址</a>下载好了之后，只需要把<code>autoload</code>和<code>plugin</code>两个文件夹方法vim的安装目录去就可以了。直接拷贝。安装之后，还需要进行vim的配置。最简单的配置方法是</p>
+<pre><code><span class="built_in">let</span> g:neocomplcache_<span class="built_in">enable</span>_quick_match = <span class="number">1</span>
 </code></pre><p>当然，neocomplete的作者也给出他的配置，如果没有特殊的需求是可以直接用的，需要的人可以看<a href="http://foocoder.com/blog/mei-ri-vimcha-jian-qiang-da-de-zi-dong-bu-quan-neocomplete-dot-vim.html/" target="_blank" rel="external">这里</a>或者<a href="https://github.com/Shougo/neocomplete.vim" target="_blank" rel="external">这里</a>这样代码的自动补全功能已经完成。但是如果自己配过的人一定已经发现，这个补全功能的配置巨丑无比。所以要再增加两行补全窗口的配置方案。</p>
-<pre><code>highlight Pmenu  ctermbg=darkgrey ctermfg=black    guibg=darkgrey  guifg=black
-highlight PmenuSel guibg=lightgrey guifg=black
+<pre><code>highlight Pmenu  ctermbg=darkgrey ctermfg=<span class="keyword">black</span>    guibg=darkgrey  guifg=<span class="keyword">black</span>
+highlight PmenuSel guibg=lightgrey guifg=<span class="keyword">black</span>
 </code></pre><p>其中<code>Pmenu</code>就是补全弹出的窗口，而<code>PmenuSel</code>就是选择的窗口。<code>ctermbg</code>和
 <code>ctermfg</code>就是前景和背景颜色。</p>
-<h3 id="一键编译运行"><a href="#一键编译运行" class="headerlink" title="一键编译运行"></a>一键编译运行</h3><p>一键编译运行有很多中实现方式，我是利用两个bat实现编译和运行。<code>build.bat</code>和<code>run.bat</code>.当然linux下利用shell就行了。我的环境是win8，所以利用bat。而一键编译运行就变成了在vim中一键执行<code>build.bat</code>和<code>run.bat</code>.首先是两个执行函数。</p>
-<pre><code>func! Run() 
-    exec &apos;w&apos;
-    exec &apos;!./run.bat&apos;    
-endfunc
+<h3 id="一键编译运行">一键编译运行</h3><p>一键编译运行有很多中实现方式，我是利用两个bat实现编译和运行。<code>build.bat</code>和<code>run.bat</code>.当然linux下利用shell就行了。我的环境是win8，所以利用bat。而一键编译运行就变成了在vim中一键执行<code>build.bat</code>和<code>run.bat</code>.首先是两个执行函数。</p>
+<pre><code><span class="function"><span class="keyword">func</span>! <span class="title">Run</span><span class="params">()</span> </span>
+    exec <span class="string">'w'</span>
+    exec <span class="string">'!./run.bat'</span>    
+<span class="keyword">endfunc</span>
 
-func! Complie()
-    exec &apos;w&apos;
-    exec &apos;!./build.bat&apos;
-endfunc
+<span class="function"><span class="keyword">func</span>! <span class="title">Complie</span><span class="params">()</span></span>
+    exec <span class="string">'w'</span>
+    exec <span class="string">'!./build.bat'</span>
+<span class="keyword">endfunc</span>
 </code></pre><p>接着就是两个键位映射操作</p>
-<pre><code>map &lt;f5&gt; :call Run()&lt;CR&gt;
-map &lt;f7&gt; :call Complie()&lt;CR&gt;
+<pre><code>map &lt;f5&gt; :call <span class="function"><span class="title">Run</span><span class="params">()</span></span>&lt;CR&gt;
+map &lt;f7&gt; :call <span class="function"><span class="title">Complie</span><span class="params">()</span></span>&lt;CR&gt;
 </code></pre><p>我的编译和运行分别是<code>F7</code>和<code>F5</code></p>
-<h3 id="黑客帝国"><a href="#黑客帝国" class="headerlink" title="黑客帝国"></a>黑客帝国</h3><p>首先声明，这不是我写的，是抄的网上的。介于可能很多同学用不了谷歌，所以我把结果直接贴上，原文在<a href="https://www.google.com/webhp?sourceid=chrome-instant&amp;ion=1&amp;espv=2&amp;ie=UTF-8#q=matrix.vim" target="_blank" rel="external">这里</a>需翻墙.下面这段直接贴进去，然后按F11就可以执行了。附上一张效果图
+<h3 id="黑客帝国">黑客帝国</h3><p>首先声明，这不是我写的，是抄的网上的。介于可能很多同学用不了谷歌，所以我把结果直接贴上，原文在<a href="https://www.google.com/webhp?sourceid=chrome-instant&amp;ion=1&amp;espv=2&amp;ie=UTF-8#q=matrix.vim" target="_blank" rel="external">这里</a>需翻墙.下面这段直接贴进去，然后按F11就可以执行了。附上一张效果图
 <img src="http://i3.tietuku.com/65e1e7a6841adf0f.jpg" alt="黑客帝国"></p>
 <pre><code>function! s:Rand()
    let b:seed = b:seed * 22695477 + 1
-   if b:seed &lt; 0
-      return -b:seed
+   <span class="keyword">if</span> b:seed &lt; 0
+      <span class="keyword">return</span> -b:seed
    endif
-   return b:seed
+   <span class="keyword">return</span> b:seed
 endfunction
 
 function! s:CreateObject(i)
-   while 1
+   <span class="keyword">while</span> 1
       let b:x{a:i} = s:Rand() % b:columns
-      if b:reserve{b:x{a:i}} &gt; 4
-         break
+      <span class="keyword">if</span> b:reserve{b:x{a:i}} &gt; 4
+         <span class="keyword">break</span>
       endif
    endwhile
    let b:y{a:i} = 1
    let b:t{a:i} = s:Rand() % b:s{b:x{a:i}}
    let b:head{a:i} = s:Rand() % 4
-   let b:len{a:i} = s:Rand() % b:h + 3
+   let b:len{a:i} = s:Rand() % b:<span class="keyword">h</span> + 3
    let b:reserve{b:x{a:i}} = 1 - b:len{a:i}
 endfunction
 
@@ -483,44 +172,44 @@ function! s:DrawObject(i)
    let x = b:x{a:i} * 2 + 1
    let y = b:y{a:i}
 
-   &quot; Draw head
-   if y &lt;= b:h
-      if b:head{a:i}
-         silent! exec &apos;norm! :&apos; . y . nr2char(13) . x . &apos;|R&apos; . b:d[s:Rand()%b:dl] . &apos;_&apos; . nr2char(27)
-         if y &gt; 1
-            silent! exec &apos;norm! kR&apos; . ((s:Rand() % 2) ? &apos;`&apos; : &apos; &apos;) . nr2char(27)
+   " Draw head
+   <span class="keyword">if</span> y &lt;= b:<span class="literal">h</span>
+      <span class="keyword">if</span> b:head{a:i}
+         silent! exec 'norm! :' . y . nr2char(13) . x . '|R' . b:<span class="keyword">d</span>[s:Rand()%b:dl] . '_' . nr2char(27)
+         <span class="keyword">if</span> y &gt; 1
+            silent! exec 'norm! kR' . ((s:Rand() % 2) ? '`' : ' ') . nr2char(27)
          endif
-      else
-         let a = ((s:Rand() % 2) ? &apos;`&apos; : &apos; &apos;) . nr2char(27)
-         silent! exec &apos;norm! :&apos;. y . nr2char(13) . x . &apos;|R&apos; . b:d[s:Rand() % b:dl] . a
+      <span class="keyword">else</span>
+         let a = ((s:Rand() % 2) ? '`' : ' ') . nr2char(27)
+         silent! exec 'norm! :'. y . nr2char(13) . x . '|R' . b:<span class="keyword">d</span>[s:Rand() % b:dl] . a
       endif
-   else
-      if b:head{a:i} &amp;&amp; y == b:h + 1
-         silent! exec &apos;norm! :&apos; . b:h . nr2char(13) . (x + 1) . &apos;|R&apos; . ((s:Rand() % 2) ? &apos;`&apos; : &apos; &apos;) . nr2char(27)
+   <span class="keyword">else</span>
+      <span class="keyword">if</span> b:head{a:i} &amp;&amp; y == b:<span class="keyword">h</span> + 1
+         silent! exec 'norm! :' . b:<span class="keyword">h</span> . nr2char(13) . (x + 1) . '|R' . ((s:Rand() % 2) ? '`' : ' ') . nr2char(27)
       endif
    endif
 
-   &quot; Draw tail
+   " Draw tail
    let y = y - b:len{a:i}
-   if 1 &lt;= y &amp;&amp; y &lt;= b:h
-      silent! exec &apos;norm! :&apos;. y . nr2char(13) . x . &apos;|R  &apos; . nr2char(27)
+   <span class="keyword">if</span> 1 &lt;= y &amp;&amp; y &lt;= b:<span class="literal">h</span>
+      silent! exec 'norm! :'. y . nr2char(13) . x . '|R  ' . nr2char(27)
    endif
-   let b:reserve{b:x{a:i}} = y
+   let b:reserve{b:x{a:i}} = <span class="literal">y</span>
 endfunction
 
 function! s:Animate()
    let i = 0
 
-   while i &lt; b:objcount
-      &quot; Animate object
-      if b:t{i} &lt;= 0
-         if b:y{i} - b:len{i} &lt;= b:h
-            &quot; Draw
+   <span class="keyword">while</span> i &lt; b:objcount
+      " Animate object
+      <span class="keyword">if</span> b:t{i} &lt;= 0
+         <span class="keyword">if</span> b:y{i} - b:len{i} &lt;= b:<span class="literal">h</span>
+            " Draw
             call s:DrawObject(i)
             let b:t{i} = b:s{b:x{i}}
             let b:y{i} = b:y{i} + 1
-         else
-            &quot; Regenerate
+         <span class="keyword">else</span>
+            " Regenerate
             call s:CreateObject(i)
          endif
       endif
@@ -529,115 +218,115 @@ function! s:Animate()
       let i = i + 1
    endwhile
    redraw
-   if getchar(1)
-      let b:run = 0
+   <span class="keyword">if</span> getchar(1)
+      let b:<span class="keyword">run</span> = 0
    endif
-   sleep 20m
+   <span class="keyword">sleep</span> 20m
 endfunction
 
 function! s:Reset()
-   &quot; Clear screen
+   " <span class="keyword">Clear</span> screen
    let b:w = winwidth(0)
-   let b:h = winheight(0)
-   exec &apos;norm! gg&quot;_dG&apos; . b:h . &apos;O&apos; . nr2char(27) . &apos;gg&apos;
+   let b:<span class="keyword">h</span> = winheight(0)
+   exec 'norm! gg"_dG' . b:<span class="keyword">h</span> . 'O' . nr2char(27) . 'gg'
    redraw
-   if b:w &lt; 10 || b:h &lt; 8
-      let b:run = 0
-      return
+   <span class="keyword">if</span> b:w &lt; 10 || b:<span class="keyword">h</span> &lt; 8
+      let b:<span class="keyword">run</span> = 0
+      <span class="literal">return</span>
    endif
 
-   &quot; Set number of columns.  This is rounded down due to line wrapping
-   &quot; at the last column if the screen width is even.  So you end up
-   &quot; seeing the cursor blinking a lot at the right side of the screen.
-   &quot; Alternatively, &apos;:set rl&apos; before running the script to have it
-   &quot; blink on the left side.
+   " <span class="keyword">Set</span> number of columns.  This is rounded down due to <span class="keyword">line</span> wrapping
+   " at the last column <span class="keyword">if</span> the screen width is even.  <span class="keyword">So</span> you end up
+   " seeing the cursor blinking a lot at the right side of the screen.
+   " Alternatively, ':<span class="keyword">set</span> rl' before running the script to have it
+   " blink <span class="keyword">on</span> the left side.
    let b:columns = (b:w - 1) / 2
 
-   &quot; Initialize columns.
+   " Initialize columns.
    let i = 0
-   while i &lt; b:columns
-      &quot; Set delay time.  Each column gets the same delay time.
+   <span class="keyword">while</span> i &lt; b:columns
+      " <span class="keyword">Set</span> delay time.  Each column gets the same delay time.
       let b:s{i} = s:Rand() % (s:maxdelay - s:mindelay) + s:mindelay
 
-      &quot; Unreserve column
-      let b:reserve{i} = b:h
+      " Unreserve column
+      let b:reserve{i} = b:<span class="literal">h</span>
       let i = i + 1
    endwhile
 
-   &quot; Initialize objects
+   " Initialize objects
    let b:objcount = b:columns - 2
    let i = 0
-   while i &lt; b:objcount
+   <span class="keyword">while</span> i &lt; b:objcount
       call s:CreateObject(i)
       let i = i + 1
    endwhile
 endfunction
 
 function! s:Init()
-   &quot; Create new buffer and hide the existing buffers.  Hiding the
-   &quot; existing buffers without switching to a new buffer preserves
-   &quot; undo history.
-   exec &apos;mksession! &apos; . s:session_file
-   let s:num_orig_win = winnr(&quot;$&quot;)
+   " Create new buffer and hide the existing buffers.  Hiding the
+   " existing buffers without switching to a new buffer preserves
+   " undo history.
+   exec 'mksession! ' . s:session_file
+   let s:num_orig_win = winnr(<span class="string">"$"</span>)
 
-   &quot; move to top window, so created window will become window 1,
-   &quot; then attempt to create new window
-   1 wincmd w
+   " <span class="keyword">move</span> to top <span class="keyword">window</span>, <span class="keyword">so</span> created <span class="keyword">window</span> will become <span class="keyword">window</span> 1,
+   " then attempt to create new <span class="keyword">window</span>
+   1 wincmd <span class="literal">w</span>
    silent! new
 
-   &quot; check that there really is an additional window
-   if winnr(&quot;$&quot;) != s:num_orig_win + 1
-      return 1
+   " check that there really is <span class="keyword">an</span> additional <span class="keyword">window</span>
+   <span class="keyword">if</span> winnr(<span class="string">"$"</span>) != s:num_orig_win + 1
+      <span class="keyword">return</span> 1
    endif
-   let s:newbuf = bufnr(&apos;%&apos;)
+   let s:newbuf = bufnr('%')
 
-   &quot; close all but window 1, which is the new window
+   " <span class="keyword">close</span> all but <span class="keyword">window</span> 1, <span class="keyword">which</span> is the new <span class="keyword">window</span>
    only
 
-   setl bh=delete bt=nofile ma nolist nonu noro noswf tw=0 nowrap
+   setl bh=delete bt=nofile <span class="keyword">ma</span> nolist nonu noro noswf <span class="keyword">tw</span>=0 nowrap
 
-   &quot; Set GUI options
-   if has(&apos;gui&apos;)
+   " <span class="keyword">Set</span> GUI options
+   <span class="keyword">if</span> has('gui')
       let s:o_gcr = &amp;gcr
       let s:o_go = &amp;go
-      set gcr=a:ver1-blinkon0 go=
+      <span class="keyword">set</span> gcr=a:ver1-blinkon0 go=
    endif
-   if has(&apos;cmdline_info&apos;)
-      let s:o_ru = &amp;ru
-      let s:o_sc = &amp;sc
-      set noru nosc
+   <span class="keyword">if</span> has('cmdline_info')
+      let s:o_ru = &amp;<span class="keyword">ru</span>
+      let s:o_sc = &amp;<span class="keyword">sc</span>
+      <span class="keyword">set</span> noru nosc
    endif
-   if has(&apos;title&apos;)
+   <span class="keyword">if</span> has('title')
       let s:o_ts = &amp;titlestring
-      exec &apos;set titlestring=\ &apos;
+      exec '<span class="keyword">set</span> titlestring=\ '
    endif
-   if v:version &gt;= 700
+   <span class="keyword">if</span> v:<span class="keyword">version</span> &gt;= 700
       let s:o_spell = &amp;spell
       let s:o_cul = &amp;cul
       let s:o_cuc = &amp;cuc
-      set nospell nocul nocuc
+      <span class="keyword">set</span> nospell nocul nocuc
    endif
    let s:o_ch = &amp;ch
-   let s:o_ls = &amp;ls
+   let s:o_ls = &amp;<span class="keyword">ls</span>
    let s:o_lz = &amp;lz
    let s:o_siso = &amp;siso
    let s:o_sm = &amp;sm
    let s:o_smd = &amp;smd
-   let s:o_so = &amp;so
+   let s:o_so = &amp;<span class="keyword">so</span>
    let s:o_ve = &amp;ve
-   set ch=1 ls=0 lz nosm nosmd siso=0 so=0 ve=all
+   <span class="keyword">set</span> ch=1 <span class="keyword">ls</span>=0 lz nosm nosmd siso=0 <span class="keyword">so</span>=0 ve=all
 
-   &quot; Initialize PRNG
+   " Initialize PRNG
    let b:seed = localtime()
-   let b:run = 1
+   let b:<span class="keyword">run</span> = 1
 
-   &quot; Clear screen and initialize objects
+   " <span class="keyword">Clear</span> screen and initialize objects
    call s:Reset()
 
-   &quot; Set colors.  Output looks better if your color scheme has black
-   &quot; background.  I would rather not have the script change the
-   &quot; current color scheme since there is no good way to restore them
-   &quot; afterwards.
+   " <span class="keyword">Set</span> colors.  Output looks better <span class="keyword">if</span> your color scheme has black
+   " background.  I would rather not have the script change the
+   " current color scheme since there is <span class="keyword">no</span> good way to <span class="keyword">restore</span> them
+   " afterwards.
    hi MatrixHidden ctermfg=Black ctermbg=Black guifg=#000000 guibg=#000000
    hi MatrixNormal ctermfg=DarkGreen ctermbg=Black guifg=#008000 guibg=#000000
    hi MatrixBold ctermfg=LightGreen ctermbg=Black guifg=#00ff00 guibg=#000000
@@ -648,72 +337,72 @@ function! s:Init()
    sy match MatrixBold contained /.\(`\)\@=/
    sy match MatrixHead contained /.\(_\)\@=/
 
-   &quot; Create random char dictionary
-   let b:d = &apos;&apos;
+   " Create random <span class="keyword">char</span> dictionary
+   let b:<span class="keyword">d</span> = ''
    let i = 33
-   while i &lt; 127
-      if i != 95 &amp;&amp; i != 96
-         let b:d = b:d . nr2char(i)
+   <span class="keyword">while</span> i &lt; 127
+      <span class="keyword">if</span> i != 95 &amp;&amp; i != 96
+         let b:<span class="keyword">d</span> = b:<span class="keyword">d</span> . nr2char(i)
       endif
       let i = i + 1
    endwhile
-   let b:dl = strlen(b:d)
-   return 0
+   let b:dl = <span class="literal">strlen</span>(b:<span class="keyword">d</span>)
+   <span class="keyword">return</span> 0
 endfunction
 
 function! s:Cleanup()
-   &quot; Restore options
-   if has(&apos;gui&apos;)
+   " <span class="keyword">Restore</span> options
+   <span class="keyword">if</span> has('gui')
       let &amp;gcr = s:o_gcr
       let &amp;go = s:o_go
       unlet s:o_gcr s:o_go
    endif
-   if has(&apos;cmdline_info&apos;)
-      let &amp;ru = s:o_ru
-      let &amp;sc = s:o_sc
+   <span class="keyword">if</span> has('cmdline_info')
+      let &amp;<span class="keyword">ru</span> = s:o_ru
+      let &amp;<span class="keyword">sc</span> = s:o_sc
       unlet s:o_ru s:o_sc
    endif
-   if has(&apos;title&apos;)
+   <span class="keyword">if</span> has('title')
       let &amp;titlestring = s:o_ts
       unlet s:o_ts
    endif
-   if v:version &gt;= 700
+   <span class="keyword">if</span> v:<span class="keyword">version</span> &gt;= 700
       let &amp;spell = s:o_spell
       let &amp;cul = s:o_cul
       let &amp;cuc = s:o_cuc
       unlet s:o_cul s:o_cuc
    endif
    let &amp;ch = s:o_ch
-   let &amp;ls = s:o_ls
+   let &amp;<span class="keyword">ls</span> = s:o_ls
    let &amp;lz = s:o_lz
    let &amp;siso = s:o_siso
    let &amp;sm = s:o_sm
    let &amp;smd = s:o_smd
-   let &amp;so = s:o_so
+   let &amp;<span class="keyword">so</span> = s:o_so
    let &amp;ve = s:o_ve
    unlet s:o_ch s:o_ls s:o_lz s:o_siso s:o_sm s:o_smd s:o_so s:o_ve
 
-   &quot; Restore old buffers
-   exec &apos;source &apos; . s:session_file
-   exec &apos;bwipe &apos; . s:newbuf
+   " <span class="keyword">Restore</span> old buffers
+   exec 'source ' . s:session_file
+   exec 'bwipe ' . s:newbuf
    unlet s:newbuf
 
-   &quot; Clear keystroke
+   " <span class="keyword">Clear</span> keystroke
    let c = getchar(0)
 endfunction
 
-function! Matrix()
-   if s:Init()
+function! <span class="literal">Matrix</span>()
+   <span class="keyword">if</span> s:Init()
       echohl ErrorMsg
-      echon &apos;Can not create window&apos;
+      echon 'Can not create <span class="keyword">window</span>'
       echohl None
-      return
+      <span class="literal">return</span>
    endif
 
-   while b:run
-      if b:w != winwidth(0) || b:h != winheight(0)
+   <span class="keyword">while</span> b:<span class="keyword">run</span>
+      <span class="keyword">if</span> b:w != winwidth(0) || b:<span class="keyword">h</span> != winheight(0)
          call s:Reset()
-      else
+      <span class="keyword">else</span>
          call s:Animate()
       endif
    endwhile
@@ -722,326 +411,134 @@ function! Matrix()
 endfunction
 
 
-if !has(&apos;virtualedit&apos;) || !has(&apos;windows&apos;) || !has(&apos;syntax&apos;)
+<span class="keyword">if</span> !has('virtualedit') || !has('windows') || !has('<span class="keyword">syntax</span>')
    echohl ErrorMsg
-   echon &apos;Not enough features, need at least +virtualedit, +windows and +syntax&apos;
+   echon 'Not enough features, need at least +virtualedit, +windows and +<span class="keyword">syntax</span>'
    echohl None
-else
-   command! Matrix call Matrix()
+<span class="keyword">else</span>
+   command! <span class="keyword">Matrix</span> call <span class="literal">Matrix</span>()
 endif
 
-map &lt;f11&gt; :call Matrix()&lt;CR&gt;
+map &lt;f11&gt; :call <span class="literal">Matrix</span>()&lt;CR&gt;
 </code></pre>
       
-      
-        <div class="page-reward">
-          <p><a href="javascript:void(0)" onclick="dashangToggle()" class="dashang">赏</a></p>
-          <div class="hide_box"></div>
-          <div class="shang_box">
-            <a class="shang_close" href="javascript:void(0)" onclick="dashangToggle()">×</a>
-            <div class="shang_tit">
-              <p>纯属好玩</p>
-            </div>
-            <div class="shang_payimg">
-              <img src="/img/alipayimg.jpg" alt="扫码支持" title="扫一扫" />
-            </div>
-              <div class="pay_explain">扫码打赏，你说多少就多少</div>
-            <div class="shang_payselect">
-              
-                <div class="pay_item checked" data-id="alipay">
-                  <span class="radiobox"></span>
-                  <span class="pay_logo"><img src="/img/alipay.png" alt="支付宝" /></span>
-                </div>
-              
-              
-                <div class="pay_item" data-id="wechat">
-                  <span class="radiobox"></span>
-                  <span class="pay_logo"><img src="/img/weixin.png" alt="微信" /></span>
-                </div>
-              
-            </div>
-            <div class="shang_info">
-              <p>打开<span id="shang_pay_txt">支付宝</span>扫一扫，即可进行扫码打赏哦</p>
-            </div>
-          </div>
-        </div>
-        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/zepto/1.2.0/zepto.min.js"></script>
-        <script type="text/javascript">
-          $(".pay_item").click(function(){
-            $(this).addClass('checked').siblings('.pay_item').removeClass('checked');
-            var dataid=$(this).attr('data-id');
-            $(".shang_payimg img").attr("src","/img/"+dataid+"img.jpg");
-            $("#shang_pay_txt").text(dataid=="alipay"?"支付宝":"微信");
-          });
-          function dashangToggle(){
-            
-            $(".hide_box").fadeToggle();
-            $(".shang_box").fadeToggle();
-          }
-        </script>
-      
     </div>
-    
+    <footer>
+      
+        
+        
+  
+  <div class="tags">
+    <a href="/tags/Linux/">Linux</a>
   </div>
-  
+
+        
+  <div class="addthis addthis_toolbox addthis_default_style">
     
-    <div class="copyright">
-        <p><span>本文标题:</span><a href="/2015/09/11/config_vim/">vim配置笔记</a></p>
-        <p><span>文章作者:</span><a href="/" title="访问 Zhao, Chenqiu 的个人博客">Zhao, Chenqiu</a></p>
-        <p><span>发布时间:</span>2015年09月11日 - 21时27分</p>
-        <p><span>最后更新:</span>2018年02月06日 - 13时44分</p>
-        <p>
-            <span>原始链接:</span><a class="post-url" href="/2015/09/11/config_vim/" title="vim配置笔记">http://yoursite.com/2015/09/11/config_vim/</a>
-            <span class="copy-path" data-clipboard-text="原文: http://yoursite.com/2015/09/11/config_vim/　　作者: Zhao, Chenqiu" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
-            <script src="/js/clipboard.min.js"></script>
-            <script> var clipboard = new Clipboard('.copy-path'); </script>
-        </p>
-        <p>
-            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" title="中国大陆 (CC BY-NC-SA 3.0 CN)" target = "_blank">"署名-非商用-相同方式共享 3.0"</a> 转载请保留原文链接及作者。
-        </p>
-    </div>
+      <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
+    
+    
+      <a class="addthis_button_tweet"></a>
+    
+    
+      <a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
+    
+    
+      <a class="addthis_button_pinterest_pinit" pi:pinit:layout="horizontal"></a>
+    
+    <a class="addthis_counter addthis_pill_style"></a>
+  </div>
+  <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js"></script>
 
-
-
-<nav id="article-nav">
-  
-    <a href="/2015/09/16/twoSum/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption"><</strong>
-      <div class="article-nav-title">
-        
-          leetcode Two Sum
-        
-      </div>
-    </a>
-  
-  
-    <a href="/2014/12/30/mathjax/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">MathJax示例</div>
-      <strong class="article-nav-caption">></strong>
-    </a>
-  
-</nav>
-
-  
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
 </article>
 
-    <div id="toc" class="toc-article">
-    <strong class="toc-title">文章目录</strong>
-    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#为什么要使用vim-？"><span class="toc-number">1.</span> <span class="toc-text">为什么要使用vim ？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#看完这篇博文你能得到什么？"><span class="toc-number">2.</span> <span class="toc-text">看完这篇博文你能得到什么？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#我的vim配置"><span class="toc-number">3.</span> <span class="toc-text">我的vim配置</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#vim-基本配置"><span class="toc-number">3.1.</span> <span class="toc-text">vim 基本配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#代码自动补全"><span class="toc-number">3.2.</span> <span class="toc-text">代码自动补全</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#一键编译运行"><span class="toc-number">3.3.</span> <span class="toc-text">一键编译运行</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#黑客帝国"><span class="toc-number">3.4.</span> <span class="toc-text">黑客帝国</span></a></li></ol></li></ol>
-</div>
-<input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
 
-<script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<section id="comment">
+  <h1 class="title">留言</h1>
+
+  
+      <div id="fb-root"></div>
 <script>
-    var valueHide = "隐藏目录";
-    var valueShow = "显示目录";
-
-    if ($(".left-col").is(":hidden")) {
-        $("#tocButton").attr("value", valueShow);
-    }
-    $("#tocButton").click(function() {
-        if ($("#toc").is(":hidden")) {
-            $("#tocButton").attr("value", valueHide);
-            $("#toc").slideDown(320);
-        }
-        else {
-            $("#tocButton").attr("value", valueShow);
-            $("#toc").slideUp(350);
-        }
-    })
-    if ($(".toc").length < 1) {
-        $("#toc, #tocButton").hide();
-    }
+  (function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=123456789012345";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
 </script>
 
-
-
-
-
-<div class="bdsharebuttonbox">
-	<a href="#" class="fx fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
-	<a href="#" class="fx fa-weixin bds_weixin" data-cmd="weixin" title="分享到微信"></a>
-	<a href="#" class="fx fa-qq bds_sqq" data-cmd="sqq" title="分享到QQ好友"></a>
-	<a href="#" class="fx fa-facebook-official bds_fbook" data-cmd="fbook" title="分享到Facebook"></a>
-	<a href="#" class="fx fa-twitter bds_twi" data-cmd="twi" title="分享到Twitter"></a>
-	<a href="#" class="fx fa-linkedin bds_linkedin" data-cmd="linkedin" title="分享到linkedin"></a>
-	<a href="#" class="fx fa-files-o bds_copy" data-cmd="copy" title="分享到复制网址"></a>
-</div>
-<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"2","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
-
-
-
-
-    
-        <section id="comments">
-  <div id="disqus_thread"></div>
-    <script type="text/javascript">
-    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
-    var disqus_shortname = 'swing'; // required: replace example with your forum shortname
-
-    /* * * DON'T EDIT BELOW THIS LINE * * */
-    (function() {
-      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-    })();
-  </script>
-  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<div class="fb-comments" data-href="http://yoursite.com/2015/09/11/config_vim/index.html" data-num-posts="5" data-width="840" data-colorscheme="light"></div>
+      
+  
 </section>
-    
 
-
-
-    <div class="scroll" id="post-nav-button">
-        
-            <a href="/2015/09/16/twoSum/" title="上一篇: leetcode Two Sum">
-                <i class="fa fa-angle-left"></i>
-            </a>
-        
-        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
-        
-            <a href="/2014/12/30/mathjax/" title="下一篇: MathJax示例">
-                <i class="fa fa-angle-right"></i>
-            </a>
-        
-    </div>
-    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2018/02/02/notes1/">一台机器挂两个github账号</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/11/01/Lua_Programming/">Lua Programming</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/11/ip-firewall-drop/">routeros 封锁特定网站</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/11/26/show-3d/">查看三维图片</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/09/16/twoSum/">leetcode Two Sum</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/09/11/config_vim/">vim配置笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/2014/12/30/mathjax/">MathJax示例</a></li><li class="post-list-item"><a class="post-list-link" href="/2014/12/12/routeros/">RouterOS 的安装和VPN配置</a></li><li class="post-list-item"><a class="post-list-link" href="/2013/10/13/studytree/">利用索引树去统计单词出现频率</a></li></ul>
-    <script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
-    <script>
-        $(".post-list").addClass("toc-article");
-        $(".post-list-item a").attr("target","_blank");
-        $("#post-nav-button > a:nth-child(2)").click(function() {
-            $(".fa-bars, .fa-times").toggle();
-            $(".post-list").toggle(300);
-            if ($(".toc").length > 0) {
-                $("#toc, #tocButton").toggle(200, function() {
-                    if ($(".switch-area").is(":visible")) {
-                        $("#tocButton").attr("value", valueHide);
-                        }
-                    })
-            }
-            else {
-            }
-        })
-    </script>
-
-
-
-    <script>
-        
-    </script>
+</div></div>
+    <aside id="sidebar" class="alignright">
+  <div class="search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="搜尋">
+    <input type="hidden" name="q" value="site:yoursite.com">
+  </form>
 </div>
-      <footer id="footer">
-    <div class="outer">
-        <div id="footer-info">
-            <div class="footer-left">
-                &copy; 2018 Zhao, Chenqiu
-            </div>
-            <div class="footer-right">
-                <a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="http://bestwing.me" target="_blank">Sw'blog</a> by Swing
-            </div>
-        </div>
-        
-            <div class="visit">
-                
-                    <span id="busuanzi_container_site_pv" style='display:none'>
-                        <span id="site-visit" >博客访问数: 
-                            <span id="busuanzi_value_site_uv"></span>
-                        </span>
-                    </span>
-                
-                
-                    <span>, </span>
-                
-                
-                    <span id="busuanzi_container_page_pv" style='display:none'>
-                        <span id="page-visit">本页访问数: 
-                            <span id="busuanzi_value_page_pv"></span>
-                        </span>
-                    </span>
-                
-            </div>
-        
-    </div>
-</footer>
 
-    </div>
-    <script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
-<script src="/js/main.js"></script>
+  
 
-    <script>
-        $(document).ready(function() {
-            var backgroundnum = 24;
-            var backgroundimg = "url(/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
-            $("#mobile-nav").css({"background-image": backgroundimg,"background-size": "cover","background-position": "center"});
-            $(".left-col").css({"background-image": backgroundimg,"background-size": "cover","background-position": "center"});
-        })
-    </script>
-
-
-
-
-
-<div class="scroll" id="scroll">
-    <a href="#"><i class="fa fa-arrow-up"></i></a>
-    <a href="#comments"><i class="fa fa-comments-o"></i></a>
-    <a href="#footer"><i class="fa fa-arrow-down"></i></a>
+  
+<div class="widget tag">
+  <h3 class="title">標籤</h3>
+  <ul class="entry">
+  
+    <li><a href="/tags/C-数据结构/">C++/数据结构</a><small>1</small></li>
+  
+    <li><a href="/tags/Linux/">Linux</a><small>2</small></li>
+  
+    <li><a href="/tags/Lua/">Lua</a><small>1</small></li>
+  
+    <li><a href="/tags/RouterOs/">RouterOs</a><small>1</small></li>
+  
+    <li><a href="/tags/linux/">linux</a><small>0</small></li>
+  
+    <li><a href="/tags/图像处理/">图像处理</a><small>1</small></li>
+  
+    <li><a href="/tags/数学公式/">数学公式</a><small>1</small></li>
+  
+    <li><a href="/tags/算法/">算法</a><small>1</small></li>
+  
+    <li><a href="/tags/计算机/">计算机</a><small>0</small></li>
+  
+    <li><a href="/tags/计算机网络/">计算机网络</a><small>1</small></li>
+  
+  </ul>
 </div>
-<script>
-    $(document).ready(function() {
-        if ($("#comments").length < 1) {
-            $("#scroll > a:nth-child(2)").hide();
-        };
-    })
-</script>
 
-<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
-</script>
-
-  <script language="javascript">
-    $(function() {
-        $("a[title]").each(function() {
-            var a = $(this);
-            var title = a.attr('title');
-            if (title == undefined || title == "") return;
-            a.data('title', title).removeAttr('title').hover(
-
-            function() {
-                var offset = a.offset();
-                $("<div id=\"anchortitlecontainer\"></div>").appendTo($("body")).html(title).css({
-                    top: offset.top - a.outerHeight() - 15,
-                    left: offset.left + a.outerWidth()/2 + 1
-                }).fadeIn(function() {
-                    var pop = $(this);
-                    setTimeout(function() {
-                        pop.remove();
-                    }, pop.text().length * 800);
-                });
-            }, function() {
-                $("#anchortitlecontainer").remove();
-            });
-        });
-    });
-</script>
-
-
-    <script type="text/javascript">
-      window.onload = function(){
-        document.getElementById("search").onclick = function(){
-            console.log("search")
-            search();
-        }
-      }
-      function search(){
-        (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
-        (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
-        e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
-        })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
-
-        _st('install','A1Pz-LKMXbrzcFg2FWi6','2.0.0');
-      }
-    </script>
-
+</aside>
+    <div class="clearfix"></div>
   </div>
+  <footer id="footer" class="inner"><div class="alignleft">
+  
+  &copy; 2018 Zhao, Chenqiu
+  
+</div>
+<div class="clearfix"></div></footer>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
 </body>
 </html>
