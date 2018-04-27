@@ -12,7 +12,7 @@ Researcher & Developer      {#job}
 
 Summary
 -------
-
+***
 Hi, welcome to my homepage, i am a researcher as well as a developer of
 computer vision who is currently working as a research associate in Institute
 for Media Innovation, IMI, Singapore, Nanyang Technological University, NTU. My
@@ -24,6 +24,7 @@ More information about me are available as follows:
 
 Academic Background
 ---------
+***
  - Background Subtraction based on Alternative Cues in Freely Moving Camera, to be Submitted, 2018, **Chenqiu Zhao**, Aneeshan Sain, Ying Qu, Yongxin Ge, Haibo Hu, paper, [demo](https://www.youtube.com/watch?v=ss4VIRWq6X8&t=235s), [code](https://github.com/zhaochenqiu/IntegrationFgBk)
 
  - Background Subtraction based on Deep Pixel Distribution Learning, *accepted by IEEE International Conference on Multimedia and Expo (ICME), 2018*, **Chenqiu Zhao** ,Tat-Jen Cham, Xinyu Ren, Jianfei Cai, paper, [demo](https://www.youtube.com/watch?v=RWJYTfUCksY&t=122s), [code](https://github.com/zhaochenqiu/DPDL)
@@ -48,14 +49,21 @@ Academic Background
 
 Engineering Background
 ------------
+***
  - 2016, The Video Abstraction System based on Hadoop, Project Leader, *The Chongqing Graduate Student Research Innovation Project (重庆市研究生科研创新项目) (Grant no.CYB14012)* [online check](http://graduate.cqu.edu.cn/newsdetail.action?newsinfoid=59620)
 
  - 2015, Intelligent Video Analytics(IVA), Project Member, The Project of ISSE Laboratory, Chongqing University, China. An Video Surveillance System. **This project is purely developed by C++**
-
 <div align="center">
-<img src="./res/im1.jpg" width="280"> &nbsp; <img src="./res/im2.png" width="280"> &nbsp;<img src="./res/im3.png" width="280">
+<img src="./res/im1.jpg" width="200"> &nbsp; <img src="./res/im2.png" width="200"> &nbsp;<img src="./res/im3.png" width="200"> &nbsp; <img src="./res/im4.png" width="200">
 </div>
 
+ - 2013 Photoshark, Project Leader, The Graduation Project of Chongqing University. An Image Processing Software Similar to Photoshop but Simpler. on building
+
+
+ - 2013 Microsoft Image Cup 2013, the Second Prize of China. on building
+
+
+ - 2012 Programming in International Business Machines, the Personal Second Prize of China, on building 
 
 Coding Skills
 -----------
