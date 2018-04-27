@@ -67,14 +67,27 @@ Engineering Background
 
 Coding Skills
 -----------
+Those things which enjoy routine usage in my daily work are denoted with a ^†^ symbol.
 
 ### Programming & Scripting Languages
+- C/C++ ^†^
+- Matlab ^†^
+- Tex ^†^
+- Shell ^†^
+- Lex ^†^
+- Python
+- Lua
+- Batch
+- Java
+- C#
+- HTML
 
 
 ### Framework & Tools & APIs
-
+- VC
+on building
 
 Interests
 ---------
-
+on building
 
