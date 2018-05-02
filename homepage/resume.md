@@ -25,7 +25,9 @@ More information about me are available as follows:
 Academic Background
 ---------
 ***
- - Background Subtraction based on Alternative Cues in Freely Moving Camera, to be Submitted, 2018, **Chenqiu Zhao**, Aneeshan Sain, Ying Qu, Yongxin Ge, Haibo Hu, paper, [demo](https://www.youtube.com/watch?v=ss4VIRWq6X8&t=235s), [code](https://github.com/zhaochenqiu/IntegrationFgBk)
+ - Background Subtraction based on Random Super-pixels under Multiple Scales for Video Analytics, submitted to IEEE Access, Weitao fang, Tingting zhang, **Chenqiu zhao**, Danyal badar soomro, Rizwan taj and Haibo hu
+
+ - Background Subtraction based on Alternative Cues in Freely Moving Camera, submitted to IEEE Transactions on Circuits and Systems for Video Technology , 2018, **Chenqiu Zhao**, Aneeshan Sain, Ying Qu, Yongxin Ge, Haibo Hu, paper, [demo](https://www.youtube.com/watch?v=ss4VIRWq6X8&t=235s), [code](https://github.com/zhaochenqiu/IntegrationFgBk)
 
  - Background Subtraction based on Deep Pixel Distribution Learning, *accepted by IEEE International Conference on Multimedia and Expo (ICME), 2018*, **Chenqiu Zhao** ,Tat-Jen Cham, Xinyu Ren, Jianfei Cai, paper, [demo](https://www.youtube.com/watch?v=RWJYTfUCksY&t=122s), [code](https://github.com/zhaochenqiu/DPDL)
  
@@ -73,6 +75,7 @@ Those things which enjoy routine usage in my daily work are denoted with a ^†^
 - C/C++ ^†^
 - Matlab ^†^
 - Tex ^†^
+- Markdown ^†^
 - Shell ^†^
 - Lex ^†^
 - Python
@@ -82,10 +85,22 @@ Those things which enjoy routine usage in my daily work are denoted with a ^†^
 - C#
 - HTML
 
-
 ### Framework & Tools & APIs
-- VC
-on building
+- G++ ^†^
+- Matlab ^†^
+- Texlive ^†^
+- Vim ^†^
+- VC++ (Windows API) ^†^
+- MFC ^†^
+- QT ^†^
+- OpenCV
+- MexOpenCV
+- OpenGL & DirectX
+- Nodejs
+- Hexo
+- Mathjax
+- Flex
+- Pandoc
 
 Interests
 ---------
