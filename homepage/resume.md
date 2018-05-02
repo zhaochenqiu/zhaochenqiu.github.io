@@ -104,5 +104,6 @@ Those things which enjoy routine usage in my daily work are denoted with a ^†^
 
 Interests
 ---------
-on building
+- Coding
+- Computer games (StarCraft II, Civilization VI, Real-time Strategy Games, ...)
 
