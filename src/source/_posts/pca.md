@@ -1,13 +1,21 @@
-title: MathJax示例
-date: 2014-12-30 14:01:56
-tags: 数学公式
+title: PCA降维分类详解
+date: 2018-05-20 14:01:56
+tags: 图像处理
 ---
-MathJax 用于在网页编写数学公式，该博文用于测试mathjax在github上搭建的博客是否可用，以及mathjax的一些基本用法。
+记录详解PCA的过程与用法
 <!--more-->
 
 <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
+# 效果图
+这次使用PCA对[MNIST](http://yann.lecun.com/exdb/mnist/)数据集进行降维分类，分别使用Matlab和Python来实验，结果如下:
+![将数字图片降低到两个维度，红点为数字0的图像降维结果，蓝点为数字1的降维结果](http://zhaochenqiu.github.io/imgs/pca/exp1.png)
+
+
+
+
 # MathJax示例，在句子中的数学公式。 
+![test](http://zhaochenqiu.github.io/img/1p1543.jpg)
 首先通过一段话来展示mathjax的魅力，这段话是用来介绍贝叶斯定理（Bayes）的。
 贝叶斯（Bayes）定理:
     \\[ P(w\_{i}|X)=\frac{P(X|w\_{i})P(w\_{i})}{\sum\_{j=1}^{n}P(X|w\_{j})P(w\_{j})}  \\]
