@@ -8,44 +8,33 @@ tags: 图像处理
 <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
 # 效果图
-这次使用PCA对[MNIST](http://yann.lecun.com/exdb/mnist/)数据集进行降维分类，分别使用Matlab和Python来实验，结果如下:
+这次使用PCA对[MNIST](http://yann.lecun.com/exdb/mnist/)数据集中数字0和1进行降维分类，分别使用Matlab和Python来实验，结果如下:
 ![将数字图片降低到两个维度，红点为数字0的图像降维结果，蓝点为数字1的降维结果](http://zhaochenqiu.github.io/imgs/pca/exp1.png)
 
+# 背景知识
+## 特征值与特征向量,以及奇异值分解
+### 特征值与特征向量定义
+特征向量的定义为：\\[A \vec{v} = \lambda \vec{v} \\]
+其中\\(\vec{v}\\)就是\\(A\\)就是特征向量,而对应的\\(\lambda\\)。
+
+在Matlab里使用`eig`函数来求，使用方法为:
+
+    clear all
+    close all
+    clc
+
+    mat = rand(3,3);
+    [V D] = eig(mat); % V 为特征向量,列向量，D为特征值
+    
+    mat*V(:, 1) - D(1, 1)*V(:, 1)
+    mat*V(:, 2) - D(2, 2)*V(:, 2)
+    mat*V(:, 3) - D(3, 3)*V(:, 3)
+注意，一个矩阵会有多个特征向量，2维矩阵会有两个，3维矩阵会有三个，夹在特征向量之间的空间
+就被称为**特征空间**。例如二维矩阵就会有两个，关键在于\\(\vec{v}\\)是把矩阵向左转了
+还是向右转了,如下图
+![特征向量和特征空间](http://zhaochenqiu.github.io/imgs/pca/exp2.png)
+
+一个矩阵可以看作一个运动，
+特征向量就是指这个运动的方向，特征值就是在该方向运动的距离.
 
 
-
-# MathJax示例，在句子中的数学公式。 
-![test](http://zhaochenqiu.github.io/img/1p1543.jpg)
-首先通过一段话来展示mathjax的魅力，这段话是用来介绍贝叶斯定理（Bayes）的。
-贝叶斯（Bayes）定理:
-    \\[ P(w\_{i}|X)=\frac{P(X|w\_{i})P(w\_{i})}{\sum\_{j=1}^{n}P(X|w\_{j})P(w\_{j})}  \\]
-Bayes定理的意思是，在\\(X\\)特征空间下，\\(w\_{i}\\)类事件出现的概率\\(P(X|w\_{i})\\)乘上\\((w\_{i}\\)类事件出现的概率\\(P(w\_{i})\\)然后再除以待分类事件按的概率\\(\sum\_{j=1}^{n}P(X|w\_{j})P(w\_{j}) \\) 就是出现\\(X\\)特征下,事件被归为\\(w\_{i}\\)的概率.
-这段话中的公式都不是图片，**随着字体的放大，公式也会放大**，这就是mathjax，一个html中的公式编辑器。
-
-# MathJax 用法
-MathJax的语法和latex是基本一样的，下面是几个使用的例子。更多的例子可以去[官网](http://www.mathjax.org/demos/tex-samples/)
-## 例子一:
-源码：
-    `\[ \left( \sum\_{k=1}^n a\_k b\_k \right)^2 \leq \left( \sum\_{k=1}^n a\_k^2 \right) \left( \sum\_{k=1}^n b\_k^2 \right) \]`
-
-效果：
-    \\[ \left( \sum\_{k=1}^n a\_k b\_k \right)^2 \leq \left( \sum\_{k=1}^n a\_k^2 \right) \left( \sum\_{k=1}^n b\_k^2 \right) \\]
-
-
-## 例子二:
-源码：
-    `\[P(E)   = {n \choose k} p^k (1-p)^{ n-k} \]`
-效果：
-    \\[P(E)   = {n \choose k} p^k (1-p)^{ n-k} \\]
-
-## 例子三:
-源码：
-    `\[ \frac{1}{(\sqrt{\phi \sqrt{5}}-\phi) e^{\frac25 \pi}} = 1+\frac{e^{-2\pi}} {1+\frac{e^{-4\pi}} {1+\frac{e^{-6\pi}}{1+\frac{e^{-8\pi}} {1+\ldots} } } } \]`
-效果：
-    \\[ \frac{1}{(\sqrt{\phi \sqrt{5}}-\phi) e^{\frac25 \pi}} = 1+\frac{e^{-2\pi}} {1+\frac{e^{-4\pi}} {1+\frac{e^{-6\pi}}{1+\frac{e^{-8\pi}} {1+\ldots} } } } \\]
-
-## 例子四:
-源码：
-`\[\mathbf{V}_1 \times \mathbf{V}_2 =  \begin{vmatrix}\mathbf{i} &#038; \mathbf{j} &#038; \mathbf{k} \\ \frac{\partial X}{\partial u} &#038;  \frac{\partial Y}{\partial u} &#038; 0 \\               \frac{\partial X}{\partial v} &#038;  \frac{\partial Y}{\partial v} &#038; 0    \end{vmatrix}  \]`
-效果：
-\\[\mathbf{V}\_1 \times \mathbf{V}\_2 =  \begin{vmatrix}\mathbf{i} &#038; \mathbf{j} &#038; \mathbf{k} \\\\ \frac{\partial X}{\partial u} &#038;  \frac{\partial Y}{\partial u} &#038; 0 \\\\               \frac{\partial X}{\partial v} &#038;  \frac{\partial Y}{\partial v} &#038; 0    \end{vmatrix}  \\]
