@@ -3,15 +3,15 @@
 <head>
   <meta charset="utf-8">
   
-  <title>routeros 封锁特定网站 | Zhao, Chenqiu&#39; Blog</title>
+  <title>Python Programming | Zhao, Chenqiu&#39; Blog</title>
   <meta name="author" content="Zhao, Chenqiu">
   
-  <meta name="description" content="routeros 下通过ip firewall 中的rule 封锁特定的网站，这里用百度实验">
+  <meta name="description" content="The records of learning python.">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  <meta property="og:title" content="routeros 封锁特定网站"/>
+  <meta property="og:title" content="Python Programming"/>
   <meta property="og:site_name" content="Zhao, Chenqiu&#39; Blog"/>
 
   
@@ -51,39 +51,32 @@
     <header>
       
         <div class="icon"></div>
-        <time datetime="2016-10-10T17:21:14.000Z"><a href="/2016/10/11/ip-firewall-drop/">2016-10-11</a></time>
+        <time datetime="2018-04-08T16:00:00.000Z"><a href="/2018/04/09/python_programming/">2018-04-09</a></time>
       
       
   
-    <h1 class="title">routeros 封锁特定网站</h1>
+    <h1 class="title">Python Programming</h1>
   
 
     </header>
     <div class="entry">
       
-        <p>routeros 下通过ip firewall 中的rule 封锁特定的网站，这里用百度实验
+        <p>The records of learning python.
 <a id="more"></a></p>
-<p>先设置一个在adress list，包括一些特定的网站。然后再ip firewall 的rule里面，对这个list中的链接全部drop。
-这里拿百度做实验，测试封锁百度。为了直观，全程用winbox，但转化成routeros命令效率更高。</p>
-<p>首先找到百度的地址，去网上百度就可以知道：202.108.22.5</p>
-<p>先设置一个ip address，testdroplist，并把百度加进去
-<img src="http://i1.piimg.com/8927/819e3218921d382b.png" alt=""></p>
-<p>然后就设置ip firewall 的规则。Forward的意思是 进出都检查，如果是input就是只检查进入。
-<img src="http://i1.piimg.com/8927/4c0eb76e798f5662.png" alt=""></p>
-<p>然后再advanced中的目的地址把testdroplist 包含进去
-<img src="http://i1.piimg.com/8927/e5b19257977f83d0.png" alt=""></p>
-<p>这步选择行为，drop是直接下线的意思，reject拒绝也可以封网
-<img src="http://i1.piimg.com/8927/4b52fcc0bf66c741.png" alt=""></p>
-<p>别忘了加注释，不然你都不知道这个写着干嘛
-<img src="http://i1.piimg.com/8927/249e442650fdb8b1.png" alt=""></p>
-<p>加了之后就是这样
-<img src="http://i1.piimg.com/8927/17d7e033c9b38c72.png" alt=""></p>
-<p>然后百度就上不去了
-<img src="http://i1.piimg.com/8927/f1b85911ce7f3eff.png" alt=""></p>
-<p>之后别忘记enable 这个规则，不然影响使用百度了
-<img src="http://i1.piimg.com/8927/fc0afe2539b2f405.png" alt=""></p>
-<p>enable之后就可以正常用了.
-<img src="http://i1.piimg.com/8927/c0fd157bb6aa0868.png" alt=""></p>
+<h1 id="Record"><a href="#Record" class="headerlink" title="Record"></a>Record</h1><p>十六进制 0xAF = 175
+八进制   010 = 8   <strong>0开头不是二进制二十八进制</strong></p>
+<p>cmath  是指 complex math</p>
+<p>‘#!/usr/bin/env python’ 这行代码放在文件头然后chmod就可以直接执行 或者 ‘#!/usr/bin/pytho2’</p>
+<p>python的格式化输出用print,使用%隔开例如</p>
+<p>printf(“%s”,str) = print “%s” % str 当然python的单引号可以换成双引号</p>
+<h1 id="dict-字典，其实就是hash映射"><a href="#dict-字典，其实就是hash映射" class="headerlink" title="dict 字典，其实就是hash映射"></a>dict 字典，其实就是hash映射</h1><pre><code>#!/usr/bin/python2
+
+names = [&apos;Alice&apos;, &apos;Beth&apos;, &apos;Cecil&apos;, &apos;Dee-Dee&apos;, &apos;Earl&apos;]
+numbers = [&apos;2341&apos;, &apos;9102&apos;, &apos;3158&apos;, &apos;0142&apos;, &apos;5551&apos;]
+
+x= numbers[names.index(&apos;Cecil&apos;)]
+print x
+</code></pre><p>python里是允许出现汉字的，为了强行增加汉字注，可以添加代码’# -<em>- coding: utf-8 -</em>-‘，但不是一种好办法，最好是<strong>不要在代码文件中引入ascii之外的字符</strong></p>
 
       
     </div>
@@ -93,7 +86,7 @@
         
   
   <div class="tags">
-    <a href="/tags/RouterOs/">RouterOs</a>
+    <a href="/tags/python/">python</a>
   </div>
 
         
@@ -136,7 +129,7 @@
   }(document, 'script', 'facebook-jssdk'));
 </script>
 
-<div class="fb-comments" data-href="http://yoursite.com/2016/10/11/ip-firewall-drop/index.html" data-num-posts="5" data-width="840" data-colorscheme="light"></div>
+<div class="fb-comments" data-href="http://yoursite.com/2018/04/09/python_programming/index.html" data-num-posts="5" data-width="840" data-colorscheme="light"></div>
       
   
 </section>

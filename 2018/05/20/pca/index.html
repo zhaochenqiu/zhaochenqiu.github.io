@@ -1,0 +1,242 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>PCA降维分类详解 | Zhao, Chenqiu&#39; Blog</title>
+  <meta name="author" content="Zhao, Chenqiu">
+  
+  <meta name="description" content="记录详解PCA的过程与用法">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="PCA降维分类详解"/>
+  <meta property="og:site_name" content="Zhao, Chenqiu&#39; Blog"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  <link href="/favicon.png" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="Zhao, Chenqiu&#39; Blog" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+
+</head>
+
+
+<body>
+  <header id="header" class="inner"><div class="alignleft">
+  <h1><a href="/">Zhao, Chenqiu&#39; Blog</a></h1>
+  <h2><a href="/">Do What You Like, Like What You Do</a></h2>
+</div>
+<nav id="main-nav" class="alignright">
+  <ul>
+    
+      <li><a href="/">Home</a></li>
+    
+      <li><a href="/archives">Archives</a></li>
+    
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+<div class="clearfix"></div>
+</header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2018-05-20T06:01:56.000Z"><a href="/2018/05/20/pca/">2018-05-20</a></time>
+      
+      
+  
+    <h1 class="title">PCA降维分类详解</h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>记录详解PCA的过程与用法
+<a id="more"></a></p>
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+<h1 id="效果图"><a href="#效果图" class="headerlink" title="效果图"></a>效果图</h1><p>这次使用PCA对<a href="http://yann.lecun.com/exdb/mnist/" target="_blank" rel="noopener">MNIST</a>数据集中数字0和1进行降维分类，分别使用Matlab和Python来实验，结果如下:</p>
+<p><img src="https://image.ibb.co/b97PmT/exp1.png" alt="将数字图片降低到两个维度，红点为数字0的图像降维结果，蓝点为数字1的降维结果"></p>
+<h1 id="背景知识"><a href="#背景知识" class="headerlink" title="背景知识"></a>背景知识</h1><h2 id="特征值与特征向量-以及奇异值分解"><a href="#特征值与特征向量-以及奇异值分解" class="headerlink" title="特征值与特征向量,以及奇异值分解"></a>特征值与特征向量,以及奇异值分解</h2><h3 id="特征值与特征向量定义"><a href="#特征值与特征向量定义" class="headerlink" title="特征值与特征向量定义"></a>特征值与特征向量定义</h3><p>特征向量的定义为：\[A \vec{v} = \lambda \vec{v} \]
+其中\(\vec{v}\)就是\(A\)就是特征向量,而对应的\(\lambda\)就是特征值</p>
+<p>在Matlab里使用<code>eig</code>函数来求，使用方法为:</p>
+<pre><code>clear all
+close all
+clc
+
+mat = rand(3,3);
+[V D] = eig(mat); % V 为特征向量,列向量，D为特征值
+
+mat*V(:, 1) - D(1, 1)*V(:, 1)
+mat*V(:, 2) - D(2, 2)*V(:, 2)
+mat*V(:, 3) - D(3, 3)*V(:, 3)
+</code></pre><p>注意，一个矩阵可能会有多个特征向量，而且通常情况下<strong>特征向量相互独立</strong>也就是线性无关(为什么无关可以用<a href="https://zhuanlan.zhihu.com/p/30454490" target="_blank" rel="noopener">反证法</a>)，就是不同特征向量的乘积为0。
+如果把矩阵理解为多维空间的运动，特征向量就是坐标轴了，
+那么2维矩阵会有两个，3维矩阵会有三个，特征向量所在直线
+就被称为<strong>特征空间</strong>。例如二维矩阵就会有两个，关键在于\(\vec{v}\)是把矩阵向左转了
+还是向右转了,如下图</p>
+<p><img src="https://image.ibb.co/ki2JY8/exp3.png" alt="特征向量和特征空间"></p>
+<h3 id="特征向量定义与特征分解公式"><a href="#特征向量定义与特征分解公式" class="headerlink" title="特征向量定义与特征分解公式"></a>特征向量定义与特征分解公式</h3><p>再回到之前的特征向量定义:
+\[A \vec{V} = \lambda \vec{v}  \]
+然后是矩阵特征值分解的公式:
+\[A = P \Lambda P^{-1}  \]
+其中的\(\Lambda\)就是矩阵A的特征值，而\(P^{-1}\)的列向量就是矩阵的特征向量。</p>
+<p>特征向量的定义如何推导出特征值分解公式。
+假设\(A\)为对角矩阵，那么他肯定是一个<a href="https://zh.wikipedia.org/wiki/%E5%8F%AF%E5%AF%B9%E8%A7%92%E5%8C%96%E7%9F%A9%E9%98%B5" target="_blank" rel="noopener">可对角化矩阵</a>。
+那么他的特征向量两两正交。现在假设它有\(m\)个不同的特征值为\(\lambda_i \),对应的
+特征向量为\(x_i\)则有:
+\[
+Ax_1 = \lambda_1 x_1 \\
+Ax_2 = \lambda_2 x_2 \\
+\cdots \\
+Ax_m = \lambda_m x_m
+\]
+进而得到:
+\[AU = U\Lambda \]
+其中
+\[
+U = [x_1 x_2 \cdots x_m] \quad \quad
+\Lambda = \begin{pmatrix} 
+    \lambda_1   &amp; \cdots &amp; 0 \\
+    \vdots      &amp; \ddots &amp; \vdots \\
+    0           &amp; \cdots &amp; \lambda_m \\
+\end{pmatrix}
+\]
+最后也就是推出了:
+\[
+A = U\Lambda U^{-1} = U\Lambda U^{T}
+\]
+其中，由于特征向量两两正交，所以\(U\)为<a href="https://zh.wikipedia.org/wiki/%E6%AD%A3%E4%BA%A4%E7%9F%A9%E9%98%B5" target="_blank" rel="noopener">正交阵</a>,
+正交矩阵的逆等于转置。Matlab的验证程序如下:</p>
+<p>一个矩阵可以看作一个运动，
+特征向量就是指这个运动的方向，特征值就是在该方向运动的距离.</p>
+
+      
+    </div>
+    <footer>
+      
+        
+        
+  
+  <div class="tags">
+    <a href="/tags/图像处理/">图像处理</a>
+  </div>
+
+        
+  <div class="addthis addthis_toolbox addthis_default_style">
+    
+      <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
+    
+    
+      <a class="addthis_button_tweet"></a>
+    
+    
+      <a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
+    
+    
+      <a class="addthis_button_pinterest_pinit" pi:pinit:layout="horizontal"></a>
+    
+    <a class="addthis_counter addthis_pill_style"></a>
+  </div>
+  <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js"></script>
+
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+<section id="comment">
+  <h1 class="title">Comments</h1>
+
+  
+      <div id="fb-root"></div>
+<script>
+  (function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=123456789012345";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+</script>
+
+<div class="fb-comments" data-href="http://yoursite.com/2018/05/20/pca/index.html" data-num-posts="5" data-width="840" data-colorscheme="light"></div>
+      
+  
+</section>
+
+</div></div>
+    <aside id="sidebar" class="alignright">
+  <div class="search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="Search">
+    <input type="hidden" name="q" value="site:yoursite.com">
+  </form>
+</div>
+
+  
+
+  
+<div class="widget tag">
+  <h3 class="title">Tags</h3>
+  <ul class="entry">
+  
+    <li><a href="/tags/C-数据结构/">C++/数据结构</a><small>1</small></li>
+  
+    <li><a href="/tags/Linux/">Linux</a><small>2</small></li>
+  
+    <li><a href="/tags/Lua/">Lua</a><small>1</small></li>
+  
+    <li><a href="/tags/RouterOs/">RouterOs</a><small>1</small></li>
+  
+    <li><a href="/tags/python/">python</a><small>1</small></li>
+  
+    <li><a href="/tags/图像处理/">图像处理</a><small>2</small></li>
+  
+    <li><a href="/tags/数学公式/">数学公式</a><small>1</small></li>
+  
+    <li><a href="/tags/算法/">算法</a><small>1</small></li>
+  
+    <li><a href="/tags/计算机网络/">计算机网络</a><small>1</small></li>
+  
+  </ul>
+</div>
+
+</aside>
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div class="alignleft">
+  
+  &copy; 2018 Zhao, Chenqiu
+  
+</div>
+<div class="clearfix"></div></footer>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+</body>
+</html>

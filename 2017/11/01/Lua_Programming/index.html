@@ -63,210 +63,210 @@
       
         <p>The records of learning lua. All the sources code are captured from “Programming in Lua”
 <a id="more"></a></p>
-<h1 id="First_lua_program">First lua program</h1><p>To keep with the tradition, the first program just prints “Hello World”
+<h1 id="First-lua-program"><a href="#First-lua-program" class="headerlink" title="First lua program"></a>First lua program</h1><p>To keep with the tradition, the first program just prints “Hello World”
     print(“Hello World”);
 You can input the code in th command line,
 or save it into a file such as “hello.lua”.
 Then run ‘th hello.lua’</p>
-<h1 id="Factorial_of_a_given_number">Factorial of a given number</h1><p>The following program defines a function to compute the factorial of a given number,
+<h1 id="Factorial-of-a-given-number"><a href="#Factorial-of-a-given-number" class="headerlink" title="Factorial of a given number"></a>Factorial of a given number</h1><p>The following program defines a function to compute the factorial of a given number,
 asks the user for a number, and print its factorial:</p>
-<pre><code><span class="comment">-- defines a factorial function</span>
-<span class="function"><span class="keyword">function</span> <span class="title">fact</span> <span class="params">(n)</span></span>
-    <span class="keyword">if</span> n == <span class="number">0</span> <span class="keyword">then</span>
-        <span class="keyword">return</span> <span class="number">1</span>
-    <span class="keyword">else</span>
-        <span class="keyword">return</span> n * fact(n - <span class="number">1</span>)
-    <span class="keyword">end</span>
-<span class="keyword">end</span>
+<pre><code>-- defines a factorial function
+function fact (n)
+    if n == 0 then
+        return 1
+    else
+        return n * fact(n - 1)
+    end
+end
 
-<span class="built_in">print</span>(<span class="string">"enter a number:"</span>)
-a = <span class="built_in">io</span>.read(<span class="string">"*number"</span>)
-<span class="built_in">print</span>(fact(a))
-</code></pre><h1 id="Chunks">Chunks</h1><p>The piece of code that Lua executes is called a <em>chunk</em>.
+print(&quot;enter a number:&quot;)
+a = io.read(&quot;*number&quot;)
+print(fact(a))
+</code></pre><h1 id="Chunks"><a href="#Chunks" class="headerlink" title="Chunks"></a>Chunks</h1><p>The piece of code that Lua executes is called a <em>chunk</em>.
 Both the semicolons and line break play no role in Lua’s syntax.
 The following four chunks are all valid and equivalent:
     a = 1
     b = a*2</p>
-<pre><code><span class="literal">a</span> = <span class="number">1</span><span class="comment">;</span>
-b = <span class="literal">a</span>*<span class="number">2</span><span class="comment">;</span>
+<pre><code>a = 1;
+b = a*2;
 
-<span class="literal">a</span> = <span class="number">1</span> <span class="comment">; b = a*2</span>
+a = 1 ; b = a*2
 
-<span class="literal">a</span> = <span class="number">1</span>   b = <span class="literal">a</span>*<span class="number">2</span>    -- ugly, but valid
-</code></pre><h1 id="Call_functions_from_files">Call functions from files</h1><p>Let’s denote that there is a file lib1.lua
+a = 1   b = a*2    -- ugly, but valid
+</code></pre><h1 id="Call-functions-from-files"><a href="#Call-functions-from-files" class="headerlink" title="Call functions from files"></a>Call functions from files</h1><p>Let’s denote that there is a file lib1.lua
     – file ‘lib1.lua’
     function norm (x, y)
         local n2 = x^2 + y^2
         return math.sqrt(n2)
     end</p>
-<pre><code><span class="function"><span class="keyword">function</span> <span class="title">twice</span> <span class="params">(x)</span></span>
-    <span class="keyword">return</span> <span class="number">2</span> * x
-<span class="keyword">end</span>
-</code></pre><p>Then, in interactive mode, type following commands:</p>
-<pre><code>&gt; <span class="function"><span class="title">dofile</span><span class="params">(<span class="string">"lib1.lua"</span>)</span></span>   -- load your library
-&gt; n = <span class="function"><span class="title">norm</span><span class="params">(<span class="number">3.4</span>, <span class="number">1.0</span>)</span></span>
-&gt; <span class="function"><span class="title">print</span><span class="params">(twice(n)</span></span>)      --&gt; <span class="number">7.0880180586677</span>
-</code></pre><h1 id="Global_Variables">Global Variables</h1><p>All the variables in Lua re global variables, even the variables defined in a function.
+<pre><code>function twice (x)
+    return 2 * x
+end
+</code></pre><p>Then, in interactive mode, type following commands:
+    &gt; dofile(“lib1.lua”)   – load your library
+    &gt; n = norm(3.4, 1.0)
+    &gt; print(twice(n))      –&gt; 7.0880180586677</p>
+<h1 id="Global-Variables"><a href="#Global-Variables" class="headerlink" title="Global Variables"></a>Global Variables</h1><p>All the variables in Lua re global variables, even the variables defined in a function.
 Example, if we have a lua chunks named “lib2.lua” contains codes like following:
     function testfun (x)
         g_a = x
     end
-Then, in the interactive mode,  type following:</p>
-<pre><code>&gt; <span class="function"><span class="title">dofile</span><span class="params">(<span class="string">"lib2.lua"</span>)</span></span>
-&gt; <span class="function"><span class="title">testfun</span><span class="params">(<span class="number">20</span>)</span></span>
-&gt; <span class="function"><span class="title">print</span><span class="params">(g_a)</span></span>
-</code></pre><h1 id="Eight_basic_typles_in_Lua">Eight basic typles in Lua</h1><p>Lua is a dynamically typed language. Each value carries its own type.
+Then, in the interactive mode,  type following:
+    &gt; dofile(“lib2.lua”)
+    &gt; testfun(20)
+    &gt; print(g_a)</p>
+<h1 id="Eight-basic-typles-in-Lua"><a href="#Eight-basic-typles-in-Lua" class="headerlink" title="Eight basic typles in Lua"></a>Eight basic typles in Lua</h1><p>Lua is a dynamically typed language. Each value carries its own type.
 There are eight basic types in Lua: nil, boolean, number, string, userdata, function, thread, and table
 Type the codes shown following:</p>
-<pre><code><span class="built_in">print</span><span class="function"><span class="params">(type(<span class="string">"Hello world"</span>))</span>  --&gt;</span> string
-<span class="built_in">print</span><span class="function"><span class="params">(type(<span class="number">10.4</span>*<span class="number">3</span>))</span>         --&gt;</span> number
-<span class="built_in">print</span><span class="function"><span class="params">(type(<span class="built_in">print</span>))</span>          --&gt;</span> <span class="keyword">function</span>
-<span class="built_in">print</span><span class="function"><span class="params">(type(type))</span>           --&gt;</span> <span class="keyword">function</span>
-<span class="built_in">print</span><span class="function"><span class="params">(type(<span class="literal">true</span>))</span>           --&gt;</span> boolean
-<span class="built_in">print</span><span class="function"><span class="params">(type(nil))</span>            --&gt;</span> nil
-<span class="built_in">print</span><span class="function"><span class="params">(type(type(X)))</span>        --&gt;</span> string
+<pre><code>print(type(&quot;Hello world&quot;))  --&gt; string
+print(type(10.4*3))         --&gt; number
+print(type(print))          --&gt; function
+print(type(type))           --&gt; function
+print(type(true))           --&gt; boolean
+print(type(nil))            --&gt; nil
+print(type(type(X)))        --&gt; string
 
-<span class="built_in">print</span><span class="function"><span class="params">(type(a))</span>   --&gt;</span> nil   (`a<span class="string">' is not initialized)
+print(type(a))   --&gt; nil   (`a&apos; is not initialized)
 a = 10
 print(type(a))   --&gt; number
-a = "a string!!"
+a = &quot;a string!!&quot;
 print(type(a))   --&gt; string
 a = print        -- yes, this is valid!
-a(type(a))       --&gt; function</span>
-</code></pre><h1 id="Tables">Tables</h1><p>The table type implements associative arrays. An associative array is an array that can be indexed not only with numbers, but also with strings or any other value of the language,
+a(type(a))       --&gt; function
+</code></pre><h1 id="Tables"><a href="#Tables" class="headerlink" title="Tables"></a>Tables</h1><p>The table type implements associative arrays. An associative array is an array that can be indexed not only with numbers, but also with strings or any other value of the language,
 except nil. Moreover, tables have no fixed size; you can add as many elements as you want to a table dynamically.
 Tables in Lua are neither values nor variables; they are objects. <strong>You create tables by means of a constructor expression, which in its simplest form is written as {}:</strong></p>
-<pre><code><span class="comment">-- create a table in Lua</span>
-<span class="operator">a</span> = {}
-k = <span class="string">"x"</span>
-<span class="operator">a</span>[k] = <span class="number">10</span>
-<span class="operator">a</span>[<span class="number">20</span>] = <span class="string">"great"</span>
-print(<span class="operator">a</span>[<span class="string">"x"</span>])
-k = <span class="number">20</span>
-print(<span class="operator">a</span>[k])
-<span class="operator">a</span>[<span class="string">"x"</span>] = <span class="operator">a</span>[<span class="string">"x"</span>] + <span class="number">1</span>
-print(<span class="operator">a</span>[<span class="string">"x"</span>])
+<pre><code>-- create a table in Lua
+a = {}
+k = &quot;x&quot;
+a[k] = 10
+a[20] = &quot;great&quot;
+print(a[&quot;x&quot;])
+k = 20
+print(a[k])
+a[&quot;x&quot;] = a[&quot;x&quot;] + 1
+print(a[&quot;x&quot;])
 </code></pre><p>In my opinion, the table just like a mixture of dynamic array and hash array.</p>
 <p>A table is anonymous, there is no fixed relationship between a variable that holds a table and the table itself:</p>
-<pre><code><span class="operator">a</span> = {}
-<span class="operator">a</span>[<span class="string">"x"</span>] = <span class="number">10</span>
-b = <span class="operator">a</span>      <span class="comment">-- `b' refers to the same table as `a'</span>
-print(b[<span class="string">"x"</span>])  <span class="comment">--&gt; 10</span>
-b[<span class="string">"x"</span>] = <span class="number">20</span>
-print(<span class="operator">a</span>[<span class="string">"x"</span>])  <span class="comment">--&gt; 20</span>
-<span class="operator">a</span> = nil    <span class="comment">-- now only `b' still refers to the table</span>
-b = nil    <span class="comment">-- now there are no references left to the table</span>
+<pre><code>a = {}
+a[&quot;x&quot;] = 10
+b = a      -- `b&apos; refers to the same table as `a&apos;
+print(b[&quot;x&quot;])  --&gt; 10
+b[&quot;x&quot;] = 20
+print(a[&quot;x&quot;])  --&gt; 20
+a = nil    -- now only `b&apos; still refers to the table
+b = nil    -- now there are no references left to the table
 </code></pre><p>The Lua has garbage recollection, the Lua management will eventually delete the table, to which there is no references.
 There are some tricks about using table:</p>
-<pre><code>a.x = <span class="number">10</span>                    -- same as a[<span class="string">"x"</span>] = <span class="number">10</span>
-<span class="built_in">print</span>(a.x)                  -- same as <span class="built_in">print</span>(a[<span class="string">"x"</span>])
-<span class="built_in">print</span>(a.y)                  -- same as <span class="built_in">print</span>(a[<span class="string">"y"</span>])
+<pre><code>a.x = 10                    -- same as a[&quot;x&quot;] = 10
+print(a.x)                  -- same as print(a[&quot;x&quot;])
+print(a.y)                  -- same as print(a[&quot;y&quot;])
 a = {}
-x = <span class="string">"y"</span>
-a[x] = <span class="number">10</span>                 -- put <span class="number">10</span> <span class="keyword">in</span> field <span class="string">"y"</span>
-<span class="built_in">print</span><span class="function"><span class="params">(a[x])</span>   --&gt;</span> <span class="number">10</span>      -- value <span class="keyword">of</span> field <span class="string">"y"</span>
-<span class="built_in">print</span><span class="function"><span class="params">(a.x)</span>    --&gt;</span> nil     -- value <span class="keyword">of</span> field <span class="string">"x"</span> (<span class="literal">undefined</span>)
-<span class="built_in">print</span><span class="function"><span class="params">(a.y)</span>    --&gt;</span> <span class="number">10</span>      -- value <span class="keyword">of</span> field <span class="string">"y"</span>
-</code></pre><h1 id="Operators">Operators</h1><h2 id="Arithmetic_Operators">Arithmetic Operators</h2><p>Lua supports the usual arithmetic operators: the binary <code>+´ (addition),</code>-´ (subtraction), <code>*´ (multiplication),</code>/´ (division), and the unary `-´ (negation). All of them operate on real numbers. 
+x = &quot;y&quot;
+a[x] = 10                 -- put 10 in field &quot;y&quot;
+print(a[x])   --&gt; 10      -- value of field &quot;y&quot;
+print(a.x)    --&gt; nil     -- value of field &quot;x&quot; (undefined)
+print(a.y)    --&gt; 10      -- value of field &quot;y&quot;
+</code></pre><h1 id="Operators"><a href="#Operators" class="headerlink" title="Operators"></a>Operators</h1><h2 id="Arithmetic-Operators"><a href="#Arithmetic-Operators" class="headerlink" title="Arithmetic Operators"></a>Arithmetic Operators</h2><p>Lua supports the usual arithmetic operators: the binary <code>+´ (addition),</code>-´ (subtraction), <code>*´ (multiplication),</code>/´ (division), and the unary `-´ (negation). All of them operate on real numbers. 
 Lua provides the following relational operators:</p>
-<pre><code><span class="tag">&lt;   &gt;</span>   <span class="tag">&lt;<span class="title">=</span>  &gt;</span>=  ==  ~=
+<pre><code>&lt;   &gt;   &lt;=  &gt;=  ==  ~=
 </code></pre><p>All these operators always result in true or false. </p>
-<h2 id="Logical_Operators">Logical Operators</h2><p>The logical operators are and, or, and not. Like control structures, all logical operators consider false and nil as false and anything else as true. The operator and returns its first argument if it is false; otherwise, it returns its second argument. The operator or returns its first argument if it is not false; otherwise, it returns its second argument:</p>
-<pre><code><span class="built_in">print</span><span class="function"><span class="params">(<span class="number">4</span> <span class="keyword">and</span> <span class="number">5</span>)</span>         --&gt;</span> <span class="number">5</span>
-<span class="built_in">print</span><span class="function"><span class="params">(nil <span class="keyword">and</span> <span class="number">13</span>)</span>      --&gt;</span> nil
-<span class="built_in">print</span><span class="function"><span class="params">(<span class="literal">false</span> <span class="keyword">and</span> <span class="number">13</span>)</span>    --&gt;</span> <span class="literal">false</span>
-<span class="built_in">print</span><span class="function"><span class="params">(<span class="number">4</span> <span class="keyword">or</span> <span class="number">5</span>)</span>          --&gt;</span> <span class="number">4</span>
-<span class="built_in">print</span><span class="function"><span class="params">(<span class="literal">false</span> <span class="keyword">or</span> <span class="number">5</span>)</span>      --&gt;</span> <span class="number">5</span>
-</code></pre><h2 id="Concatenation">Concatenation</h2><pre><code><span class="built_in">print</span><span class="function"><span class="params">(<span class="string">"Hello "</span> .. <span class="string">"World"</span>)</span>  --&gt;</span> Hello World
-<span class="built_in">print</span><span class="function"><span class="params">(<span class="number">0</span> .. <span class="number">1</span>)</span>               --&gt;</span> <span class="number">01</span>
-a = <span class="string">"Hello"</span>
-<span class="built_in">print</span><span class="function"><span class="params">(a .. <span class="string">" World"</span>)</span>   --&gt;</span> Hello World
-<span class="built_in">print</span><span class="function"><span class="params">(a)</span>               --&gt;</span> Hello
-</code></pre><h2 id="Precedence">Precedence</h2><p>Operator precedence in Lua follows the table below, from the higher to the lower priority:</p>
+<h2 id="Logical-Operators"><a href="#Logical-Operators" class="headerlink" title="Logical Operators"></a>Logical Operators</h2><p>The logical operators are and, or, and not. Like control structures, all logical operators consider false and nil as false and anything else as true. The operator and returns its first argument if it is false; otherwise, it returns its second argument. The operator or returns its first argument if it is not false; otherwise, it returns its second argument:</p>
+<pre><code>print(4 and 5)         --&gt; 5
+print(nil and 13)      --&gt; nil
+print(false and 13)    --&gt; false
+print(4 or 5)          --&gt; 4
+print(false or 5)      --&gt; 5
+</code></pre><h2 id="Concatenation"><a href="#Concatenation" class="headerlink" title="Concatenation"></a>Concatenation</h2><pre><code>print(&quot;Hello &quot; .. &quot;World&quot;)  --&gt; Hello World
+print(0 .. 1)               --&gt; 01
+a = &quot;Hello&quot;
+print(a .. &quot; World&quot;)   --&gt; Hello World
+print(a)               --&gt; Hello
+</code></pre><h2 id="Precedence"><a href="#Precedence" class="headerlink" title="Precedence"></a>Precedence</h2><p>Operator precedence in Lua follows the table below, from the higher to the lower priority:</p>
 <pre><code>^
-<span class="keyword">not</span>  - (unary)
+not  - (unary)
 *   /
 +   -
 ..
 &lt;   &gt;   &lt;=  &gt;=  ~=  ==
-<span class="keyword">and</span>
-<span class="keyword">or</span>
+and
+or
 </code></pre><p>Some examples of precedence</p>
-<pre><code>a+i &lt; b/<span class="number">2</span>+<span class="number">1</span>          &lt;--&gt;       (a+i) &lt; ((b/<span class="number">2</span>)+<span class="number">1</span>)
-<span class="number">5</span>+x^<span class="number">2</span>*<span class="number">8</span>              &lt;--&gt;       <span class="number">5</span>+((x^<span class="number">2</span>)*<span class="number">8</span>)
+<pre><code>a+i &lt; b/2+1          &lt;--&gt;       (a+i) &lt; ((b/2)+1)
+5+x^2*8              &lt;--&gt;       5+((x^2)*8)
 a &lt; y and y &lt;= z     &lt;--&gt;       (a &lt; y) and (y &lt;= z)
--x^<span class="number">2</span>                 &lt;--&gt;       -(x^<span class="number">2</span>)
+-x^2                 &lt;--&gt;       -(x^2)
 x^y^z                &lt;--&gt;       x^(y^z)
-</code></pre><h1 id="Statements">Statements</h1><h2 id="Local_Variables_and_Blocks">Local Variables and Blocks</h2><p>Besides global variables, Lua supports local variables. We create local variables with the local statement: </p>
-<pre><code>j = <span class="number">10</span>         <span class="comment">-- global variable</span>
-<span class="keyword">local</span> i = <span class="number">1</span>    <span class="comment">-- local variable</span>
-x = <span class="number">10</span>
-<span class="keyword">local</span> i = <span class="number">1</span>        <span class="comment">-- local to the chunk</span>
+</code></pre><h1 id="Statements"><a href="#Statements" class="headerlink" title="Statements"></a>Statements</h1><h2 id="Local-Variables-and-Blocks"><a href="#Local-Variables-and-Blocks" class="headerlink" title="Local Variables and Blocks"></a>Local Variables and Blocks</h2><p>Besides global variables, Lua supports local variables. We create local variables with the local statement: </p>
+<pre><code>j = 10         -- global variable
+local i = 1    -- local variable
+x = 10
+local i = 1        -- local to the chunk
 
-<span class="keyword">while</span> i&lt;=x <span class="keyword">do</span>
-  <span class="keyword">local</span> x = i*<span class="number">2</span>    <span class="comment">-- local to the while body</span>
-  <span class="built_in">print</span>(x)         <span class="comment">--&gt; 2, 4, 6, 8, ...</span>
-  i = i + <span class="number">1</span>
-<span class="keyword">end</span>
+while i&lt;=x do
+  local x = i*2    -- local to the while body
+  print(x)         --&gt; 2, 4, 6, 8, ...
+  i = i + 1
+end
 
-<span class="keyword">if</span> i &gt; <span class="number">20</span> <span class="keyword">then</span>
-  <span class="keyword">local</span> x          <span class="comment">-- local to the "then" body</span>
-  x = <span class="number">20</span>
-  <span class="built_in">print</span>(x + <span class="number">2</span>)
-<span class="keyword">else</span>
-  <span class="built_in">print</span>(x)         <span class="comment">--&gt; 10  (the global one)</span>
-<span class="keyword">end</span>
+if i &gt; 20 then
+  local x          -- local to the &quot;then&quot; body
+  x = 20
+  print(x + 2)
+else
+  print(x)         --&gt; 10  (the global one)
+end
 
-<span class="built_in">print</span>(x)           <span class="comment">--&gt; 10  (the global one)</span>
-</code></pre><h2 id="if_then_else">if then else</h2><pre><code><span class="keyword">if</span> a&lt;<span class="number">0</span> <span class="keyword">then</span> a = <span class="number">0</span> <span class="keyword">end</span>
+print(x)           --&gt; 10  (the global one)
+</code></pre><h2 id="if-then-else"><a href="#if-then-else" class="headerlink" title="if then else"></a>if then else</h2><pre><code>if a&lt;0 then a = 0 end
 
-<span class="keyword">if</span> a&lt;b <span class="keyword">then</span> <span class="constant">return</span> a <span class="keyword">else</span> <span class="constant">return</span> b <span class="keyword">end</span>
+if a&lt;b then return a else return b end
 
-<span class="keyword">if</span> line &gt; MAXLINES <span class="keyword">then</span>
+if line &gt; MAXLINES then
   showpage()
-  line = <span class="number">0</span>
-<span class="keyword">end</span>
+  line = 0
+end
 </code></pre><p>When you write nested ifs, you can use elseif. It is similar to an else followed by an if, but it avoids the need for multiple ends:</p>
-<pre><code><span class="keyword">if</span> op == <span class="string">"+"</span> <span class="keyword">then</span>
-  r = <span class="operator">a</span> + b
-elseif op == <span class="string">"-"</span> <span class="keyword">then</span>
-  r = <span class="operator">a</span> - b
-elseif op == <span class="string">"*"</span> <span class="keyword">then</span>
-  r = <span class="operator">a</span>*b
-elseif op == <span class="string">"/"</span> <span class="keyword">then</span>
-  r = <span class="operator">a</span>/b
-<span class="keyword">else</span>
-  error(<span class="string">"invalid operation"</span>)
-<span class="keyword">end</span>
-</code></pre><h2 id="for">for</h2><pre><code>for i = 1,10 <span class="operator"><span class="keyword">do</span>
-    print(<span class="keyword">i</span>)
-<span class="keyword">end</span>
+<pre><code>if op == &quot;+&quot; then
+  r = a + b
+elseif op == &quot;-&quot; then
+  r = a - b
+elseif op == &quot;*&quot; then
+  r = a*b
+elseif op == &quot;/&quot; then
+  r = a/b
+else
+  error(&quot;invalid operation&quot;)
+end
+</code></pre><h2 id="for"><a href="#for" class="headerlink" title="for"></a>for</h2><pre><code>for i = 1,10 do
+    print(i)
+end
 
-<span class="keyword">for</span> <span class="keyword">i</span> = <span class="number">1</span>,<span class="number">10</span>,<span class="number">0.5</span> <span class="keyword">do</span>
-    print(<span class="keyword">i</span>)
-<span class="keyword">end</span>
+for i = 1,10,0.5 do
+    print(i)
+end
 
-a = {<span class="string">"a"</span>, <span class="string">"b"</span>, <span class="string">"c"</span>, <span class="string">"d"</span>, <span class="string">"e"</span>}
+a = {&quot;a&quot;, &quot;b&quot;, &quot;c&quot;, &quot;d&quot;, &quot;e&quot;}
 
-<span class="keyword">for</span> <span class="keyword">i</span>, v <span class="keyword">in</span> ipairs(a) <span class="keyword">do</span>
-    a[v] = <span class="keyword">i</span>
-<span class="keyword">end</span></span>
-</code></pre><h2 id="Functions">Functions</h2><p>Run a Lua brunk, dofile(“exp6.lua”), dofile ‘exp6.lua’
+for i, v in ipairs(a) do
+    a[v] = i
+end
+</code></pre><h2 id="Functions"><a href="#Functions" class="headerlink" title="Functions"></a>Functions</h2><p>Run a Lua brunk, dofile(“exp6.lua”), dofile ‘exp6.lua’
 In Lua, a function is a value with the same rights as conventional values like numbers and strings.</p>
-<pre><code><span class="operator">a</span> = {p = print}
-<span class="operator">a</span>.p(<span class="string">"Hello World"</span>) <span class="comment">--&gt; Hello World</span>
-print = math.<span class="built_in">sin</span>  <span class="comment">-- `print' now refers to the sine function</span>
-<span class="operator">a</span>.p(print(<span class="number">1</span>))     <span class="comment">--&gt; 0.841470</span>
-<span class="built_in">sin</span> = <span class="operator">a</span>.p         <span class="comment">-- `sin' now refers to the print function</span>
-<span class="built_in">sin</span>(<span class="number">10</span>, <span class="number">20</span>)       <span class="comment">--&gt; 10      20</span>
-</code></pre><h1 id="Common_functions_in_Lua">Common functions in Lua</h1><h2 id="convert_string_to_in">convert string to in</h2><pre><code><span class="built_in">print</span><span class="function"><span class="params">(tonumber(<span class="string">"10"</span>))</span>       --&gt;</span> <span class="number">10</span>
-<span class="built_in">print</span><span class="function"><span class="params">(tonumber(<span class="string">"+10"</span>))</span>      --&gt;</span> <span class="number">10</span>
-<span class="built_in">print</span><span class="function"><span class="params">(tonumber(<span class="string">"-10"</span>))</span>      --&gt;</span> -<span class="number">10</span>
-<span class="built_in">print</span><span class="function"><span class="params">(tonumber(<span class="string">"sdfsdf"</span>))</span>   --&gt;</span> nil
-<span class="built_in">print</span><span class="function"><span class="params">(tonumber(fs))</span>         --&gt;</span> nil
-</code></pre><h2 id="find_a_substr_in_string">find a substr in string</h2><pre><code>s, e = string.<span class="function"><span class="title">find</span><span class="params">(<span class="string">"hello Lua users"</span>, <span class="string">"Lua"</span>)</span></span>
+<pre><code>a = {p = print}
+a.p(&quot;Hello World&quot;) --&gt; Hello World
+print = math.sin  -- `print&apos; now refers to the sine function
+a.p(print(1))     --&gt; 0.841470
+sin = a.p         -- `sin&apos; now refers to the print function
+sin(10, 20)       --&gt; 10      20
+</code></pre><h1 id="Common-functions-in-Lua"><a href="#Common-functions-in-Lua" class="headerlink" title="Common functions in Lua"></a>Common functions in Lua</h1><h2 id="convert-string-to-in"><a href="#convert-string-to-in" class="headerlink" title="convert string to in"></a>convert string to in</h2><pre><code>print(tonumber(&quot;10&quot;))       --&gt; 10
+print(tonumber(&quot;+10&quot;))      --&gt; 10
+print(tonumber(&quot;-10&quot;))      --&gt; -10
+print(tonumber(&quot;sdfsdf&quot;))   --&gt; nil
+print(tonumber(fs))         --&gt; nil
+</code></pre><h2 id="find-a-substr-in-string"><a href="#find-a-substr-in-string" class="headerlink" title="find a substr in string"></a>find a substr in string</h2><pre><code>s, e = string.find(&quot;hello Lua users&quot;, &quot;Lua&quot;)
 
-<span class="function"><span class="title">print</span><span class="params">(s, e)</span></span>   --&gt;  <span class="number">7</span>      <span class="number">9</span>
+print(s, e)   --&gt;  7      9
 </code></pre>
       
     </div>
@@ -305,7 +305,7 @@ print = math.<span class="built_in">sin</span>  <span class="comment">-- `print'
 
 
 <section id="comment">
-  <h1 class="title">留言</h1>
+  <h1 class="title">Comments</h1>
 
   
       <div id="fb-root"></div>
@@ -328,7 +328,7 @@ print = math.<span class="built_in">sin</span>  <span class="comment">-- `print'
     <aside id="sidebar" class="alignright">
   <div class="search">
   <form action="//google.com/search" method="get" accept-charset="utf-8">
-    <input type="search" name="q" results="0" placeholder="搜尋">
+    <input type="search" name="q" results="0" placeholder="Search">
     <input type="hidden" name="q" value="site:yoursite.com">
   </form>
 </div>
@@ -337,7 +337,7 @@ print = math.<span class="built_in">sin</span>  <span class="comment">-- `print'
 
   
 <div class="widget tag">
-  <h3 class="title">標籤</h3>
+  <h3 class="title">Tags</h3>
   <ul class="entry">
   
     <li><a href="/tags/C-数据结构/">C++/数据结构</a><small>1</small></li>
@@ -348,15 +348,13 @@ print = math.<span class="built_in">sin</span>  <span class="comment">-- `print'
   
     <li><a href="/tags/RouterOs/">RouterOs</a><small>1</small></li>
   
-    <li><a href="/tags/linux/">linux</a><small>0</small></li>
+    <li><a href="/tags/python/">python</a><small>1</small></li>
   
-    <li><a href="/tags/图像处理/">图像处理</a><small>1</small></li>
+    <li><a href="/tags/图像处理/">图像处理</a><small>2</small></li>
   
     <li><a href="/tags/数学公式/">数学公式</a><small>1</small></li>
   
     <li><a href="/tags/算法/">算法</a><small>1</small></li>
-  
-    <li><a href="/tags/计算机/">计算机</a><small>0</small></li>
   
     <li><a href="/tags/计算机网络/">计算机网络</a><small>1</small></li>
   

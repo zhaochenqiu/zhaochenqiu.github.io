@@ -79,7 +79,7 @@
 然后如果发现这个单词已经存在，那么就是将这个单词的数量加1，如果这个单词不存在，那么在树中就会查找失败，然后创建就可以了。</p>
 <p>因为树是动态创建的，所以可以起到剪枝作用，而且存储也只是占最小的空间。</p>
 <p>先看效果，先是一篇普通的英文文章: 
-出处:<a href="http://www.duwenzhang.com/wenzhang/yingyuwenzhang/20130519/255870.html" target="_blank" rel="external">http://www.duwenzhang.com/wenzhang/yingyuwenzhang/20130519/255870.html</a>
+出处:<a href="http://www.duwenzhang.com/wenzhang/yingyuwenzhang/20130519/255870.html" target="_blank" rel="noopener">http://www.duwenzhang.com/wenzhang/yingyuwenzhang/20130519/255870.html</a>
 My father was a self-taught mandolin player. He was one of the best string instrument players in our town. He could not read music, but if he heard a tune a few times, he could play it. When he was younger, he was a member of a small country music band. They would play at local dances and on a few occasions would play for the local radio station. He often told us how he had auditioned and earned a position in a band that featured Patsy Cline as their lead singer. He told the family that after ……..(文章太长，不全部粘贴了，占空间)
 最后的统计结果就是:
 <img src="http://imageshack.com/a/img923/7448/eOH7gh.png" alt=""></p>
@@ -102,104 +102,104 @@ My father was a self-taught mandolin player. He was one of the best string instr
 <pre><code>#ifndef _STUDYTREENODE_H_
 #define _STUDYTREENODE_H_
 
-#<span class="keyword">include</span> <span class="string">"seqlist.h"</span>
+#include &quot;seqlist.h&quot;
 
 // Author:Q
-// Date:<span class="number">2013</span>/<span class="number">10</span>/<span class="number">11</span>
+// Date:2013/10/11
 // Describe:学习树的节点，其实就是一个多路树的节点
 
-template &lt;<span class="keyword">class</span> <span class="type">Data</span>&gt;
-<span class="keyword">class</span> StudyTreeNode
+template &lt;class Data&gt;
+class StudyTreeNode
 {
-<span class="keyword">public</span>:
+public:
     StudyTreeNode();
-    StudyTreeNode(<span class="type">Data</span> <span class="type">data</span>);
-    StudyTreeNode(<span class="type">Data</span> <span class="type">data</span>,StudyTreeNode&lt;<span class="type">Data</span>* &gt; next);
+    StudyTreeNode(Data data);
+    StudyTreeNode(Data data,StudyTreeNode&lt;Data* &gt; next);
     ~StudyTreeNode();
 
-    <span class="built_in">int</span>        m_iCount;
-    <span class="type">Data</span>    m_dData;
-    SeqList&lt;StudyTreeNode&lt;<span class="type">Data</span>&gt;* &gt;    m_listNext;
+    int        m_iCount;
+    Data    m_dData;
+    SeqList&lt;StudyTreeNode&lt;Data&gt;* &gt;    m_listNext;
 };
 
-#<span class="keyword">endif</span>
+#endif
 
-template &lt;<span class="keyword">class</span> <span class="type">Data</span>&gt;
-StudyTreeNode&lt;<span class="type">Data</span>&gt;::StudyTreeNode()
+template &lt;class Data&gt;
+StudyTreeNode&lt;Data&gt;::StudyTreeNode()
 {
-    m_iCount = <span class="number">0</span>;
+    m_iCount = 0;
 }
 
-template &lt;<span class="keyword">class</span> <span class="type">Data</span>&gt;
-StudyTreeNode&lt;<span class="type">Data</span>&gt;::StudyTreeNode(<span class="type">Data</span> <span class="type">data</span>)
+template &lt;class Data&gt;
+StudyTreeNode&lt;Data&gt;::StudyTreeNode(Data data)
 {
-    m_iCount = <span class="number">0</span>;
-    m_dData = <span class="type">data</span>;
+    m_iCount = 0;
+    m_dData = data;
 }
 
-template &lt;<span class="keyword">class</span> <span class="type">Data</span>&gt;
-StudyTreeNode&lt;<span class="type">Data</span>&gt;::StudyTreeNode(<span class="type">Data</span> <span class="type">data</span>,StudyTreeNode&lt;<span class="type">Data</span>* &gt; next)
+template &lt;class Data&gt;
+StudyTreeNode&lt;Data&gt;::StudyTreeNode(Data data,StudyTreeNode&lt;Data* &gt; next)
 {
-    m_iCount     = <span class="number">0</span>;
-    m_dData     = <span class="type">data</span>;
+    m_iCount     = 0;
+    m_dData     = data;
     m_listNext     = next;
 }
 
-template &lt;<span class="keyword">class</span> <span class="type">Data</span>&gt;
-StudyTreeNode&lt;<span class="type">Data</span>&gt;::~StudyTreeNode()
+template &lt;class Data&gt;
+StudyTreeNode&lt;Data&gt;::~StudyTreeNode()
 {
     m_listNext.clearList();
 }
 </code></pre><p>这个树中多了一个参数int        m_iCount;这个参数的目的就是为了统计单词出现了多少次。
 然后就是最重要的部分，树的设计，一下就是树的声明。</p>
-<p>#ifndef _STUDYTREE<em>H</em></p>
-<p>#define _STUDYTREE<em>H</em></p>
+<p>#ifndef _STUDYTREE_H_</p>
+<p>#define _STUDYTREE_H_</p>
 <p>// Author:Q
 // Date:2013/10/11
 // Describe:一个自我学习的树，可以自己扩展节点
 // 只需要给他输入数据即可，他会自己生成树</p>
-<pre><code><span class="preprocessor">#<span class="keyword">include</span> <span class="string">"studytreenode.h"</span></span>
+<pre><code>#include &quot;studytreenode.h&quot;
 
-<span class="keyword">template</span> &lt;<span class="keyword">class</span> Data&gt;
-<span class="keyword">class</span> StudyTree
+template &lt;class Data&gt;
+class StudyTree
 {
-<span class="keyword">public</span>:
+public:
     StudyTree();
     ~StudyTree();
 
-    <span class="function"><span class="keyword">void</span> <span class="title">checkData</span><span class="params">(Data* <span class="built_in">list</span>,<span class="keyword">int</span> num)</span></span>;
+    void checkData(Data* list,int num);
 
-    <span class="function"><span class="keyword">void</span> <span class="title">preOrder</span><span class="params">()</span></span>;
-    <span class="function"><span class="keyword">void</span> <span class="title">postOrder</span><span class="params">()</span></span>;
+    void preOrder();
+    void postOrder();
 
-    <span class="function"><span class="keyword">void</span> <span class="title">levelOrder</span><span class="params">()</span></span>;
+    void levelOrder();
 
-    <span class="function"><span class="keyword">void</span> <span class="title">release</span><span class="params">()</span></span>;
+    void release();
 
-    <span class="function"><span class="keyword">void</span> <span class="title">printfTreeCnt</span><span class="params">()</span></span>;
-    <span class="function"><span class="keyword">void</span> <span class="title">printfResult</span><span class="params">()</span></span>;
+    void printfTreeCnt();
+    void printfResult();
 
-    <span class="function"><span class="keyword">int</span> <span class="title">getDepth</span><span class="params">()</span></span>;
+    int getDepth();
 
-<span class="keyword">protected</span>:
-    <span class="function"><span class="keyword">void</span> <span class="title">checkData</span><span class="params">(Data* <span class="built_in">list</span>,<span class="keyword">int</span> num,<span class="keyword">int</span> pos,StudyTreeNode&lt;Data&gt;* &amp;node)</span></span>;
+protected:
+    void checkData(Data* list,int num,int pos,StudyTreeNode&lt;Data&gt;* &amp;node);
 
-    <span class="function"><span class="keyword">void</span> <span class="title">preOrder</span><span class="params">(    StudyTreeNode&lt;Data&gt;* node)</span></span>;
-    <span class="function"><span class="keyword">void</span> <span class="title">postOrder</span><span class="params">(    StudyTreeNode&lt;Data&gt;* node)</span></span>;
+    void preOrder(    StudyTreeNode&lt;Data&gt;* node);
+    void postOrder(    StudyTreeNode&lt;Data&gt;* node);
 
-    <span class="function"><span class="keyword">void</span> <span class="title">levelOrder</span><span class="params">(StudyTreeNode&lt;Data&gt;* node)</span></span>;
+    void levelOrder(StudyTreeNode&lt;Data&gt;* node);
 
-    <span class="function"><span class="keyword">void</span> <span class="title">release</span><span class="params">(StudyTreeNode&lt;Data&gt;* &amp;node)</span></span>;
+    void release(StudyTreeNode&lt;Data&gt;* &amp;node);
 
-    <span class="function"><span class="keyword">void</span> <span class="title">printfTreeCnt</span><span class="params">(StudyTreeNode&lt;Data&gt;* node)</span></span>;
-    <span class="function"><span class="keyword">void</span> <span class="title">printfResult</span><span class="params">(StudyTreeNode&lt;Data&gt;*     node,<span class="keyword">char</span>* outlist,<span class="keyword">int</span> num)</span></span>;
+    void printfTreeCnt(StudyTreeNode&lt;Data&gt;* node);
+    void printfResult(StudyTreeNode&lt;Data&gt;*     node,char* outlist,int num);
 
-    <span class="function"><span class="keyword">int</span> <span class="title">getDepth</span><span class="params">(StudyTreeNode&lt;Data&gt;* node,<span class="keyword">int</span> pos,<span class="keyword">int</span> &amp;depth)</span></span>;
-<span class="keyword">protected</span>:
+    int getDepth(StudyTreeNode&lt;Data&gt;* node,int pos,int &amp;depth);
+protected:
     StudyTreeNode&lt;Data&gt;* m_ndHead;
 };
 
-<span class="preprocessor">#<span class="keyword">endif</span></span>
+#endif
 </code></pre><p>其中最重要的函数就是
     void checkData(Data<em> list,int num);
     void checkData(Data</em> list,int num,int pos,StudyTreeNode<data>* &amp;node);
@@ -207,48 +207,48 @@ StudyTreeNode&lt;<span class="type">Data</span>&gt;::~StudyTreeNode()
 上面的函数声明为public，是让用户调用的，下面的函数声明为protected,实际的递归生成函数</data></p>
 <p>这里着重讲void checkData(Data<em> list,int num,int pos,StudyTreeNode<data></data></em> &amp;node);函数</p>
 <p>第一个参数就是实际的单词数据，一个char<em> 类型(不明白为什么Data</em> 变成char*? 这种无聊的问题不要问，自己看代码)</p>
-<pre><code><span class="keyword">template</span> &lt;<span class="keyword">class</span> Data&gt;
-<span class="keyword">void</span> StudyTree&lt;Data&gt;::checkData(Data* <span class="built_in">list</span>,<span class="keyword">int</span> num)
+<pre><code>template &lt;class Data&gt;
+void StudyTree&lt;Data&gt;::checkData(Data* list,int num)
 {
-    <span class="keyword">int</span> pos = <span class="number">0</span>;
-    checkData(<span class="built_in">list</span>,num,pos,m_ndHead);
+    int pos = 0;
+    checkData(list,num,pos,m_ndHead);
 }
 
-<span class="keyword">template</span> &lt;<span class="keyword">class</span> Data&gt;
-<span class="keyword">void</span> StudyTree&lt;Data&gt;::checkData(Data* <span class="built_in">list</span>,<span class="keyword">int</span> num,<span class="keyword">int</span> pos,StudyTreeNode&lt;Data&gt;* &amp;node)
+template &lt;class Data&gt;
+void StudyTree&lt;Data&gt;::checkData(Data* list,int num,int pos,StudyTreeNode&lt;Data&gt;* &amp;node)
 {
-    <span class="keyword">if</span> (node == <span class="literal">NULL</span>)
+    if (node == NULL)
     {
-        node = <span class="keyword">new</span> StudyTreeNode&lt;Data&gt;(<span class="built_in">list</span>[pos]);
-        <span class="comment">// std::cout &lt;&lt; "\nCreate Data = " &lt;&lt; list[pos];</span>
+        node = new StudyTreeNode&lt;Data&gt;(list[pos]);
+        // std::cout &lt;&lt; &quot;\nCreate Data = &quot; &lt;&lt; list[pos];
     }
 
 
-    <span class="keyword">if</span> (num != pos)
+    if (num != pos)
     {
-        <span class="keyword">int</span> mark = -<span class="number">1</span>;
+        int mark = -1;
 
-        <span class="keyword">int</span> i;
-        <span class="keyword">for</span> (i = <span class="number">0</span>;i != node -&gt;m_listNext.getNum();i ++)
+        int i;
+        for (i = 0;i != node -&gt;m_listNext.getNum();i ++)
         {
-            <span class="keyword">if</span> (node -&gt;m_listNext[i] -&gt;m_dData == <span class="built_in">list</span>[pos])
+            if (node -&gt;m_listNext[i] -&gt;m_dData == list[pos])
             {
                 mark = i;
-                <span class="keyword">break</span>;
+                break;
             }
         }
 
-        <span class="keyword">if</span> (mark == -<span class="number">1</span>)        <span class="comment">// 未发现这个元素，重新创建</span>
+        if (mark == -1)        // 未发现这个元素，重新创建
         {
             mark = node -&gt;m_listNext.getNum();
-            StudyTreeNode&lt;Data&gt;* newnode = <span class="keyword">new</span> StudyTreeNode&lt;Data&gt;(<span class="built_in">list</span>[pos]);
-            <span class="comment">// std::cout &lt;&lt; "\nCreate Data = " &lt;&lt; list[pos];</span>
+            StudyTreeNode&lt;Data&gt;* newnode = new StudyTreeNode&lt;Data&gt;(list[pos]);
+            // std::cout &lt;&lt; &quot;\nCreate Data = &quot; &lt;&lt; list[pos];
             node -&gt;m_listNext.insert(newnode);
         }
 
-        checkData(<span class="built_in">list</span>,num,pos + <span class="number">1</span>,node -&gt;m_listNext[mark]);
+        checkData(list,num,pos + 1,node -&gt;m_listNext[mark]);
     }
-    <span class="keyword">else</span>
+    else
     {
         node -&gt;m_iCount ++;
     }
@@ -257,46 +257,46 @@ StudyTreeNode&lt;<span class="type">Data</span>&gt;::~StudyTreeNode()
 喂了数据之后，树就生成了。而且因为树是运行过程中生成的，所以本身就带有剪枝的效果。</p>
 <p>然后说说如何打印出结果；
 之前不是在树的节点中加了一个计数的m_iCount 么，通过判断，只有这个值为0的时候（那么就表示这个是一个单词的结尾了）就将结果输出。然后输出这个值，这样只要将树按照类似于中序遍历的方式，就可以将所有的结果输出了。</p>
-<pre><code><span class="keyword">template</span> &lt;<span class="keyword">class</span> Data&gt;
-<span class="keyword">void</span> StudyTree&lt;Data&gt;::printfResult()
+<pre><code>template &lt;class Data&gt;
+void StudyTree&lt;Data&gt;::printfResult()
 {
-    <span class="keyword">int</span> length         = getDepth();
-    <span class="keyword">char</span>* templist     = <span class="keyword">new</span> <span class="keyword">char</span> [length];
-    <span class="keyword">int</span> num            = <span class="number">0</span>;
+    int length         = getDepth();
+    char* templist     = new char [length];
+    int num            = 0;
 
-    <span class="keyword">int</span> i;
-    <span class="keyword">for</span> (i = <span class="number">0</span>;i != m_ndHead -&gt;m_listNext.getNum();i ++)
+    int i;
+    for (i = 0;i != m_ndHead -&gt;m_listNext.getNum();i ++)
     {
         printfResult(m_ndHead -&gt;m_listNext[i],templist,num);
     }
 
-    <span class="keyword">delete</span> [] templist;
+    delete [] templist;
 }
 
-<span class="keyword">template</span> &lt;<span class="keyword">class</span> Data&gt;
-<span class="keyword">void</span> StudyTree&lt;Data&gt;::printfResult(StudyTreeNode&lt;Data&gt;* node,<span class="keyword">char</span>* outlist,<span class="keyword">int</span> num)
+template &lt;class Data&gt;
+void StudyTree&lt;Data&gt;::printfResult(StudyTreeNode&lt;Data&gt;* node,char* outlist,int num)
 {
     outlist[num] = node -&gt;m_dData;
     num ++;
 
-    <span class="keyword">int</span> i;
-    <span class="keyword">if</span> (node -&gt;m_iCount == <span class="number">0</span>)
+    int i;
+    if (node -&gt;m_iCount == 0)
     {
-        <span class="keyword">for</span> (i = <span class="number">0</span>;i != node -&gt;m_listNext.getNum();i ++)
+        for (i = 0;i != node -&gt;m_listNext.getNum();i ++)
         {
             printfResult(node -&gt;m_listNext[i],outlist,num);
         }
     }
-    <span class="keyword">else</span>
+    else
     {
-        <span class="keyword">for</span> (i = <span class="number">0</span>;i != num;i ++)
+        for (i = 0;i != num;i ++)
         {
-            <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; outlist[i];
+            std::cout &lt;&lt; outlist[i];
         }
 
-        <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">":"</span> &lt;&lt; node -&gt;m_iCount &lt;&lt; <span class="string">" "</span>;
+        std::cout &lt;&lt; &quot;:&quot; &lt;&lt; node -&gt;m_iCount &lt;&lt; &quot; &quot;;
 
-        <span class="keyword">for</span> (i = <span class="number">0</span>;i != node -&gt;m_listNext.getNum();i ++)
+        for (i = 0;i != node -&gt;m_listNext.getNum();i ++)
         {
             printfResult(node -&gt;m_listNext[i],outlist,num);
         }
@@ -304,27 +304,27 @@ StudyTreeNode&lt;<span class="type">Data</span>&gt;::~StudyTreeNode()
 }
 </code></pre><p>这里用一个char* 的缓冲，去保存过程，只有当计数器不为0的时候才输出。</p>
 <p>下面就是一个测试的demo了</p>
-<pre><code><span class="preprocessor">#<span class="keyword">include</span> <span class="string">"studytree.h"</span></span>
-<span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;fstream&gt;</span></span>
-<span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;string&gt;</span></span>
+<pre><code>#include &quot;studytree.h&quot;
+#include &lt;fstream&gt;
+#include &lt;string&gt;
 
-<span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;
+using namespace std;
 
 
-<span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span>
-</span>{
-    StudyTree&lt;<span class="keyword">char</span>&gt; stytree;
+int main()
+{
+    StudyTree&lt;char&gt; stytree;
 
-    <span class="function">fstream <span class="title">infile</span><span class="params">(<span class="string">"data.txt"</span>)</span></span>;
-    <span class="built_in">string</span> str;
+    fstream infile(&quot;data.txt&quot;);
+    string str;
 
-    <span class="keyword">while</span> (infile &gt;&gt; str)
+    while (infile &gt;&gt; str)
     {
-        <span class="keyword">int</span> length = str.length();
-        <span class="keyword">char</span>* tmplist = <span class="keyword">new</span> <span class="keyword">char</span> [length];
+        int length = str.length();
+        char* tmplist = new char [length];
 
-        <span class="keyword">int</span> j;
-        <span class="keyword">for</span> (j = <span class="number">0</span>;j != length;j ++)
+        int j;
+        for (j = 0;j != length;j ++)
         {
             tmplist[j] = str[j];
         }
@@ -336,7 +336,7 @@ StudyTreeNode&lt;<span class="type">Data</span>&gt;::~StudyTreeNode()
 
     stytree.printfResult();
 
-    <span class="keyword">return</span> <span class="number">0</span>;
+    return 0;
 }
 </code></pre><p>data.txt保存的就是文章中所有的单词。
 <img src="http://imageshack.com/a/img921/8573/s86Kni.png" alt=""></p>
@@ -349,48 +349,48 @@ StudyTreeNode&lt;<span class="type">Data</span>&gt;::~StudyTreeNode()
 <p>然后数据就会变得没有标点了。
 <img src="http://imageshack.com/a/img924/54/WegTwe.jpg" alt="">
 下面就是要把单词大小写统一，然后一行一个单词。</p>
-<pre><code><span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span>
-<span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;string&gt;</span></span>
-<span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;fstream&gt;</span></span>
-<span class="preprocessor">#<span class="keyword">include</span> <span class="string">"dos.h"</span></span>
+<pre><code>#include &lt;iostream&gt;
+#include &lt;string&gt;
+#include &lt;fstream&gt;
+#include &quot;dos.h&quot;
 
-<span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;
+using namespace std;
 
-<span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc,<span class="keyword">char</span>* argv[])</span>
-</span>{
-    <span class="function">ifstream <span class="title">infile</span><span class="params">(argv[<span class="number">1</span>])</span></span>;        <span class="comment">// 读取字符串</span>
-    <span class="function">ofstream <span class="title">outfile</span><span class="params">(argv[<span class="number">2</span>])</span></span>;        <span class="comment">// 写入字符串</span>
+int main(int argc,char* argv[])
+{
+    ifstream infile(argv[1]);        // 读取字符串
+    ofstream outfile(argv[2]);        // 写入字符串
 
-    <span class="built_in">string</span> str;
+    string str;
 
-    <span class="keyword">int</span> sub = <span class="string">'a'</span> - <span class="string">'A'</span>;
+    int sub = &apos;a&apos; - &apos;A&apos;;
 
-    <span class="keyword">while</span> (infile &gt;&gt; str)
+    while (infile &gt;&gt; str)
     {
-        <span class="built_in">string</span> pstr = <span class="string">""</span>;
+        string pstr = &quot;&quot;;
 
-        <span class="keyword">int</span> i;
-        <span class="keyword">for</span> (i = <span class="number">0</span>;i != str.length();i ++)
+        int i;
+        for (i = 0;i != str.length();i ++)
         {
-            <span class="keyword">if</span> (str[i] &lt;= <span class="string">'z'</span> &amp;&amp; str[i] &gt;= <span class="string">'a'</span>)
+            if (str[i] &lt;= &apos;z&apos; &amp;&amp; str[i] &gt;= &apos;a&apos;)
             {
                 pstr += str[i];
             }
-            <span class="keyword">else</span> <span class="keyword">if</span> (str[i] &lt;= <span class="string">'Z'</span> &amp;&amp; str[i] &gt;= <span class="string">'A'</span>)
+            else if (str[i] &lt;= &apos;Z&apos; &amp;&amp; str[i] &gt;= &apos;A&apos;)
             {
-                pstr += <span class="keyword">char</span>(str[i] + sub);
+                pstr += char(str[i] + sub);
             }
-            <span class="keyword">else</span>
+            else
             {
             }
         }
 
-        outfile &lt;&lt; pstr &lt;&lt; <span class="string">"\n"</span>;
+        outfile &lt;&lt; pstr &lt;&lt; &quot;\n&quot;;
     }
 
     infile.close();
     outfile.close();
-    <span class="keyword">return</span> <span class="number">0</span>;
+    return 0;
 }
 </code></pre><p>这样一来，数据就会变得符合标准了。
 <img src="http://imageshack.com/a/img922/3792/xLQk2U.png" alt=""></p>
@@ -432,7 +432,7 @@ StudyTreeNode&lt;<span class="type">Data</span>&gt;::~StudyTreeNode()
 
 
 <section id="comment">
-  <h1 class="title">留言</h1>
+  <h1 class="title">Comments</h1>
 
   
       <div id="fb-root"></div>
@@ -455,7 +455,7 @@ StudyTreeNode&lt;<span class="type">Data</span>&gt;::~StudyTreeNode()
     <aside id="sidebar" class="alignright">
   <div class="search">
   <form action="//google.com/search" method="get" accept-charset="utf-8">
-    <input type="search" name="q" results="0" placeholder="搜尋">
+    <input type="search" name="q" results="0" placeholder="Search">
     <input type="hidden" name="q" value="site:yoursite.com">
   </form>
 </div>
@@ -464,7 +464,7 @@ StudyTreeNode&lt;<span class="type">Data</span>&gt;::~StudyTreeNode()
 
   
 <div class="widget tag">
-  <h3 class="title">標籤</h3>
+  <h3 class="title">Tags</h3>
   <ul class="entry">
   
     <li><a href="/tags/C-数据结构/">C++/数据结构</a><small>1</small></li>
@@ -475,15 +475,13 @@ StudyTreeNode&lt;<span class="type">Data</span>&gt;::~StudyTreeNode()
   
     <li><a href="/tags/RouterOs/">RouterOs</a><small>1</small></li>
   
-    <li><a href="/tags/linux/">linux</a><small>0</small></li>
+    <li><a href="/tags/python/">python</a><small>1</small></li>
   
-    <li><a href="/tags/图像处理/">图像处理</a><small>1</small></li>
+    <li><a href="/tags/图像处理/">图像处理</a><small>2</small></li>
   
     <li><a href="/tags/数学公式/">数学公式</a><small>1</small></li>
   
     <li><a href="/tags/算法/">算法</a><small>1</small></li>
-  
-    <li><a href="/tags/计算机/">计算机</a><small>0</small></li>
   
     <li><a href="/tags/计算机网络/">计算机网络</a><small>1</small></li>
   
