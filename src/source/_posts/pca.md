@@ -7,12 +7,11 @@ tags: 图像处理
 
 <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
-# 效果图
+## 效果图
 这次使用PCA对[MNIST](http://yann.lecun.com/exdb/mnist/)数据集中数字0和1进行降维分类，分别使用Matlab和Python来实验，结果如下:
 
 ![将数字图片降低到两个维度，红点为数字0的图像降维结果，蓝点为数字1的降维结果](https://image.ibb.co/b97PmT/exp1.png)
 
-# 背景知识
 ## 特征值与特征向量,以及奇异值分解
 ### 特征值与特征向量定义
 特征向量的定义为：\\[A \vec{v} = \lambda \vec{v} \\]
@@ -73,7 +72,52 @@ A = U\Lambda U^{-1} = U\Lambda U^{T}
 其中，由于特征向量两两正交，所以\\(U\\)为[正交阵](https://zh.wikipedia.org/wiki/%E6%AD%A3%E4%BA%A4%E7%9F%A9%E9%98%B5),
 正交矩阵的逆等于转置。Matlab的验证程序如下:
 
+    clear all
+    close all
+    clc
 
+
+    num = 3;
+
+    mat = rand(num, num);
+
+    [row column] = size(mat);
+
+    % 将随机矩阵变成对角阵
+    for i = 1:row
+        for j = i:column
+            mat(i, j) = mat(j, i);
+        end
+    end
+
+    [V D] = eig(mat);
+
+
+    % 验证正交矩阵逆矩阵等于其转置
+    V*V'
+    V*V^(-1)
+
+    % 验证特征向量两两正交
+    for i = 1:row
+        for j = 1:column
+            if i ~= j
+                vec1 = V(:, 1);
+                vec2 = V(:, 2);
+
+                [i j vec1'*vec2]
+            end
+        end
+    end
+
+    % 验证对角阵特征值的分解公式 mat = V*D*V'
+    mat
+    V*D*V'
+    V*D*V^(-1)
+
+### 奇异值分解
+矩阵的特征值分解只能针对方阵，但是现实中，大部分矩阵都不是方阵，而奇异值SVD分解就是为了解决这个问题。
+奇异值分解的定义:
+\\[ A_{m \times n} = U_{m m}\\]
 
 
 一个矩阵可以看作一个运动，
