@@ -79,7 +79,7 @@
 然后如果发现这个单词已经存在，那么就是将这个单词的数量加1，如果这个单词不存在，那么在树中就会查找失败，然后创建就可以了。</p>
 <p>因为树是动态创建的，所以可以起到剪枝作用，而且存储也只是占最小的空间。</p>
 <p>先看效果，先是一篇普通的英文文章: 
-出处:<a href="http://www.duwenzhang.com/wenzhang/yingyuwenzhang/20130519/255870.html" target="_blank" rel="noopener">http://www.duwenzhang.com/wenzhang/yingyuwenzhang/20130519/255870.html</a>
+出处:<a href="http://www.duwenzhang.com/wenzhang/yingyuwenzhang/20130519/255870.html" target="_blank" rel="external">http://www.duwenzhang.com/wenzhang/yingyuwenzhang/20130519/255870.html</a>
 My father was a self-taught mandolin player. He was one of the best string instrument players in our town. He could not read music, but if he heard a tune a few times, he could play it. When he was younger, he was a member of a small country music band. They would play at local dances and on a few occasions would play for the local radio station. He often told us how he had auditioned and earned a position in a band that featured Patsy Cline as their lead singer. He told the family that after ……..(文章太长，不全部粘贴了，占空间)
 最后的统计结果就是:
 <img src="http://imageshack.com/a/img923/7448/eOH7gh.png" alt=""></p>
@@ -152,8 +152,8 @@ StudyTreeNode&lt;Data&gt;::~StudyTreeNode()
 }
 </code></pre><p>这个树中多了一个参数int        m_iCount;这个参数的目的就是为了统计单词出现了多少次。
 然后就是最重要的部分，树的设计，一下就是树的声明。</p>
-<p>#ifndef _STUDYTREE_H_</p>
-<p>#define _STUDYTREE_H_</p>
+<p>#ifndef _STUDYTREE<em>H</em></p>
+<p>#define _STUDYTREE<em>H</em></p>
 <p>// Author:Q
 // Date:2013/10/11
 // Describe:一个自我学习的树，可以自己扩展节点
@@ -432,7 +432,7 @@ int main(int argc,char* argv[])
 
 
 <section id="comment">
-  <h1 class="title">Comments</h1>
+  <h1 class="title">Kommentare</h1>
 
   
       <div id="fb-root"></div>
@@ -455,7 +455,7 @@ int main(int argc,char* argv[])
     <aside id="sidebar" class="alignright">
   <div class="search">
   <form action="//google.com/search" method="get" accept-charset="utf-8">
-    <input type="search" name="q" results="0" placeholder="Search">
+    <input type="search" name="q" results="0" placeholder="Suche">
     <input type="hidden" name="q" value="site:yoursite.com">
   </form>
 </div>

@@ -63,13 +63,13 @@
       
         <p>找一种方法，可以让不会看三维图片的人，也可以看到内容，<strong>但只是看到内容，没有那种立体感了</strong>
 <a id="more"></a></p>
-<p>– 比较喜欢看三维图片，觉的那种立体感特别好。但有时候跟不会看的人就没法交流。这里弄一了一个可以看到三维图片内容的小程序，但这个程序只能看内容，想体会那种立体感还是要去学<a href="http://www.liuhs.com/3d.htm" target="_blank" rel="noopener">怎么看</a>。先来一张三维图片：
+<p>– 比较喜欢看三维图片，觉的那种立体感特别好。但有时候跟不会看的人就没法交流。这里弄一了一个可以看到三维图片内容的小程序，但这个程序只能看内容，想体会那种立体感还是要去学<a href="http://www.liuhs.com/3d.htm" target="_blank" rel="external">怎么看</a>。先来一张三维图片：
 <img src="https://thumbnail0.baidupcs.com/thumbnail/510d823590de2ea9f1d6b8ea88ad9a23?fid=1124629257-250528-44395575683695&amp;time=1499410800&amp;rt=sh&amp;sign=FDTAER-DCb740ccc5511e5e8fedcff06b081203-1wNPXPYogb8LdPyIWRecq3y4t40%3D&amp;expires=8h&amp;chkv=0&amp;chkbd=0&amp;chkpc=&amp;dp-logid=4351763674840998094&amp;dp-callid=0&amp;size=c710_u400&amp;quality=100&amp;vuk=-&amp;ft=video" alt="">
 <strong>你能看出这是一个“3D”字吗</strong>？</p>
 <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
 
-<h2 id="三维图片原理"><a href="#三维图片原理" class="headerlink" title="三维图片原理"></a>三维图片原理</h2><p>人有两只眼，两只眼有一定距离，这就造成物体的影象在两眼中有一些差异，见右图，由图可见，由于物体与眼的距离不同，两眼的视角会有所不同，由于视角的不同所看到是影象也会有一些差异，大脑会根据这种差异感觉到立体的景象。利用这种原理，三维图片会在水平方向生成一系列重复的图案，当这些图案在两只眼中重合时，就看到了立体的影象。具体可以<a href="http://www.liuhs.com/3d.htm" target="_blank" rel="noopener">看这里</a>。</p>
+<h2 id="三维图片原理"><a href="#三维图片原理" class="headerlink" title="三维图片原理"></a>三维图片原理</h2><p>人有两只眼，两只眼有一定距离，这就造成物体的影象在两眼中有一些差异，见右图，由图可见，由于物体与眼的距离不同，两眼的视角会有所不同，由于视角的不同所看到是影象也会有一些差异，大脑会根据这种差异感觉到立体的景象。利用这种原理，三维图片会在水平方向生成一系列重复的图案，当这些图案在两只眼中重合时，就看到了立体的影象。具体可以<a href="http://www.liuhs.com/3d.htm" target="_blank" rel="external">看这里</a>。</p>
 <h2 id="算法原理"><a href="#算法原理" class="headerlink" title="算法原理"></a>算法原理</h2><p>三维图片会在水平方向生成一系列<strong>重复的图案</strong>，当这些图案在两只眼中重合时，就看到了立体的影象。所以说，图像中那些重复的重复图案，就是立体影像的内容。那么只需要找到立体图像中那些重图案，然后把这些重复图案高亮出来，就可以看到三维图片中的内容了。</p>
 <h2 id="算法过程"><a href="#算法过程" class="headerlink" title="算法过程"></a>算法过程</h2><p>目的就是找出图像中的重复图案，因为三维图像上的重复图案是水平的，因此将图像水平平移\(offset\),个单位，之后和原图像相减，这样，重复的部分就会变黑。假设图像为\(f(x,y)\),运算之后的图像为\(f’(x,y)\)。运算如下：
 \[f’(x,y) = f(x,y) - f(x+offset,y)\]
@@ -209,7 +209,7 @@ re_img = subimg;
 
 
 <section id="comment">
-  <h1 class="title">Comments</h1>
+  <h1 class="title">Kommentare</h1>
 
   
       <div id="fb-root"></div>
@@ -232,7 +232,7 @@ re_img = subimg;
     <aside id="sidebar" class="alignright">
   <div class="search">
   <form action="//google.com/search" method="get" accept-charset="utf-8">
-    <input type="search" name="q" results="0" placeholder="Search">
+    <input type="search" name="q" results="0" placeholder="Suche">
     <input type="hidden" name="q" value="site:yoursite.com">
   </form>
 </div>

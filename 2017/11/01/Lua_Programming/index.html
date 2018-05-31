@@ -102,20 +102,20 @@ a = 1   b = a*2    -- ugly, but valid
 <pre><code>function twice (x)
     return 2 * x
 end
-</code></pre><p>Then, in interactive mode, type following commands:
-    &gt; dofile(“lib1.lua”)   – load your library
-    &gt; n = norm(3.4, 1.0)
-    &gt; print(twice(n))      –&gt; 7.0880180586677</p>
-<h1 id="Global-Variables"><a href="#Global-Variables" class="headerlink" title="Global Variables"></a>Global Variables</h1><p>All the variables in Lua re global variables, even the variables defined in a function.
+</code></pre><p>Then, in interactive mode, type following commands:</p>
+<pre><code>&gt; dofile(&quot;lib1.lua&quot;)   -- load your library
+&gt; n = norm(3.4, 1.0)
+&gt; print(twice(n))      --&gt; 7.0880180586677
+</code></pre><h1 id="Global-Variables"><a href="#Global-Variables" class="headerlink" title="Global Variables"></a>Global Variables</h1><p>All the variables in Lua re global variables, even the variables defined in a function.
 Example, if we have a lua chunks named “lib2.lua” contains codes like following:
     function testfun (x)
         g_a = x
     end
-Then, in the interactive mode,  type following:
-    &gt; dofile(“lib2.lua”)
-    &gt; testfun(20)
-    &gt; print(g_a)</p>
-<h1 id="Eight-basic-typles-in-Lua"><a href="#Eight-basic-typles-in-Lua" class="headerlink" title="Eight basic typles in Lua"></a>Eight basic typles in Lua</h1><p>Lua is a dynamically typed language. Each value carries its own type.
+Then, in the interactive mode,  type following:</p>
+<pre><code>&gt; dofile(&quot;lib2.lua&quot;)
+&gt; testfun(20)
+&gt; print(g_a)
+</code></pre><h1 id="Eight-basic-typles-in-Lua"><a href="#Eight-basic-typles-in-Lua" class="headerlink" title="Eight basic typles in Lua"></a>Eight basic typles in Lua</h1><p>Lua is a dynamically typed language. Each value carries its own type.
 There are eight basic types in Lua: nil, boolean, number, string, userdata, function, thread, and table
 Type the codes shown following:</p>
 <pre><code>print(type(&quot;Hello world&quot;))  --&gt; string
@@ -305,7 +305,7 @@ print(s, e)   --&gt;  7      9
 
 
 <section id="comment">
-  <h1 class="title">Comments</h1>
+  <h1 class="title">Kommentare</h1>
 
   
       <div id="fb-root"></div>
@@ -328,7 +328,7 @@ print(s, e)   --&gt;  7      9
     <aside id="sidebar" class="alignright">
   <div class="search">
   <form action="//google.com/search" method="get" accept-charset="utf-8">
-    <input type="search" name="q" results="0" placeholder="Search">
+    <input type="search" name="q" results="0" placeholder="Suche">
     <input type="hidden" name="q" value="site:yoursite.com">
   </form>
 </div>

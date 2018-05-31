@@ -124,13 +124,16 @@ V*D*V^(-1)
 (AA^T)V = \lambda V
 \\]
 这里的\\(V\\)就是右奇异向量，然后再有：
+
 \\[
 \sigma_i = \sqrt{\lambda_i} \\\\
 \mu_i = \frac{1}{\sigma_i}A v_i
 \\]
+
 接着就可以得到奇异值分解的定义:
-\\[ 
-A_{m \times n} = U_{m \times m} \Sigma_{m \times n} V_{n \times n}^T
+
+\\[
+A\_{m \times n} = U\_{m \times m} \Sigma\_{m \times n} V\_{n \times n}^T
 \\]
 
 # 奇异值分解与矩阵的主成分PCA
@@ -147,13 +150,17 @@ A_{m \times n} = U_{m \times m} \Sigma_{m \times n} V_{n \times n}^T
 距离的矩阵，才是矩阵的主要元素。例如运动\\((100, 100, 1)\\)当然是前两个元素才是主要元素。
 因此在实际操作时，往往只要取出特征值中的前几个比较大的元素，其实就可以还原出整个矩阵。
 因此公式从原来的标准定义：
-\\[ 
-A_{m \times n} = U_{m \times m} \Sigma_{m \times n} V_{n \times n}^T
-\\]
-就变成了:
+
 \\[
-A_{m \times n} \approx  U_{m \times r} \Sigma_{r \times n} V_{r \times n}^T
+A\_{m \times n} = U\_{m \times m} \Sigma\_{m \times n} V\_{n \times n}^T
 \\]
+
+就变成了:
+
+\\[
+A\_{m \times n} \approx  U\_{m \times r} \Sigma\_{r \times n} V\_{r \times n}^T
+\\]
+
 然后利用这种约等于的性质就可以对一副图像进行主成分的提取。例如，这里，我们只使用图像的前10个特征值对图像重构，也就是说\\(r = 10\\)代码如下：
 
 {% codeblock lang:matlab %}
@@ -201,4 +208,177 @@ displayMatrixImage(1, 1, 2, gryim, gryim2)
 ![MNIST数据集](https://image.ibb.co/bKfQDJ/image.png)
 
 ## 对MNIST数据进行PCA降维
-有了理论，数据集，之后就是程序逻辑了。
+接着对MNIST数据集进行PCA降维。MNIST数据集中包含了数字0-9的手写体。
+为了让降维的效果更明显，这里只取数字0和数字1两种图片。代码如下:
+
+{% codeblock lang:matlab %}
+imgfiles = '/data/dataset/MNIST/train-images.idx3-ubyte';
+labfiles = '/data/dataset/MNIST/train-labels.idx1-ubyte';
+
+% 60000
+[imgs labels] = readMNIST(imgfiles, labfiles, 60000, 0);
+
+[row_img column_img frames_img] = size(imgs);
+
+lab1 = 1;
+lab0 = 0;
+
+idx1 = labels == lab1;
+idx0 = labels == lab0;
+
+imgs1 = imgs(:, :, idx1);
+imgs0 = imgs(:, :, idx0);
+
+imgs1 = imgs1(:, :, 1:1000);
+imgs0 = imgs0(:, :, 1:1000);
+{% endcodeblock %}
+
+然后将顺序打乱，进行svd分解:
+{% codeblock lang:matlab %}
+
+imgs = zeros(row_img, column_img, 2000);
+imgs(:, :, 1001:2000) = imgs0;
+imgs(:, :, 1:1000)   = imgs1;
+
+idx = randperm(2000);
+imgs = imgs(:, :, idx);
+
+% data = reshape(imgs, row_img*column_img, frames_img);
+data = reshape(imgs, row_img*column_img, 2000);
+data = data';
+
+[U S V] = svd(data);
+
+{% endcodeblock %}
+
+然后这个地方，很容易忽视的地方。
+按道理说，应该会数据乘上特征值最大的几个特征向量.
+也就是应该是 \\(A \times V) \\).
+但是，我们有奇异值分解的公式:
+\\[
+A\_{m \times n} = U\_{m \times m} \Sigma\_{m \times n} V\_{n \times n}^T
+\\]
+因为\\(V\\)是一个正交矩阵，所以有\\(V^{-1} = V^{T}\\)。也就是说：
+\\[
+\begin{aligned}
+A\_{m \times n} &= U\_{m \times m} \Sigma\_{m \times n} V\_{n \times n}^T \Rightarrow \\\\ 
+A\_{m \times n} &= U\_{m \times m} \Sigma\_{m \times n} V\_{n \times n}^{-1}  \Rightarrow \\\\ 
+A\_{m \times n}  V\_{n \times n}  &= U\_{m \times m} \Sigma\_{m \times n} V\_{n \times n}^{-1}  V\_{n \times n}  \Rightarrow \\\\ 
+A\_{m \times n}  V\_{n \times n}  &= U\_{m \times m} \Sigma\_{m \times n} I\_{n \times n}  \Rightarrow \\\\ 
+A\_{m \times n}  V\_{n \times n}  &= U\_{m \times m} \Sigma\_{m \times n}   
+\end{aligned}
+\\]
+所以其实\\( U \times S \\)和\\( A \times V\\)是相等。用程序也可以验证出来
+
+{% codeblock lang:matlab %}
+
+num = 2;
+newdata = U*S(:, 1:num);
+% or newdata = data*V(:,1:num);
+{% endcodeblock %}
+
+最后根据不用的标签标上不同的颜色，显示即可
+{% codeblock lang:matlab %}
+x = newdata(:, 1);
+y = newdata(:, 2);
+
+
+labs1 = zeros(1000, 1);
+labs2 = zeros(1000, 1) + 1;
+
+labs = [labs1 ; labs2];
+
+labs = labs(idx);
+
+idx_data = labs == 0;
+x0 = x(idx_data);
+y0 = y(idx_data);
+
+idx_data = ~idx_data;
+x1 = x(idx_data);
+y1 = y(idx_data);
+
+figure
+plot(x0, y0, 'b.')
+hold on
+plot(x1, y1, 'r.')
+drawnow
+{% endcodeblock %}
+
+最后附上python的代码:
+{% codeblock lang:python %}
+
+#!/usr/bin/env python
+
+
+import loadMNIST as lm
+import numpy as np
+import matplotlib.pyplot as plt
+import random
+
+
+path_labs = '/data/dataset/MNIST/train-labels.idx1-ubyte'
+path_imgs = '/data/dataset/MNIST/train-images.idx3-ubyte'
+
+imgs, labs = lm.loadMNIST(path_imgs, path_labs)
+
+
+imgs0 = [imgs[i, :, :] for i in range(60000) if labs[i] == 0]
+imgs0 = np.array(imgs0)
+
+imgs0 = imgs0[0:1000, :, :]
+
+
+imgs1 = [imgs[i, :, :] for i in range(60000) if labs[i] == 1]
+imgs1 = np.array(imgs1)
+
+imgs1 = imgs1[0:1000, :, :]
+
+combimgs = np.zeros(shape=(2000, 28, 28))
+
+combimgs[0:1000, :, :] = imgs0
+combimgs[1000:2000, :, :] = imgs1
+
+idx = range(2000)
+random.shuffle(idx)
+
+# imgs = np.zeros(shape=(2000, 28, 28))
+imgs = [combimgs[i, :, :] for i in idx]
+imgs = np.array(imgs)
+
+
+comblabs = np.zeros(2000)
+comblabs[0:1000] = 1;
+
+labs = [comblabs[i] for i in idx]
+labs = np.array(labs)
+
+
+data = np.array([np.array(imgs[i, :, :]).flatten() for i in range(2000)])
+
+U, S, V = np.linalg.svd(data)
+
+row_data, column_data = data.shape
+
+sigma = np.zeros([row_data, column_data])
+
+for i in range(column_data):
+    sigma[i][i] = S[i]
+
+tmpdata = np.dot(U, sigma[:, 0:2])
+subdata = np.dot(tmpdata, V[0:2, :])
+
+
+data0 = [tmpdata[i, :] for i in range(2000) if labs[i] == 0]
+data0 = np.array(data0)
+
+data1 = [tmpdata[i, :] for i in range(2000) if labs[i] == 1]
+data1 = np.array(data1)
+
+plt.figure()
+plt.plot(data0[:, 0], data0[:, 1], 'b.')
+plt.plot(data1[:, 0], data1[:, 1], 'r.')
+plt.show()
+{% endcodeblock %}
+
+

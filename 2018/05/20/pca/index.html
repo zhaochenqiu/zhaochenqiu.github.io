@@ -65,34 +65,25 @@
 <a id="more"></a></p>
 <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
-<h1 id="效果图"><a href="#效果图" class="headerlink" title="效果图"></a>效果图</h1><p>这次使用PCA对<a href="http://yann.lecun.com/exdb/mnist/" target="_blank" rel="noopener">MNIST</a>数据集中数字0和1进行降维分类，分别使用Matlab和Python来实验，结果如下:</p>
+<h1 id="效果图"><a href="#效果图" class="headerlink" title="效果图"></a>效果图</h1><p>这次使用PCA对<a href="http://yann.lecun.com/exdb/mnist/" target="_blank" rel="external">MNIST</a>数据集中数字0和1进行降维分类，分别使用Matlab和Python来实验，结果如下:</p>
 <p><img src="https://image.ibb.co/b97PmT/exp1.png" alt="将数字图片降低到两个维度，红点为数字0的图像降维结果，蓝点为数字1的降维结果"></p>
-<h1 id="背景知识"><a href="#背景知识" class="headerlink" title="背景知识"></a>背景知识</h1><h2 id="特征值与特征向量-以及奇异值分解"><a href="#特征值与特征向量-以及奇异值分解" class="headerlink" title="特征值与特征向量,以及奇异值分解"></a>特征值与特征向量,以及奇异值分解</h2><h3 id="特征值与特征向量定义"><a href="#特征值与特征向量定义" class="headerlink" title="特征值与特征向量定义"></a>特征值与特征向量定义</h3><p>特征向量的定义为：\[A \vec{v} = \lambda \vec{v} \]
+<h1 id="特征值与特征向量定义"><a href="#特征值与特征向量定义" class="headerlink" title="特征值与特征向量定义"></a>特征值与特征向量定义</h1><p>特征向量的定义为：\[A \vec{v} = \lambda \vec{v} \]
 其中\(\vec{v}\)就是\(A\)就是特征向量,而对应的\(\lambda\)就是特征值</p>
-<p>在Matlab里使用<code>eig</code>函数来求，使用方法为:</p>
-<pre><code>clear all
-close all
-clc
-
-mat = rand(3,3);
-[V D] = eig(mat); % V 为特征向量,列向量，D为特征值
-
-mat*V(:, 1) - D(1, 1)*V(:, 1)
-mat*V(:, 2) - D(2, 2)*V(:, 2)
-mat*V(:, 3) - D(3, 3)*V(:, 3)
-</code></pre><p>注意，一个矩阵可能会有多个特征向量，而且通常情况下<strong>特征向量相互独立</strong>也就是线性无关(为什么无关可以用<a href="https://zhuanlan.zhihu.com/p/30454490" target="_blank" rel="noopener">反证法</a>)，就是不同特征向量的乘积为0。
+<p>在Matlab里使用<code>eig</code>函数来求，使用方法为:
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">clear all</div><div class="line">close all</div><div class="line">clc</div><div class="line"></div><div class="line">mat = <span class="built_in">rand</span>(<span class="number">3</span>,<span class="number">3</span>);</div><div class="line">[V D] = eig(mat); <span class="comment">% V 为特征向量,列向量，D为特征值</span></div><div class="line"></div><div class="line">mat*V(:, <span class="number">1</span>) - D(<span class="number">1</span>, <span class="number">1</span>)*V(:, <span class="number">1</span>)</div><div class="line">mat*V(:, <span class="number">2</span>) - D(<span class="number">2</span>, <span class="number">2</span>)*V(:, <span class="number">2</span>)</div><div class="line">mat*V(:, <span class="number">3</span>) - D(<span class="number">3</span>, <span class="number">3</span>)*V(:, <span class="number">3</span>)</div></pre></td></tr></table></figure>
+注意，一个矩阵可能会有多个特征向量，而且通常情况下<strong>特征向量相互独立</strong>也就是线性无关(为什么无关可以用<a href="https://zhuanlan.zhihu.com/p/30454490" target="_blank" rel="external">反证法</a>)，就是不同特征向量的乘积为0。
 如果把矩阵理解为多维空间的运动，特征向量就是坐标轴了，
 那么2维矩阵会有两个，3维矩阵会有三个，特征向量所在直线
 就被称为<strong>特征空间</strong>。例如二维矩阵就会有两个，关键在于\(\vec{v}\)是把矩阵向左转了
 还是向右转了,如下图</p>
 <p><img src="https://image.ibb.co/ki2JY8/exp3.png" alt="特征向量和特征空间"></p>
-<h3 id="特征向量定义与特征分解公式"><a href="#特征向量定义与特征分解公式" class="headerlink" title="特征向量定义与特征分解公式"></a>特征向量定义与特征分解公式</h3><p>再回到之前的特征向量定义:
+<h1 id="特征向量定义与特征分解公式"><a href="#特征向量定义与特征分解公式" class="headerlink" title="特征向量定义与特征分解公式"></a>特征向量定义与特征分解公式</h1><p>再回到之前的特征向量定义:
 \[A \vec{V} = \lambda \vec{v}  \]
 然后是矩阵特征值分解的公式:
 \[A = P \Lambda P^{-1}  \]
 其中的\(\Lambda\)就是矩阵A的特征值，而\(P^{-1}\)的列向量就是矩阵的特征向量。</p>
 <p>特征向量的定义如何推导出特征值分解公式。
-假设\(A\)为对角矩阵，那么他肯定是一个<a href="https://zh.wikipedia.org/wiki/%E5%8F%AF%E5%AF%B9%E8%A7%92%E5%8C%96%E7%9F%A9%E9%98%B5" target="_blank" rel="noopener">可对角化矩阵</a>。
+假设\(A\)为对角矩阵，那么他肯定是一个<a href="https://zh.wikipedia.org/wiki/%E5%8F%AF%E5%AF%B9%E8%A7%92%E5%8C%96%E7%9F%A9%E9%98%B5" target="_blank" rel="external">可对角化矩阵</a>。
 那么他的特征向量两两正交。现在假设它有\(m\)个不同的特征值为\(\lambda_i \),对应的
 特征向量为\(x_i\)则有:
 \[
@@ -116,10 +107,85 @@ U = [x_1 x_2 \cdots x_m] \quad \quad
 \[
 A = U\Lambda U^{-1} = U\Lambda U^{T}
 \]
-其中，由于特征向量两两正交，所以\(U\)为<a href="https://zh.wikipedia.org/wiki/%E6%AD%A3%E4%BA%A4%E7%9F%A9%E9%98%B5" target="_blank" rel="noopener">正交阵</a>,
+其中，由于特征向量两两正交，所以\(U\)为<a href="https://zh.wikipedia.org/wiki/%E6%AD%A3%E4%BA%A4%E7%9F%A9%E9%98%B5" target="_blank" rel="external">正交阵</a>,
 正交矩阵的逆等于转置。Matlab的验证程序如下:</p>
-<p>一个矩阵可以看作一个运动，
-特征向量就是指这个运动的方向，特征值就是在该方向运动的距离.</p>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div></pre></td><td class="code"><pre><div class="line">clear all</div><div class="line">close all</div><div class="line">clc</div><div class="line"></div><div class="line"></div><div class="line">num = <span class="number">3</span>;</div><div class="line"></div><div class="line">mat = <span class="built_in">rand</span>(num, num);</div><div class="line"></div><div class="line">[row column] = <span class="built_in">size</span>(mat);</div><div class="line"></div><div class="line"><span class="comment">% 将随机矩阵变成对角阵</span></div><div class="line"><span class="keyword">for</span> <span class="built_in">i</span> = <span class="number">1</span>:row</div><div class="line">    <span class="keyword">for</span> <span class="built_in">j</span> = <span class="built_in">i</span>:column</div><div class="line">        mat(<span class="built_in">i</span>, <span class="built_in">j</span>) = mat(<span class="built_in">j</span>, <span class="built_in">i</span>);</div><div class="line">    <span class="keyword">end</span></div><div class="line"><span class="keyword">end</span></div><div class="line"></div><div class="line">[V D] = eig(mat);</div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">% 验证正交矩阵逆矩阵等于其转置</span></div><div class="line">V*V'</div><div class="line">V*V^(<span class="number">-1</span>)</div><div class="line"></div><div class="line"><span class="comment">% 验证特征向量两两正交</span></div><div class="line"><span class="keyword">for</span> <span class="built_in">i</span> = <span class="number">1</span>:row</div><div class="line">    <span class="keyword">for</span> <span class="built_in">j</span> = <span class="number">1</span>:column</div><div class="line">        <span class="keyword">if</span> <span class="built_in">i</span> ~= <span class="built_in">j</span></div><div class="line">            vec1 = V(:, <span class="number">1</span>);</div><div class="line">            vec2 = V(:, <span class="number">2</span>);</div><div class="line"></div><div class="line">            [i j vec1<span class="string">'*vec2]</span></div><div class="line"><span class="string">        end</span></div><div class="line"><span class="string">    end</span></div><div class="line"><span class="string">end</span></div><div class="line"><span class="string">% 验证对角阵特征值的分解公式 mat = V*D*V'</span></div><div class="line">mat</div><div class="line">V*D*V<span class="string">'</span></div><div class="line"><span class="string">V*D*V^(-1)</span></div><div class="line"><span class="string"></span></div></pre></td></tr></table></figure>
+<h1 id="奇异值分解"><a href="#奇异值分解" class="headerlink" title="奇异值分解"></a>奇异值分解</h1><p>矩阵的特征值分解只能针对方阵，但是现实中，大部分矩阵都不是方阵，而奇异值SVD分解就是为了解决这个问题。</p>
+<p>通过之间的特征值分解公式，我们可以将一个对称阵进行特征值分解。那么对于一个非对称阵的矩阵\(A\),我们只要将它乘上他的转置就可以将其和矩阵的特征值对应起来：
+\[
+(AA^T)V = \lambda V
+\]
+这里的\(V\)就是右奇异向量，然后再有：</p>
+<p>\[
+\sigma_i = \sqrt{\lambda_i} \\
+\mu_i = \frac{1}{\sigma_i}A v_i
+\]</p>
+<p>接着就可以得到奇异值分解的定义:</p>
+<p>\[
+A_{m \times n} = U_{m \times m} \Sigma_{m \times n} V_{n \times n}^T
+\]</p>
+<h1 id="奇异值分解与矩阵的主成分PCA"><a href="#奇异值分解与矩阵的主成分PCA" class="headerlink" title="奇异值分解与矩阵的主成分PCA"></a>奇异值分解与矩阵的主成分PCA</h1><p>一个矩阵可以看作一个运动，一个变换，例如平移矩阵，旋转矩阵之类的。
+对于运动，其实是可以分解的，就例如将一个矩阵分解为另外几个矩阵的乘积一样。
+而矩阵的奇异值分解，其实是将矩阵分解成了几个特殊的矩阵。第一个是\(U\),基向量。
+他很重要但是在PCA中应用没有另外两个广泛。所以不不过解释了。
+第二个是保存了奇异值的矩阵\(\Sigma\),这个矩阵只有对角线上有值，其他的都是0.
+这些值就是奇异值，也可以理解为特征值。而对应的第三个\(V^T\)就是上一个特征值矩阵中的值
+所以分别对应的特征向量。</p>
+<p>最后一个矩阵中的特征向量是两两正交的，也就是说矩阵的运动被分解到了一些特定的相互独立的方向上。
+而对应的特征值就是在这些方向上的移动距离。所以现在就很容易理解了，当然只有那些移动了特别远的
+距离的矩阵，才是矩阵的主要元素。例如运动\((100, 100, 1)\)当然是前两个元素才是主要元素。
+因此在实际操作时，往往只要取出特征值中的前几个比较大的元素，其实就可以还原出整个矩阵。
+因此公式从原来的标准定义：</p>
+<p>\[
+A_{m \times n} = U_{m \times m} \Sigma_{m \times n} V_{n \times n}^T
+\]</p>
+<p>就变成了:</p>
+<p>\[
+A_{m \times n} \approx  U_{m \times r} \Sigma_{r \times n} V_{r \times n}^T
+\]</p>
+<p>然后利用这种约等于的性质就可以对一副图像进行主成分的提取。例如，这里，我们只使用图像的前10个特征值对图像重构，也就是说\(r = 10\)代码如下：</p>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">clear all</div><div class="line">close all</div><div class="line">clc</div><div class="line"></div><div class="line"></div><div class="line">im = double(imread(<span class="string">'./image.jpg'</span>));</div><div class="line"></div><div class="line">gryim = grayImage(im);</div><div class="line"></div><div class="line">[s v d] = svd(gryim);</div><div class="line"></div><div class="line">num = <span class="number">10</span>;</div><div class="line"></div><div class="line">gryim2 = s(:, :)*v(:, <span class="number">1</span>:num)*d(:, <span class="number">1</span>:num)';</div><div class="line"></div><div class="line">figure</div><div class="line">displayMatrixImage(<span class="number">1</span>, <span class="number">1</span>, <span class="number">2</span>, gryim, gryim2)</div></pre></td></tr></table></figure>
+<p>那么就可以得到下面的效果图：</p>
+<p><img src="https://image.ibb.co/eZsuqy/image.png" alt="图像的主成分分析"></p>
+<p>其实到已经可以直接拿奇异值分解来降维了，方法就是只保留前几个特征值大的维度。
+但还是介绍下PCA又是怎么和奇异值扯上关系的。
+假设当前有很多很多样本，PCA就是希望找到另一个空间（这个空间的维度比原样本的维度低）用于投影，
+让数据的之间的方差最大，<strong>也就是让数据的损失最小</strong>。具体可以看下图（盗个图）：</p>
+<p><img src="https://i.stack.imgur.com/Q7HIP.gif" alt="PCA实例"></p>
+<p>如果将所有的数据都包含在一个矩阵中，现在想进行PCA降维，那么奇异值就是很好找出这个让数据损失最小的特征空间的方法。
+因为将这个矩阵看作运动，那么奇异值可以保证找出运动距离最大的几个方向，而每一个方向因为其相互正交又可以看出各个相互独立的维度，最后一起组成PCA的降维空间。</p>
+<h1 id="PCA降维实例，MNIST数据集。"><a href="#PCA降维实例，MNIST数据集。" class="headerlink" title="PCA降维实例，MNIST数据集。"></a>PCA降维实例，MNIST数据集。</h1><p>介绍了足够了原理来，现在开始来实战，怎么得到开始的效果图。这里使用MNIST数据，然后使用Matlab和Python两种语言。</p>
+<h2 id="MNIST数据集"><a href="#MNIST数据集" class="headerlink" title="MNIST数据集"></a>MNIST数据集</h2><p>第一步先<a href="http://yann.lecun.com/exdb/mnist/" target="_blank" rel="external">下载</a>并准备好MNIST数据集。
+下载好了之后，要想办法读取，Matlab和Python版本的读取代码有很多，可自行去网上找，或者自己写（难道不大）。
+读取之后，可以显示看看，是否读取正确了，如下图：</p>
+<p><img src="https://image.ibb.co/bKfQDJ/image.png" alt="MNIST数据集"></p>
+<h2 id="对MNIST数据进行PCA降维"><a href="#对MNIST数据进行PCA降维" class="headerlink" title="对MNIST数据进行PCA降维"></a>对MNIST数据进行PCA降维</h2><p>接着对MNIST数据集进行PCA降维。MNIST数据集中包含了数字0-9的手写体。
+为了让降维的效果更明显，这里只取数字0和数字1两种图片。代码如下:</p>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">imgfiles = <span class="string">'/data/dataset/MNIST/train-images.idx3-ubyte'</span>;</div><div class="line">labfiles = <span class="string">'/data/dataset/MNIST/train-labels.idx1-ubyte'</span>;</div><div class="line"></div><div class="line"><span class="comment">% 60000</span></div><div class="line">[imgs labels] = readMNIST(imgfiles, labfiles, <span class="number">60000</span>, <span class="number">0</span>);</div><div class="line"></div><div class="line">[row_img column_img frames_img] = <span class="built_in">size</span>(imgs);</div><div class="line"></div><div class="line">lab1 = <span class="number">1</span>;</div><div class="line">lab0 = <span class="number">0</span>;</div><div class="line"></div><div class="line">idx1 = labels == lab1;</div><div class="line">idx0 = labels == lab0;</div><div class="line"></div><div class="line">imgs1 = imgs(:, :, idx1);</div><div class="line">imgs0 = imgs(:, :, idx0);</div><div class="line"></div><div class="line">imgs1 = imgs1(:, :, <span class="number">1</span>:<span class="number">1000</span>);</div><div class="line">imgs0 = imgs0(:, :, <span class="number">1</span>:<span class="number">1000</span>);</div></pre></td></tr></table></figure>
+<p>然后将顺序打乱，进行svd分解:
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">imgs = <span class="built_in">zeros</span>(row_img, column_img, <span class="number">2000</span>);</div><div class="line">imgs(:, :, <span class="number">1001</span>:<span class="number">2000</span>) = imgs0;</div><div class="line">imgs(:, :, <span class="number">1</span>:<span class="number">1000</span>)   = imgs1;</div><div class="line"></div><div class="line">idx = randperm(<span class="number">2000</span>);</div><div class="line">imgs = imgs(:, :, idx);</div><div class="line"></div><div class="line"><span class="comment">% data = reshape(imgs, row_img*column_img, frames_img);</span></div><div class="line">data = <span class="built_in">reshape</span>(imgs, row_img*column_img, <span class="number">2000</span>);</div><div class="line">data = data';</div><div class="line"></div><div class="line">[U S V] = svd(data);</div><div class="line"></div></pre></td></tr></table></figure></p>
+<p>然后这个地方，很容易忽视的地方。
+按道理说，应该会数据乘上特征值最大的几个特征向量.
+也就是应该是 \(A \times V) \).
+但是，我们有奇异值分解的公式:
+\[
+A_{m \times n} = U_{m \times m} \Sigma_{m \times n} V_{n \times n}^T
+\]
+因为\(V\)是一个正交矩阵，所以有\(V^{-1} = V^{T}\)。也就是说：
+\[
+\begin{aligned}
+A_{m \times n} &amp;= U_{m \times m} \Sigma_{m \times n} V_{n \times n}^T \Rightarrow \\ 
+A_{m \times n} &amp;= U_{m \times m} \Sigma_{m \times n} V_{n \times n}^{-1}  \Rightarrow \\ 
+A_{m \times n}  V_{n \times n}  &amp;= U_{m \times m} \Sigma_{m \times n} V_{n \times n}^{-1}  V_{n \times n}  \Rightarrow \\ 
+A_{m \times n}  V_{n \times n}  &amp;= U_{m \times m} \Sigma_{m \times n} I_{n \times n}  \Rightarrow \\ 
+A_{m \times n}  V_{n \times n}  &amp;= U_{m \times m} \Sigma_{m \times n}<br>\end{aligned}
+\]
+所以其实\( U \times S \)和\( A \times V\)是相等。用程序也可以验证出来</p>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">num = <span class="number">2</span>;</div><div class="line">newdata = U*S(:, <span class="number">1</span>:num);</div><div class="line"><span class="comment">% or newdata = data*V(:,1:num);</span></div></pre></td></tr></table></figure>
+<p>最后根据不用的标签标上不同的颜色，显示即可
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">x = newdata(:, <span class="number">1</span>);</div><div class="line">y = newdata(:, <span class="number">2</span>);</div><div class="line"></div><div class="line"></div><div class="line">labs1 = <span class="built_in">zeros</span>(<span class="number">1000</span>, <span class="number">1</span>);</div><div class="line">labs2 = <span class="built_in">zeros</span>(<span class="number">1000</span>, <span class="number">1</span>) + <span class="number">1</span>;</div><div class="line"></div><div class="line">labs = [labs1 ; labs2];</div><div class="line"></div><div class="line">labs = labs(idx);</div><div class="line"></div><div class="line">idx_data = labs == <span class="number">0</span>;</div><div class="line">x0 = x(idx_data);</div><div class="line">y0 = y(idx_data);</div><div class="line"></div><div class="line">idx_data = ~idx_data;</div><div class="line">x1 = x(idx_data);</div><div class="line">y1 = y(idx_data);</div><div class="line"></div><div class="line">figure</div><div class="line">plot(x0, y0, <span class="string">'b.'</span>)</div><div class="line">hold on</div><div class="line">plot(x1, y1, <span class="string">'r.'</span>)</div><div class="line">drawnow</div></pre></td></tr></table></figure></p>
+<p>最后附上python的代码:
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="comment">#!/usr/bin/env python</span></div><div class="line"></div><div class="line"></div><div class="line"><span class="keyword">import</span> loadMNIST <span class="keyword">as</span> lm</div><div class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</div><div class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</div><div class="line"><span class="keyword">import</span> random</div><div class="line"></div><div class="line"></div><div class="line">path_labs = <span class="string">'/data/dataset/MNIST/train-labels.idx1-ubyte'</span></div><div class="line">path_imgs = <span class="string">'/data/dataset/MNIST/train-images.idx3-ubyte'</span></div><div class="line"></div><div class="line">imgs, labs = lm.loadMNIST(path_imgs, path_labs)</div><div class="line"></div><div class="line"></div><div class="line">imgs0 = [imgs[i, :, :] <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">60000</span>) <span class="keyword">if</span> labs[i] == <span class="number">0</span>]</div><div class="line">imgs0 = np.array(imgs0)</div><div class="line"></div><div class="line">imgs0 = imgs0[<span class="number">0</span>:<span class="number">1000</span>, :, :]</div><div class="line"></div><div class="line"></div><div class="line">imgs1 = [imgs[i, :, :] <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">60000</span>) <span class="keyword">if</span> labs[i] == <span class="number">1</span>]</div><div class="line">imgs1 = np.array(imgs1)</div><div class="line"></div><div class="line">imgs1 = imgs1[<span class="number">0</span>:<span class="number">1000</span>, :, :]</div><div class="line"></div><div class="line">combimgs = np.zeros(shape=(<span class="number">2000</span>, <span class="number">28</span>, <span class="number">28</span>))</div><div class="line"></div><div class="line">combimgs[<span class="number">0</span>:<span class="number">1000</span>, :, :] = imgs0</div><div class="line">combimgs[<span class="number">1000</span>:<span class="number">2000</span>, :, :] = imgs1</div><div class="line"></div><div class="line">idx = range(<span class="number">2000</span>)</div><div class="line">random.shuffle(idx)</div><div class="line"></div><div class="line"><span class="comment"># imgs = np.zeros(shape=(2000, 28, 28))</span></div><div class="line">imgs = [combimgs[i, :, :] <span class="keyword">for</span> i <span class="keyword">in</span> idx]</div><div class="line">imgs = np.array(imgs)</div><div class="line"></div><div class="line"></div><div class="line">comblabs = np.zeros(<span class="number">2000</span>)</div><div class="line">comblabs[<span class="number">0</span>:<span class="number">1000</span>] = <span class="number">1</span>;</div><div class="line"></div><div class="line">labs = [comblabs[i] <span class="keyword">for</span> i <span class="keyword">in</span> idx]</div><div class="line">labs = np.array(labs)</div><div class="line"></div><div class="line"></div><div class="line">data = np.array([np.array(imgs[i, :, :]).flatten() <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">2000</span>)])</div><div class="line"></div><div class="line">U, S, V = np.linalg.svd(data)</div><div class="line"></div><div class="line">row_data, column_data = data.shape</div><div class="line"></div><div class="line">sigma = np.zeros([row_data, column_data])</div><div class="line"></div><div class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(column_data):</div><div class="line">    sigma[i][i] = S[i]</div><div class="line"></div><div class="line">tmpdata = np.dot(U, sigma[:, <span class="number">0</span>:<span class="number">2</span>])</div><div class="line">subdata = np.dot(tmpdata, V[<span class="number">0</span>:<span class="number">2</span>, :])</div><div class="line"></div><div class="line"></div><div class="line">data0 = [tmpdata[i, :] <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">2000</span>) <span class="keyword">if</span> labs[i] == <span class="number">0</span>]</div><div class="line">data0 = np.array(data0)</div><div class="line"></div><div class="line">data1 = [tmpdata[i, :] <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">2000</span>) <span class="keyword">if</span> labs[i] == <span class="number">1</span>]</div><div class="line">data1 = np.array(data1)</div><div class="line"></div><div class="line">plt.figure()</div><div class="line">plt.plot(data0[:, <span class="number">0</span>], data0[:, <span class="number">1</span>], <span class="string">'b.'</span>)</div><div class="line">plt.plot(data1[:, <span class="number">0</span>], data1[:, <span class="number">1</span>], <span class="string">'r.'</span>)</div><div class="line">plt.show()</div></pre></td></tr></table></figure></p>
 
       
     </div>
@@ -158,7 +224,7 @@ A = U\Lambda U^{-1} = U\Lambda U^{T}
 
 
 <section id="comment">
-  <h1 class="title">Comments</h1>
+  <h1 class="title">Kommentare</h1>
 
   
       <div id="fb-root"></div>
@@ -181,7 +247,7 @@ A = U\Lambda U^{-1} = U\Lambda U^{T}
     <aside id="sidebar" class="alignright">
   <div class="search">
   <form action="//google.com/search" method="get" accept-charset="utf-8">
-    <input type="search" name="q" results="0" placeholder="Search">
+    <input type="search" name="q" results="0" placeholder="Suche">
     <input type="hidden" name="q" value="site:yoursite.com">
   </form>
 </div>
