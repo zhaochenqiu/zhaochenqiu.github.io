@@ -253,7 +253,7 @@ data = data';
 
 然后这个地方，很容易忽视的地方。
 按道理说，应该会数据乘上特征值最大的几个特征向量.
-也就是应该是 \\(A \times V) \\).
+也就是应该是 \\(A \times V \\).
 但是，我们有奇异值分解的公式:
 \\[
 A\_{m \times n} = U\_{m \times m} \Sigma\_{m \times n} V\_{n \times n}^T
