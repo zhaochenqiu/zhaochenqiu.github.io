@@ -65,7 +65,7 @@
 <a id="more"></a></p>
 <p>– 为了熟悉vim，来来回回折腾了也快一年了。作为传说中的编辑器之神，vim的扩展功能确实让人着迷。<strong>这里记录下我自己的
 vim配置，希望对喜欢vim的人有所帮助</strong> –</p>
-<h2 id="为什么要使用vim-？"><a href="#为什么要使用vim-？" class="headerlink" title="为什么要使用vim ？"></a>为什么要使用vim ？</h2><p>这个问题真的是太难回答了,不可否认，在实际项目的开发中，很少会用到vim。但vim就没用了么？答案肯定是否定的，毕竟那么多的高手最后都选择用vim而抛弃了IDE（当然也有用emacs）。stackoverflow上有一个回答vim的可以看<a href="http://stackoverflow.com/questions/597077/what-are-the-benefits-of-learning-vim" target="_blank" rel="external">这里</a>。此外，以前一个老师跟我说一句话，他说<strong>一切都是为了效率</strong>。我觉这句话回答了为什么要使用vim。vim确实很难上手，但是一旦上手，确实比IDE的效率要高。首先，你的双手可以一直不离开键盘。再者，vim的扩展性足以让他成为任何一个IDE。最后，IDE都是针对某一类特定的软件开发，他的效率高只是针对某一类软件，而对于其他类的软件效率就会降低，而vim因为他命令行的特性，其软件开发的类型，完全取决于开发者的配置。理论上vim可以开发任何类型的软件。</p>
+<h2 id="为什么要使用vim-？"><a href="#为什么要使用vim-？" class="headerlink" title="为什么要使用vim ？"></a>为什么要使用vim ？</h2><p>这个问题真的是太难回答了,不可否认，在实际项目的开发中，很少会用到vim。但vim就没用了么？答案肯定是否定的，毕竟那么多的高手最后都选择用vim而抛弃了IDE（当然也有用emacs）。stackoverflow上有一个回答vim的可以看<a href="http://stackoverflow.com/questions/597077/what-are-the-benefits-of-learning-vim" target="_blank" rel="noopener">这里</a>。此外，以前一个老师跟我说一句话，他说<strong>一切都是为了效率</strong>。我觉这句话回答了为什么要使用vim。vim确实很难上手，但是一旦上手，确实比IDE的效率要高。首先，你的双手可以一直不离开键盘。再者，vim的扩展性足以让他成为任何一个IDE。最后，IDE都是针对某一类特定的软件开发，他的效率高只是针对某一类软件，而对于其他类的软件效率就会降低，而vim因为他命令行的特性，其软件开发的类型，完全取决于开发者的配置。理论上vim可以开发任何类型的软件。</p>
 <h2 id="看完这篇博文你能得到什么？"><a href="#看完这篇博文你能得到什么？" class="headerlink" title="看完这篇博文你能得到什么？"></a>看完这篇博文你能得到什么？</h2><p>这篇博文记录我的vim配置过程。其中包括我希望达到的效果和所使用的方法。对想学vim但又不知道怎么入手的人有很大的帮助。当然，如果是高手就请不要笑话我了</p>
 <h2 id="我的vim配置"><a href="#我的vim配置" class="headerlink" title="我的vim配置"></a>我的vim配置</h2><p>我的vim是在cygwin下安装的,但是和普通的vim是几乎一样的。先截一张我的vim的效果图：
 <img src="http://i3.tietuku.com/903bf9b97b34ff5d.png" alt="效果截图"></p>
@@ -123,9 +123,9 @@ hi CursorLine   cterm=NONE ctermbg=darkred ctermfg=white guibg=darkred guifg=whi
 set cursorcolumn
 hi CursorColumn cterm=NONE ctermbg=darkred ctermfg=white guibg=darkred guifg=white
 </code></pre><p>至此，vim的基本配置已经完成了。</p>
-<h3 id="代码自动补全"><a href="#代码自动补全" class="headerlink" title="代码自动补全"></a>代码自动补全</h3><p>vim补全的快捷键是<code>ctrl+p</code>.虽然我不是很喜欢插件，但补全确认是装插件比较好。我用的插件是neocomplete.这里直接介绍下载，安装方法。关于他的介绍可以看<a href="https://github.com/Shougo/neocomplete.vim" target="_blank" rel="external">这里</a>首先下载neocomplete，<a href="https://github.com/Shougo/neocomplete.vim" target="_blank" rel="external">下载地址</a>下载好了之后，只需要把<code>autoload</code>和<code>plugin</code>两个文件夹方法vim的安装目录去就可以了。直接拷贝。安装之后，还需要进行vim的配置。最简单的配置方法是</p>
+<h3 id="代码自动补全"><a href="#代码自动补全" class="headerlink" title="代码自动补全"></a>代码自动补全</h3><p>vim补全的快捷键是<code>ctrl+p</code>.虽然我不是很喜欢插件，但补全确认是装插件比较好。我用的插件是neocomplete.这里直接介绍下载，安装方法。关于他的介绍可以看<a href="https://github.com/Shougo/neocomplete.vim" target="_blank" rel="noopener">这里</a>首先下载neocomplete，<a href="https://github.com/Shougo/neocomplete.vim" target="_blank" rel="noopener">下载地址</a>下载好了之后，只需要把<code>autoload</code>和<code>plugin</code>两个文件夹方法vim的安装目录去就可以了。直接拷贝。安装之后，还需要进行vim的配置。最简单的配置方法是</p>
 <pre><code>let g:neocomplcache_enable_quick_match = 1
-</code></pre><p>当然，neocomplete的作者也给出他的配置，如果没有特殊的需求是可以直接用的，需要的人可以看<a href="http://foocoder.com/blog/mei-ri-vimcha-jian-qiang-da-de-zi-dong-bu-quan-neocomplete-dot-vim.html/" target="_blank" rel="external">这里</a>或者<a href="https://github.com/Shougo/neocomplete.vim" target="_blank" rel="external">这里</a>这样代码的自动补全功能已经完成。但是如果自己配过的人一定已经发现，这个补全功能的配置巨丑无比。所以要再增加两行补全窗口的配置方案。</p>
+</code></pre><p>当然，neocomplete的作者也给出他的配置，如果没有特殊的需求是可以直接用的，需要的人可以看<a href="http://foocoder.com/blog/mei-ri-vimcha-jian-qiang-da-de-zi-dong-bu-quan-neocomplete-dot-vim.html/" target="_blank" rel="noopener">这里</a>或者<a href="https://github.com/Shougo/neocomplete.vim" target="_blank" rel="noopener">这里</a>这样代码的自动补全功能已经完成。但是如果自己配过的人一定已经发现，这个补全功能的配置巨丑无比。所以要再增加两行补全窗口的配置方案。</p>
 <pre><code>highlight Pmenu  ctermbg=darkgrey ctermfg=black    guibg=darkgrey  guifg=black
 highlight PmenuSel guibg=lightgrey guifg=black
 </code></pre><p>其中<code>Pmenu</code>就是补全弹出的窗口，而<code>PmenuSel</code>就是选择的窗口。<code>ctermbg</code>和
@@ -144,7 +144,7 @@ endfunc
 <pre><code>map &lt;f5&gt; :call Run()&lt;CR&gt;
 map &lt;f7&gt; :call Complie()&lt;CR&gt;
 </code></pre><p>我的编译和运行分别是<code>F7</code>和<code>F5</code></p>
-<h3 id="黑客帝国"><a href="#黑客帝国" class="headerlink" title="黑客帝国"></a>黑客帝国</h3><p>首先声明，这不是我写的，是抄的网上的。介于可能很多同学用不了谷歌，所以我把结果直接贴上，原文在<a href="https://www.google.com/webhp?sourceid=chrome-instant&amp;ion=1&amp;espv=2&amp;ie=UTF-8#q=matrix.vim" target="_blank" rel="external">这里</a>需翻墙.下面这段直接贴进去，然后按F11就可以执行了。附上一张效果图
+<h3 id="黑客帝国"><a href="#黑客帝国" class="headerlink" title="黑客帝国"></a>黑客帝国</h3><p>首先声明，这不是我写的，是抄的网上的。介于可能很多同学用不了谷歌，所以我把结果直接贴上，原文在<a href="https://www.google.com/webhp?sourceid=chrome-instant&amp;ion=1&amp;espv=2&amp;ie=UTF-8#q=matrix.vim" target="_blank" rel="noopener">这里</a>需翻墙.下面这段直接贴进去，然后按F11就可以执行了。附上一张效果图
 <img src="http://i3.tietuku.com/65e1e7a6841adf0f.jpg" alt="黑客帝国"></p>
 <pre><code>function! s:Rand()
    let b:seed = b:seed * 22695477 + 1
@@ -458,7 +458,7 @@ map &lt;f11&gt; :call Matrix()&lt;CR&gt;
 
 
 <section id="comment">
-  <h1 class="title">Kommentare</h1>
+  <h1 class="title">Comments</h1>
 
   
       <div id="fb-root"></div>
@@ -481,7 +481,7 @@ map &lt;f11&gt; :call Matrix()&lt;CR&gt;
     <aside id="sidebar" class="alignright">
   <div class="search">
   <form action="//google.com/search" method="get" accept-charset="utf-8">
-    <input type="search" name="q" results="0" placeholder="Suche">
+    <input type="search" name="q" results="0" placeholder="Search">
     <input type="hidden" name="q" value="site:yoursite.com">
   </form>
 </div>
@@ -506,6 +506,8 @@ map &lt;f11&gt; :call Matrix()&lt;CR&gt;
     <li><a href="/tags/图像处理/">图像处理</a><small>2</small></li>
   
     <li><a href="/tags/数学公式/">数学公式</a><small>1</small></li>
+  
+    <li><a href="/tags/概率与统计/">概率与统计</a><small>1</small></li>
   
     <li><a href="/tags/算法/">算法</a><small>1</small></li>
   

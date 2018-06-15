@@ -65,8 +65,8 @@
 <a id="more"></a></p>
 <h1 id="RouterOS-的安装"><a href="#RouterOS-的安装" class="headerlink" title="RouterOS 的安装"></a>RouterOS 的安装</h1><p>开始这一步要有足够的耐心，因为根据人品的不同，这一步可能变的特别简单或者特别难。网上也有很多关于安装的教程，这里只记录我们当时是怎么安装成功的，避免以后的人走弯路。</p>
 <h2 id="需要的工具："><a href="#需要的工具：" class="headerlink" title="需要的工具："></a>需要的工具：</h2><ul>
-<li>routeros系统：这里使用的是routeros5.24 完美破解版，<a href="http://download.csdn.net/download/ljr929201012/7852219" target="_blank" rel="external">下载地址</a></li>
-<li>光盘刻录工具：这里使用ultraiso，<a href="http://rj.baidu.com/soft/detail/11522.html?ald" target="_blank" rel="external">下载地址</a></li>
+<li>routeros系统：这里使用的是routeros5.24 完美破解版，<a href="http://download.csdn.net/download/ljr929201012/7852219" target="_blank" rel="noopener">下载地址</a></li>
+<li>光盘刻录工具：这里使用ultraiso，<a href="http://rj.baidu.com/soft/detail/11522.html?ald" target="_blank" rel="noopener">下载地址</a></li>
 <li>光盘一张：虽然routeros5.24是支持U盘安装的，但这里没实验成功，因此使用光盘比较保险。</li>
 <li>电脑一台：用来安装routeros，最好使用双网卡。</li>
 </ul>
@@ -79,7 +79,7 @@
 <img src="http://i3.tietuku.com/1dc4710efffe480a.jpg" alt="routeros 安装界面">
 新手建立全部安装，就是把上图中的功能全部勾选，然后下一步。在系统提示的 Do you want to keep old configuration？ [y/n]： 中选择n，不保留以前设置。接着在Continue? [y/n]: 中选择y。然后一直回车。<strong>注意，最后问你是否重启的时候，一定要把光盘取出再重启。</strong>重启后出现下图，那么系统安装成功：
 <img src="http://i3.tietuku.com/64a23fe1cbf33704.jpg" alt="routeros 安装成功"></p>
-<h1 id="RouterOs的配置"><a href="#RouterOs的配置" class="headerlink" title="RouterOs的配置"></a>RouterOs的配置</h1><p>RouterOS搭建VPN有两种方法，一种是<a href="http://wenku.baidu.com/link?url=5VW6Y1CarvQ9NGsPdZgjvB63YycgJNdae9l3QhV6RZ9dUNjAuOAusK4u-LHzwLHSNzXnLsdjTTYsVuK9VeFDALdqqRfFJopUb8A3aRGtxpO" target="_blank" rel="external">routeros命令行</a>，一种是使用 <a href="http://www.baidu.com/s?wd=routeros%20winbox&amp;rsv_spt=1&amp;issp=1&amp;f=8&amp;rsv_bp=0&amp;rsv_idx=2&amp;ie=utf-8&amp;tn=baiduhome_pg&amp;rsv_enter=1&amp;oq=ultrA&amp;inputT=3961&amp;rsv_pq=e9c65ed30000b5c4&amp;rsv_t=8a5be7nVJdk3OrBHGCieL%2BIp%2F9uIjSS%2Bjie1o9ebQCvaRPed8KVDSKYfG0a1u1lCh%2B7r&amp;rsv_sug3=25&amp;rsv_sug4=1465&amp;rsv_sug1=15&amp;rsv_sug2=0&amp;rsv_sug=1&amp;bs=routeros%20%E5%91%BD%E4%BB%A4" target="_blank" rel="external">winbox</a>。这里着重介绍如何使用命令行进行配置。</p>
+<h1 id="RouterOs的配置"><a href="#RouterOs的配置" class="headerlink" title="RouterOs的配置"></a>RouterOs的配置</h1><p>RouterOS搭建VPN有两种方法，一种是<a href="http://wenku.baidu.com/link?url=5VW6Y1CarvQ9NGsPdZgjvB63YycgJNdae9l3QhV6RZ9dUNjAuOAusK4u-LHzwLHSNzXnLsdjTTYsVuK9VeFDALdqqRfFJopUb8A3aRGtxpO" target="_blank" rel="noopener">routeros命令行</a>，一种是使用 <a href="http://www.baidu.com/s?wd=routeros%20winbox&amp;rsv_spt=1&amp;issp=1&amp;f=8&amp;rsv_bp=0&amp;rsv_idx=2&amp;ie=utf-8&amp;tn=baiduhome_pg&amp;rsv_enter=1&amp;oq=ultrA&amp;inputT=3961&amp;rsv_pq=e9c65ed30000b5c4&amp;rsv_t=8a5be7nVJdk3OrBHGCieL%2BIp%2F9uIjSS%2Bjie1o9ebQCvaRPed8KVDSKYfG0a1u1lCh%2B7r&amp;rsv_sug3=25&amp;rsv_sug4=1465&amp;rsv_sug1=15&amp;rsv_sug2=0&amp;rsv_sug=1&amp;bs=routeros%20%E5%91%BD%E4%BB%A4" target="_blank" rel="noopener">winbox</a>。这里着重介绍如何使用命令行进行配置。</p>
 <h2 id="需要的工具：-1"><a href="#需要的工具：-1" class="headerlink" title="需要的工具："></a>需要的工具：</h2><ul>
 <li>linux 操作系统并已经安装ssh</li>
 </ul>
@@ -111,7 +111,7 @@
 <li><h3 id="共享网络"><a href="#共享网络" class="headerlink" title="共享网络"></a>共享网络</h3>vpn建立以后，只能是连进这个路由，还不能通过routeros上网，要在再加一条命令，将网络共享出来。
 <code>ip firewall nat add chain=srcnat sction=masquerae</code></li>
 </ul>
-<p>关于这些命令具体是什么意思，这里不多介绍了，可以参考一下<a href="http://www.baidu.com/s?wd=routeros%20%E5%91%BD%E4%BB%A4&amp;rsv_spt=1&amp;issp=1&amp;f=8&amp;rsv_bp=0&amp;rsv_idx=2&amp;ie=utf-8&amp;tn=baiduhome_pg&amp;rsv_enter=1&amp;oq=ultrA&amp;inputT=5414&amp;rsv_pq=8551265500009fdc&amp;rsv_t=f0ef%2BcwRfD%2FpsgN4xjvp8P6RQjXf0aadlqwDWNUQgsp6BA93paLVQI9mnFMlLoQg%2FNM2&amp;rsv_sug3=16&amp;rsv_sug4=986&amp;rsv_sug1=13&amp;rsv_sug2=0&amp;rsv_sug=2&amp;bs=ultraiso" target="_blank" rel="external">这个资料</a></p>
+<p>关于这些命令具体是什么意思，这里不多介绍了，可以参考一下<a href="http://www.baidu.com/s?wd=routeros%20%E5%91%BD%E4%BB%A4&amp;rsv_spt=1&amp;issp=1&amp;f=8&amp;rsv_bp=0&amp;rsv_idx=2&amp;ie=utf-8&amp;tn=baiduhome_pg&amp;rsv_enter=1&amp;oq=ultrA&amp;inputT=5414&amp;rsv_pq=8551265500009fdc&amp;rsv_t=f0ef%2BcwRfD%2FpsgN4xjvp8P6RQjXf0aadlqwDWNUQgsp6BA93paLVQI9mnFMlLoQg%2FNM2&amp;rsv_sug3=16&amp;rsv_sug4=986&amp;rsv_sug1=13&amp;rsv_sug2=0&amp;rsv_sug=2&amp;bs=ultraiso" target="_blank" rel="noopener">这个资料</a></p>
 <p>最后感谢实验室各位师兄,在你们的帮助下才搭建起来了这个VPN服务器.</p>
 
       
@@ -151,7 +151,7 @@
 
 
 <section id="comment">
-  <h1 class="title">Kommentare</h1>
+  <h1 class="title">Comments</h1>
 
   
       <div id="fb-root"></div>
@@ -174,7 +174,7 @@
     <aside id="sidebar" class="alignright">
   <div class="search">
   <form action="//google.com/search" method="get" accept-charset="utf-8">
-    <input type="search" name="q" results="0" placeholder="Suche">
+    <input type="search" name="q" results="0" placeholder="Search">
     <input type="hidden" name="q" value="site:yoursite.com">
   </form>
 </div>
@@ -199,6 +199,8 @@
     <li><a href="/tags/图像处理/">图像处理</a><small>2</small></li>
   
     <li><a href="/tags/数学公式/">数学公式</a><small>1</small></li>
+  
+    <li><a href="/tags/概率与统计/">概率与统计</a><small>1</small></li>
   
     <li><a href="/tags/算法/">算法</a><small>1</small></li>
   

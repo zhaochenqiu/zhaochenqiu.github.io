@@ -2,6 +2,7 @@ title: 样本方差无偏估计详解
 date: 2018-06-01 14:01:56
 tags: 概率与统计
 ---
+样本方差无偏估计的过程，理论，实验验证
 <!--more-->
 
 <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
