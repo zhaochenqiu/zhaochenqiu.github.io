@@ -1,0 +1,255 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>VPS 上网与自建网盘 | Zhao, Chenqiu&#39; Blog</title>
+  <meta name="author" content="Zhao, Chenqiu">
+  
+  <meta name="description" content="VPS 踩坑记录">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="VPS 上网与自建网盘"/>
+  <meta property="og:site_name" content="Zhao, Chenqiu&#39; Blog"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  <link href="/favicon.png" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="Zhao, Chenqiu&#39; Blog" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+
+</head>
+
+
+<body>
+  <header id="header" class="inner"><div class="alignleft">
+  <h1><a href="/">Zhao, Chenqiu&#39; Blog</a></h1>
+  <h2><a href="/">Do What You Like, Like What You Do</a></h2>
+</div>
+<nav id="main-nav" class="alignright">
+  <ul>
+    
+      <li><a href="/">Home</a></li>
+    
+      <li><a href="/archives">Archives</a></li>
+    
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+<div class="clearfix"></div>
+</header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2018-06-15T06:52:56.000Z"><a href="/2018/06/15/vps/">2018-06-15</a></time>
+      
+      
+  
+    <h1 class="title">VPS 上网与自建网盘</h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>VPS 踩坑记录
+<a id="more"></a></p>
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>最近，尤其是6月份开始网络封锁更加严重了，而且网盘最后的阵地也倒下了。
+但是问题就有解决问题的方法，这里记录vps踩坑。</p>
+<h1 id="VPS-代理上网"><a href="#VPS-代理上网" class="headerlink" title="VPS 代理上网"></a>VPS 代理上网</h1><p>先来介绍下怎么上网，这里用centos系统示例。首先买一个vps服务器，各种支持centos的国外服务器都可以。
+购买之后会得到一个ip地址，ssh端口，然后访问密码，如下(为个人隐私隐藏了一些数字和字符):</p>
+<pre><code>IP address: 95.***.**.102
+SSH Port:   2***7
+Password:   I******q
+</code></pre><p>然后ssh远程上去命令如下(这里需要下载一个终端，我用<a href="https://www.cygwin.com/" target="_blank" rel="noopener">cygwin</a>，推荐新手用<a href="https://mobaxterm.mobatek.net/" target="_blank" rel="noopener">MobaXterm</a>)：</p>
+<pre><code>$ ssh -p 2***7 root@95.***.**.102
+</code></pre><p>接着输入用户密码登录，整个过程如下图：</p>
+<p><img src="https://image.ibb.co/cu9Yjd/image.png" alt="vps登录"></p>
+<p>之后全部通过命令行，所以不截图了，直接附上终端打印的结果。
+登录进入之后，先装一些之后可能会用到的软件：</p>
+<pre><code>[root@host ~]# clear
+[root@host ~]# yum -y install git vim wget
+Loaded plugins: fastestmirror
+Determining fastest mirrors
+ * base: repos-lax.psychz.net
+...
+</code></pre><p>yum是centos中的默认安装工具，类似于ubuntu中的apt-get。命令参数-y表示在安装过程中全选y(yes)。</p>
+<p>然后安装ss服务器，网上有很多类似的教程，这里直接搬运<a href="http://morning.work/page/2015-12/install-shadowsocks-on-centos-7.html" target="_blank" rel="noopener">这里</a>的一键安装方法。
+直接在终端键入如下命令:</p>
+<pre><code>bash &lt;(curl -s http://morning.work/examples/2015-12/install-shadowsocks.sh)
+</code></pre><p>上述的命令就是下载脚本<code>install-shadowsocks.sh</code>,然后执行。脚本的内容如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"><span class="comment"># Install Shadowsocks on CentOS 7</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"Installing Shadowsocks..."</span></span><br><span class="line"></span><br><span class="line">random-string()</span><br><span class="line">&#123;</span><br><span class="line">    cat /dev/urandom | tr -dc <span class="string">'a-zA-Z0-9'</span> | fold -w <span class="variable">$&#123;1:-32&#125;</span> | head -n 1</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">CONFIG_FILE=/etc/shadowsocks.json</span><br><span class="line">SERVICE_FILE=/etc/systemd/system/shadowsocks.service</span><br><span class="line">SS_PASSWORD=$(random-string 32)</span><br><span class="line">SS_PORT=8388</span><br><span class="line">SS_METHOD=aes-256-cfb</span><br><span class="line">SS_IP=`ip route get 1 | awk <span class="string">'&#123;print $NF;exit&#125;'</span>`</span><br><span class="line">GET_PIP_FILE=/tmp/get-pip.py</span><br><span class="line"></span><br><span class="line"><span class="comment"># install pip</span></span><br><span class="line">curl <span class="string">"https://bootstrap.pypa.io/get-pip.py"</span> -o <span class="string">"<span class="variable">$&#123;GET_PIP_FILE&#125;</span>"</span></span><br><span class="line">python <span class="variable">$&#123;GET_PIP_FILE&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># install shadowsocks</span></span><br><span class="line">pip install --upgrade pip</span><br><span class="line">pip install shadowsocks</span><br><span class="line"></span><br><span class="line"><span class="comment"># create shadowsocls config</span></span><br><span class="line">cat &lt;&lt;EOF | sudo tee <span class="variable">$&#123;CONFIG_FILE&#125;</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="string">"server"</span>: <span class="string">"0.0.0.0"</span>,</span><br><span class="line">  <span class="string">"server_port"</span>: <span class="variable">$&#123;SS_PORT&#125;</span>,</span><br><span class="line">  <span class="string">"password"</span>: <span class="string">"<span class="variable">$&#123;SS_PASSWORD&#125;</span>"</span>,</span><br><span class="line">  <span class="string">"method"</span>: <span class="string">"<span class="variable">$&#123;SS_METHOD&#125;</span>"</span></span><br><span class="line">&#125;</span><br><span class="line">EOF</span><br><span class="line"></span><br><span class="line"><span class="comment"># create service</span></span><br><span class="line">cat &lt;&lt;EOF | sudo tee <span class="variable">$&#123;SERVICE_FILE&#125;</span></span><br><span class="line">[Unit]</span><br><span class="line">Description=Shadowsocks</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">TimeoutStartSec=0</span><br><span class="line">ExecStart=/usr/bin/ssserver -c <span class="variable">$&#123;CONFIG_FILE&#125;</span></span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br><span class="line">EOF</span><br><span class="line"></span><br><span class="line"><span class="comment"># start service</span></span><br><span class="line">systemctl <span class="built_in">enable</span> shadowsocks</span><br><span class="line">systemctl start shadowsocks</span><br><span class="line"></span><br><span class="line"><span class="comment"># view service status</span></span><br><span class="line">sleep 5</span><br><span class="line">systemctl status shadowsocks -l</span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"================================"</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">""</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"Congratulations! Shadowsocks has been installed on your system."</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"You shadowsocks connection info:"</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"--------------------------------"</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"server:      <span class="variable">$&#123;SS_IP&#125;</span>"</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"server_port: <span class="variable">$&#123;SS_PORT&#125;</span>"</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"password:    <span class="variable">$&#123;SS_PASSWORD&#125;</span>"</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"method:      <span class="variable">$&#123;SS_METHOD&#125;</span>"</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"--------------------------------"</span></span><br></pre></td></tr></table></figure>
+<p>如果想了解脚本中具体是什么意思，可以去参考原帖，如果希望本地有一份脚本副本，可以使用如下命令：</p>
+<pre><code>[root@host ~]# curl -s http://morning.work/examples/2015-12/install-shadowsocks.sh &gt;&gt; install-shadowsocks.sh
+[root@host ~]# ls
+install-shadowsocks.sh
+[root@host ~]# chmod +x install-shadowsocks.sh
+[root@host ~]# ./install-shadowsocks.sh
+</code></pre><p>执行完这个脚本之后，就会打印出用户和密码，如下（照例隐藏几位)：</p>
+<pre><code>Congratulations! Shadowsocks has been installed on your system.
+You shadowsocks connection info:
+--------------------------------
+server:      95.***.**.102
+server_port: 8388
+password:    KenSTg**************fz7Gh
+method:      aes-256-cfb
+--------------------------------
+[root@host ~]#
+</code></pre><p>然后下载ss客户端，如果找不到的话，可以从<a href="https://codeload.github.com/zhaochenqiu/download/zip/master" target="_blank" rel="noopener">这里</a>下到。
+把上面生成的信息填进去，可以参考下图:</p>
+<p><img src="https://image.ibb.co/bzw5Ed/image.png" alt="ss软件"></p>
+<p>接着把ss的模式更改成全局模式，启动代理。平常使用pca模式即可，因为我们要测试所以改成全局，如下图：</p>
+<p><img src="https://image.ibb.co/iKUQEd/image.png" alt="ss配置"></p>
+<p>然后打开你的浏览器，如果是win10的话，不能用chrome，因为升级的原因，chrome代理比较麻烦，这里用firefox(用IE也行)。
+打开后输入网址<strong>ip.cn</strong>你应该会发现你的ip归属地变了，不妨把ss关掉再输入网址对比下结果。如下图：</p>
+<p><img src="https://image.ibb.co/jHPW4d/image.png" alt="ss打开与关闭后对比.左图未挂代理，右图挂了代理"></p>
+<p>挂上ss后，就可以<strong>不受限制的浏览网页了，例如google或者youtube</strong>,最后提供一个免费的ss供大家使用(有效期只有一个月，可能更短，希望长期使用的还是去自己买一个vps，例如在<a href="https://bandwagonhost.com/" target="_blank" rel="noopener">这里</a>买一个):</p>
+<pre><code>IP:             23.83.235.136
+Port:           7654
+Password:       ZGZhNzJkY2
+Encryption:     aes-256-cfb
+</code></pre><p>放心，这不是什么可疑的主机，是作者之前的旧服务器。现在升级到新服务器去后，旧的就不打算续费，等他过期（如果有人愿意资助，作者可以让这个服务器继续运行）。但过期之前依然会维护的。</p>
+<h1 id="搭建私人网盘"><a href="#搭建私人网盘" class="headerlink" title="搭建私人网盘"></a>搭建私人网盘</h1><p>目前，据我所知，国内所有的网盘都“挂了”。各种审查内容，连最后的圣地115都开始审查了（<strong>我的网盘放什么东西论不到你来审查！一怒之下就把网盘里的东西全报废了！</strong>)。
+无奈，只得再找解决方法–“利用vps搭建自己的私人云盘”。</p>
+<h2 id="aria2"><a href="#aria2" class="headerlink" title="aria2"></a>aria2</h2><p>多费几句话来简单介绍随便推荐下aria2。aria2是一个<strong>全平台</strong>的命令行下载工具。有他之后，完全就可以抛弃某国产黑心下载软件（例如某雷或某风）。
+aria2的官网在<a href="https://aria2.github.io/" target="_blank" rel="noopener">这里</a>。或者要是太懒不愿意看洋文可以点击<a href="https://github-production-release-asset-2e65be.s3.amazonaws.com/1116542/eca09fe6-588b-11e8-9418-40129dc31c98?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Credential=AKIAIWNJYAX4CSVEH53A%2F20180615%2Fus-east-1%2Fs3%2Faws4_request&amp;X-Amz-Date=20180615T141920Z&amp;X-Amz-Expires=300&amp;X-Amz-Signature=21eea2db0b143a94474a40bade0946f350111e09a467dd749ae2e4314c19d770&amp;X-Amz-SignedHeaders=host&amp;actor_id=10084681&amp;response-content-disposition=attachment%3B%20filename%3Daria2-1.34.0-win-32bit-build1.zip&amp;response-content-type=application%2Foctet-stream" target="_blank" rel="noopener">这里</a>下载一个windows的32位置版本。
+下载后解压，然后cmd进入aria2目录中，使用命令就可以直接下载，如下图:</p>
+<p><img src="https://image.ibb.co/gqP97y/image.png" alt="aria2下载实例"></p>
+<p>上图中的链接是<code>magnet:?xt=urn:btih:B5886C57C4FB4821DDACA9046320CAF1AE39C068</code>,是电影V字仇杀队的资源，强烈推荐！
+aria2功能还远远不止这些，他还可以用来突破百度云的会员限制！这里不过多介绍了，想知道更多可以看<a href="https://github.com/hokein/Wiki/wiki/%E4%BD%BF%E7%94%A8aria2%E7%AA%81%E7%A0%B4%E7%99%BE%E5%BA%A6%E4%BA%91%E7%9B%98%E9%99%90%E9%80%9F" target="_blank" rel="noopener">这里</a>。</p>
+<p>再回到vps，在centos上安装aria2，然后再配和web交互就可以将vps打造成一个拥有离线下载的网盘。
+这里大部分参考<a href="http://www.138vps.com/vpsjc/945.html" target="_blank" rel="noopener">这里</a>。但是实际中遇到很多bug(查阅很多其他的资料，把坑全踩了一遍)，所以重新写一遍。
+那位大佬是个vps的专家，分享了很多其他关于vps的技术，有兴趣的可以访问下他的网站。</p>
+<h1 id="网盘在线播放"><a href="#网盘在线播放" class="headerlink" title="网盘在线播放"></a>网盘在线播放</h1>
+      
+    </div>
+    <footer>
+      
+        
+        
+  
+  <div class="tags">
+    <a href="/tags/Linux/">Linux</a>
+  </div>
+
+        
+  <div class="addthis addthis_toolbox addthis_default_style">
+    
+      <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
+    
+    
+      <a class="addthis_button_tweet"></a>
+    
+    
+      <a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
+    
+    
+      <a class="addthis_button_pinterest_pinit" pi:pinit:layout="horizontal"></a>
+    
+    <a class="addthis_counter addthis_pill_style"></a>
+  </div>
+  <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js"></script>
+
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+<section id="comment">
+  <h1 class="title">Comments</h1>
+
+  
+      <div id="fb-root"></div>
+<script>
+  (function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=123456789012345";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+</script>
+
+<div class="fb-comments" data-href="http://yoursite.com/2018/06/15/vps/index.html" data-num-posts="5" data-width="840" data-colorscheme="light"></div>
+      
+  
+</section>
+
+</div></div>
+    <aside id="sidebar" class="alignright">
+  <div class="search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="Search">
+    <input type="hidden" name="q" value="site:yoursite.com">
+  </form>
+</div>
+
+  
+
+  
+<div class="widget tag">
+  <h3 class="title">Tags</h3>
+  <ul class="entry">
+  
+    <li><a href="/tags/C-数据结构/">C++/数据结构</a><small>1</small></li>
+  
+    <li><a href="/tags/Linux/">Linux</a><small>3</small></li>
+  
+    <li><a href="/tags/Lua/">Lua</a><small>1</small></li>
+  
+    <li><a href="/tags/RouterOs/">RouterOs</a><small>1</small></li>
+  
+    <li><a href="/tags/python/">python</a><small>1</small></li>
+  
+    <li><a href="/tags/图像处理/">图像处理</a><small>2</small></li>
+  
+    <li><a href="/tags/数学公式/">数学公式</a><small>1</small></li>
+  
+    <li><a href="/tags/概率与统计/">概率与统计</a><small>1</small></li>
+  
+    <li><a href="/tags/算法/">算法</a><small>1</small></li>
+  
+    <li><a href="/tags/计算机网络/">计算机网络</a><small>1</small></li>
+  
+  </ul>
+</div>
+
+</aside>
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div class="alignleft">
+  
+  &copy; 2018 Zhao, Chenqiu
+  
+</div>
+<div class="clearfix"></div></footer>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+</body>
+</html>
