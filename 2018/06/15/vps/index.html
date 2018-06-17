@@ -67,16 +67,16 @@
 
 <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>最近，尤其是6月份开始网络封锁更加严重了，而且网盘最后的阵地也倒下了。
 但是问题就有解决问题的方法，这里记录vps踩坑。</p>
-<h1 id="VPS-代理上网"><a href="#VPS-代理上网" class="headerlink" title="VPS 代理上网"></a>VPS 代理上网</h1><p>先来介绍下怎么上网，这里用centos系统示例。首先买一个vps服务器，各种支持centos的国外服务器都可以。
-购买之后会得到一个ip地址，ssh端口，然后访问密码，如下(为个人隐私隐藏了一些数字和字符):</p>
+<h1 id="VPS-代理上网"><a href="#VPS-代理上网" class="headerlink" title="VPS 代理上网"></a>VPS 代理上网</h1><p>先来介绍下怎么上网，这里用centos系统示例。首先买一个vps服务器，各种支持centos的国外服务器都可以,例如<a href="https://bandwagonhost.com/" target="_blank" rel="noopener">这个</a>。
+购买之后会得到一个ip地址，ssh端口，以及访问密码，如下(为个人隐私隐藏了一些数字和字符):</p>
 <pre><code>IP address: 95.***.**.102
 SSH Port:   2***7
 Password:   I******q
-</code></pre><p>然后ssh远程上去命令如下(这里需要下载一个终端，我用<a href="https://www.cygwin.com/" target="_blank" rel="noopener">cygwin</a>，推荐新手用<a href="https://mobaxterm.mobatek.net/" target="_blank" rel="noopener">MobaXterm</a>)：</p>
+</code></pre><p>然后ssh远程上去，命令如下(这里需要下载一个终端，我用<a href="https://www.cygwin.com/" target="_blank" rel="noopener">cygwin</a>，推荐新手用<a href="https://mobaxterm.mobatek.net/" target="_blank" rel="noopener">MobaXterm</a>)：</p>
 <pre><code>$ ssh -p 2***7 root@95.***.**.102
 </code></pre><p>接着输入用户密码登录，整个过程如下图：</p>
 <p><img src="https://image.ibb.co/cu9Yjd/image.png" alt="vps登录"></p>
-<p>之后全部通过命令行，所以不截图了，直接附上终端打印的结果。
+<p>接下里全部通过命令行操作，所以不截图了，直接附上终端打印的结果。
 登录进入之后，先装一些之后可能会用到的软件：</p>
 <pre><code>[root@host ~]# clear
 [root@host ~]# yum -y install git vim wget
@@ -106,6 +106,11 @@ password:    KenSTg**************fz7Gh
 method:      aes-256-cfb
 --------------------------------
 [root@host ~]#
+</code></pre><p>接着如果服务器支持<a href="https://www.zhihu.com/question/53729940" target="_blank" rel="noopener">bbr加速</a>的话可以输入以下的命令来加速：</p>
+<pre><code>yum -y install wget vim
+wget --no-check-certificate https://github.com/teddysun/across/raw/master/bbr.sh
+chmod +x bbr.sh
+./bbr.sh
 </code></pre><p>然后下载ss客户端，如果找不到的话，可以从<a href="https://codeload.github.com/zhaochenqiu/download/zip/master" target="_blank" rel="noopener">这里</a>下到。
 把上面生成的信息填进去，可以参考下图:</p>
 <p><img src="https://image.ibb.co/bzw5Ed/image.png" alt="ss软件"></p>
@@ -119,19 +124,78 @@ method:      aes-256-cfb
 Port:           7654
 Password:       ZGZhNzJkY2
 Encryption:     aes-256-cfb
-</code></pre><p>放心，这不是什么可疑的主机，是作者之前的旧服务器。现在升级到新服务器去后，旧的就不打算续费，等他过期（如果有人愿意资助，作者可以让这个服务器继续运行）。但过期之前依然会维护的。</p>
-<h1 id="搭建私人网盘"><a href="#搭建私人网盘" class="headerlink" title="搭建私人网盘"></a>搭建私人网盘</h1><p>目前，据我所知，国内所有的网盘都“挂了”。各种审查内容，连最后的圣地115都开始审查了（<strong>我的网盘放什么东西论不到你来审查！一怒之下就把网盘里的东西全报废了！</strong>)。
+</code></pre><p>放心，这不是什么可疑的主机，是作者之前的旧服务器。现在升级到新服务器去后，旧的就不打算续费，等他过期（如果有人愿意资助，作者可以让这个服务器继续运行）。</p>
+<h1 id="搭建私人网盘"><a href="#搭建私人网盘" class="headerlink" title="搭建私人网盘"></a>搭建私人网盘</h1><p>目前，据我所知，国内所有的网盘都“挂了”。各种审查内容，连最后的圣地115都开始审查了（<strong>我的网盘放什么东西论不到你来审查！一怒之下就把网盘里的东西全删了！</strong>)。
 无奈，只得再找解决方法–“利用vps搭建自己的私人云盘”。</p>
-<h2 id="aria2"><a href="#aria2" class="headerlink" title="aria2"></a>aria2</h2><p>多费几句话来简单介绍随便推荐下aria2。aria2是一个<strong>全平台</strong>的命令行下载工具。有他之后，完全就可以抛弃某国产黑心下载软件（例如某雷或某风）。
+<h2 id="aria2"><a href="#aria2" class="headerlink" title="aria2"></a>aria2</h2><p>多费几句话来简单介绍顺便推荐下aria2。aria2是一个<strong>全平台</strong>的命令行下载工具。有他之后，完全就可以抛弃某国产黑心下载软件（例如某雷或某风）。
 aria2的官网在<a href="https://aria2.github.io/" target="_blank" rel="noopener">这里</a>。或者要是太懒不愿意看洋文可以点击<a href="https://github-production-release-asset-2e65be.s3.amazonaws.com/1116542/eca09fe6-588b-11e8-9418-40129dc31c98?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Credential=AKIAIWNJYAX4CSVEH53A%2F20180615%2Fus-east-1%2Fs3%2Faws4_request&amp;X-Amz-Date=20180615T141920Z&amp;X-Amz-Expires=300&amp;X-Amz-Signature=21eea2db0b143a94474a40bade0946f350111e09a467dd749ae2e4314c19d770&amp;X-Amz-SignedHeaders=host&amp;actor_id=10084681&amp;response-content-disposition=attachment%3B%20filename%3Daria2-1.34.0-win-32bit-build1.zip&amp;response-content-type=application%2Foctet-stream" target="_blank" rel="noopener">这里</a>下载一个windows的32位置版本。
 下载后解压，然后cmd进入aria2目录中，使用命令就可以直接下载，如下图:</p>
 <p><img src="https://image.ibb.co/gqP97y/image.png" alt="aria2下载实例"></p>
-<p>上图中的链接是<code>magnet:?xt=urn:btih:B5886C57C4FB4821DDACA9046320CAF1AE39C068</code>,是电影V字仇杀队的资源，强烈推荐！
+<p>这里提供一个磁力链接测试：</p>
+<pre><code>magnet:?xt=urn:btih:dd16c4940be1950719174467c8fe4233bd92ed5a&amp;dn=%E9%98%B3%E5%85%89%E7%94%B5%E5%BD%B1www.ygdy8.com.%E7%8E%AF%E5%A4%AA%E5%B9%B3%E6%B4%8B%EF%BC%9A%E9%9B%B7%E9%9C%86%E5%86%8D%E8%B5%B7.BD.720p.%E4%B8%AD%E8%8B%B1%E5%8F%8C%E5%AD%97%E5%B9%95.mkv&amp;tr=udp%3a%2f%2ftracker.leechers-paradise.org%3a6969%2fannounce&amp;tr=udp%3a%2f%2ftracker.opentrackr.org%3a1337%2fannounce&amp;tr=udp%3a%2f%2feddie4.nl%3a6969%2fannounce
+</code></pre><p>是电影环太平洋的资源，用以测试！
 aria2功能还远远不止这些，他还可以用来突破百度云的会员限制！这里不过多介绍了，想知道更多可以看<a href="https://github.com/hokein/Wiki/wiki/%E4%BD%BF%E7%94%A8aria2%E7%AA%81%E7%A0%B4%E7%99%BE%E5%BA%A6%E4%BA%91%E7%9B%98%E9%99%90%E9%80%9F" target="_blank" rel="noopener">这里</a>。</p>
 <p>再回到vps，在centos上安装aria2，然后再配和web交互就可以将vps打造成一个拥有离线下载的网盘。
 这里大部分参考<a href="http://www.138vps.com/vpsjc/945.html" target="_blank" rel="noopener">这里</a>。但是实际中遇到很多bug(查阅很多其他的资料，把坑全踩了一遍)，所以重新写一遍。
 那位大佬是个vps的专家，分享了很多其他关于vps的技术，有兴趣的可以访问下他的网站。</p>
-<h1 id="网盘在线播放"><a href="#网盘在线播放" class="headerlink" title="网盘在线播放"></a>网盘在线播放</h1>
+<p>先在centos中安装aria2,这一步直接用<code>yum install aria2</code>有太多的bug，
+所以使用如下面命令代替</p>
+<pre><code>rpm -Uvh https://mirror.webtatic.com/yum/el7/webtatic-release.rpm 
+yum -y remove epel-release 
+yum -y install epel-release 
+yum -y install aria2
+</code></pre><p>接着下载一个web管理界面，命令如下:</p>
+<pre><code>yum  -y  install  httpd
+chkconfig --levels 235 httpd on
+service httpd start
+
+git clone https://github.com/ziahamza/webui-aria2.git
+
+mv webui-aria2/ webui/
+mv webui/ /var/www/html/
+chmod 755 /var/www/html/webui/
+
+aria2c --enable-rpc --rpc-listen-all=true --rpc-allow-origin-all -c -D
+</code></pre><p>上述的命令的意思大致是安装apache，启动http服务，下载webui，然后把webui移动到<code>/var/www/html</code>目录下。
+完成这些之后，就可以在网页中输入<code>95.***.**.102\webui\</code>来访问你的离线下载网盘了，然后可以尝试着把之前的电影资源添加进入，如下：</p>
+<p><img src="https://image.ibb.co/cfa7fJ/image.png" alt="离线网盘"></p>
+<p>网盘会自动下载，而且资源好的话，网速会很快。</p>
+<h1 id="网盘在线播放"><a href="#网盘在线播放" class="headerlink" title="网盘在线播放"></a>网盘在线播放</h1><p>最后再给网盘添加一个在线观看功能，通过搭建一个目录列表，这里用<strong>h5ai</strong>。
+首先安装php</p>
+<pre><code>rpm -Uvh https://mirror.webtatic.com/yum/el7/webtatic-release.rpm --force --nodeps
+yum -y install php70w
+service httpd restart
+</code></pre><p>安装完之后下载h5ai然后移动到对应的目录下：</p>
+<pre><code>wget https://release.larsjung.de/h5ai/h5ai-0.29.0.zip
+yum -y install unzip
+unzip h5ai-0.29.0.zip
+mv _h5ai/ /var/www/html/
+</code></pre><p>下一步修改下apache的配置文件就完成了。在<code>/etc/httpd/conf/httpd.conf</code>中增加如下内容(注意替换地址)：</p>
+<pre><code>ServerName 95.***.**.102:80
+NameVirtualHost 95.***.**.102
+&lt;VirtualHost 95.***.**.102&gt;
+ServerAdmin an*******q
+DocumentRoot /var/www/html/
+ServerName 95.***.**.102
+DirectoryIndex index index.html index.php /_h5ai/public/index.php
+&lt;/VirtualHost&gt;
+</code></pre><p>最后在重复执行下下面命令</p>
+<pre><code>service httpd restart
+</code></pre><p>然后在网页中直接输入<code>95.***.**.102</code>就可以直接访问。最后修改之前的webui的下载保存目录，让其直接下载到<code>/var/www/html/</code>就可以在线观看电影了。附一张效果图：
+<img src="https://image.ibb.co/eGDVjd/image.png" alt="在线观看"></p>
+<h1 id="附加内容：vps挂载谷歌云盘扩容"><a href="#附加内容：vps挂载谷歌云盘扩容" class="headerlink" title="附加内容：vps挂载谷歌云盘扩容"></a>附加内容：vps挂载谷歌云盘扩容</h1><p>这段为附加内容，目的是为vps扩容，使用GDriveFS。这段坑太多，作者精力有限所以这段只附命令了：</p>
+<pre><code>yum -y install gcc gcc-c++ kernel-devel
+
+yum -y install python-devel libxslt-devel libffi-devel openssl-devel
+
+yum -y install fuse-devel.x86_64 fuse.x86_64
+
+pip uninstall httplib2
+pip install httplib2
+
+gdfstool auth -u
+gdfstool auth -a /var/cache/gdfs.creds &quot;4/***************************************&quot;
+</code></pre>
       
     </div>
     <footer>

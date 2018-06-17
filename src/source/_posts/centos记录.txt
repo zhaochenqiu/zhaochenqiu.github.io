@@ -1,0 +1,81 @@
+操作记录
+
+# ss服务器安装
+curl -s http://morning.work/examples/2015-12/install-shadowsocks.sh >> install-shadowsocks.sh
+chmod +x install-shadowsocks.sh
+# 可以更改下端口
+./install-shadowsocks.sh
+
+# 中间命令
+yum -y install wget vim
+
+# bbr加速
+wget --no-check-certificate https://github.com/teddysun/across/raw/master/bbr.sh
+chmod +x bbr.sh
+./bbr.sh
+
+# 安装aria2
+rpm -Uvh https://mirror.webtatic.com/yum/el7/webtatic-release.rpm 
+yum -y remove epel-release 
+yum -y install epel-release 
+yum -y install aria2
+
+# 开启aria2远程管理
+aria2c --enable-rpc --rpc-listen-all=true --rpc-allow-origin-all -c -D
+
+# 配置aria2
+yum -y install git
+git clone https://github.com/zhaochenqiu/download.git
+cp download/aria2.conf ./
+aria2c --conf-path=/root/aria2.conf -D
+echo "aria2c --conf-path=/root/aria2.conf -D &" >> /etc/rc.d/rc.local
+
+# 安装WEBUI
+yum  -y  install  httpd
+chkconfig --levels 235 httpd on
+service httpd start
+
+git clone https://github.com/ziahamza/webui-aria2.git
+
+mv webui-aria2/ webui/
+mv webui/ /var/www/html/
+chmod 755 /var/www/html/webui/
+
+aria2c --enable-rpc --rpc-listen-all=true --rpc-allow-origin-all -c -D
+
+# 安装Php
+rpm -Uvh https://mirror.webtatic.com/yum/el7/webtatic-release.rpm --force --nodeps
+yum -y install php70w
+service httpd restart
+
+# 下载和安装h5ai
+wget https://release.larsjung.de/h5ai/h5ai-0.29.0.zip
+yum -y install unzip
+unzip h5ai-0.29.0.zip
+mv _h5ai/ /var/www/html/
+
+# 在/etc/httpd/conf/httpd.conf中添加
+ServerName 95.169.29.102:80
+NameVirtualHost 95.169.29.102
+<VirtualHost 95.169.29.102>
+ServerAdmin anonymousq
+DocumentRoot /var/www/html/
+ServerName 95.169.29.102
+DirectoryIndex index index.html index.php /_h5ai/public/index.php
+</VirtualHost>
+
+# 安装 GDriveFS
+yum -y install gcc gcc-c++ kernel-devel
+
+yum -y install python-devel libxslt-devel libffi-devel openssl-devel
+
+yum -y install fuse-devel.x86_64 fuse.x86_64
+
+pip uninstall httplib2
+pip install httplib2
+
+gdfstool auth -u
+gdfstool auth -a /var/cache/gdfs.creds "4/AAAhyb_GvV_7Lw8VHzlxXdAXniWEDi0irR0eDoGbWNznOaJmdEzkdXg"
+# 直接挂在可下载目录不好
+# mkdir /var/www/html/gdrive
+# gdfstool mount /var/cache/gdfs.creds /var/www/html/gdrive/
