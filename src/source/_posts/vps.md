@@ -25,7 +25,7 @@ VPS 踩坑记录
 
 接着输入用户密码登录，整个过程如下图：
 
-![vps登录](https://image.ibb.co/cu9Yjd/image.png)
+![vps登录](https://image.ibb.co/dMYiny/image.png)
 
 接下里全部通过命令行操作，所以不截图了，直接附上终端打印的结果。
 登录进入之后，先装一些之后可能会用到的软件：
