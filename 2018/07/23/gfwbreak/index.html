@@ -1,0 +1,291 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>VPS 上网:持续更新 | Blog</title>
+  <meta name="author" content="Zhao, Chenqiu">
+  
+  <meta name="description" content="授人以鱼，不如授人以渔">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="VPS 上网:持续更新"/>
+  <meta property="og:site_name" content="Blog"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  <link href="/favicon.png" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="Blog" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+
+</head>
+
+
+<body>
+  <header id="header" class="inner"><div class="alignleft">
+  <h1><a href="/">Blog</a></h1>
+  <h2><a href="/">Do What You Like, Like What You Do</a></h2>
+</div>
+<nav id="main-nav" class="alignright">
+  <ul>
+    
+      <li><a href="/">Home</a></li>
+    
+      <li><a href="/archives">Archives</a></li>
+    
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+<div class="clearfix"></div>
+</header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2018-07-23T02:00:00.000Z"><a href="/2018/07/23/gfwbreak/">2018-07-23</a></time>
+      
+      
+  
+    <h1 class="title">VPS 上网:持续更新</h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>授人以鱼，不如授人以渔
+<a id="more"></a></p>
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>These walls are funny. First you hate them. Then you get used to them. Enough time passes, you get so you depend on them. That is institutionalized.</p>
+<p>这些(监狱的)围墙很有趣。起初你痛恨它; 然后你逐渐习惯它; 足够长时间后, 你开始依赖它 – 这就是体制化!</p>
+<p align="right">  —— <a href="https://movie.douban.com/subject/1292052/?source=new_aladdin" target="_blank" rel="noopener">The Shawshank Redemption</a> <a href="thunder://QUFmdHA6Ly9keTpkeUB4bGEueHVuYm8uY2M6NDAwNTYvW9G4wNfPwtTYd3d3Llh1bkJvLkNjXdCkyeq/y7XEvsjK6kJEMTAyNLjfx+XW0NOiy6vX1i5ybXZiWlo=" target="_blank" rel="noopener">肖申克的救赎</a>  </p>
+
+<h1 id="新手VPS图文教程"><a href="#新手VPS图文教程" class="headerlink" title="新手VPS图文教程"></a>新手VPS图文教程</h1><h2 id="VPS简介"><a href="#VPS简介" class="headerlink" title="VPS简介"></a>VPS简介</h2><p>VPS 全名为<strong>Virtual Private Server</strong>虚拟专用服务器，可以理解为一个虚拟出来的主机（电脑），要想了解更多可以看<a href="https://baike.baidu.com/item/VPS/11053576?fr=aladdin" target="_blank" rel="noopener">百科</a>或者<a href="https://en.wikipedia.org/wiki/Virtual_private_server" target="_blank" rel="noopener">维基(推荐)</a>。
+有了一个VPS之后，就相当于有了一台新的电脑，但是只能通过远程控制来操作。</p>
+<p>VPS本身就是一台主机，所以电脑可以做的事情VPS都可以做，例如下电影，玩游戏，跑代码，当然还有当上网的服务器。因为VPS的稳定性很好，可以很长时间稳定运行，不需要重启或关机。所以大部分的服务器vps都被用来做服务器。</p>
+<h2 id="VPS上网须知"><a href="#VPS上网须知" class="headerlink" title="VPS上网须知"></a>VPS上网须知</h2><p>相信很多人都有自己购买VPN，ss或者ssr账号的，还有直接找免费的软件来上网的。既然有这么多简单的方法，为什么还要自己折腾VPS呢？</p>
+<p>首先针对免费的软件。<strong><code>免费的一定的最贵的</code></strong>。免费的软件一般会要求用户提供各种信息，或者植入广告。总体上用户所花的时间成本远远大于“免费”所带来的收益。此外，安全性是另一个需要考虑的<strong>重要的因素</strong>。
+使用免费软件来上网，几乎无异于把你自己完全的暴露在网上，你访问了什么网页，下载上传了什么文件，甚至于你输入的密码，都有可能被记录。虽然有高手可以用开源软件来上网并可以保证安全性，但是新手<strong><em>最好不要</em></strong>使用免费软件来上网。</p>
+<p>接着针对购买账号。直接购买账号的确是一个简单的办法。但是据笔者所知，现在出售“快速，稳定还没有限制”商家已经全灭了。为什么呢？请看下面的法律条文:</p>
+<pre><code>《反恐法草案》中第十五条提到：电信业务经营者、互联网服务提供者应当在电信和互联网的设计、建设和运行中预设技术接口，将密码方案报密码主管部门审查。未预设技术接口，或者未报审密码方案的，相关产品或者技术不得投入使用。已经投入使用的，主管部门应当责令其立即停止使用。在中华人民共和国境内提供电信业务、互联网服务的，应当将相关设备、境内用户数据留存在中华人民共和国境内。拒不留存的，不得在中华人民共和国境内提供服务。
+</code></pre><p>这是什么意思？就是TM的现在不存在“合法”的保护隐私的安全运营商。所有运营商，或者留技术后门，也就是把你干的事情公开给朝廷，然后要干了啥…等着被喝茶吧。或者就是“非法”的。恩非法的….</p>
+<p>那么VPS就安全么？对，VPS理论上<strong>很</strong>安全。但还是先来看看法律条文：</p>
+<pre><code>中华人民共和国计算机信息网络国际联网惯例暂行规定》（国务院令第195号):
+第六条   计算机信息网络直接进行国际联网，必须使用邮电部国家公用电信网提供的国际出入口信道。任何单位和个人不得自行建立或者使用其他信道进行国际联网。
+第十四条 违反本规定第六条、第八条和第十条的规定的，由公安机关责令停止联网，给予警告，可以并处15000元以下的罚款；有违法所得的，没收违法所得。
+第十五条 违反本规定，同时触犯其他有关法律、行政法规的，依照有关法律、行政法规的规定予以处罚；构成犯罪的，依法追究刑事责任。
+</code></pre><p>是不是很吓人。任何人不得<strong>建立</strong>或者<strong>使用</strong>其他信道进行国际联网。恩，所以用谷歌的小心了，抓到就是一万五。出国留学的也小心了，去学校网站交申请材料也是犯法的（据悉，很多学校的官网就被误杀了），情节严重就是<strong>刑事</strong>责任，要坐牢哦！
+这里的重点是，如何证明你“建立”或者“使用”了呢？如果你是从别人手里购买的，那么卖家就可以证明！然后你就完蛋了(当然这只是假设)。
+或者像上面法律条文中提及的“技术接口”，可以直接看你在网上干了什么，那这就是更直接的证据（虽然现在只有很少的人被抓，那只是懒得抓你）。
+那又有人说，“我用合法的国际联网啊”。吾…我也想用啊，但是那里有卖的啊？</p>
+<p>自己的VPS就没有这些问题吗？吾…还真没有。先说服务器端，都说了是virtual的server，是虚拟的！也就是说，一键删除，什么都没了。或者如果来不及删除，也不要紧。现在大多数的vps只要用法的当，基本可以做到<strong>匿名</strong>购买。
+即便不能全匿名，也只有VPS运营商，知道部分你的信息，而这些信息不足以找到你本人。总结起来就是“没有谁知道你买了机器，也没有谁知道，这个VPS是你的”，哪怕是你所有的账号被攻陷，也没有办法可以证明，这些账号属于你！
+当然基本也不会花这么大的精力来抓一个P民(技术上想要攻陷所有账号，很难很难，除非动用国家级别的势力)。所以自建VPS比购买账号安全很多，而且因为是自己在用，也稳定和快很多，基本看youtube 1080没有问题（什么笔者怎么知道的？那肯定是别人告诉我的啊，我是守法公民）。此外还有一个更实际的原因，现在的VPS都是白菜价了，便宜的有3美元一个月的，比大多数账号还便宜。<strong>为什么不自己动手省点钱，而且还安全，稳定更可以学习到一些新技术呢？</strong></p>
+<h2 id="VPS上网，以Vultr为例-国内可直连"><a href="#VPS上网，以Vultr为例-国内可直连" class="headerlink" title="VPS上网，以Vultr为例(国内可直连)"></a>VPS上网，以Vultr为例(国内可直连)</h2><p>好了，废话说的有点多了，现在开始干货了！这里的目的就是搭建一个“最大限度匿名的VPS上网服务器”(当然这不并是最好的匿名方法，由于考虑到技术门槛，不过多介绍其他方法，有兴趣的可以自行搜索)。
+考虑到本文目的为推广，所以尽量不介绍过多原理。技术细节在<a href="http://zhaochenqiu.github.io/2018/06/15/vps/" target="_blank" rel="noopener">另一个帖子中介绍</a>，不定期更新。</p>
+<h3 id="步骤一，购买VPS，Vultr为例"><a href="#步骤一，购买VPS，Vultr为例" class="headerlink" title="步骤一，购买VPS，Vultr为例"></a>步骤一，购买VPS，Vultr为例</h3><p>首先去Vultr注册一个帐号，官网在<a href="https://www.vultr.com/" target="_blank" rel="noopener">这里</a>。</p>
+<p><img src="https://image.ibb.co/eqCiby/image.png" alt="Vultr帐号注册，推荐使用一个新邮箱注册，与你的身份保持隔离"></p>
+<p>注册好之后，先冲钱。Vultr是按小时计费的，一个月的时间大概是10美元的样子。使用的话，最少充值一个月。充值界面如下:</p>
+<p><img src="https://image.ibb.co/dW61wy/1.png" alt="Vultr充值界面，支持支付宝付账！点击支付，扫码付账!"></p>
+<p>继续之前谈谈安全问题。可能有人说，使用支付宝了，不就暴露了？不用担心，使用支付宝是说明你在Vultr中充值了，而且Vultr本身没有被墙，也就是说在Vultr买东西是没问题的。之后你干了什么，就只有Vultr知道了，而且他最多也就是知道你虚拟了一个服务器，并不关心你干了啥。
+除非Vultr和朝廷高层联手抓你，那也只能追到支付宝这一步。而实际上Vultr是不可能和朝廷合作的。如果还是担心，可以尝试其他的支付方式，例如国外的Credit Card，这就很稳了。国外的银行是不可能公开用户信息的。或者最狠的，用Bitcoin(比特币),那就是真的稳如狗了！</p>
+<p>冲完值之后就可以虚拟一个主机来用了。如下图。</p>
+<p><img src="https://image.ibb.co/jDQx3d/2.png" alt="选择节点位置，此处选择Singapore，据说网速比较稳定">
+<img src="https://image.ibb.co/cOvrUJ/3.png" alt="输入服务器名，点击Deploy Now"></p>
+<p>接着，返回点击Server菜单，就可以看到你刚刚虚拟出来的主机了,点击主机，就可以进入主机的操作台，里面包含了操作这台主机所需要的所有信息，如下图：</p>
+<p><img src="https://image.ibb.co/cNwgUJ/4.png" alt="查看虚拟服务器">
+<img src="https://image.ibb.co/jLqEid/5.png" alt="虚拟服务器操作台"></p>
+<p>知道上图中的IP Address， Username 和 Password 后就是对这台机器进行操作了。这一步除了节点位置，其他的都选择默认。注意下系统选择Centos（默认也是这个），
+此处的信息为：</p>
+<pre><code>IP Address: 149.***.***.***
+Username:   root
+Password:   Y*********5
+</code></pre><p>为了隐私，隐藏了几位数字。记得将这些信息换成你自己的VPS。</p>
+<h3 id="步骤二，下载SSH客户端"><a href="#步骤二，下载SSH客户端" class="headerlink" title="步骤二，下载SSH客户端"></a>步骤二，下载SSH客户端</h3><p>SSH跟windows远程桌面相似，不过是专门为Linux设计的。网上有很多SSH的客户端，这里强烈推荐<a href="https://mobaxterm.mobatek.net/" target="_blank" rel="noopener">MobaXterm</a>, 这里是官网的<a href="https://download.mobatek.net/1082018070240950/MobaXterm_Portable_v10.8.zip" target="_blank" rel="noopener">下载链接</a>。
+下载完之后，解压打开，然后点击中间的”start local terminal”，如下图：</p>
+<p><img src="https://image.ibb.co/dL6Dtd/6.png" alt="MobaXterm运行"></p>
+<p>运行之后，就会出现命令界面，在其中输入命令.<code>ssh root@149.***.***.206</code>.就会出项要求你输入密码的界面，然后输入你的密码（密码可以直接复制进去，不一定要手输），就可以登录你的VPS进行操作。如下图：</p>
+<p><img src="https://image.ibb.co/gRSKYd/7.png" alt="ssh登录!"></p>
+<h3 id="步骤三，安装ShadowsocksR服务器"><a href="#步骤三，安装ShadowsocksR服务器" class="headerlink" title="步骤三，安装ShadowsocksR服务器"></a>步骤三，安装ShadowsocksR服务器</h3><p>登录进入服务器后，就开始安装ShadowsocksR。再次为了降低门槛，这里直接使用一键安装脚本。请直接把下面的命令输进去，或者直接复制进去也行。</p>
+<pre><code>(curl -s https://raw.githubusercontent.com/teddysun/shadowsocks_install/master/shadowsocksR.sh) &gt;&gt; shadowsocksR.sh
+ls
+chmod +x shadowsocksR.sh
+./shadowsocksR.sh
+</code></pre><p>一共四行命令。意思是，</p>
+<ul>
+<li>1）下载SSR安装脚本本保存在本地</li>
+<li>2）查看脚本是否被保存在本地</li>
+<li>3）给脚本增加执行权限</li>
+<li>4）运行脚本
+输入之后在最后一行命令缓一下，如果全部正确的话效果应该如下图：</li>
+</ul>
+<p><img src="https://image.ibb.co/kOnkPJ/8.png" alt="运行截图"></p>
+<p>接着输入回车，SSR就会自动开始安装。安装过程中需要设置一些参数，可以参考下图：</p>
+<p><img src="https://image.ibb.co/dncryd/9.png" alt="SSR登录密码设置"></p>
+<p><img src="https://image.ibb.co/fWaGWy/10.png" alt="SSR登录端口"></p>
+<p><img src="https://image.ibb.co/i5NKjJ/11.png" alt="选择加密方法"></p>
+<p><img src="https://image.ibb.co/c9Dvry/12.png" alt="选择协议"></p>
+<p><img src="https://image.ibb.co/fX5fPJ/13.png" alt="选择混淆算法"></p>
+<p><img src="https://image.ibb.co/iemWWy/14.png" alt="开始安装"></p>
+<p><img src="https://image.ibb.co/kB5Qry/15.png" alt="安装成功"></p>
+<p>SSR安装成功之后，会自动打印出登录的信息例如，这里的信息就是：</p>
+<pre><code>Congratulations, ShadowsocksR server install completed!
+Your Server IP        :  149.***.***.***
+Your Server Port      :  34672
+Your Password         :  123456
+Your Protocol         :  auth_aes128_md5
+Your obfs             :  tls1.2_ticket_auth
+Your Encryption Method:  aes-256-cfb8
+
+Welcome to visit:https://shadowsocks.be/9.html
+Enjoy it!
+</code></pre><h3 id="步骤四，下载SSR客户端"><a href="#步骤四，下载SSR客户端" class="headerlink" title="步骤四，下载SSR客户端"></a>步骤四，下载SSR客户端</h3><p>最后一步，就是下载客户端然后享受无限制的上网了。下载地址在<a href="https://github-production-release-asset-2e65be.s3.amazonaws.com/98540438/20efe346-d084-11e7-838a-923986449fed?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Credential=AKIAIWNJYAX4CSVEH53A%2F20180723%2Fus-east-1%2Fs3%2Faws4_request&amp;X-Amz-Date=20180723T053658Z&amp;X-Amz-Expires=300&amp;X-Amz-Signature=f4b29ea894ded5b0ea5b1c04fa227998e9717bbd901c427099ae8b926f015ade&amp;X-Amz-SignedHeaders=host&amp;actor_id=10084681&amp;response-content-disposition=attachment%3B%20filename%3DShadowsocksR-win-4.9.0.zip&amp;response-content-type=application%2Foctet-stream" target="_blank" rel="noopener">这里</a>，下完后把对应信息填好，就可以了。</p>
+<p><img src="https://image.ibb.co/emmejJ/16.png" alt="SSR客户端"></p>
+<p>当然，SSR不只有windows客户端，<a href="https://github.com/shadowsocksr-backup/shadowsocksr-android/releases" target="_blank" rel="noopener">android客户端</a>，苹果客户端，mac，pad(所有的苹果设备推荐<a href="https://www.hinwen.com/3662.html" target="_blank" rel="noopener">shadowrocket</a>).国内的app store是把这个软件下架了。但是进入apple id，切换地区即可下载！</p>
+<h2 id="其他科学上网方式"><a href="#其他科学上网方式" class="headerlink" title="其他科学上网方式"></a>其他科学上网方式</h2><p>building…</p>
+<h2 id="结束语"><a href="#结束语" class="headerlink" title="结束语"></a>结束语</h2><p>我知道很人会说，“翻墙干吗，没有谷歌有百度啊，没有youtube有优酷啊，没有这个需求”。笔者深知自己人微言轻，给出的答案不足以服人，仅以以下格言与君共勉。</p>
+<p>自由有许多困难, 民主亦非完美。然而, 我们从未建造一堵墙, 把我们的人民关在里面, 不准他们离开。</p>
+<p align="right">  ——《在柏林墙下的演说》肯尼迪 (美国前总统) </p>
+
+<p>一旦你习惯了戴面具的生活, 你的脸将变得跟面具一样。</p>
+<p align="right">  ——《V怪客／V字仇杀队》</p>
+
+<p>每当有事情发生, 懦夫会问: ‘这么做安全吗?’ 患得患失者会问: ‘这么做明智吗?’ 虚荣者会问: ‘这么做受欢迎吗?’ 但是良知只会问: ‘这么做正确吗?’</p>
+<p align="right">  ——马丁.路德.金 (美国人权领袖)</p>
+
+<p>起初他们追杀共产党人，我没有说话，因为我不是共产党人；接着他们追杀犹太人，我没有说话，因为我不是犹太人；后来他们追杀工会会员，我没有说话，因为我不是工会会员；此后他们追杀天主教徒，我没有说话，因为我是新教教徒；最后他们奔我而来，却再也没有人站出来为我说话了。</p>
+<p align="right">   ——马 尼莫拉牧师 </p>
+
+<p>翻墙和OX的相似之处: 一旦会做就老想做; 做第一次之后觉得天地豁然开朗; 每次做都有快感; 觉得不会做的都是SB!</p>
+<p>GFW把中国人挡在了无数优秀网站之外, 仿佛在这些网站入口处设置了一道铁门, 上书八个大字:’<strong>华人与狗 不得入内</strong>‘</p>
+
+      
+    </div>
+    <footer>
+      
+        
+        
+  
+  <div class="tags">
+    <a href="/tags/Linux/">Linux</a>
+  </div>
+
+        
+  <div class="addthis addthis_toolbox addthis_default_style">
+    
+      <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
+    
+    
+      <a class="addthis_button_tweet"></a>
+    
+    
+      <a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
+    
+    
+      <a class="addthis_button_pinterest_pinit" pi:pinit:layout="horizontal"></a>
+    
+    <a class="addthis_counter addthis_pill_style"></a>
+  </div>
+  <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js"></script>
+
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+<section id="comment">
+  <h1 class="title">Comments</h1>
+
+  
+      <div id="fb-root"></div>
+<script>
+  (function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=123456789012345";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+</script>
+
+<div class="fb-comments" data-href="http://yoursite.com/2018/07/23/gfwbreak/index.html" data-num-posts="5" data-width="840" data-colorscheme="light"></div>
+      
+  
+</section>
+
+</div></div>
+    <aside id="sidebar" class="alignright">
+  <div class="search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="Search">
+    <input type="hidden" name="q" value="site:yoursite.com">
+  </form>
+</div>
+
+  
+
+  
+<div class="widget tag">
+  <h3 class="title">Tags</h3>
+  <ul class="entry">
+  
+    <li><a href="/tags/C-数据结构/">C++/数据结构</a><small>1</small></li>
+  
+    <li><a href="/tags/Linux/">Linux</a><small>4</small></li>
+  
+    <li><a href="/tags/Lua/">Lua</a><small>1</small></li>
+  
+    <li><a href="/tags/RouterOs/">RouterOs</a><small>1</small></li>
+  
+    <li><a href="/tags/python/">python</a><small>1</small></li>
+  
+    <li><a href="/tags/图像处理/">图像处理</a><small>2</small></li>
+  
+    <li><a href="/tags/数学公式/">数学公式</a><small>1</small></li>
+  
+    <li><a href="/tags/概率与统计/">概率与统计</a><small>1</small></li>
+  
+    <li><a href="/tags/算法/">算法</a><small>1</small></li>
+  
+    <li><a href="/tags/计算机网络/">计算机网络</a><small>1</small></li>
+  
+  </ul>
+</div>
+
+</aside>
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div class="alignleft">
+  
+  &copy; 2018 Zhao, Chenqiu
+  
+</div>
+<div class="clearfix"></div></footer>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+</body>
+</html>
