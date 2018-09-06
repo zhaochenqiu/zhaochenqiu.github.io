@@ -3,6 +3,8 @@ date: 2017-07-07
 tags: 图像处理
 abstract: 记录MatConvNet的配置过程
 ---
+记录MatConvNet的配置过程
+<!--more-->
 
 <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
@@ -140,3 +142,5 @@ http://www.cnblogs.com/Yan47/p/6418129.html
 
 CUDA下载地址
 https://developer.nvidia.com/cuda-downloads
+
+revising...
