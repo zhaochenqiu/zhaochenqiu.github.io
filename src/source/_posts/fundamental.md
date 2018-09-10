@@ -68,4 +68,139 @@ tags: 图像处理
 \sigma^2 = \frac{1}{n - 1} \sum\limits\_{i = 1}^{n}(X_i - \bar{X})^2
 \\]
 
+示例代码:
 
+    clear all
+    close all
+    clc
+
+    mu = 1;
+    sigma = 0.5;
+    num = 1000000;
+
+
+    data = normrnd(mu, sigma, 1, num);
+
+
+    n = 10;
+
+    idx = randperm(num);
+    data = data(idx);
+
+    sample = data(1:n);
+    sample = sample - mean(sample);
+
+    value = sum(sample .* sample);
+    value = value/(n - 1);
+    str = sprintf('value with 1 time iteration: %f', value);
+    disp(str);
+
+
+    num_sample = 500;
+    idxlist = randperm(num);
+
+    result = zeros(1, num_sample);
+    for i = 1:num_sample
+        idx = idxlist(i*n:i*n + 9);
+
+        sample = data(idx);
+        sample = sample - mean(sample);
+
+        value = sum(sample .* sample);
+        value = value/(n - 1);
+        
+        result(i) = value;
+    end
+
+    str = sprintf('value with 500 times iteration: %f', mean(result));
+    disp(str);
+
+代码结果输出(涉及随机数输出，打印多次结果。):
+
+    value with 1 time iteration: 0.118847
+    value with 500 times iteration: 0.243565
+    >> exp1
+    value with 1 time iteration: 0.171856
+    value with 500 times iteration: 0.252303
+    >> exp1
+    value with 1 time iteration: 0.171001
+    value with 500 times iteration: 0.245947
+    >> exp1
+    value with 1 time iteration: 0.346157
+    value with 500 times iteration: 0.254011
+
+
+# 数据协方差与相关性系数
+协方差用于衡量两个变量总体的误差。方差是协方差的一个特殊情况，即两个变量相同的情况。
+协方差公式：
+
+\\[
+\begin{aligned}
+E(X) & = \mu \\\\
+E(Y) & = \nu \\\\
+cov(X, Y) & = E[(X - \mu)(Y - \nu)] = E(X \cdot Y) - \mu \nu
+\end{aligned}
+\\]
+
+当两个变量相互独立是，协方差为0，因为：
+
+\\[
+E(X \cdot Y) = E(X) \cdot E(Y) = \mu \nu \\
+cov(X, Y) = E(X \cdot Y) - \mu \nu = \mu \nu - \mu \nu = 0;
+\\]
+
+接着相关性系数\\(\eta\\)计算方法：
+
+\\[
+\eta = \frac{cov(X, Y)}{\sqrt{var(X) \cdot var(Y)}}
+\\]
+
+协方差示例代码：
+
+    clear all
+    close all
+    clc
+
+    mu1 = 1.5;
+    sigma1 = 2.5;
+
+    mu2 = 20.3;
+    sigma2 = 3.6;
+
+    % num1 must equal num2
+    num1 = 1000;
+    num2 = 1000;
+
+    data1 = normrnd(mu1, sigma1, 1, num1);
+    data2 = normrnd(mu2, sigma2, 1, num2);
+
+    value1 = data1 - mean(data1);
+    value2 = data2 - mean(data2);
+
+    covvalue = mean(value1 .* value2);
+    covvalue
+
+    % 无偏估计，分母用的n - 1
+    mat = cov(data1, data2)
+
+    value = mat(1, 2) / (mat(1, 1)*mat(2, 2));
+    value
+
+输出结果：
+
+    covvalue =
+
+        0.0394
+
+
+    mat =
+
+        6.5329    0.0394
+        0.0394   12.8252
+
+
+    value =
+
+       4.7029e-04
+
+    >> 

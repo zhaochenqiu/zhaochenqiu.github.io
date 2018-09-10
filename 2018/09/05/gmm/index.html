@@ -3,13 +3,15 @@
 <head>
   <meta charset="utf-8">
   
-  <title>算法 | Chenqiu&#39;s Blog</title>
+  <title>高斯混合模型(GMM)与EM算法 | Chenqiu&#39;s Blog</title>
   <meta name="author" content="Zhao, Chenqiu">
+  
+  <meta name="description" content="详解并实现高斯混合模型与EM算法">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  
+  <meta property="og:title" content="高斯混合模型(GMM)与EM算法"/>
   <meta property="og:site_name" content="Chenqiu&#39;s Blog"/>
 
   
@@ -43,27 +45,84 @@
 <div class="clearfix"></div>
 </header>
   <div id="content" class="inner">
-    <div id="main-col" class="alignleft"><div id="wrapper">
-<h2 class="archive-title tag">算法</h2>
+    <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2018-09-05T20:01:56.000Z"><a href="/2018/09/05/gmm/">2018-09-05</a></time>
+      
+      
+  
+    <h1 class="title">高斯混合模型(GMM)与EM算法</h1>
+  
 
+    </header>
+    <div class="entry">
+      
+        <p>详解并实现高斯混合模型与EM算法
+<a id="more"></a></p>
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
-  <div class="archive">
-    
-      <article class="post">
-        <div class="post-content">
-          <header>
-            <div class="icon"></div>
-            <time datetime="2015-09-16T07:15:07.000Z"><a href="/2015/09/16/twoSum/">2015-09-16</a></time>
-            
-              <h1 class="title"><a href="/2015/09/16/twoSum/">leetcode Two Sum</a></h1>
-            
-          </header>
-        </div>
-      </article>
-    
+<h1 id="高斯混合模型-Gaussian-Mixture-Model"><a href="#高斯混合模型-Gaussian-Mixture-Model" class="headerlink" title="高斯混合模型(Gaussian Mixture Model)"></a>高斯混合模型(Gaussian Mixture Model)</h1><p>高斯混合模型，就是用多个高斯函数去模拟数据的分布，经常用于无监督的分类的问题。具体效果如下图，左边就是普通的数据，而右边右边就是使用GMM聚类之后的效果。而EM算法就是用来计算GMM的各项参数</p>
+<p><img src="https://image.ibb.co/bJP3Pe/image.png" alt="GMM效果图"></p>
+
+      
+    </div>
+    <footer>
+      
+        
+        
+  
+  <div class="tags">
+    <a href="/tags/图像处理/">图像处理</a>
   </div>
 
+        
+  <div class="addthis addthis_toolbox addthis_default_style">
+    
+      <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
+    
+    
+      <a class="addthis_button_tweet"></a>
+    
+    
+      <a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
+    
+    
+      <a class="addthis_button_pinterest_pinit" pi:pinit:layout="horizontal"></a>
+    
+    <a class="addthis_counter addthis_pill_style"></a>
+  </div>
+  <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js"></script>
 
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+<section id="comment">
+  <h1 class="title">Comments</h1>
+
+  
+      <div id="fb-root"></div>
+<script>
+  (function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=123456789012345";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+</script>
+
+<div class="fb-comments" data-href="http://yoursite.com/2018/09/05/gmm/index.html" data-num-posts="5" data-width="840" data-colorscheme="light"></div>
+      
+  
+</section>
 
 </div></div>
     <aside id="sidebar" class="alignright">
