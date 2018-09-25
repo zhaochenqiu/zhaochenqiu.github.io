@@ -49,10 +49,6 @@ P(x) = \pi_1\mathcal{N}(x|\mu_1, \Sigma_1) + \pi_2\mathcal{N}(x|\mu_2, \Sigma_2)
 P(x) = \sum\limits_{k=1}^{K} \pi_k \mathcal{N}(x|\mu_k, \Sigma_k)
 \\]
 
-
-
-
-
 GMM 示例代码：
 
     clear all
