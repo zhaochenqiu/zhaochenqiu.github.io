@@ -20,6 +20,7 @@ tags: 图像处理
 
 \\[
 P(x) = \sum\limits_{k=1}^{K} \pi_k \mathcal{N}(x|\mu_k, \Sigma_k)
+\tag{1}
 \\]
 
 其中\\(\mathcal{N}(x|\mu_k, \Sigma_k\\)为模型中的第\\(k\\)个分量，\\(K\\)为聚类数量，\\(\pi_k\\)为混合系数其满足：
@@ -49,15 +50,103 @@ P(x) = \pi_1\mathcal{N}(x|\mu_1, \Sigma_1) + \pi_2\mathcal{N}(x|\mu_2, \Sigma_2)
 P(x) = \sum\limits_{k=1}^{K} \pi_k \mathcal{N}(x|\mu_k, \Sigma_k)
 \\]
 
-\\(\pi_k\\)可以看成是第\\(k\\)类被选中的概率。为了表达具体是那个类别被选中，可以引入新的随机变量\\(Z_k\\)。\\(Z_k \(1 \leq k \leq K \) \\)
-只能取0或1两个值。而\\(Z_k = 1\\)表示第\\(k\\)个类别被选中的概率，也就是说\\(P(Z_k = 1) = \pi_k\\)，数学表达形式如下:
+\\(\pi_k\\)可以看成是第\\(k\\)类被选中的概率。为了表达具体是那个类别被选中，可以引入新的随机变量\\(z_k\\)。\\(z_k \(1 \leq k \leq K \) \\)
+只能取0或1两个值。而\\(z_k = 1\\)表示第\\(k\\)个类别被选中的概率，也就是说\\(P(z_k = 1) = \pi_k\\)，数学表达形式如下:
 \\[
-Z_k \in \{0, 1\} \quad \sum\limits_{k = 1}^{K} Z_k = 1
+z_k \in \{0, 1\} \quad \sum\limits_{k = 1}^{K} z_k = 1
 \\]
 
-\\(Z_k\\)的维度也就代表了类别的个数.以之前的数据图为例,类别数量为3,那么\\(Z_k\\)的维度也就是3.
-对应着某点分别属于3个特定类别的\\(Z_k\\)的值也就是为\\(Z_k = [1, 0, 0], [0, 1, 0], [0, 0, 1]\\).
+\\(z_k\\)的维度也就代表了类别的个数.以之前的数据图为例,类别数量为3,那么\\(z_k\\)的维度也就是3.
+对应着某点分别属于3个特定类别的\\(z_k\\)的值也就是为\\(z_k = [1, 0, 0], [0, 1, 0], [0, 0, 1]\\).
+接着假设\\(z_k\\)之间独立同分布，而且已知\\(P(z_k = 1) = \pi_k\\)的情况下，可以得到\\(Z\\)的联合概率分布为：
 
+\\[
+P(Z) = P(z_1)P(z_2)P(z_3)\cdots P(z_k)=\prod_{k=1}^{K}{\pi_k}^{z_k}
+\tag{2}
+\\]
+
+其中由于只有一个\\(z_k\\)为1,其他都为0 ，所以只有被选中的\\(\pi_k\\)开了1次方保留了原值，其他的都被0次方变成了1.
+例如假设现在第二个类被选中，也就是说\\(Z = [z_1, z_2, z_3 \cdots, z_K] = [0, 1, 0, \cdots, 0]\\)，代如上式：
+
+\\[
+P(\{0, 1, 0, \cdots 0\}) = \prod_{k = 1}^{K} {\pi_k}^{z_k} = {\pi_k}^{[0, 1, 0, \cdots 0]} = {\pi_1}^{0} {\pi_2}^{1} {\pi_3}^{0} \cdots {\pi_k}^{0} = \pi_2
+\\]
+
+即：\\(P(z_2 = 1) = \pi_2\\)。现在通过引入\\(z_k\\)描述了某个点具体是那个类别被选中，但是这个点有多大的概率被这个类别生成，或者说这个点属于这个类别的概率是多少还需要考虑。
+为此，我们把GMM在\\(z_k\\)的条件概率分布表达列出来，如下:
+
+\\[
+P(x|z_k = 1) = \mathcal{N}(x|\mu_k, \Sigma_k)
+\\]
+
+进而推出：
+
+\\[
+P(x|Z) = \prod_{k = 1}^{K} \mathcal{N}(x|\mu_k, \Sigma_k)^{z_k}
+\tag{3}
+\\]
+
+最后根据条件概率公式:
+
+\\[
+\begin{aligned}
+   & P(A|B) = \frac{P(A \cap B)}{P(B)}  \\\\
+\Rightarrow & P(A \cap B) = P(A|B)P(B) \\\\
+\Rightarrow & P(x \cap Z) = P(x|Z) p(Z)
+\end{aligned}
+\tag{4}
+\\]
+
+合并(2)(3)两式可以得：
+
+\\[
+\begin{aligned}
+P(x) = & \sum\limits_{Z}^{} P(Z)P(x|Z) = \sum\limits_{Z}^{} \prod_{k=1}^{K}{\pi_k}^{z_k} \prod_{k = 1}^{K} \mathcal{N}(x|\mu_k, \Sigma_k)^{z_k} =  \sum\limits_{Z}^{} \prod_{k = 1}^{K} {\pi_k}^{z_k} \mathcal{N}(x|\mu_k, \Sigma_k)^{z_k}   \\\\
+ = & {\pi_1}^{1}  {\pi_2}^{0} \cdots {\pi_k}^{0} \mathcal{N}(x|\mu_1, \Sigma_1)^{1} \mathcal{N}(x|\mu_2, \Sigma_2)^{0} \cdots +  {\pi_1}^{0}  {\pi_2}^{1} \cdots {\pi_k}^{0} \mathcal{N}(x|\mu_1, \Sigma_1)^{0} \mathcal{N}(x|\mu_2, \Sigma_2)^{1} \cdots + \cdots \\\\
+ = & \sum\limits_{k=1}^{K} \pi_k \mathcal{N}(x|\mu_k, \Sigma_k) \quad z_k = 0的项为1,省略
+\end{aligned}
+\\]
+
+上式与(1)中的GMM一样，只是引入了一个\\(z_k\\)来表达具体的类别。**\\(z_k\\)被称为隐含变量，用来描述“知道数据具体分成几类，但是无法观察数据具体属于那一个类别”**。
+
+# EM(expectation-maximization) 迭代公式推导
+在贝叶斯(Bayes)的思想下，P(Z)为先验概率(Prior probability), P(x|Z)为条件概率(Conditional probability),那么很自然就可以想要求出后验概率(Posterior probability).
+
+根据贝叶斯公式:
+
+\\[
+P(A|B) = \frac{P(A)P(B|A)}{P(B)}
+\\]
+
+套用到\\(x\\)与\\(Z\\)中可以得到：
+
+\\[
+\gamma(z_k)  = P(z_k = 1|x) = \frac{P(z_k=1)P(x|z_k = 1)}{P(x, z_k = 1)}
+\tag{5}
+\\]
+
+又有全概率公式：
+
+\\[
+Pr(A) = \sum\limits_{n}^{A \cap B_n}
+\\]
+
+以及(4)中的条件概率公式,可以得到：
+
+\\[
+Pr(A) = \sum\limits_{}^{n} Pr(A|B_n) Pr(B_n)
+\tag{6}
+\\]
+
+接着，根据(6)式去修改(5)式可以得到如下表达式:
+
+\\[
+\gamma(z_k) = p(z_k = 1|x) = \frac{P(z_k=1)P(x|z_k=1)}{}
+\\]
+
+
+
+可以得到
 
 
 GMM 示例代码：
