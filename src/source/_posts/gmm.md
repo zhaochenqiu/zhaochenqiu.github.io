@@ -49,6 +49,16 @@ P(x) = \pi_1\mathcal{N}(x|\mu_1, \Sigma_1) + \pi_2\mathcal{N}(x|\mu_2, \Sigma_2)
 P(x) = \sum\limits_{k=1}^{K} \pi_k \mathcal{N}(x|\mu_k, \Sigma_k)
 \\]
 
+\\(\pi_k\\)可以看成是第\\(k\\)类被选中的概率。为了表达具体是那个类别被选中，可以引入新的随机变量\\(Z_k\\)。\\(Z_k \(1 \leq k \leq K \) \\)
+只能取0或1两个值。而\\(Z_k = 1\\)表示第\\(k\\)个类别被选中的概率，也就是说\\(P(Z_k = 1) = \pi_k\\)，数学表达形式如下:
+\\[
+Z_k \in \{0, 1\} \quad \sum\limits_{k = 1}^{K} Z_k = 1
+\\]
+
+
+
+
+
 GMM 示例代码：
 
     clear all
