@@ -158,13 +158,19 @@ Pr(A) = \sum\limits_{}^{n} Pr(A|B_n) Pr(B_n)
 \tag{8}
 \\]
 
+最后通过均值的方式就可以得到EM算法的迭代式:
+
+\\[
+\begin{aligned}
+\mu_k = & \frac{1}{N_k} \sum\limits_{i = 1}^{K}\gamma(i,k)x_i \\\\
+\Sigma_k= & \frac{1}{N_k}\sum\limits_{i=1}^{N}\gamma(i,k)(x_i-\mu_k)(x_i-\mu_k)^T \\\\
+\pi_k = & \frac{N_k}{N} \\\\
+N_k = & \sum\limits_{i=1}^{N}\gamma(i,k)
+\end{aligned}
+\\]
 
 
-
-可以得到
-
-
-GMM 示例代码：
+最后附上一段EM算法解GMM的代码，就可以得到开始效果图:
 
     clear all
     close all
