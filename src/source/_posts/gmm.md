@@ -51,9 +51,10 @@ P(x) = \sum\limits_{k=1}^{K} \pi_k \mathcal{N}(x|\mu_k, \Sigma_k)
 \\]
 
 \\(\pi_k\\)可以看成是第\\(k\\)类被选中的概率。为了表达具体是那个类别被选中，可以引入新的随机变量\\(z_k\\)。\\(z_k \(1 \leq k \leq K \) \\)
-只能取0或1两个值。而\\(z_k = 1\\)表示第\\(k\\)个类别被选中的概率，也就是说\\(P(z_k = 1) = \pi_k\\)，数学表达形式如下:
+只能取0或1两个值。而\\(z_k = 1\\)表示第\\(k\\)个类别被选中的概率  数学的表达形式如下：
 \\[
-z_k \in \{0, 1\} \quad \sum\limits_{k = 1}^{K} z_k = 1
+P(z_k = 1) = \pi_k  \quad z_k \in \{0, 1\} \quad \sum\limits_{k = 1}^{K} z_k = 1
+\tag{2}
 \\]
 
 \\(z_k\\)的维度也就代表了类别的个数.以之前的数据图为例,类别数量为3,那么\\(z_k\\)的维度也就是3.
@@ -62,7 +63,7 @@ z_k \in \{0, 1\} \quad \sum\limits_{k = 1}^{K} z_k = 1
 
 \\[
 P(Z) = P(z_1)P(z_2)P(z_3)\cdots P(z_k)=\prod_{k=1}^{K}{\pi_k}^{z_k}
-\tag{2}
+\tag{3}
 \\]
 
 其中由于只有一个\\(z_k\\)为1,其他都为0 ，所以只有被选中的\\(\pi_k\\)开了1次方保留了原值，其他的都被0次方变成了1.
@@ -83,7 +84,7 @@ P(x|z_k = 1) = \mathcal{N}(x|\mu_k, \Sigma_k)
 
 \\[
 P(x|Z) = \prod_{k = 1}^{K} \mathcal{N}(x|\mu_k, \Sigma_k)^{z_k}
-\tag{3}
+\tag{4}
 \\]
 
 最后根据条件概率公式:
@@ -94,10 +95,10 @@ P(x|Z) = \prod_{k = 1}^{K} \mathcal{N}(x|\mu_k, \Sigma_k)^{z_k}
 \Rightarrow & P(A \cap B) = P(A|B)P(B) \\\\
 \Rightarrow & P(x \cap Z) = P(x|Z) p(Z)
 \end{aligned}
-\tag{4}
+\tag{5}
 \\]
 
-合并(2)(3)两式可以得：
+合并(3)(4)两式可以得：
 
 \\[
 \begin{aligned}
@@ -122,27 +123,41 @@ P(A|B) = \frac{P(A)P(B|A)}{P(B)}
 
 \\[
 \gamma(z_k)  = P(z_k = 1|x) = \frac{P(z_k=1)P(x|z_k = 1)}{P(x, z_k = 1)}
-\tag{5}
+\tag{6}
 \\]
 
 又有全概率公式：
 
 \\[
-Pr(A) = \sum\limits_{n}^{A \cap B_n}
+Pr(A) = \sum\limits_{n}^{} Pr(A \cap B_n)
 \\]
 
 以及(4)中的条件概率公式,可以得到：
 
 \\[
 Pr(A) = \sum\limits_{}^{n} Pr(A|B_n) Pr(B_n)
-\tag{6}
+\tag{7}
 \\]
 
-接着，根据(6)式去修改(5)式可以得到如下表达式:
+接着，根据(7)式去修改(6)式可以得到如下表达式:
 
 \\[
-\gamma(z_k) = p(z_k = 1|x) = \frac{P(z_k=1)P(x|z_k=1)}{}
+\gamma(z_k) = p(z_k = 1|x) = \frac{P(z_k=1)P(x|z_k=1)}{P(x,z_k = 1)} = \frac{P(z_k = 1)P(x|z_k=1)}{\sum\limits_{j=1}^{K}P(z_j=1)P(x|z_j=1)}
 \\]
+
+接着在根据(2)(4)中\\(P(Z)\\)与\\(P(x|Z)\\)的定义可以得到最终形式:
+
+\\[
+\gamma(z_k) = \frac{\pi_k \mathcal{N}(x|\mu_k, \Sigma_k)}{\sum\limits_{j=1}^{K}\pi_j \mathcal{N}(x|\mu_j, \Sigma_j)}
+\\]
+
+最后扩展上式，对于数据\\(x_i\\)来说他由第\\(k\\)个Component生成的概率为:
+
+\\[
+\gamma(i,k)= \frac{\pi_k \mathcal{N}(x_i|\mu_k, \Sigma_k)}{\sum\limits_{j=1}^{K}\pi_j \mathcal{N}(x_i|\mu_j, \Sigma_j)}
+\tag{8}
+\\]
+
 
 
 
