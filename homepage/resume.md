@@ -14,9 +14,8 @@ Summary
 -------
 ***
 Hi, welcome to my homepage, i am a researcher as well as a developer of
-computer vision who is currently working for my PhD at University of Alberta, Canada.
-Previously, i was working as a research associate in Institute
-for Media Innovation, IMI, Singapore, Nanyang Technological University, NTU. 
+computer vision who is currently taking for my PhD at Multimedia Research Centre, Department of Computing Science, University of Alberta, Canada.
+Previously, i was working as a research associate at Nanyang Technological University, Singapore. 
 Before that, i was taking my Master and Bachelor degree in Chongqing University, China.
 My research interests include Background Subtraction, Video Segmentation, Pattern
 Recognition, Machine Learning and Deep Learning. For programming part, i used
