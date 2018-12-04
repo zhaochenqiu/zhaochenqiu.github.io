@@ -30,7 +30,7 @@ rss:
 comment_provider: facebook
 # Facebook comment
 facebook:
-  appid: 123456789012345
+  appid: 378375629598606
   comment_count: 5
   comment_width: 840
   comment_colorscheme: light
