@@ -158,7 +158,7 @@ A\_{m \times n} = U\_{m \times m} \Sigma\_{m \times n} V\_{n \times n}^T
 就变成了:
 
 \\[
-A\_{m \times n} \approx  U\_{m \times r} \Sigma\_{r \times n} V\_{r \times n}^T
+A\_{m \times n} \approx  U\_{m \times n} \Sigma\_{n \times r} V\_{r \times n}^T
 \\]
 
 然后利用这种约等于的性质就可以对一副图像进行主成分的提取。例如，这里，我们只使用图像的前10个特征值对图像重构，也就是说\\(r = 10\\)代码如下：
