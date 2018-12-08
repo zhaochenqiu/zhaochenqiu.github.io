@@ -2,12 +2,12 @@ title: 奇异值分解详解
 date: 2018-12-06 21:08:00
 tags: 图像处理
 ---
-奇异值原理详解
+**怕什么真理无穷，进一寸有一寸的欢喜**
 <!--more-->
 
 <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
-# 向量的基，内积分与向量投影
+# 向量的基，内积与向量投影
 首先给一个普通的向量\\( (3,4)  \\),其中的数字3,4表示的是向量在x轴与y轴上的分量,也就是这个向量在
 \\( (1, 0) \\)与\\( (0, 1) \\)方向上的**模长**.所以其实向量可以表达成下面这样：
 \\[
@@ -25,23 +25,66 @@ tags: 图像处理
 \\[
 5 \times (\frac{3}{5}, \frac{4}{5})^T + 0 \times (\frac{3}{5}, - \frac{4}{5})^T = (3, 4) = 3 \times (1, 0)^T + 4 \times (0, 1)^T
 \\]
+把上式变的更矩阵化一点，可以得到下式：
+\\[
+\begin{bmatrix}
+1 & 0\\\\
+0 & 1
+\end{bmatrix} \begin{bmatrix}
+3 \\\\
+4
+\end{bmatrix} = \begin{bmatrix}
+3\\\\
+4
+\end{bmatrix} = \begin{bmatrix}
+\frac{3}{5} & \frac{3}{5}\\\\
+\frac{4}{5} & -\frac{4}{5}
+\end{bmatrix}\begin{bmatrix}
+5\\\\
+0
+\end{bmatrix}
+\\]
+其中矩阵的每一个行向量都是对应的基向量。
+也就是，同一个向量，在不同的基向量下，向量的形式是不同的。而向量中的数字其本质表示的是在对应基向量上的模长。
+即:
+\\[
+\vec{v} = [\vec{v}_1, \vec{v}_2, \cdots, \vec{v}_n] [\lambda_1, \lambda_2, \cdots, \lambda_n]^T
+\tag{1}
+\\]
+也就说，同一个向量，虽然在不用的基下的向量形式不用，但通过上式计算后，都可以得到同一个结果。
+例如上面式(1)所示，向量\\( (3,4) \\)在两个不同的基下的最终结果就是相等的。
 
-现在数学化一点，假设两个不用的基为\\(V_1 = \\{ (1,0)^T, (0, 1)^T \\}  \\)和\\(V_2 = \\{(\frac{3}{5}, \frac{4}{5})^T, (\frac{3}{5}, -\frac{4}{5})^T \\}     \\).
-在不用的基下，向量的表达形式也就不用。在\\(V_1\\)下为\\( (3,4) \\), 在\\( V_2\\)下为 \\( (5,0) \\)
-    
+那么如何得到一个向量在不同基下的形式呢？这里就要使用向量的内积。首先是向量内积的定义：
+\\[
+\vec{a} \cdot \vec{b}= \sum\limits_{i = 1}^{n} a_ib_i = a_1b_1 + a_2b_2 + \cdots + a_nb_b
+\\]
+然后我们把内积转化为另一种空间上的形式：
+\\[
+\vec{a} \cdot \vec{b} = |\vec{a}| |\vec{b}| cos(a)
+\\]
+接着再进一步，假设\\( |\vec{b}| = 1 \\),也就得到了:
+\\[
+\vec{a} \cdot \vec{b} = |\vec{a}| cos(a)
+\\]
+因此可以看出，当基向量的模长为1时，向量与基向量的内积可以理解为了向量的在基向量上投影的模长。
+也就如下图：
+
+![盗个图](https://i.ibb.co/5LFKJTk/36936572-25.png)
+
+因此通过向量的内积运算，我们就可以很容易的得到向量在基向量上的投影模长。
+即通过向量的内积运算，就可以很容易的将向量在不同基向量上的进行转换。
+例如之前的向量\\( (3,4) \\), 在基向量\\( (\frac{3}{5}, \frac{4}{5})  \\)和
+\\( (\frac{3}{5}, - \frac{4}{5})  \\)
+下的投影也就是表现值就是：
+\\[
+(3,4)^T \cdot (\frac{3}{5}, \frac{4}{5})^T = 5 \\\\
+(3,4)^T \cdot (\frac{3}{5}, \frac{4}{5})^T = 0
+\\]
+也就得到了\\((5,0) \\)这个新的向量。
+所以可以看到**向量是可以在不同的基下转化的,而且在不同的基下，向量的形式不一样**.
 
 
 
-
-
-# 效果图
-这次使用PCA对[MNIST](http://yann.lecun.com/exdb/mnist/)数据集中数字0和1进行降维分类，分别使用Matlab和Python来实验，结果如下:
-
-![将数字图片降低到两个维度，红点为数字0的图像降维结果，蓝点为数字1的降维结果](https://image.ibb.co/b97PmT/exp1.png)
-
-# 特征值与特征向量定义
-特征向量的定义为：\\[A \vec{v} = \lambda \vec{v} \\]
-其中\\(\vec{v}\\)就是\\(A\\)就是特征向量,而对应的\\(\lambda\\)就是特征值
 
 在Matlab里使用`eig`函数来求，使用方法为:
 {% codeblock lang:matlab %}
@@ -56,28 +99,5 @@ mat*V(:, 1) - D(1, 1)*V(:, 1)
 mat*V(:, 2) - D(2, 2)*V(:, 2)
 mat*V(:, 3) - D(3, 3)*V(:, 3)
 {% endcodeblock %}
-
-\\[
-Ax_1 = \lambda_1 x_1 \\\\
-Ax_2 = \lambda_2 x_2 \\\\
-\cdots \\\\
-Ax_m = \lambda_m x_m
-\\]
-进而得到:
-\\[AU = U\Lambda \\]
-其中
-\\[
-U = [x_1 x_2 \cdots x_m] \quad \quad
-\Lambda = \begin{pmatrix} 
-	\lambda_1   & \cdots & 0 \\\\
-	\vdots      & \ddots & \vdots \\\\
-	0           & \cdots & \lambda_m \\\\
-\end{pmatrix}
-\\]
-最后也就是推出了:
-\\[
-A = U\Lambda U^{-1} = U\Lambda U^{T}
-\\]
-![图像的主成分分析](https://image.ibb.co/eZsuqy/image.png)
 
 
