@@ -95,6 +95,28 @@ tags: 图像处理
 \\]
 也就得到了\\((5,0) \\)这个新的向量。
 所以可以看到**向量是可以在不同的基下转换的,而且在不同的基下，向量的形式不一样**.
+而将向量转换会标准形式只要需要左乘上这组基向量即可。如下:
+\\[
+\begin{bmatrix}
+\frac{3}{5} & \frac{4}{5} \\\\
+\frac{4}{5} & -\frac{3}{5}
+\end{bmatrix} \begin{bmatrix}
+\frac{3}{5} & \frac{4}{5} \\\\
+\frac{4}{5} & -\frac{3}{5}
+\end{bmatrix}^T \begin{bmatrix}
+3\\\\
+4
+\end{bmatrix} = \begin{bmatrix}
+\frac{3}{5} & \frac{4}{5} \\\\
+\frac{4}{5} & -\frac{3}{5}
+\end{bmatrix} \begin{bmatrix}
+5\\\\
+0
+\end{bmatrix} = \begin{bmatrix}
+3\\\\
+4
+\end{bmatrix}
+\\]
 
 # 特征值与特征向量
 之前我们展示了向量是可以投影到另一个向量上的。
