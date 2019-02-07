@@ -1,11 +1,88 @@
-title: 特征值奇异值分解详解
+title: 奇异值分解及其应用
 date: 2018-12-06 21:08:00
 tags: 图像处理
 ---
-详解特征值分解与奇异值分解
+详述奇异值分解与PCA，最小二乘，数据拟合，3D转换的关系
 <!--more-->
 
 <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+# 奇异值分解
+奇异值分解的目的是将一个\\(m \times n \\)的矩阵\\( A \\)分解成另外三个矩阵\\(U, \Sigma, V^T \\).其中\\(U\\)和\\(V\\)分别为\\(m \times m\\)和\\(n \times n\\)的方阵,
+\\(\Sigma\\)为\\(m \times n\\)的矩阵.数学表达形式如下:
+\\[
+\large
+A_{m \times n} = U_{m \times m} \Sigma_{m \times n} V^T_{n \times n}
+\\]
+
+## 特征值与特征值分解
+谈奇异值之前必须要介绍特征值分解，因为奇异值分解实际是特征值分解的一个扩展.
+特征值分解是将一个矩阵分解成他的特征值以及特征向量,先来看特征值与特征向量的定义:
+\\[
+\large
+A \vec{v} = \lambda \vec{v}
+\\]
+如上式，特征向量就是只矩阵与这个向量运算后得到的向量，只有长度的变化，没有方向的变化。更甚着，这种运算可以理解为矩阵在这个向量上的投影（之后会解释为什么可以理解为投影）。
+而且，矩阵的特征向量是不唯一的。如果将矩阵所有特征向量和特征值综合到一起，就可以得到矩阵的特征值分解公式，具体过程如下：
+\\[
+\begin{split}
+& A \vec{v}_1 = \lambda_1 \vec{v}_1 \\\\
+& A \vec{v}_2 = \lambda_2 \vec{v}_2 \\\\
+& \cdots \\\\
+& A \vec{v}_m = \lambda_m \vec{v}_m \\\\
+\\\\
+ \Rightarrow  & A[\vec{v}_1 \ \vec{v}_2 \ \cdots \vec{v}_m] = [\lambda_1\vec{v}_1 \ \lambda_2\vec{v}_2 \ \cdots \lambda_m\vec{v}_m] \\\\
+\Rightarrow & A[\vec{v}_1 \ \vec{v}_2 \ \cdots \vec{v}_m] = \begin{bmatrix}
+\lambda_1 & 0 & \cdots & 0\\\\
+0 & \lambda_2  & \cdots & 0\\\\
+\vdots & \vdots & \ddots & \vdots \\\\
+0 & 0 & \cdots & \lambda_m
+\end{bmatrix} [\vec{v}_1 \ \vec{v}_2 \ \cdots \vec{v}_m] \\\\
+\Rightarrow & AV = \Lambda V,  \quad V = [\vec{v}_1 \ \vec{v}_2 \ \cdots \vec{v}_m], \quad \Lambda = \begin{bmatrix}
+\lambda_1 & 0 & \cdots & 0\\\\
+0 & \lambda_2  & \cdots & 0\\\\
+\vdots & \vdots & \ddots & \vdots \\\\
+0 & 0 & \cdots & \lambda_m
+\end{bmatrix} 
+\end{split} \\\\
+\\]
+得到\\( AV = \Lambda V \\)后，我们需要讨论下他的一个性质好继续推导
+
+
+## 奇异值分解与特征值分解
+
+
+## 奇异值特征值分解的意义
+
+### 向量的内积与投影
+
+### 奇异值分解与矩阵投影
+
+
+
+# 奇异值分解的应用
+
+
+## 奇异分解与主成分分析(PCA)
+
+
+## 奇异值分解与最小二乘
+
+### 最小二乘法与数据拟合
+
+
+### 最小二乘法与多项式拟合
+
+
+
+
+
+
+
+
+
+
+
 
 # 向量的基，内积与向量投影
 首先给一个普通的向量\\( (3,4)  \\),其中的数字3,4表示的是向量在x轴与y轴上的分量,也就是这个向量在
