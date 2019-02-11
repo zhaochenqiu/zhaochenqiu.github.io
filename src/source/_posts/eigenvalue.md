@@ -22,7 +22,7 @@ A_{m \times n} = U_{m \times m} \Sigma_{m \times n} V^T_{n \times n}
 \large
 A \vec{v} = \lambda \vec{v}
 \\]
-如上式，特征向量就是只矩阵与这个向量运算后得到的向量，只有长度的变化，没有方向的变化。更甚着，这种运算可以理解为矩阵在这个向量上的投影（之后会解释为什么可以理解为投影）。
+如上式，特征向量就是指矩阵与这个向量运算后得到的向量，只有长度的变化，没有方向的变化。更甚着，这种运算可以理解为矩阵在这个向量上的投影（之后会解释为什么可以理解为投影）。
 而且，矩阵的特征向量是不唯一的。如果将矩阵所有特征向量和特征值综合到一起，就可以得到矩阵的特征值分解公式，具体过程如下：
 \\[
 \begin{split}
@@ -31,61 +31,181 @@ A \vec{v} = \lambda \vec{v}
 & \cdots \\\\
 & A \vec{v}_m = \lambda_m \vec{v}_m \\\\
 \\\\
- \Rightarrow  & A[\vec{v}_1 \ \vec{v}_2 \ \cdots \vec{v}_m] = [\lambda_1\vec{v}_1 \ \lambda_2\vec{v}_2 \ \cdots \lambda_m\vec{v}_m] \\\\
-\Rightarrow & A[\vec{v}_1 \ \vec{v}_2 \ \cdots \vec{v}_m] = \begin{bmatrix}
-\lambda_1 & 0 & \cdots & 0\\\\
-0 & \lambda_2  & \cdots & 0\\\\
+ \Rightarrow  & A[\vec{v}_1 \ \vec{v}_2 \ \cdots \vec{v}_m] = [\lambda_1\vec{v}_1 \ \lambda_2\vec{v}_2 \ \cdots \lambda_m\vec{v}_m] =  \begin{bmatrix}
+\lambda_1 v_{1,1} & \lambda_2 v_{1,2} & \cdots & \lambda_m v_{1,m} \\\\
+\lambda_1 v_{2,1} & \lambda_2 v_{2,2} & \cdots & \lambda_m v_{2,m} \\\\
+\vdots & \vdots & \ddots & \vdots \\\\
+\lambda_1 v_{m,1} & \lambda_2 v_{m,2} & \cdots & \lambda_m v_{m,m}
+\end{bmatrix} \\\\
+& = \begin{bmatrix}
+v_{1,1} & v_{1,2} & \cdots & v_{1,m} \\\\
+v_{2,1} & v_{2,2} & \cdots & v_{2,m} \\\\
+\vdots & \vdots & \ddots & \\\\
+v_{m,1} & v_{m,2} & \cdots & v_{m,m}
+\end{bmatrix} \begin{bmatrix}
+\lambda_1 & 0 & \cdots & 0 \\\\
+0 & \lambda_2 & \cdots & 0 \\\\
 \vdots & \vdots & \ddots & \vdots \\\\
 0 & 0 & \cdots & \lambda_m
-\end{bmatrix} [\vec{v}_1 \ \vec{v}_2 \ \cdots \vec{v}_m] \\\\
-\Rightarrow & AV = \Lambda V,  \quad V = [\vec{v}_1 \ \vec{v}_2 \ \cdots \vec{v}_m], \quad \Lambda = \begin{bmatrix}
-\lambda_1 & 0 & \cdots & 0\\\\
-0 & \lambda_2  & \cdots & 0\\\\
+\end{bmatrix} \\\\
+& = [\vec{v}_1 \ \vec{v}_2 \cdots \vec{v}_m] \begin{bmatrix}
+\lambda_1 & 0 & \cdots & 0 \\\\
+0 & \lambda_2 & \cdots & 0 \\\\
+\vdots & \vdots & \ddots & \vdots \\\\
+0 & 0 & \cdots & \lambda_m
+\end{bmatrix} \\\\
+\Rightarrow & AV = V \Lambda, \quad V = [\vec{v}_1 \ \vec{v}_2 \cdots \vec{v}_m] \quad \Lambda = \begin{bmatrix}
+\lambda_1 & 0 & \cdots & 0 \\\\
+0 & \lambda_2 & \cdots & 0 \\\\
+\vdots & \vdots & \ddots & \vdots \\\\
+0 & 0 & \cdots & \lambda_m
+\end{bmatrix}  \\\\
+\Rightarrow & A = V \Lambda V^{-1} \\\\
+\end{split} \\\\
+\\]
+到这一步已经得到的特征值分解的如下定义：
+\\[
+A = V \Lambda V^{-1}, \quad V = [\vec{v}_1 \ \vec{v}_2 \cdots \vec{v}_m] \quad \Lambda = \begin{bmatrix}
+\lambda_1 & 0 & \cdots & 0 \\\\
+0 & \lambda_2 & \cdots & 0 \\\\
 \vdots & \vdots & \ddots & \vdots \\\\
 0 & 0 & \cdots & \lambda_m
 \end{bmatrix} 
-\end{split} \\\\
 \\]
-得到\\( AV = \Lambda V \\)后，我们需要讨论下他的一个性质好继续推导
+更甚者，**当\\(A\\)是一个实对阵矩阵的时，他不同特征值对应的特征向量两两正交**，也就是说上式的\\(V\\)是一个正交矩阵而且他满秩，
+即\\(V^{-1} = V^T \\).所以上式又可以写成：
+\\[
+\large
+A = V \Lambda V^{-1} = V \Lambda V^T
+\\]
 
+所以这里，我们就得到了一个线性代数中非常著名的定理.
+
+**当\\(A \\)是一个实对称矩阵时，一定可以找到一个由他特征向量组成的矩阵\\(V\\)，和一个由对应特征值组成的对角矩阵\\(\Lambda\\)，构成如下形式：**
+\\[
+A = V \Lambda V^{-1} = V \Lambda V^T
+\\]
+
+证明上述定理的核心，就是为什么当\\(A\\)是实对称矩阵时，\\(V^{-1} = V^T\\).
+为此，需要引入很多其他的证明:
+
+#### 1). A为实对称矩阵时候，一定有n个实数特征值，而且**不同特征值对应的特征向量一定正交.**
+首先有实数特征值很容易理解，特征值的计算方法是\\( |A - \lambda I| = 0\\).
+该式是一个\\(n \\)阶的多项式,所以一定有\\(n\\)个实数根.也就是说有\\(n\\)个实数的特征值.
+
+当特征值不相等时,即当\\(\lambda_1 \neq \lambda\\),有如下推论:
+\\[
+\begin{split}
+ & A \vec{v}_i = \lambda_i \vec{v}_i \\\\
+ & A  \vec{v}_j = \lambda_j \vec{v}_j \\\\ \\\\
+\Rightarrow & x_j^T A x_i = x_j^T \lambda_i x_i = \lambda_i x_j^T x_i \\\\
+\Rightarrow & \lambda_i x_j^T x_i = x_j^T \lambda_i x_i = x_j^T A x_i = x_j^T A^T x_i \quad :A = A^T \\\\
+\Rightarrow & \lambda_i x_j^T x_i =  x_j^T A^T x_i = (A x_j)^T x_i = \lambda_j x_j^T x_i \\\\
+\Rightarrow & \lambda_i x_j^T x_i =  \lambda_j x_j^T x_i \\\\
+\Rightarrow & (\lambda_i - \lambda_j)x_j^T x_i \\\\ \\\\
+\because & \lambda_i \neq \lambda_j  \therefore x_j^Tx_i = 0 \\\\
+\Rightarrow & x_j \perp x_i
+\end{split}
+\\]
+这里得到结论：**当特征值不同时，对应的特征向量一定相互正交，也就是相互垂直.**
+
+#### 2). 当特征值相同时，特征向量一定相同,因为：
+\\[
+\begin{split}
+& A \vec{v} = \lambda \vec{v} \\\\
+\Rightarrow & A\vec{v} - \lambda \vec{v} = 0 \\\\
+\Rightarrow & (A - \lambda I) \vec{v} = 0
+\end{split}
+\\]
+是一个方程组。而且由于\\(A\\)是一个\\(n\\)阶的方阵，所以当\\( \lambda \\)唯一时，方程组的解一定唯一。
+也就是说，对于一个方阵，**当特征值确定时，特征向量一定唯一。**
+
+再回到对称矩阵\\(A\\)。这里要分成两步讨论:
+
+1) 当这个矩阵的所有的特征值都不同时，对于的特征向量一定正交。
+更甚者，可以将特征向量归一化到模长为1，多余的常数可以存储到特征值中。
+所以这个时候\\(V\\)就是一个正交矩阵，而且每一列的向量模长都为1.
+所以这个时候，\\(V \times V^T  = I\\),也就是说\\(V^{-1} = V^T \\).
+
+2) 当这个矩阵的特征值出现重根的时候。对应的A矩阵一定不满秩。
+因为特征值相同，也就反推出特征向量相同。而对于公式\\(A = V \Lambda V^{-1} \\)对于所有的方阵都实用，
+所以重构出来的矩阵A，一定会有4个元素相等，如下:
+\\[
+\begin{bmatrix}
+\ddots & \vdots &  & \vdots &  \\\\
+\cdots & \lambda_i \vec{v}_i \vec{v}_i^T & \cdots & \lambda_i \vec{v}_i \vec{v}_j^T & \cdots \\\\ 
+ & \vdots &  & \vdots &  \\\\ 
+\cdots & \lambda_j \vec{v}_i \vec{v}_j^T & \cdots & \lambda_j \vec{v}_j \vec{v}_j^T & \cdots \\\\
+  & \vdots &  & \vdots & \ddots
+\end{bmatrix}
+\\]
+也就是推出有两个行向量是线性相关的。所以他就不满秩。
+而对于不满秩的部分，可以用0特征值来补全\\(\Lambda\\)矩阵，对应的\\(V\\)中的就用一个很其他所有特征向量的正交的向量。
+由于\\(A\\)是方阵，所以它是一个\\(R^m\\)的空间，肯定存在\\(m\\)个相互正交的向量。
+因此一定找得到足够数量的相互正交的向量来填充\\(V\\)矩阵，使得V变成一个相互正交的矩阵，也就是\\(V^{-1} = V^T\\).
+
+综上，**只要\\(A\\)是一个实对称矩阵（不一定需要满秩）,一定找得到合适的\\(V\\)和\\(\Lambda\\)
+使得\\(A = V \Lambda V^T \\)满足。而且非0不重复特征值数量一定是\\(A\\)的秩的个数.**
 
 ## 奇异值分解与特征值分解
+已经证明出来，对于一个任意对角方阵，一定可以找出合适的\\(V\\)和\\(Lambda\\)使得下式成立：
+\\[
+A = V \Lambda V^T
+\\]
+那么对已一个任意的矩阵，能不能将其拆分成该形式呢？答案是肯定的，奇异值分解就是为了达到这一目的.
 
+现在假设有任意矩阵\\(A \\)，\\(A^T A \\)一定是一个实对称矩阵。
+因此，对于\\(A^T A\\)，我们可以进行特征值分解，得到结果如下：
+\\[
+A^T A = V \Lambda V^T
+\\]
+得到上述结果后\\(V\\)的行向量可以拆分成一组正交基\\(\\{ \vec{v}\_1, \vec{v}\_2 \cdots \vec{v}\_n \\}\\)而且这组正交基一定有如下性质：
+\\[
+(A^T A) \vec{v}\_i = \lambda_i \vec{v}\_i
+\\]
+然后我们来验证下\\(A \vec{v}\_i \\), 和\\(A \vec{v}\_j \\)的正交性：
+\\[
+\begin{split}
+(A \vec{v}\_i, A \vec{v}\_j) & = (A \vec{v}\_i)^T A \vec{v}\_j \\\\
+& = \vec{v}\_i^T A^T A \vec{v}\_j \\\\
+& = \vec{v}\_i^T (A^T A \vec{v}\_j) \\\\
+& = \vec{v}\_i^T ( \lambda_j \vec{v}\_j ) \\\\
+& = \lambda_j \vec{v}\_i^T \vec{v}\_j \\\\
+& = 0
+\end{split}
+\\]
+这样，我们又得到了另一组正交基\\(\\{ A\vec{v}\_1, A\vec{v}\_2 \cdots A\vec{v}\_n \\}\\).接着我们将这组正交基标准化：
+\\[
+\begin{split}
+& \vec{u}_i = \frac{A \vec{v}_i}{|A \vec{v}_i|} = \frac{1}{\lambda_i} A \vec{v}_i \\\\
+\Rightarrow & A \vec{v}_i = \sqrt{\lambda_i} \vec{u}_i \\\\
+& \because |A \vec{v}_i|^2 = \lambda_i \vec{v}_i^T \vec{v}_i = \lambda_i \\\\
+& \therefore |A \vec{v}_i| = \sqrt{\lambda_i} = \delta_i \\\\
+\Rightarrow & A \vec{v}_i = \delta_i \vec{u}\_i
+\end{split}
+\\]
+接着继续推导：
+\\[
+\begin{split}
+A V &  = A(\vec{v}_1, \vec{v}_2, \cdots, \vec{v}_r) = (A\vec{v}_1, A\vec{v}_2, \cdots, A\vec{v}_r, 0, \cdots, 0) \\\\
+& = (\delta_1 \vec{u}_1, \delta_2 \vec{u}_2, \cdots, \delta_r \vec{u}\_r, 0, \cdots, 0 ) = U \Sigma \\\\
+\Rightarrow & A = U \Sigma V^T
+\end{split}
+\\]
+如此，我们就得到的奇异值分解的公式：
+\\[
+A = U \Sigma V^T
+\\]
+其中，右奇异向量\\(V\\)为\\(A^T A\\)的特征向量。
+奇异值\\(\Sigma\\)为\\(A^T A\\)的特征值开根号。
+左奇异向量为\\( \frac{1}{\sqrt{\lambda_i}}A \vec{v}\_i \\).
 
 ## 奇异值特征值分解的意义
+接着我们来讨论，奇异值与特征值分解究竟有什么意义。两者的本质都是矩阵与向量的投影。
 
-### 向量的内积与投影
-
-### 奇异值分解与矩阵投影
-
-
-
-# 奇异值分解的应用
-
-
-## 奇异分解与主成分分析(PCA)
-
-
-## 奇异值分解与最小二乘
-
-### 最小二乘法与数据拟合
-
-
-### 最小二乘法与多项式拟合
-
-
-
-
-
-
-
-
-
-
-
-
-# 向量的基，内积与向量投影
-首先给一个普通的向量\\( (3,4)  \\),其中的数字3,4表示的是向量在x轴与y轴上的分量,也就是这个向量在
+### 向量基的内积与投影
+首先我们来讨论矩阵运算的本质，首先要来讨论向量的内积的意义。
+先给一个普通的向量\\( (3,4)  \\),其中的数字3,4表示的是向量在x轴与y轴上的分量,也就是这个向量在
 \\( (1, 0) \\)与\\( (0, 1) \\)方向上的**模长**.所以其实向量可以表达成下面这样：
 \\[
 (3,4) = 3 \times (1, 0)^T + 4 \times (0, 1)^T
@@ -194,7 +314,99 @@ A \vec{v} = \lambda \vec{v}
 4
 \end{bmatrix}
 \\]
+至此，我知道，向量的内积运算，其本质其实就是**向量的投影。**
 
+### 奇异值分解与矩阵投影
+再理解了内积的本质是投影之后，我们回到矩阵来。
+矩阵的本质其实是用来描述线性变换的。
+举一个实际的例子.
+假设现在有一个点\\(p\\) 和一个矩阵 \\( A \\) (暂时不要吐槽这个矩阵为什么这么奇怪，之后就会明白)。如下：
+\\[
+p = \begin{bmatrix}
+3\\\\
+4
+\end{bmatrix} \quad A = \begin{bmatrix}
+3.64 & -0.48 \\\\
+-0.48 & 3.36
+\end{bmatrix}
+\\]
+强调一下，这里的\\( p \\)既可以指一个点，同样也可以表示为一个从原点到该点的向量。
+接着我把这个点和矩阵运算一下：
+\\[
+ \begin{bmatrix}
+3.64 & -0.48 \\\\
+-0.48 & 3.36
+\end{bmatrix}\begin{bmatrix}
+3\\\\
+4
+\end{bmatrix} = \begin{bmatrix}
+9\\\\
+12
+\end{bmatrix}
+\\]
+可以看到，矩阵\\( A \\)就是一个把点\\( (3,4) \\)转换到了\\( (9,12)  \\)的线性变换。
+接着，我们来做一个有意思的事情，把矩阵A进行特征值分解，结果如下：
+\\[
+A = \begin{bmatrix}
+0.6 & 0.8\\\\
+-0.8 & 0.6
+\end{bmatrix}\begin{bmatrix}
+4 & 0\\\\
+0 & 3
+\end{bmatrix}\begin{bmatrix}
+0.6 & 0.8\\\\
+-0.8 & 0.6
+\end{bmatrix}^T
+\\]
+
+
+
+
+
+特征值，奇异值分解的定义：
+\\[
+A \vec{v} = \lambda \vec{v}
+\\]
+这个矩阵内积运算后，依然是这个向量的方向。
+也就是说矩阵A，在向量\\( \vec{V} \\)只产生拉升变换，而不产生旋转变换。也就是如下图：
+
+![特征向量和特征空间](https://image.ibb.co/ki2JY8/exp3.png)
+
+似乎是有点抽象，我们来
+
+接着，我们把矩阵\\( A \\)进行特征值分解可以得到:
+
+
+再接着，我们把向量\\( (1,2) \\) 投影到新的基向量上。
+
+
+
+
+# 奇异值分解的应用
+
+
+## 奇异分解与主成分分析(PCA)
+
+
+## 奇异值分解与最小二乘
+
+### 最小二乘法与数据拟合
+
+
+### 最小二乘法与多项式拟合
+
+
+
+
+
+
+
+
+
+
+
+
+# 向量的基，内积与向量投影
 # 特征值与特征向量
 之前我们展示了向量是可以投影到另一个向量上的。
 那么扩展一下，矩阵是不是也可以投影到一个向量上呢？
@@ -205,57 +417,4 @@ A \vec{v} = \lambda \vec{v}
 A\vec{V} = \lambda\vec{V} \\\\
 A = P \Lambda P^{-1} 
 \\]
-上式的几何意义就是矩阵A，在向量\\( \vec{V} \\)只产生拉升变换，而不产生旋转变换。也就是如下图：
-
-![特征向量和特征空间](https://image.ibb.co/ki2JY8/exp3.png)i
-
-似乎是有点抽象，可能会问：这啥玩意儿？这玩意儿有啥用?不要慌，我们来举一个实际的例子.
-假设现在有一个点\\(p\\) 和一个矩阵 \\( A \\)。如下：
-\\[
-p = \begin{bmatrix}
-1\\\\
-2
-\end{bmatrix} \quad A = \begin{bmatrix}
-1 & 3\\\\
-3 & 1
-\end{bmatrix}
-\\]
-强调一下，这里的\\( p \\)既可以指一个点，同样也可以表示为一个从原点到该点的向量。
-接着我把这个点和矩阵运算一下：
-\\[
- \begin{bmatrix}
-1 & 3\\\\
-3 & 1
-\end{bmatrix}\begin{bmatrix}
-1\\\\
-2
-\end{bmatrix} = \begin{bmatrix}
-7\\\\
-5
-\end{bmatrix}
-\\]
-可以看到，矩阵\\( A \\)就是一个把点\\( (1,2) \\)转换到了\\( (7,5)  \\)的运动。
-
-接着，我们把矩阵\\( A \\)进行特征值分解可以得到:
-
-
-再接着，我们把向量\\( (1,2) \\) 投影到新的基向量上。
-
-
-
-
-在Matlab里使用`eig`函数来求，使用方法为:
-{% codeblock lang:matlab %}
-clear all
-close all
-clc
-
-mat = rand(3,3);
-[V D] = eig(mat); % V 为特征向量,列向量，D为特征值
-
-mat*V(:, 1) - D(1, 1)*V(:, 1)
-mat*V(:, 2) - D(2, 2)*V(:, 2)
-mat*V(:, 3) - D(3, 3)*V(:, 3)
-{% endcodeblock %}
-
-
+上式的几何意义就是
