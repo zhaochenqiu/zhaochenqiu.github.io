@@ -426,12 +426,162 @@ Ax = y
 AGy = y
 \\]
 此处\\(Gy\\)为线性系统\\(Ax = y\\)的解。这样我们就可以明白，伪逆就是为了让非方阵的线性系统有解，或者有近似的解而提出的。
-而在1955年Penrose给出了一个对于伪逆清晰的定义。如下：
-
+而在1955年Penrose给出了一个对于伪逆清晰的定义。设\\(A\\)为一个\\(m \times n\\)实矩阵，如果\\(n \times m\\)的
+矩阵\\(X\\)满足如下方程组：
+如下：
+\\[
+AXA = A \\\\ 
+XAX = X \\\\
+(AX)^T = AX \\\\
+(XA)^T = XA
+\\]
+则称\\(X\\)为矩阵\\(A\\)的Penrose伪逆。
 
 ### 为何svd的伪逆是最小二乘解
 
+#### 伪逆的svd形式
+接着我们来讨论svd和伪逆有什么关系。
+首先是svd的定义：
+\\[
+A = U \Sigma V^T
+\\]
+其中U，V分别为m阶，n阶的正交矩阵。\\( \Sigma \\)为\\( m \times n \\)的矩阵，
+其中前 \\( r = r(A) \\)个对角元就是\\(A\\)的奇异值\\(\sigma_1 \geq \cdots \sigma_r > 0 \\).
+即：
+\\[
+A (v_1 \ \cdots \  v_r \  v_{r+1} \  \cdots \ v_n) = (u_1 \  \cdots \  u_r \ u_{r + 1} \  \cdots u_m)\begin{pmatrix}
+\sigma_1 &  &  & \\\\
+ & \ddots &  & \\\\
+ &  & \sigma_r & \\\\
+ &  &  &  0
+\end{pmatrix}
+\\]
+接着得到：
+\\[
+A v_j = \sigma_j u_j (1 \geq j \geq r)  \\\\
+A v_j = 0 ( r + 1 \geq j \geq n )
+\\]
+如果A是一个可逆方阵，则 \\( A^{-1} u_j = \frac{1}{\sigma_j} v_j。 \\)
+如果是一个\\(A\_{m \times n} \\)则：
+\\[
+A^{+} (u_1 \ \cdots \  u_r \  u_{r+1} \  \cdots \ u_n) = (v_1 \  \cdots \  v_r \ v_{r + 1} \  \cdots v_m)\begin{pmatrix}
+\frac{1}{\sigma_1} &  &  & \\\\
+ & \ddots &  & \\\\
+ &  & \frac{1}{\sigma_r} & \\\\
+ &  &  &  0
+\end{pmatrix}
+\\]
+也就是:
+\\[
+A^{+} u_j = \frac{1}{\sigma_j} u_j (1 \geq j \geq r)  \\\\
+A^{+} u_j = 0 ( r + 1 \geq j \geq m )
+\\]
+
+最终也就得到了伪逆的svd形式：
+\\[
+A^{+}\_{n \times m } = V \Sigma^{+} U^T
+\\]
+
+好了，现在给出一个非常重要的结论。**上式的伪逆形式，就是最小二乘的最优解，也就是说，对于线性方程组\\(Ax = y\\)，\\( x = A^{+}y \\)就是该方程的最优解。**
+剩下的部分就是证明上述结论.
+
+#### svd伪逆为最小二乘解证明：
+假设现在有线性方程组\\(Ax = b\\)。如果这个方程组有解
+那么\\( b \in C(A) \\).而且当A列满秩的之后，存在唯一的解。
+更特别的时候，如果当A可逆的时候，\\(x = A^{-1}b\\).
+\\(C(A)\\)是矩阵的列空间。
+
+当\\(Ax = b\\)无解的时候，依然有\\( b \in C(A) \\),此时需要得到一个近似的解\\(\hat{x}\\)使得
+\\(||b - A \hat{x}||\\)最小，也就是最小二乘解。这个解一定是垂直矩阵的列空间的。也就是说：
+\\[
+\begin{split}
+& e = b - A \hat{x} \perp C(A) \\\\
+\Rightarrow & A^{T}e = 0 \\\\
+\Rightarrow & A^T (b - A\hat{x}) = 0 \\\\
+\Rightarrow & A^T A \hat{x} = A^T b \\\\
+\Rightarrow & \hat{x} = (A^T A)^{-1} A^T b
+\end{split}
+\\]
+
+**接着来验证svd伪逆生成的解答\\(x^+ = A^+ b \\)是一个最小二乘解：**
+\\[
+\begin{split}
+& \hat{x} = (A^T A)^{-1}A^Tb, \quad x^+ = A^+ b \\\\
+\Rightarrow & A^T A\hat{x} - A^Tb = 0 \\\\
+\Rightarrow & A^T A A^+ b - A^Tb = 0 \\\\
+\Rightarrow & A^T(b - AA^+b) = 0 \\\\
+\Rightarrow & A^T(b - (AA^+)^Tb) = 0 \\\\
+\Rightarrow & A^Tb - A^T(A^+)^TA^Tb = 0 \\\\
+\Rightarrow & A^Tb - A^T(A^T)^+ A^T b = 0 \\\\
+\Rightarrow & A^T b - A^T b = 0
+\end{split}
+\\]
+其中：
+\\[
+\begin{matrix}
+(A^T)^+ = ((U \Sigma V^T)^T)^+ = (V \Sigma^T U^T)^+ = U(\Sigma^T)^+ V^T  \\\\
+(A^+)^T = ((U \Sigma V^T)^+)^T = (V \Sigma^+ U^T)^T = U (\Sigma^+)^T V^T \\\\
+(\Sigma^+)^T = (\Sigma^T)^+
+\end{matrix}   \Rightarrow (A^+)^T = (A^T)^+
+\\]
+
+现在已经证明了\\(x^+\\)是一个最小二乘解，但是，数学上他可能不是唯一的解，**所以我们要继续证明\\(x^+\\)的长度最小：**
+过程如下啊：
+\\[
+\begin{split}
+& \begin{matrix}
+A^TA\hat{x} = A^T b \\\\
+A^TAx^+ = A^Tb
+\end{matrix} \\\\
+\Rightarrow & A^TA(\hat{x} - x^+) = 0 \\\\
+\Rightarrow & \hat{x} - x^+ \in N(A^TA) = N(A) \\\\
+\because & \quad x^+ = A^+b \in C(A^T) \\\\
+\therefore & \quad x^+ \perp (\hat{x} - x^+) \\\\
+\therefore & \quad ||\hat{x}||^2 = ||(\hat{x} - x^+) + x^+||^2 = ||\hat{x} - x^+||^2 + ||x^+||^2 \geq ||x^+||^2
+\end{split}
+\\]
+所以得到只有当\\(\hat{x} = x^+ \\)的时候，最小二乘的长度最小.
+
+
 ### svd伪逆实际应用
+说了这么多，来一个svd的伪逆与最小二乘的实际应用:
+
+{% codeblock lang:matlab %}
+clear all
+close all
+clc
+
+A = rand(4,4);
+X = rand(10,4);
+
+Y = X*A;
+
+% X = U * S * V^T
+[U S V] = svd(X);
+
+% A = X^+ Y
+% X^+ = V S^+ U^T
+S_ = S;
+idx = S_ > 0.00000001;
+S_(idx) = 1 ./ S_(idx);
+
+A_ = V * S_' * U' * Y;
+
+Y_ = X*A_;
+
+sum(sum(Y_ - Y))
+{% endcodeblock %}
+
+代码输出结果：
+
+    ans =
+
+      -5.9397e-15
+
+    >> 
+
+看，svd很好的求出来最小二乘的解。
+
 
 
 

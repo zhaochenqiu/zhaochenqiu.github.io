@@ -241,49 +241,29 @@ A = U \Sigma V^T
 左奇异向量为\( \frac{1}{\sqrt{\lambda_i}}A \vec{v}_i \).</p>
 <h2 id="奇异值特征值分解的意义"><a href="#奇异值特征值分解的意义" class="headerlink" title="奇异值特征值分解的意义"></a>奇异值特征值分解的意义</h2><p>接着我们来讨论，奇异值与特征值分解究竟有什么意义。两者的本质都是矩阵与向量的投影。</p>
 <h3 id="向量基的内积与投影"><a href="#向量基的内积与投影" class="headerlink" title="向量基的内积与投影"></a>向量基的内积与投影</h3><p>首先我们来讨论矩阵运算的本质，首先要来讨论向量的内积的意义。
-先给一个普通的向量\( (3,4)  \),其中的数字3,4表示的是向量在x轴与y轴上的分量,也就是这个向量在
+先给一个普通的向量\( (4,3)  \),其中的数字4,3表示的是向量在x轴与y轴上的分量,也就是这个向量在
 \( (1, 0) \)与\( (0, 1) \)方向上的<strong>模长</strong>.所以其实向量可以表达成下面这样：
 \[
-(3,4) = 3 \times (1, 0)^T + 4 \times (0, 1)^T
+(4,3)^T = 4 \times (1, 0)^T + 3 \times (0, 1)^T
 \]</p>
-<p>而\( (1, 0) \)与\( (0, 1) \)就可以作为\( (3,4) \)一个基础。更甚者，所有二维向量其实都可以用
+<p>而\( (1, 0)^T \)与\( (0, 1)^T \)就可以作为\( (4,3)^T \)一个基础。更甚者，所有二维向量其实都可以用
 这两个向量通过乘上不用的模来组成，所以这两个向量就是二维向量的一组基。
 所以我们也就得到的基向量的定义，<strong>向量空间的基是它的一个特殊的子集，基的元素称为基向量。
 向量空间中任意一个元素，都可以唯一地表示成基向量的线性组合。</strong></p>
-<p>但是\( (1, 0) \)与\( (0, 1) \) 并不是二维向量空间中唯一的基。
-其实我们还可以找到另一组基例如\( (\frac{3}{5}, \frac{4}{5})  \)和\( (\frac{3}{5}, - \frac{4}{5})  \).
-而在这组基下，原来的向量\( (3,4) \)就变成了\( (5, 0) \)，因为:
+<p>但是\( (1, 0)^T \)与\( (0, 1)^T \) 并不是二维向量空间中唯一的基。
+其实我们还可以找到另一组基例如\( (\frac{3}{5}, -\frac{4}{5})^T  \)和\( (\frac{4}{5}, \frac{3}{5})^T  \).
+而在这组基下，原来的向量\( (4,3)^T \)就变成了\( (0, 5)^T \)，因为:
 \[
-5 \times (\frac{3}{5}, \frac{4}{5})^T + 0 \times (\frac{3}{5}, - \frac{4}{5})^T = (3, 4) = 3 \times (1, 0)^T + 4 \times (0, 1)^T
+0 \times (\frac{3}{5}, - \frac{4}{5})^T + 5 \times (\frac{4}{5}, \frac{3}{5})^T = (4, 3)^T = 4 \times (1, 0)^T + 3 \times (0, 1)^T
 \]
-把上式变的更矩阵化一点，可以得到下式：
-\[
-\begin{bmatrix}
-1 &amp; 0\\
-0 &amp; 1
-\end{bmatrix} \begin{bmatrix}
-3 \\
-4
-\end{bmatrix} = \begin{bmatrix}
-3\\
-4
-\end{bmatrix} = \begin{bmatrix}
-\frac{3}{5} &amp; \frac{3}{5}\\
-\frac{4}{5} &amp; -\frac{4}{5}
-\end{bmatrix}\begin{bmatrix}
-5\\
-0
-\end{bmatrix}
-\]
-其中矩阵的每一个行向量都是对应的基向量。
-也就是，同一个向量，在不同的基向量下，向量的形式是不同的。而向量中的数字其本质表示的是在对应基向量上的模长。
+同一个向量，在不同的基向量下，向量的形式是不同的。而向量中的数字其本质表示的是在对应基向量上的模长。
 即:
 \[
 \vec{v} = [\vec{v}_1, \vec{v}_2, \cdots, \vec{v}_n] [\lambda_1, \lambda_2, \cdots, \lambda_n]^T
 \tag{1}
 \]
 也就说，同一个向量，虽然在不用的基下的向量形式不用，但通过上式计算后，都可以得到同一个结果。
-例如上面式(1)所示，向量\( (3,4) \)在两个不同的基下的最终结果就是相等的。</p>
+例如上面式(1)所示，向量\( (4,3) \)在两个不同的基下的最终结果就是相等的。</p>
 <p>那么如何得到一个向量在不同基下的形式呢？这里就要使用向量的内积。首先是向量内积的定义：
 \[
 \vec{a} \cdot \vec{b}= \sum\limits_{i = 1}^{n} a_ib_i = a_1b_1 + a_2b_2 + \cdots + a_nb_b
@@ -301,48 +281,45 @@ A = U \Sigma V^T
 <p><img src="https://i.ibb.co/5LFKJTk/36936572-25.png" alt="盗个图"></p>
 <p>因此通过向量的内积运算，我们就可以很容易的得到向量在基向量上的投影模长。
 即通过向量的内积运算，就可以很容易的将向量在不同基向量上的进行转换。
-例如之前的向量\( (3,4) \), 在基向量\( (\frac{3}{5}, \frac{4}{5})  \)和
-\( (\frac{3}{5}, - \frac{4}{5})  \)
+例如之前的向量\( (4,3) \), 在基向量\( (\frac{3}{5}, -\frac{4}{5})  \)和
+\( (\frac{4}{5}, \frac{3}{5})  \)
 下的投影也就是表现值就是：
 \[
-(3,4)^T \cdot (\frac{3}{5}, \frac{4}{5})^T = 5 \\
-(3,4)^T \cdot (\frac{3}{5}, \frac{4}{5})^T = 0
-\]
-即：
-\[
 \begin{bmatrix}
-\frac{3}{5} &amp; \frac{3}{5}\\
-\frac{4}{5} &amp; -\frac{4}{5}
+\frac{3}{5} &amp; \frac{4}{5}\\
+-\frac{4}{5} &amp; \frac{3}{5}
 \end{bmatrix}^T \begin{bmatrix}
-3\\ 
-4
+4\\ 
+3
 \end{bmatrix} = \begin{bmatrix}
-5\\ 
-0
+0\\ 
+5
 \end{bmatrix}
 \]
-也就得到了\((5,0) \)这个新的向量。
+也就得到了\((0,5) \)这个新的向量。
 所以可以看到<strong>向量是可以在不同的基下转换的,而且在不同的基下，向量的形式不一样</strong>.
-而将向量转换会标准形式只要需要左乘上这组基向量即可。如下:
+而将向量转换回标准形式只要需要左乘上这组基向量即可。如下:
 \[
+\tag{2}
 \begin{bmatrix}
 \frac{3}{5} &amp; \frac{4}{5} \\
-\frac{4}{5} &amp; -\frac{3}{5}
-\end{bmatrix} \begin{bmatrix}
+-\frac{4}{5} &amp; \frac{3}{5}
+\end{bmatrix}
+\begin{bmatrix}
 \frac{3}{5} &amp; \frac{4}{5} \\
-\frac{4}{5} &amp; -\frac{3}{5}
+-\frac{4}{5} &amp; \frac{3}{5}
 \end{bmatrix}^T \begin{bmatrix}
-3\\
-4
+4\\
+3
 \end{bmatrix} = \begin{bmatrix}
 \frac{3}{5} &amp; \frac{4}{5} \\
-\frac{4}{5} &amp; -\frac{3}{5}
-\end{bmatrix} \begin{bmatrix}
-5\\
-0
-\end{bmatrix} = \begin{bmatrix}
-3\\
-4
+-\frac{4}{5} &amp; \frac{3}{5}
+\end{bmatrix}\begin{bmatrix}
+0 \\
+5
+\end{bmatrix} = \begin{bmatrix} 
+4 \\
+3
 \end{bmatrix}
 \]
 至此，我知道，向量的内积运算，其本质其实就是<strong>向量的投影。</strong></p>
@@ -352,11 +329,11 @@ A = U \Sigma V^T
 假设现在有一个点\(p\) 和一个矩阵 \( A \) (暂时不要吐槽这个矩阵为什么这么奇怪，之后就会明白)。如下：
 \[
 p = \begin{bmatrix}
-3\\
-4
+4\\
+3
 \end{bmatrix} \quad A = \begin{bmatrix}
 3.64 &amp; -0.48 \\
--0.48 &amp; 3.36
+-0.48 &amp; 3.64
 \end{bmatrix}
 \]
 强调一下，这里的\( p \)既可以指一个点，同样也可以表示为一个从原点到该点的向量。
@@ -364,48 +341,220 @@ p = \begin{bmatrix}
 \[
  \begin{bmatrix}
 3.64 &amp; -0.48 \\
--0.48 &amp; 3.36
+-0.48 &amp; 3.64
 \end{bmatrix}\begin{bmatrix}
-3\\
-4
+4\\
+3
 \end{bmatrix} = \begin{bmatrix}
-9\\
-12
+12\\
+9
 \end{bmatrix}
 \]
-可以看到，矩阵\( A \)就是一个把点\( (3,4) \)转换到了\( (9,12)  \)的线性变换。
+可以看到，矩阵\( A \)就是一个把点\( (4,3) \)转换到了\( (12,9)  \)的线性变换。
 接着，我们来做一个有意思的事情，把矩阵A进行特征值分解，结果如下：
 \[
 A = \begin{bmatrix}
-0.6 &amp; 0.8\\
--0.8 &amp; 0.6
+\frac{3}{5} &amp; \frac{4}{5}\\
+-\frac{4}{5} &amp; \frac{3}{5}
 \end{bmatrix}\begin{bmatrix}
 4 &amp; 0\\
 0 &amp; 3
 \end{bmatrix}\begin{bmatrix}
-0.6 &amp; 0.8\\
--0.8 &amp; 0.6
+\frac{3}{5} &amp; \frac{4}{5}\\
+-\frac{4}{5} &amp; \frac{3}{5}
 \end{bmatrix}^T
-\]</p>
-<p>特征值，奇异值分解的定义：
+\]
+分解之后再进行运算：
+\[
+\tag{3}
+\begin{split}
+&amp; \begin{bmatrix}
+\frac{3}{5} &amp; \frac{4}{5}\\
+-\frac{4}{5} &amp; \frac{3}{5}
+\end{bmatrix}\begin{bmatrix}
+4 &amp; 0\\
+0 &amp; 3
+\end{bmatrix}\begin{bmatrix}
+\frac{3}{5} &amp; \frac{4}{5}\\
+-\frac{4}{5} &amp; \frac{3}{5}
+\end{bmatrix}^T \begin{bmatrix}
+4 \\
+3 \end{bmatrix}
+\\  = &amp;
+\begin{bmatrix}
+\frac{3}{5} &amp; \frac{4}{5}\\
+-\frac{4}{5} &amp; \frac{3}{5}
+\end{bmatrix}\begin{bmatrix}
+4 &amp; 0\\
+0 &amp; 3
+\end{bmatrix} \begin{bmatrix}
+0 \\
+5 \end{bmatrix}
+\\ = &amp;
+\begin{bmatrix}
+\frac{3}{5} &amp; \frac{4}{5}\\
+-\frac{4}{5} &amp; \frac{3}{5}
+\end{bmatrix} \begin{bmatrix}
+0 \\
+15 \end{bmatrix}
+\\ = &amp;
+ \begin{bmatrix}
+12 \\
+9 \end{bmatrix}
+\end{split}
+\]
+惊喜不惊喜，是不是和向量内积的式(2)过程非常相似！
+上式的意思就是，首先把向量\( (4,3) \)投影到了一组新的基上。
+接着将新的向量的模长扩展，然后又反投影回去！
+而且在投影后的向量，两者相互独立。
+而这组向量基，就是矩阵的特征向量。
+再反回去特征值，奇异值分解的定义：
 \[
 A \vec{v} = \lambda \vec{v}
 \]
 这个矩阵内积运算后，依然是这个向量的方向。
 也就是说矩阵A，在向量\( \vec{V} \)只产生拉升变换，而不产生旋转变换。也就是如下图：</p>
 <p><img src="https://image.ibb.co/ki2JY8/exp3.png" alt="特征向量和特征空间"></p>
-<p>似乎是有点抽象，我们来</p>
-<p>接着，我们把矩阵\( A \)进行特征值分解可以得到:</p>
-<p>再接着，我们把向量\( (1,2) \) 投影到新的基向量上。</p>
-<h1 id="奇异值分解的应用"><a href="#奇异值分解的应用" class="headerlink" title="奇异值分解的应用"></a>奇异值分解的应用</h1><h2 id="奇异分解与主成分分析-PCA"><a href="#奇异分解与主成分分析-PCA" class="headerlink" title="奇异分解与主成分分析(PCA)"></a>奇异分解与主成分分析(PCA)</h2><h2 id="奇异值分解与最小二乘"><a href="#奇异值分解与最小二乘" class="headerlink" title="奇异值分解与最小二乘"></a>奇异值分解与最小二乘</h2><h3 id="最小二乘法与数据拟合"><a href="#最小二乘法与数据拟合" class="headerlink" title="最小二乘法与数据拟合"></a>最小二乘法与数据拟合</h3><h3 id="最小二乘法与多项式拟合"><a href="#最小二乘法与多项式拟合" class="headerlink" title="最小二乘法与多项式拟合"></a>最小二乘法与多项式拟合</h3><h1 id="向量的基，内积与向量投影"><a href="#向量的基，内积与向量投影" class="headerlink" title="向量的基，内积与向量投影"></a>向量的基，内积与向量投影</h1><h1 id="特征值与特征向量"><a href="#特征值与特征向量" class="headerlink" title="特征值与特征向量"></a>特征值与特征向量</h1><p>之前我们展示了向量是可以投影到另一个向量上的。
-那么扩展一下，矩阵是不是也可以投影到一个向量上呢？
-答案是肯定的，特征值和特征向量就可以办到。</p>
-<p>首先看一下特征向量的定义：
+<p>再配合式(3)的运算过程。
+现在是不是很容易理解，特征值奇异值分解的意义了？
+其实质就是，<strong>矩阵是一个线性变化，而且特征值分解就是把这个线性变换分解到一组独立的基上，为的就是让整个线性变换更加的简单易懂，一目了然。</strong>
+下图很好的描述了这个过程：</p>
+<p><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/bb/Singular-Value-Decomposition.svg/768px-Singular-Value-Decomposition.svg.png" alt="再次盗个图"></p>
+<h1 id="奇异值分解的应用"><a href="#奇异值分解的应用" class="headerlink" title="奇异值分解的应用"></a>奇异值分解的应用</h1><p>奇异值分解的本质就是把一个矩阵分解到一组基上面。
+而且在这组基上矩阵只有模长变换。之后再转换回去。
+也就是说，<strong>一个矩阵的线性变换，被分解到了几个独立的基上。这样之前相关的变换变成了几个独立的线性变换。</strong>
+而这种将相关变换拆分成独立的变换的方法，在实际中有很广的应用。这里我们就是介绍其在主成分分析（PCA）
+和最小二乘问题上的应用。</p>
+<h2 id="奇异分解与主成分分析-PCA"><a href="#奇异分解与主成分分析-PCA" class="headerlink" title="奇异分解与主成分分析(PCA)"></a>奇异分解与主成分分析(PCA)</h2><p>奇异值分解可以很容易的进行主成分分析。其实从他的定义就可以很直观的理解。模长最长的那个基向量，肯定就是主成分！
+当然为了知其甚解！之前的一篇博文已经描述了svd在pca的应用，可以在<a href="http://zhaochenqiu.github.io/2018/05/20/pca/" target="_blank" rel="noopener">这里</a>看。这里就不重复讨论了。</p>
+<h2 id="奇异值分解与最小二乘"><a href="#奇异值分解与最小二乘" class="headerlink" title="奇异值分解与最小二乘"></a>奇异值分解与最小二乘</h2><p>通过奇异值定义出的伪逆就是最小二乘的最优解。所以通过奇异值分解，我们同样可以来解最小二乘问题。</p>
+<h3 id="广义逆矩阵"><a href="#广义逆矩阵" class="headerlink" title="广义逆矩阵"></a>广义逆矩阵</h3><p>线性代数的核心问题其实就是解方程组。
+假设有如下的线性方程:
 \[
-A\vec{V} = \lambda\vec{V} \\
-A = P \Lambda P^{-1} 
+Ax = y
 \]
-上式的几何意义就是</p>
+如果\(A\)是一个可逆的矩阵，则\(x = A^{-1}y\)为方程组的解。
+但是实际上只有方阵有逆矩阵。
+也就是说当矩阵\(A_{n \times m} \)的维度是\( n \times m \)时，且\( n \neq m \)时候，
+矩阵\(A\)是没有逆矩阵的。
+因此需要合适的\(m \times n \)矩阵，使得下式成立：
+\[
+AGy = y
+\]
+此处\(Gy\)为线性系统\(Ax = y\)的解。这样我们就可以明白，伪逆就是为了让非方阵的线性系统有解，或者有近似的解而提出的。
+而在1955年Penrose给出了一个对于伪逆清晰的定义。设\(A\)为一个\(m \times n\)实矩阵，如果\(n \times m\)的
+矩阵\(X\)满足如下方程组：
+如下：
+\[
+AXA = A \\ 
+XAX = X \\
+(AX)^T = AX \\
+(XA)^T = XA
+\]
+则称\(X\)为矩阵\(A\)的Penrose伪逆。</p>
+<h3 id="为何svd的伪逆是最小二乘解"><a href="#为何svd的伪逆是最小二乘解" class="headerlink" title="为何svd的伪逆是最小二乘解"></a>为何svd的伪逆是最小二乘解</h3><h4 id="伪逆的svd形式"><a href="#伪逆的svd形式" class="headerlink" title="伪逆的svd形式"></a>伪逆的svd形式</h4><p>接着我们来讨论svd和伪逆有什么关系。
+首先是svd的定义：
+\[
+A = U \Sigma V^T
+\]
+其中U，V分别为m阶，n阶的正交矩阵。\( \Sigma \)为\( m \times n \)的矩阵，
+其中前 \( r = r(A) \)个对角元就是\(A\)的奇异值\(\sigma_1 \geq \cdots \sigma_r &gt; 0 \).
+即：
+\[
+A (v_1 \ \cdots \  v_r \  v_{r+1} \  \cdots \ v_n) = (u_1 \  \cdots \  u_r \ u_{r + 1} \  \cdots u_m)\begin{pmatrix}
+\sigma_1 &amp;  &amp;  &amp; \\
+ &amp; \ddots &amp;  &amp; \\
+ &amp;  &amp; \sigma_r &amp; \\
+ &amp;  &amp;  &amp;  0
+\end{pmatrix}
+\]
+接着得到：
+\[
+A v_j = \sigma_j u_j (1 \geq j \geq r)  \\
+A v_j = 0 ( r + 1 \geq j \geq n )
+\]
+如果A是一个可逆方阵，则 \( A^{-1} u_j = \frac{1}{\sigma_j} v_j。 \)
+如果是一个\(A_{m \times n} \)则：
+\[
+A^{+} (u_1 \ \cdots \  u_r \  u_{r+1} \  \cdots \ u_n) = (v_1 \  \cdots \  v_r \ v_{r + 1} \  \cdots v_m)\begin{pmatrix}
+\frac{1}{\sigma_1} &amp;  &amp;  &amp; \\
+ &amp; \ddots &amp;  &amp; \\
+ &amp;  &amp; \frac{1}{\sigma_r} &amp; \\
+ &amp;  &amp;  &amp;  0
+\end{pmatrix}
+\]
+也就是:
+\[
+A^{+} u_j = \frac{1}{\sigma_j} u_j (1 \geq j \geq r)  \\
+A^{+} u_j = 0 ( r + 1 \geq j \geq m )
+\]</p>
+<p>最终也就得到了伪逆的svd形式：
+\[
+A^{+}_{n \times m } = V \Sigma^{+} U^T
+\]</p>
+<p>好了，现在给出一个非常重要的结论。<strong>上式的伪逆形式，就是最小二乘的最优解，也就是说，对于线性方程组\(Ax = y\)，\( x = A^{+}y \)就是该方程的最优解。</strong>
+剩下的部分就是证明上述结论.</p>
+<h4 id="svd伪逆为最小二乘解证明："><a href="#svd伪逆为最小二乘解证明：" class="headerlink" title="svd伪逆为最小二乘解证明："></a>svd伪逆为最小二乘解证明：</h4><p>假设现在有线性方程组\(Ax = b\)。如果这个方程组有解
+那么\( b \in C(A) \).而且当A列满秩的之后，存在唯一的解。
+更特别的时候，如果当A可逆的时候，\(x = A^{-1}b\).
+\(C(A)\)是矩阵的列空间。</p>
+<p>当\(Ax = b\)无解的时候，依然有\( b \in C(A) \),此时需要得到一个近似的解\(\hat{x}\)使得
+\(||b - A \hat{x}||\)最小，也就是最小二乘解。这个解一定是垂直矩阵的列空间的。也就是说：
+\[
+\begin{split}
+&amp; e = b - A \hat{x} \perp C(A) \\
+\Rightarrow &amp; A^{T}e = 0 \\
+\Rightarrow &amp; A^T (b - A\hat{x}) = 0 \\
+\Rightarrow &amp; A^T A \hat{x} = A^T b \\
+\Rightarrow &amp; \hat{x} = (A^T A)^{-1} A^T b
+\end{split}
+\]</p>
+<p><strong>接着来验证svd伪逆生成的解答\(x^+ = A^+ b \)是一个最小二乘解：</strong>
+\[
+\begin{split}
+&amp; \hat{x} = (A^T A)^{-1}A^Tb, \quad x^+ = A^+ b \\
+\Rightarrow &amp; A^T A\hat{x} - A^Tb = 0 \\
+\Rightarrow &amp; A^T A A^+ b - A^Tb = 0 \\
+\Rightarrow &amp; A^T(b - AA^+b) = 0 \\
+\Rightarrow &amp; A^T(b - (AA^+)^Tb) = 0 \\
+\Rightarrow &amp; A^Tb - A^T(A^+)^TA^Tb = 0 \\
+\Rightarrow &amp; A^Tb - A^T(A^T)^+ A^T b = 0 \\
+\Rightarrow &amp; A^T b - A^T b = 0
+\end{split}
+\]
+其中：
+\[
+\begin{matrix}
+(A^T)^+ = ((U \Sigma V^T)^T)^+ = (V \Sigma^T U^T)^+ = U(\Sigma^T)^+ V^T  \\
+(A^+)^T = ((U \Sigma V^T)^+)^T = (V \Sigma^+ U^T)^T = U (\Sigma^+)^T V^T \\
+(\Sigma^+)^T = (\Sigma^T)^+
+\end{matrix}   \Rightarrow (A^+)^T = (A^T)^+
+\]</p>
+<p>现在已经证明了\(x^+\)是一个最小二乘解，但是，数学上他可能不是唯一的解，<strong>所以我们要继续证明\(x^+\)的长度最小：</strong>
+过程如下啊：
+\[
+\begin{split}
+&amp; \begin{matrix}
+A^TA\hat{x} = A^T b \\
+A^TAx^+ = A^Tb
+\end{matrix} \\
+\Rightarrow &amp; A^TA(\hat{x} - x^+) = 0 \\
+\Rightarrow &amp; \hat{x} - x^+ \in N(A^TA) = N(A) \\
+\because &amp; \quad x^+ = A^+b \in C(A^T) \\
+\therefore &amp; \quad x^+ \perp (\hat{x} - x^+) \\
+\therefore &amp; \quad ||\hat{x}||^2 = ||(\hat{x} - x^+) + x^+||^2 = ||\hat{x} - x^+||^2 + ||x^+||^2 \geq ||x^+||^2
+\end{split}
+\]
+所以得到只有当\(\hat{x} = x^+ \)的时候，最小二乘的长度最小.</p>
+<h3 id="svd伪逆实际应用"><a href="#svd伪逆实际应用" class="headerlink" title="svd伪逆实际应用"></a>svd伪逆实际应用</h3><p>说了这么多，来一个svd的伪逆与最小二乘的实际应用:</p>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">clear all</span><br><span class="line">close all</span><br><span class="line">clc</span><br><span class="line"></span><br><span class="line">A = <span class="built_in">rand</span>(<span class="number">4</span>,<span class="number">4</span>);</span><br><span class="line">X = <span class="built_in">rand</span>(<span class="number">10</span>,<span class="number">4</span>);</span><br><span class="line"></span><br><span class="line">Y = X*A;</span><br><span class="line"></span><br><span class="line"><span class="comment">% X = U * S * V^T</span></span><br><span class="line">[U S V] = svd(X);</span><br><span class="line"></span><br><span class="line"><span class="comment">% A = X^+ Y</span></span><br><span class="line"><span class="comment">% X^+ = V S^+ U^T</span></span><br><span class="line">S_ = S;</span><br><span class="line">idx = S_ &gt; <span class="number">0.00000001</span>;</span><br><span class="line">S_(idx) = <span class="number">1</span> ./ S_(idx);</span><br><span class="line"></span><br><span class="line">A_ = V * S_' * U' * Y;</span><br><span class="line"></span><br><span class="line">Y_ = X*A_;</span><br><span class="line"></span><br><span class="line">sum(sum(Y_ - Y))</span><br></pre></td></tr></table></figure>
+<p>代码输出结果：</p>
+<pre><code>ans =
+
+  -5.9397e-15
+
+&gt;&gt; 
+</code></pre><p>看，svd很好的求出来最小二乘的解。</p>
 
       
     </div>
