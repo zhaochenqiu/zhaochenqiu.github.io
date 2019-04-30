@@ -1,4 +1,4 @@
-title: 基本数据处理方法记录
+title: 基础理论记录
 date: 2018-09-06 14:01:56
 tags: 图像处理
 ---
@@ -227,3 +227,23 @@ P(XY) = P(X) \times P(Y) = \frac{1}{\sqrt{2 \pi}}e^{-\frac{x^2}{2}} \times \frac
 P(X) = \frac{1}{\sqrt{(2\pi)^k|\Sigma|}} e^{-\frac{1}{2}(X-\mu)^T \Sigma^{-1} (X - \mu) }
 \\]
 
+# 微积分相关(Calculus)
+### 乘积法则(Product Rule)
+乘积法则:
+\\[
+\frac{d}{dx}[f(x)g(x)] = f'(x)g(x) + f(x)g'(x)
+\\]
+推导过程：
+\\[
+\begin{aligned}
+\frac{d}{dx}[f(x)g(x)]  & = \underset{h \rightarrow 0}{lim} \frac{f(x+h)g(x+h) - f(x)g(x)}{h} \\\\
+                        & = \underset{h \rightarrow 0}{lim} \frac{f(x+h)g(x+h) - f(x+h)g(x) + f(x+h)g(x) - f(x)g(x)}{h} \\\\
+                        & = \underset{h \rightarrow 0}{lim} \frac{f(x+h)g(x+h) - f(x+h)g(x)}{h} + \underset{h \rightarrow 0}{lim}\frac{f(x+h)g(x) - f(x)g(x)}{h} \\\\
+                        & = \underset{h \rightarrow 0}{lim} \frac{f(x+h)[g(x+h) - g(x)]}{h} + \underset{h \rightarrow 0}{lim} \frac{g(x)[f(x+h) - f(x)]}{h} \\\\
+                        & = \underset{h \rightarrow 0}{lim} f(x+h) \cdot \underset{h \rightarrow 0}{lim} \frac{g(x+h) - g(x)}{h} + \underset{h \rightarrow 0}{lim} g(x) \cdot \underset{h \rightarrow 0}{lim} \frac{f(x+h) - f(x)}{h} \\\\
+                        & \quad \because \underset{h \rightarrow 0}{lim} f(x+h) = f(x) ,  \underset{h \rightarrow 0}{lim} g(x) = g(x)   \\\\
+                        & = f(x) \cdot \underset{h \rightarrow 0}{lim} \frac{g(x+h) - g(x)}{h} + g(x) \cdot \underset{h \rightarrow 0}{lim} \frac{f(x+h) - f(x)}{h} \\\\
+                        & \quad \because \underset{h \rightarrow 0}{lim} \frac{g(x+h) - g(x)}{h}  = g'(x), \underset{h \rightarrow 0}{lim} \frac{f(x+h) - f(x)}{h} = f'(x) \\\\
+                        & = f(x)g'(x) + f'(x)g(x)
+\end{aligned}
+\\]
