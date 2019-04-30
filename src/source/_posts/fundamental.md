@@ -247,3 +247,5 @@ P(X) = \frac{1}{\sqrt{(2\pi)^k|\Sigma|}} e^{-\frac{1}{2}(X-\mu)^T \Sigma^{-1} (X
                         & = f(x)g'(x) + f'(x)g(x)
 \end{aligned}
 \\]
+
+# Test
