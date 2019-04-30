@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   
-  <title>基本数据处理方法记录 | Chenqiu&#39;s Blog</title>
+  <title>基础理论记录 | Chenqiu&#39;s Blog</title>
   <meta name="author" content="Zhao, Chenqiu">
   
   <meta name="description" content="记录常用的基础的数据处理方法">
@@ -11,7 +11,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  <meta property="og:title" content="基本数据处理方法记录"/>
+  <meta property="og:title" content="基础理论记录"/>
   <meta property="og:site_name" content="Chenqiu&#39;s Blog"/>
 
   
@@ -55,7 +55,7 @@
       
       
   
-    <h1 class="title">基本数据处理方法记录</h1>
+    <h1 class="title">基础理论记录</h1>
   
 
     </header>
@@ -252,6 +252,24 @@ P(XY) = P(X) \times P(Y) = \frac{1}{\sqrt{2 \pi}}e^{-\frac{x^2}{2}} \times \frac
 \[
 P(X) = \frac{1}{\sqrt{(2\pi)^k|\Sigma|}} e^{-\frac{1}{2}(X-\mu)^T \Sigma^{-1} (X - \mu) }
 \]</p>
+<h1 id="微积分相关-Calculus"><a href="#微积分相关-Calculus" class="headerlink" title="微积分相关(Calculus)"></a>微积分相关(Calculus)</h1><h3 id="乘积法则-Product-Rule"><a href="#乘积法则-Product-Rule" class="headerlink" title="乘积法则(Product Rule)"></a>乘积法则(Product Rule)</h3><p>乘积法则:
+\[
+\frac{d}{dx}[f(x)g(x)] = f’(x)g(x) + f(x)g’(x)
+\]
+推导过程：
+\[
+\begin{aligned}
+\frac{d}{dx}[f(x)g(x)]  &amp; = \underset{h \rightarrow 0}{lim} \frac{f(x+h)g(x+h) - f(x)g(x)}{h} \\
+                        &amp; = \underset{h \rightarrow 0}{lim} \frac{f(x+h)g(x+h) - f(x+h)g(x) + f(x+h)g(x) - f(x)g(x)}{h} \\
+                        &amp; = \underset{h \rightarrow 0}{lim} \frac{f(x+h)g(x+h) - f(x+h)g(x)}{h} + \underset{h \rightarrow 0}{lim}\frac{f(x+h)g(x) - f(x)g(x)}{h} \\
+                        &amp; = \underset{h \rightarrow 0}{lim} \frac{f(x+h)[g(x+h) - g(x)]}{h} + \underset{h \rightarrow 0}{lim} \frac{g(x)[f(x+h) - f(x)]}{h} \\
+                        &amp; = \underset{h \rightarrow 0}{lim} f(x+h) \cdot \underset{h \rightarrow 0}{lim} \frac{g(x+h) - g(x)}{h} + \underset{h \rightarrow 0}{lim} g(x) \cdot \underset{h \rightarrow 0}{lim} \frac{f(x+h) - f(x)}{h} \\
+                        &amp; \quad \because \underset{h \rightarrow 0}{lim} f(x+h) = f(x) ,  \underset{h \rightarrow 0}{lim} g(x) = g(x)   \\
+                        &amp; = f(x) \cdot \underset{h \rightarrow 0}{lim} \frac{g(x+h) - g(x)}{h} + g(x) \cdot \underset{h \rightarrow 0}{lim} \frac{f(x+h) - f(x)}{h} \\
+                        &amp; \quad \because \underset{h \rightarrow 0}{lim} \frac{g(x+h) - g(x)}{h}  = g’(x), \underset{h \rightarrow 0}{lim} \frac{f(x+h) - f(x)}{h} = f’(x) \\
+                        &amp; = f(x)g’(x) + f’(x)g(x)
+\end{aligned}
+\]</p>
 
       
     </div>
@@ -338,7 +356,7 @@ P(X) = \frac{1}{\sqrt{(2\pi)^k|\Sigma|}} e^{-\frac{1}{2}(X-\mu)^T \Sigma^{-1} (X
   
     <li><a href="/tags/python/">python</a><small>1</small></li>
   
-    <li><a href="/tags/图像处理/">图像处理</a><small>7</small></li>
+    <li><a href="/tags/图像处理/">图像处理</a><small>8</small></li>
   
     <li><a href="/tags/数学公式/">数学公式</a><small>1</small></li>
   

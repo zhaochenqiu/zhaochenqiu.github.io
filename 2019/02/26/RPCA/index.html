@@ -1,0 +1,209 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>RPCA矩阵分析与主成分追赶 | Chenqiu&#39;s Blog</title>
+  <meta name="author" content="Zhao, Chenqiu">
+  
+  <meta name="description" content="一个数据矩阵分解为低秩矩阵与稀疏矩阵，分别代表了前景与背景">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="RPCA矩阵分析与主成分追赶"/>
+  <meta property="og:site_name" content="Chenqiu&#39;s Blog"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  <link href="/favicon.png" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="Chenqiu&#39;s Blog" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+
+</head>
+
+
+<body>
+  <header id="header" class="inner"><div class="alignleft">
+  <h1><a href="/">Chenqiu&#39;s Blog</a></h1>
+  <h2><a href="/">Do What You Like, Like What You Do</a></h2>
+</div>
+<nav id="main-nav" class="alignright">
+  <ul>
+    
+      <li><a href="/">Home</a></li>
+    
+      <li><a href="/archives">Archives</a></li>
+    
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+<div class="clearfix"></div>
+</header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2019-02-27T05:00:00.000Z"><a href="/2019/02/26/RPCA/">2019-02-26</a></time>
+      
+      
+  
+    <h1 class="title">RPCA矩阵分析与主成分追赶</h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>一个数据矩阵分解为低秩矩阵与稀疏矩阵，分别代表了前景与背景
+<a id="more"></a></p>
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+<h1 id="矩阵分解"><a href="#矩阵分解" class="headerlink" title="矩阵分解"></a>矩阵分解</h1><p>假设有一个很大的数据矩阵\(M\)，他可以被分解为一个低秩矩阵\(L_0\) 和一个稀疏矩阵\(S_0\).
+数学表达如下：
+\[
+M = L_0 + N_0
+\]
+分解方法如下：
+\[
+minimize \quad ||M - L|| \\
+subject \ to \quad rank(L) \leq k
+\]
+\(||M|| \)就是矩阵的奇异值，因为矩阵可以被投影到不同的矩阵。
+而解法就是减去M的主成分，也就是最大奇异值所重构的矩阵。
+这样剩下的就一定会稀疏了。为什么会低秩？因为其基是一样的。
+所以时间序列上的主成分就是背景。具体的用矩阵分解来做background subtraction如下：
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line">clear all</span><br><span class="line">close all</span><br><span class="line">clc</span><br><span class="line"></span><br><span class="line">addpath(<span class="string">'D:\projects\matrix\common'</span>);</span><br><span class="line">addpath(<span class="string">'D:\projects\matrix\common_c'</span>);</span><br><span class="line"></span><br><span class="line">im_pa = <span class="string">'D:\dataset\dataset2014\dataset\baseline\highway\input'</span>;</span><br><span class="line">im_ft = <span class="string">'jpg'</span>;</span><br><span class="line"></span><br><span class="line">[files data] = loadData_plus(im_pa, im_ft);</span><br><span class="line"></span><br><span class="line">[row_im column_im byte_im frames_im] = <span class="built_in">size</span>(data);</span><br><span class="line"></span><br><span class="line">data_gray = <span class="built_in">zeros</span>(row_im, column_im, <span class="number">1</span>, frames_im);</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> <span class="built_in">i</span> = <span class="number">1</span>:frames_im</span><br><span class="line">    im = data(:, :, :, <span class="built_in">i</span>);</span><br><span class="line">    data_gray(:, :, :, <span class="built_in">i</span>) = grayImage(im);</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">data_gray = <span class="built_in">squeeze</span>(data_gray);</span><br><span class="line">data_bk = <span class="built_in">abs</span>(data_gray - data_gray);</span><br><span class="line">data_bkim = <span class="built_in">abs</span>(data_gray - data_gray);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">num = <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> <span class="built_in">i</span> = <span class="number">1</span>:row_im</span><br><span class="line">    matrix = data_gray(<span class="built_in">i</span>, :, :);</span><br><span class="line"></span><br><span class="line">    matrix = <span class="built_in">squeeze</span>(matrix);</span><br><span class="line"></span><br><span class="line">    matrix = matrix';</span><br><span class="line">    [U S V] = svd(matrix);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    matrix_ = U * S(:, <span class="number">1</span>:num) * V(:, <span class="number">1</span>:num)';</span><br><span class="line"></span><br><span class="line">    bkim = <span class="built_in">abs</span>(matrix - matrix_);</span><br><span class="line">    bkim = bkim';</span><br><span class="line"></span><br><span class="line">    data_bk(<span class="built_in">i</span>, :, :) = bkim;</span><br><span class="line">    data_bkim(<span class="built_in">i</span>, :, :) = matrix_';</span><br><span class="line"></span><br><span class="line">    <span class="built_in">i</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> <span class="built_in">i</span> = <span class="number">1</span>:frames_im</span><br><span class="line">    im = data_bk(:, :, <span class="built_in">i</span>);</span><br><span class="line">    bkim = data_bkim(:, :, <span class="built_in">i</span>);</span><br><span class="line">    grayim = data_gray(:, :, <span class="built_in">i</span>);</span><br><span class="line"></span><br><span class="line">    displayMatrixImage(<span class="built_in">i</span>, <span class="number">1</span>, <span class="number">3</span>, grayim, im, bkim);</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    <footer>
+      
+        
+        
+  
+  <div class="tags">
+    <a href="/tags/图像处理/">图像处理</a>
+  </div>
+
+        
+  <div class="addthis addthis_toolbox addthis_default_style">
+    
+      <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
+    
+    
+      <a class="addthis_button_tweet"></a>
+    
+    
+      <a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
+    
+    
+      <a class="addthis_button_pinterest_pinit" pi:pinit:layout="horizontal"></a>
+    
+    <a class="addthis_counter addthis_pill_style"></a>
+  </div>
+  <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js"></script>
+
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+<section id="comment">
+  <h1 class="title">Comments</h1>
+
+  
+      <div id="fb-root"></div>
+<script>
+  (function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=378375629598606";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+</script>
+
+<div class="fb-comments" data-href="http://yoursite.com/2019/02/26/RPCA/index.html" data-num-posts="5" data-width="840" data-colorscheme="light"></div>
+
+      
+  
+</section>
+
+</div></div>
+    <aside id="sidebar" class="alignright">
+  <div class="search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="Search">
+    <input type="hidden" name="q" value="site:yoursite.com">
+  </form>
+</div>
+
+  
+
+  
+<div class="widget tag">
+  <h3 class="title">Tags</h3>
+  <ul class="entry">
+  
+    <li><a href="/tags/C-数据结构/">C++/数据结构</a><small>1</small></li>
+  
+    <li><a href="/tags/Linux/">Linux</a><small>4</small></li>
+  
+    <li><a href="/tags/Lua/">Lua</a><small>1</small></li>
+  
+    <li><a href="/tags/Pandoc/">Pandoc</a><small>1</small></li>
+  
+    <li><a href="/tags/RouterOs/">RouterOs</a><small>1</small></li>
+  
+    <li><a href="/tags/python/">python</a><small>1</small></li>
+  
+    <li><a href="/tags/图像处理/">图像处理</a><small>8</small></li>
+  
+    <li><a href="/tags/数学公式/">数学公式</a><small>1</small></li>
+  
+    <li><a href="/tags/杂文/">杂文</a><small>1</small></li>
+  
+    <li><a href="/tags/概率与统计/">概率与统计</a><small>1</small></li>
+  
+    <li><a href="/tags/算法/">算法</a><small>1</small></li>
+  
+    <li><a href="/tags/计算机网络/">计算机网络</a><small>1</small></li>
+  
+  </ul>
+</div>
+
+</aside>
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div class="alignleft">
+  
+  &copy; 2019 Zhao, Chenqiu
+  
+</div>
+<div class="clearfix"></div></footer>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+</body>
+</html>
