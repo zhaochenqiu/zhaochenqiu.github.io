@@ -8,6 +8,70 @@ tags: 图像处理
 <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
 
+# Chain Rule
+Assume you have a function of x \\( z = f(g(x)) \\),
+the chain rule is shown as follows:
+\\[
+z = f(g(x)), \\\\
+\frac{dz}{dx} = \frac{df(g(x))}{dx} = \frac{df(g(x))}{dg(x)}\cdot \frac{dg(x)}{dx} = f'(g(x))\cdot g'(x) \\\\
+\Rightarrow (f(g(x)))' = f'(g(x))\cdot g'(x)
+\\]
+
+
+# Chain Rule and Backpropagation
+What is the relationship between Chain Rule and Backpropagation? The Backpropagration is actually an application of Chain Rule in the artificial neural network.
+
+## Chain Rule and Jacobian vector product
+Assume that we have the following functions:
+\\[
+f(x_1,x_2,x_3,x_4) = (x_1+10x_2)^2 + 5(x_3 - x_4)^2 + (x_2 + 2x_3)^4 + 10(x_1 - x_4)^4 \\\\
+\  \\\\
+x_1 = z_1 - z_2, \\\\
+x_2 = z_1^2, \\\\
+x_3 = z_2^2, \\\\
+x_4 = z_1^2 + z_1 z_2
+\\]
+Now, we use the Jacobian vector product to caculate the gradient of function \\(f\\) respect to \\(z\\).
+For more information about Jacobian vector product rule, please check [here](https://towardsdatascience.com/pytorch-autograd-understanding-the-heart-of-pytorchs-magic-2686cd94ec95)
+
+In a word, a Jacobian matrix is a matrix representing all the possible partial derivatives of two vectors.
+It is the gradient of a vector with respect to another vector.
+For example, 
+if a vector \\(X = [x_1, x_2, \cdots, x_n ] \\) is used to calculate some other vector \\( f(X)=[f_1, f_2, \cdots, f_n] \\) through a function \\(f\\),
+then the Jacobian matrix \\( (J) \\) simply contains all the partial derivative combinations as follows:
+\\[
+J = [ \frac{\partial f}{\partial x_1} \ \cdots \ \frac{\partial f}{\partial x_n}] = \begin{bmatrix}
+\frac{\partial f_1}{\partial x_1} & \cdots & \frac{\partial f_1}{\partial x_n} \\\\
+\vdots & \ddots  &\vdots \\\\
+\frac{\partial f_m}{\partial x_1} &\cdots  & \frac{\partial f_m}{\partial x_n}
+\end{bmatrix}
+\\]
+Above matrix represents the gradient of \\( f(x) \\) with respect to \\( X \\)
+
+\\(X\\) undergoes some operations to form a vector \\(Y\\), \\(Y\\) is then used to calculate a scalar loss \\(l\\).
+Suppose a vector \\(v\\) happens to be the gradient of the scalar loss \\(l\\) with respect to the vector \\(Y\\) as follows
+\\[
+v = \left ( \frac{\partial l}{\partial y_1} \ \cdots \frac{\partial l}{\partial y_m} \right )^T
+\\]
+
+To get the gradient of the loss \\(l\\) with respect to the weigths \\(X\\) the Jacobian matrix \\(J\\) is vector-multiplied with the vector \\(v\\)
+\\[
+J\cdot v = \begin{pmatrix}
+\frac{\partial y_1}{\partial x_1} & \cdots & \frac{\partial y_m}{\partial x_1}\\\\
+\vdots & \ddots & \vdots \\\\
+\frac{\partial y_1}{\partial x_n} & \cdots & \frac{\partial y_m}{\partial x_n}
+\end{pmatrix} \begin{pmatrix}
+\frac{\partial l}{\partial y_1}\\\\
+\vdots \\\\
+\frac{\partial l}{\partial y_m}
+\end{pmatrix} = \begin{pmatrix}
+\frac{\partial l}{\partial x_1}\\\\
+\vdots \\\\
+\frac{\partial l}{\partial x_n}
+\end{pmatrix}
+\\]
+
+
 # Sigmoid 函数求导
 Sigmoid 函数求导过程记录，用于推导该函数反向修正过程
 \\[
