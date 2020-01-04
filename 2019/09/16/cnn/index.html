@@ -3,15 +3,15 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Bayes&#39;s Theorem | Chenqiu&#39;s Blog</title>
+  <title>卷积神经网络详解（CNN） | Chenqiu&#39;s Blog</title>
   <meta name="author" content="Zhao, Chenqiu">
   
-  <meta name="description" content="贝叶斯定理详解，实例以及应用">
+  <meta name="description" content="记录CNN从理论到实际操作全过程">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  <meta property="og:title" content="Bayes&#39;s Theorem"/>
+  <meta property="og:title" content="卷积神经网络详解（CNN）"/>
   <meta property="og:site_name" content="Chenqiu&#39;s Blog"/>
 
   
@@ -51,20 +51,86 @@
     <header>
       
         <div class="icon"></div>
-        <time datetime="2018-11-05T23:36:56.000Z"><a href="/2018/11/05/bayes/">2018-11-05</a></time>
+        <time datetime="2019-09-16T12:06:08.000Z"><a href="/2019/09/16/cnn/">2019-09-16</a></time>
       
       
   
-    <h1 class="title">Bayes&#39;s Theorem</h1>
+    <h1 class="title">卷积神经网络详解（CNN）</h1>
   
 
     </header>
     <div class="entry">
       
-        <p>贝叶斯定理详解，实例以及应用
+        <p>记录CNN从理论到实际操作全过程
 <a id="more"></a></p>
 <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
+
+<h1 id="Chain-Rule"><a href="#Chain-Rule" class="headerlink" title="Chain Rule"></a>Chain Rule</h1><p>Assume you have a function of x \( z = f(g(x)) \),
+the chain rule is shown as follows:
+\[
+z = f(g(x)), \\
+\frac{dz}{dx} = \frac{df(g(x))}{dx} = \frac{df(g(x))}{dg(x)}\cdot \frac{dg(x)}{dx} = f’(g(x))\cdot g’(x) \\
+\Rightarrow (f(g(x)))’ = f’(g(x))\cdot g’(x)
+\]</p>
+<h1 id="Chain-Rule-and-Backpropagation"><a href="#Chain-Rule-and-Backpropagation" class="headerlink" title="Chain Rule and Backpropagation"></a>Chain Rule and Backpropagation</h1><p>What is the relationship between Chain Rule and Backpropagation? The Backpropagration is actually an application of Chain Rule in the artificial neural network.</p>
+<h2 id="Chain-Rule-and-Jacobian-vector-product"><a href="#Chain-Rule-and-Jacobian-vector-product" class="headerlink" title="Chain Rule and Jacobian vector product"></a>Chain Rule and Jacobian vector product</h2><p>Assume that we have the following functions:
+\[
+f(x_1,x_2,x_3,x_4) = (x_1+10x_2)^2 + 5(x_3 - x_4)^2 + (x_2 + 2x_3)^4 + 10(x_1 - x_4)^4 \\
+\  \\
+x_1 = z_1 - z_2, \\
+x_2 = z_1^2, \\
+x_3 = z_2^2, \\
+x_4 = z_1^2 + z_1 z_2
+\]
+Now, we use the Jacobian vector product to caculate the gradient of function \(f\) respect to \(z\).
+For more information about Jacobian vector product rule, please check <a href="https://towardsdatascience.com/pytorch-autograd-understanding-the-heart-of-pytorchs-magic-2686cd94ec95" target="_blank" rel="noopener">here</a></p>
+<p>In a word, a Jacobian matrix is a matrix representing all the possible partial derivatives of two vectors.
+It is the gradient of a vector with respect to another vector.
+For example, 
+if a vector \(X = [x_1, x_2, \cdots, x_n ] \) is used to calculate some other vector \( f(X)=[f_1, f_2, \cdots, f_n] \) through a function \(f\),
+then the Jacobian matrix \( (J) \) simply contains all the partial derivative combinations as follows:
+\[
+J = [ \frac{\partial f}{\partial x_1} \ \cdots \ \frac{\partial f}{\partial x_n}] = \begin{bmatrix}
+\frac{\partial f_1}{\partial x_1} &amp; \cdots &amp; \frac{\partial f_1}{\partial x_n} \\
+\vdots &amp; \ddots  &amp;\vdots \\
+\frac{\partial f_m}{\partial x_1} &amp;\cdots  &amp; \frac{\partial f_m}{\partial x_n}
+\end{bmatrix}
+\]
+Above matrix represents the gradient of \( f(x) \) with respect to \( X \)</p>
+<p>\(X\) undergoes some operations to form a vector \(Y\), \(Y\) is then used to calculate a scalar loss \(l\).
+Suppose a vector \(v\) happens to be the gradient of the scalar loss \(l\) with respect to the vector \(Y\) as follows
+\[
+v = \left ( \frac{\partial l}{\partial y_1} \ \cdots \frac{\partial l}{\partial y_m} \right )^T
+\]</p>
+<p>To get the gradient of the loss \(l\) with respect to the weigths \(X\) the Jacobian matrix \(J\) is vector-multiplied with the vector \(v\)
+\[
+J\cdot v = \begin{pmatrix}
+\frac{\partial y_1}{\partial x_1} &amp; \cdots &amp; \frac{\partial y_m}{\partial x_1}\\
+\vdots &amp; \ddots &amp; \vdots \\
+\frac{\partial y_1}{\partial x_n} &amp; \cdots &amp; \frac{\partial y_m}{\partial x_n}
+\end{pmatrix} \begin{pmatrix}
+\frac{\partial l}{\partial y_1}\\
+\vdots \\
+\frac{\partial l}{\partial y_m}
+\end{pmatrix} = \begin{pmatrix}
+\frac{\partial l}{\partial x_1}\\
+\vdots \\
+\frac{\partial l}{\partial x_n}
+\end{pmatrix}
+\]</p>
+<h1 id="Sigmoid-函数求导"><a href="#Sigmoid-函数求导" class="headerlink" title="Sigmoid 函数求导"></a>Sigmoid 函数求导</h1><p>Sigmoid 函数求导过程记录，用于推导该函数反向修正过程
+\[
+\begin{aligned}
+f’(x) &amp; = (\frac{1}{1 + e^{-x}})’ \\
+&amp; = \frac{e^{-x}}{(1 + e^{-x})^2} \\
+&amp; = \frac{1 + e^{-x} - 1}{(1 + e^{-x})^2} \\
+&amp; = \frac{1 + e^{-x}}{(1 + e^{-x})^2} - \frac{1}{ (1 + e^{-x})^2  } \\
+&amp; = \frac{1}{1 + e^{-x}} - \frac{1}{1 + e^{-x}} \times \frac{1}{1 + e^{-x}} \\
+&amp; = \frac{1}{1 + e^{-x}} (1 - \frac{1}{1 + e^{-x}}) \\
+&amp; = f(z)(1 - f(z))
+\end{aligned}
+\]</p>
 <h1 id="效果图"><a href="#效果图" class="headerlink" title="效果图"></a>效果图</h1><p>这次使用PCA对<a href="http://yann.lecun.com/exdb/mnist/" target="_blank" rel="noopener">MNIST</a>数据集中数字0和1进行降维分类，分别使用Matlab和Python来实验，结果如下:</p>
 <p><img src="https://image.ibb.co/b97PmT/exp1.png" alt="将数字图片降低到两个维度，红点为数字0的图像降维结果，蓝点为数字1的降维结果"></p>
 <h1 id="特征值与特征向量定义"><a href="#特征值与特征向量定义" class="headerlink" title="特征值与特征向量定义"></a>特征值与特征向量定义</h1><p>特征向量的定义为：\[A \vec{v} = \lambda \vec{v} \]
@@ -141,7 +207,7 @@ A_{m \times n} = U_{m \times m} \Sigma_{m \times n} V_{n \times n}^T
 \]</p>
 <p>就变成了:</p>
 <p>\[
-A_{m \times n} \approx  U_{m \times r} \Sigma_{r \times n} V_{r \times n}^T
+A_{m \times n} \approx  U_{m \times n} \Sigma_{n \times r} V_{r \times n}^T
 \]</p>
 <p>然后利用这种约等于的性质就可以对一副图像进行主成分的提取。例如，这里，我们只使用图像的前10个特征值对图像重构，也就是说\(r = 10\)代码如下：</p>
 <figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">clear all</span><br><span class="line">close all</span><br><span class="line">clc</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">im = double(imread(<span class="string">'./image.jpg'</span>));</span><br><span class="line"></span><br><span class="line">gryim = grayImage(im);</span><br><span class="line"></span><br><span class="line">[s v d] = svd(gryim);</span><br><span class="line"></span><br><span class="line">num = <span class="number">10</span>;</span><br><span class="line"></span><br><span class="line">gryim2 = s(:, :)*v(:, <span class="number">1</span>:num)*d(:, <span class="number">1</span>:num)';</span><br><span class="line"></span><br><span class="line">figure</span><br><span class="line">displayMatrixImage(<span class="number">1</span>, <span class="number">1</span>, <span class="number">2</span>, gryim, gryim2)</span><br></pre></td></tr></table></figure>
@@ -238,7 +304,7 @@ A_{m \times n}  V_{n \times n}  &amp;= U_{m \times m} \Sigma_{m \times n}<br>\en
   }(document, 'script', 'facebook-jssdk'));
 </script>
 
-<div class="fb-comments" data-href="http://yoursite.com/2018/11/05/bayes/index.html" data-num-posts="5" data-width="840" data-colorscheme="light"></div>
+<div class="fb-comments" data-href="http://yoursite.com/2019/09/16/cnn/index.html" data-num-posts="5" data-width="840" data-colorscheme="light"></div>
 
       
   

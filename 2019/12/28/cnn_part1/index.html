@@ -1,0 +1,427 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>卷积神经网络笔记一：反向传播 | Chenqiu&#39;s Blog</title>
+  <meta name="author" content="Zhao, Chenqiu">
+  
+  <meta name="description" content="反向传播详解，从理论到实践">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="卷积神经网络笔记一：反向传播"/>
+  <meta property="og:site_name" content="Chenqiu&#39;s Blog"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  <link href="/favicon.png" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="Chenqiu&#39;s Blog" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+
+</head>
+
+
+<body>
+  <header id="header" class="inner"><div class="alignleft">
+  <h1><a href="/">Chenqiu&#39;s Blog</a></h1>
+  <h2><a href="/">Do What You Like, Like What You Do</a></h2>
+</div>
+<nav id="main-nav" class="alignright">
+  <ul>
+    
+      <li><a href="/">Home</a></li>
+    
+      <li><a href="/archives">Archives</a></li>
+    
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+<div class="clearfix"></div>
+</header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2019-12-28T13:06:08.000Z"><a href="/2019/12/28/cnn_part1/">2019-12-28</a></time>
+      
+      
+  
+    <h1 class="title">卷积神经网络笔记一：反向传播</h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>反向传播详解，从理论到实践
+<a id="more"></a></p>
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+<h1 id="链式法则-Chain-Rule"><a href="#链式法则-Chain-Rule" class="headerlink" title="链式法则(Chain Rule)"></a>链式法则(Chain Rule)</h1><p>微积分的链式法则(Chain Rule)是神经网络反向修正的核心。神经网络的每一层可以单独看成一个函数，
+每一个函数的输出是下一个函数的输入。而链式法则就是用来求出这些嵌套在一起的函数的导数，
+继而得到对应的梯度(gradient)来修正网络。
+假设现有函数：\( z = f(g(x)) \),x是输入，z是输出。
+那么z对于x的梯度，也就是z对x求导过程如下：
+\[
+\begin{split}
+\frac{dz}{dx} &amp; = \frac{df(g(x))}{dx} = \frac{df(g(x))}{dg(x)}\cdot \frac{dg(x)}{dx} = f’(g(x))\cdot g’(x) \\
+\Rightarrow  &amp; (f(g(x)))’ = f’(g(x))\cdot g’(x)
+\end{split}
+\]
+通过上式就可以得到x的梯度并用来修正，使得z最终趋近于0.
+此外，如果把\( z = f(g(x)) \) 看成一个只有两层的网络（g和f），
+上式中，首先是求出了f的导数，也就是最后一层的导数，接着乘上了g的导数，也就是上一层的导数，得到了用于修正的梯度（gradient）。
+也就是说<strong>每一层用于修正网络的梯度，都依赖下一层的梯度。为了修正整个网络要从后向前，先求最后一层的梯度，然后是倒数第二层，接着导数第三层。</strong>
+这样做的好处是为了避免重复计算。因为如果从前向后修正，根据链式法则(chain rule)计算第一层的梯度的时候，实际上是得到了之后所有层梯度的,所以计算复杂度实际成了\(N!\).
+但是如果是反向修正的话，就使得复杂度变成了\(N\).正是链式法则如此完美的应用，使得神经网络的修正变成简洁高效.更多这方面的细节可以参考<a href="https://book.douban.com/subject/30255692//" target="_blank" rel="noopener">深度学习之美</a>.</p>
+<h2 id="Chain-Rule-and-Jacobian-vector-product"><a href="#Chain-Rule-and-Jacobian-vector-product" class="headerlink" title="Chain Rule and Jacobian-vector product"></a>Chain Rule and Jacobian-vector product</h2><p>链式法则是一个一般性规则。具体实施还需要介绍Jacobian矩阵，因为神经网络都是用向量交互的。
+简单的说，Jacobian矩阵就是一个包含了两个向量元素之间所有可能的偏导的矩阵,他被认为两个向量之间的梯度。
+例如，假设有向量\(X = [x_1, x_2, \cdots, x_n ] \)用来计算另一个向量 \( f(X)=[f_1, f_2, \cdots, f_n] \)，通过一个函数f。
+Jacobian矩阵\( (J) \)就长下面这个样子:
+\[
+J = [ \frac{\partial f}{\partial x_1} \ \cdots \ \frac{\partial f}{\partial x_n}] = \begin{bmatrix}
+\frac{\partial f_1}{\partial x_1} &amp; \cdots &amp; \frac{\partial f_1}{\partial x_n} \\
+\vdots &amp; \ddots  &amp;\vdots \\
+\frac{\partial f_m}{\partial x_1} &amp;\cdots  &amp; \frac{\partial f_m}{\partial x_n}
+\end{bmatrix}
+\]</p>
+<p>当然Jaobian矩阵也适用于链式法则。假设有一个X用于计算Y，然后Y又用来计算一个标量l。
+假设Y对l的梯度是：
+\[
+v = \left ( \frac{\partial l}{\partial y_1} \ \cdots \frac{\partial l}{\partial y_m} \right )^T
+\]</p>
+<p>X对已l的梯度就可以通过如下计算：
+\[
+J\cdot v = \begin{pmatrix}
+\frac{\partial y_1}{\partial x_1} &amp; \cdots &amp; \frac{\partial y_m}{\partial x_1}\\
+\vdots &amp; \ddots &amp; \vdots \\
+\frac{\partial y_1}{\partial x_n} &amp; \cdots &amp; \frac{\partial y_m}{\partial x_n}
+\end{pmatrix} \begin{pmatrix}
+\frac{\partial l}{\partial y_1}\\
+\vdots \\
+\frac{\partial l}{\partial y_m}
+\end{pmatrix} = \begin{pmatrix}
+\frac{\partial l}{\partial x_1}\\
+\vdots \\
+\frac{\partial l}{\partial x_n}
+\end{pmatrix}
+\]</p>
+<h1 id="矩阵乘法的反向修正"><a href="#矩阵乘法的反向修正" class="headerlink" title="矩阵乘法的反向修正"></a>矩阵乘法的反向修正</h1><p>首先来简化问题，神经网络的大部分操作都可以简化矩阵运算，所以先讨论矩阵运算，
+也就是线性变换的反向修正（The backpropagation for Matrix multiplication)</p>
+<p>先来一个最简单的例子，假设\( X = [x_1, x_2] \), 和\( W = [w_1, w_2]^T \)
+两个运算得到\( Z = XW = x_1 w_1 + x_2 w_2\)。之后Z在进行之后的操作得到loss。
+假设从loss到Z之的梯度（gradient）是\( \frac{\partial (Loss)}{\partial Z} \).
+根据链式法则（Chain Rule），X的更新梯度和W的更新梯度可以通过下面的方式计算得到：</p>
+<p>\[
+\left.
+\begin{matrix}
+\frac{\partial (Loss)}{\partial x_1} = \frac{\partial Z}{\partial x_1} \cdot \frac{\partial (Loss)}{\partial Z} = w_1 \cdot \frac{\partial (Loss)}{\partial Z} \\
+\frac{\partial (Loss)}{\partial x_2} = \frac{\partial Z}{\partial x_2} \cdot \frac{\partial (Loss)}{\partial Z} = w_2  \cdot \frac{\partial (Loss)}{\partial Z} 
+\end{matrix} \right \} \Rightarrow \triangledown_X(loss) = W^T \frac{\partial (Loss)}{\partial Z} = [w_1 \ w_2] \frac{\partial (Loss)}{\partial Z} \\
+\left. \begin{matrix}
+\frac{\partial (Loss)}{\partial w_1} = \frac{\partial Z}{\partial w_1} \cdot \frac{\partial (Loss)}{\partial Z} = x_1 \cdot \frac{\partial (Loss)}{\partial Z} \\
+\frac{\partial (Loss)}{\partial w_2} = \frac{\partial Z}{\partial w_2} \cdot \frac{\partial (Loss)}{\partial Z} = x_2  \cdot \frac{\partial (Loss)}{\partial Z} \end{matrix} \right \} 
+\Rightarrow \triangledown_W(loss) = X^T \frac{\partial (Loss)}{\partial Z} = \left [ \begin{matrix} x_1 \\ x_2 \end{matrix} \right ] \frac{\partial (Loss)}{\partial Z}
+\]
+注意一下，X是一个一行两列的，而W是一个两行一列的向量。根据上面给出的gradient可以慢慢的把loss修正到最小值</p>
+<p>接下来是一个复杂一点的例子,X,W,Z的表达式如下:</p>
+<p>\[
+X= [x_1 \ x_2], \quad W = \left[ \begin{matrix} w_{1,1} &amp; w_{1,2} &amp; w_{1,3} \\
+w_{2,1} &amp; w_{2,2} &amp; w_{2,3}
+\end{matrix} \right ], \quad Z = [z_1 \ z_2 \ z_3] \\
+\Rightarrow Z = XW \equiv [x_1 \ x_2] \cdot \left[ \begin{matrix}
+w_{1,1} &amp; w_{1,2} &amp; w_{1,3} \\
+w_{2,1} &amp; w_{2,2} &amp; w_{2,3}
+\end{matrix}
+\right ] = [z_1 \ z_2 \ z_3] \equiv
+\left \{ \begin{matrix}
+z_1 = x_1 w_{1,1} + x_2 w_{2,1} \\
+z_2 = x_1 w_{1,2} + x_2 w_{2,2} \\
+z_3 = x_1 w_{1,3} + x_2 w_{2,3}
+\end{matrix} \right.
+\]
+因为这里的Z变成了有三个元素的向量，所以X的中每一个个元素的梯度，都会被这三个影响。
+对于\(x_1 \)和\( x_2 \)的梯度就是:</p>
+<p>\[
+\frac{\partial (Loss)}{\partial x_1} = \frac{\partial z_1}{\partial x_1} \cdot \frac{\partial (Loss)}{\partial z_1} + \frac{\partial z_2}{\partial x_1} \cdot \frac{\partial (Loss)}{\partial z_2} + \frac{\partial z_3}{\partial x_1} \cdot \frac{\partial (Loss)}{\partial z_3} \\
+\frac{\partial (Loss)}{\partial x_2} = \frac{\partial z_1}{\partial x_2} \cdot \frac{\partial (Loss)}{\partial z_1} + \frac{\partial z_2}{\partial x_2} \cdot \frac{\partial (Loss)}{\partial z_2} + \frac{\partial z_3}{\partial x_2} \cdot \frac{\partial (Loss)}{\partial z_3}
+\]
+这里讨论一个事情，为什么Z的三个元素对\( x_1 \)作用的综合要使用加法呢？
+意思是，为什么上面式子中的三个梯度\( \frac{\partial z_1}{\partial x_2} \cdot \frac{\partial (Loss)}{\partial z_1} \) \( \frac{\partial z_2}{\partial x_2} \cdot \frac{\partial (Loss)}{\partial z_2}\) \( \frac{\partial z_3}{\partial x_2} \cdot \frac{\partial (Loss)}{\partial z_3} \)
+要<strong>加</strong>在一起呢? 为什么不乘在一起呢？就算加的话，可以在每一个分量前加个权重吗？</p>
+<p>之所以加在一起，本质原因是因为这是一个矩阵运算，而且矩阵本质是一个线性变化，所以使用加法这种线性的变换的方法。这是最直观的解释。
+又因为向量中每一个元素的重要性都是一样的，所以由他们提供的梯度的权重也应该是一样的，这就是为什么他们是简单的相加。其实就是权重相等且为1的加权求和。
+当然，在一些特殊的情况下(样本不平衡)，人为的去调整其权重也是可以的，这也就是为什么python里的特定标签更新loss的时候是可以带权重的。
+再者，就算不同z的权重不一样，w也可以调整来适应，所以直接相加是没有问题的。
+还有就是loss是被x通过\(z_1, z_2, z_3 \)来影响的，所以反向影响回去也是可以理解的。</p>
+<p>然后把上面式子的对应变量带入：
+\[
+\begin{split}
+\frac{\partial (Loss)}{\partial x_1} = &amp; \frac{\partial z_1}{\partial x_1} \cdot \frac{\partial (Loss)}{\partial z_1} + \frac{\partial z_2}{\partial x_1} \cdot \frac{\partial (Loss)}{\partial z_2} + \frac{\partial z_3}{\partial x_1} \cdot \frac{\partial (Loss)}{\partial z_3} \\
+= &amp; w_{1,1} \cdot \frac{\partial (Loss)}{\partial z_1} + w_{1,2} \cdot \frac{\partial (Loss)}{\partial z_2} + w_{1,3} \cdot \frac{\partial (Loss)}{\partial z_3}
+\\
+\frac{\partial (Loss)}{\partial x_2} = &amp; \frac{\partial z_1}{\partial x_2} \cdot \frac{\partial (Loss)}{\partial z_1} + \frac{\partial z_2}{\partial x_2} \cdot \frac{\partial (Loss)}{\partial z_2} + \frac{\partial z_3}{\partial x_2} \cdot \frac{\partial (Loss)}{\partial z_3}
+\ \\
+= &amp; w_{2,1} \cdot \frac{\partial (Loss)}{\partial z_1} + w_{2,2} \cdot \frac{\partial (Loss)}{\partial z_2} + w_{2,3} \cdot \frac{\partial (Loss)}{\partial z_3}
+\end{split} \\
+\Rightarrow 
+[\frac{\partial (Loss)}{\partial x_1} \ \frac{\partial (Loss)}{\partial x_2}] = [\frac{\partial (Loss)}{\partial z_1} \ \frac{\partial (Loss)}{\partial z_2} \ \frac{\partial (Loss)}{\partial z_3}]  \left[ \begin{matrix} w_{1,1} &amp; w_{2,1} \\
+w_{1,2} &amp; w_{2,2} \\
+w_{1,3} &amp; w_{2,3}
+\end{matrix} \right ]
+\]</p>
+<p>同理W对应的梯度(gradient)就是:
+\[
+\begin{split}
+\frac{\partial (Loss)}{\partial w_{1,1}}&amp; = \frac{\partial z_1}{\partial w_{1,1}} \cdot \frac{\partial (Loss)}{\partial z_1} + \frac{\partial z_2}{\partial w_{1,1}} \cdot \frac{\partial (Loss)}{\partial z_2} + \frac{\partial z_3}{\partial w_{1,1}} \cdot \frac{\partial (Loss)}{\partial z_3} \\
+&amp; = x_1 \cdot \frac{\partial (Loss)}{\partial z_1} \quad \because \frac{\partial z_2}{\partial w_{1,1}}, \frac{\partial z_3}{\partial w_{1,1}}  = 0 \\
+\frac{\partial (Loss)}{\partial w_{1,2}} &amp; = x_1 \cdot \frac{\partial (Loss)}{\partial z_2}\\
+\frac{\partial (Loss)}{\partial w_{1,3}} &amp; = x_1 \cdot \frac{\partial (Loss)}{\partial z_3}\\
+\frac{\partial (Loss)}{\partial w_{2,1}} &amp; = x_2 \cdot \frac{\partial (Loss)}{\partial z_1}\\
+\frac{\partial (Loss)}{\partial w_{2,2}} &amp; = x_2 \cdot \frac{\partial (Loss)}{\partial z_2}\\
+\frac{\partial (Loss)}{\partial w_{2,3}} &amp; = x_2 \cdot \frac{\partial (Loss)}{\partial z_3} \\
+\end{split} \\
+\begin{split}
+\Rightarrow &amp; \left [ \begin{matrix} \frac{\partial (Loss)}{\partial w_{1,1}} &amp; \frac{\partial (Loss)}{\partial w_{1,2}} &amp; \frac{\partial (Loss)}{\partial w_{1,3}} \\
+\frac{\partial (Loss)}{\partial w_{2,1}} &amp; \frac{\partial (Loss)}{\partial w_{2,2}} &amp; \frac{\partial (Loss)}{\partial w_{2,3}}
+\end{matrix} \right ] = \left [  \begin{matrix} x_1 \ x_2  \end{matrix} \right ] \cdot [\frac{\partial (Loss)}{\partial z_1} \  \frac{\partial (Loss)}{\partial z_2} \ \frac{\partial (Loss)}{\partial z_3}]  \\
+ = &amp; \left [ \begin{matrix} x_1 \cdot \frac{\partial (Loss)}{\partial z_1} &amp; x_1 \cdot \frac{\partial (Loss)}{\partial z_2} &amp; x_1 \cdot \frac{\partial (Loss)}{\partial z_3} \\
+ x_2 \cdot \frac{\partial (Loss)}{\partial z_1} &amp; x_2 \cdot \frac{\partial (Loss)}{\partial z_2} &amp; x_2 \cdot \frac{\partial (Loss)}{\partial z_3}
+ \end{matrix} \right ]
+ \end{split}
+\]</p>
+<p>接着把上面的X和W的式子整理一下，变成矩阵乘法的形式,得到的结果如下：
+\[
+\left \{
+\begin{matrix}
+\triangledown_X(Loss) = \triangledown_Z(Loss)W^T \\
+\triangledown_W(Loss) =X^T \triangledown_Z(Loss) 
+\end{matrix} \right. 
+\Rightarrow \left \{ \begin{matrix}
+\delta X = \delta ZW^T \\
+\delta W = X^T \delta Z
+\end{matrix} \right. \\
+\ \\
+\because \text{Using short notation:} \quad \delta S \equiv \triangledown_S(Loss)
+\]</p>
+<p>要怎么去理解这个式子呢？
+首先他是一个线性运算，而要得到这个线性运算的反向修正的过程，这个过程和他的逆过程，也就是逆矩阵很相似。
+线性运算的顺着过去和他逆过来其实是一个 正反的关系。
+你要的是后面对前面的贡献，所以使用左逆和右逆的过程，但是配合的是转置。这样可以让矩阵的整个运算反过来。
+加上运算的输入本身是一个偏导，所以上式，其实就是一个反过来的计算。
+而要反过来计算，自然和矩阵的逆运算是相似的。
+这也就是为什么它是在矩阵运算左逆和右逆的位置，换成了转置。</p>
+<p>接着附上式子的数学理解，如下：</p>
+<p>\[
+\begin{split}
+\delta x_i  &amp; = \sum\limits_k \frac{\partial z_k}{\partial x_i} \cdot \frac{\partial (Loss)}{\partial z_k} =  \sum\limits_k \underbrace{ \frac{\partial (\sum\limits_j x_j \cdot w_{j,k})}{\partial x_i} }_{\because z_k= \sum\limits_j x_j \cdot w_{j,k}} \cdot \frac{\partial (Loss)}{\partial z_k} \\
+&amp; = \sum\limits_k \underbrace{ w_{i,k}}_{\because \frac{\partial (\sum\limits_j x_j \cdot w_{j,k})}{\partial x_i} =w_{}i,k} \cdot \frac{\partial (Loss)}{\partial z_k} = \sum\limits_k w_{i,k} \delta z_k \\
+\Rightarrow &amp; \delta X = \delta Z W^T \\
+\delta w_{i,j} &amp; = \sum\limits_k \frac{\partial z_k}{\partial w_{i,j}}\cdot \frac{\partial (Loss)}{\partial z_k} = \sum\limits \frac{\partial \sum\limits_m x_m \cdot w_{m,k} }{\partial w_{i,j} } \delta z_k = x_i \delta z_j \\
+\Rightarrow &amp; \delta W = X^T \delta Z
+\end{split}
+\]</p>
+<p>矩阵乘法之外，还有一个增加的量b。跟上面一样的方法。
+这次假设X为\( 2 \times 8 \)的矩阵，b为\( 1 \times 8 \)的矩阵，Z = X + b为\( 2 \times 8 \)的矩阵。
+b的gradient推导过程:
+\[
+\begin{split}
+\delta b_i &amp; = \sum\limits_k \sum\limits_l \frac{\partial z_{k,l}}{\partial b_i} \cdot \frac{\partial (Loss)}{\partial z_{k,l}} = \sum\limits_k \sum\limits_l \frac{[x_{k,l} + b_l]}{\partial b_i} \cdot \frac{\partial (Loss)}{\partial z_{k,l}} \\
+&amp; = \sum\limits_k \sum\limits_l 1 \cdot \frac{\partial (Loss)}{\partial z_{k,l}} = \delta z_{k,i} \\
+\Rightarrow &amp; \quad \delta b = \sum\limits_k \delta z_k,:
+\end{split}
+\]</p>
+<p>同理，X的梯度，之所以要X的梯度，是为了上一步的修正，因为针对上一步，X就变成了Z.</p>
+<p>\[
+\begin{split}
+\delta x_{i,j} &amp; = \sum\limits_k \sum\limits_l \frac{\partial z_{k,l}}{\partial x_{i,j}} \cdot \delta z_{k,l} = \sum\limits_k \sum\limits_l \frac{\partial [x_{k,l} + b_k]}{\partial x_{i,j}} \cdot \delta z_{k,l} = \delta z_{i,j} \\
+\Rightarrow  \delta X &amp; = \delta Z  \quad \because \frac{\partial [x_{k,l} + b_k]}{\partial x_{i,j}} = 
+\left \{ \begin{matrix} 1, \quad if k =i, l = j \ 0, \quad \quad \ otherwise  \end{matrix} \right .
+\end{split}
+\]</p>
+<p>Sigmoid 函数 \( \sigma(x) = (\frac{1}{1 + e^{-x}}) \) 的梯度:
+\[
+\begin{aligned}
+\delta x_{i,j} &amp; = \frac{dz_{i,j}}{dx_{i,j}}\delta z_{i,j} = \frac{d\sigma(x_{i,j})}{d x_{i,j}} \delta z_{i,j} = \sigma(x_{i,j})(1 - \sigma(x_{i,j})) \delta z_{i,j} \\
+\because \sigma’(x) &amp; = (\frac{1}{1 + e^{-x}})’ \\
+&amp; = \frac{e^{-x}}{(1 + e^{-x})^2} \\
+&amp; = \frac{1 + e^{-x} - 1}{(1 + e^{-x})^2} \\
+&amp; = \frac{1 + e^{-x}}{(1 + e^{-x})^2} - \frac{1}{ (1 + e^{-x})^2  } \\
+&amp; = \frac{1}{1 + e^{-x}} - \frac{1}{1 + e^{-x}} \times \frac{1}{1 + e^{-x}} \\
+&amp; = \frac{1}{1 + e^{-x}} (1 - \frac{1}{1 + e^{-x}}) \\
+&amp; = \sigma(z)(1 - \sigma(z))
+\end{aligned}
+\]</p>
+<p>Euclidean loss function的梯度：</p>
+<p>\[
+\begin{split}
+Loss(Y^p, Y) &amp; = \frac{1}{2} || Y^p - Y|| = \frac{1}{2} \sum\limits_i(Y_i^p - Y_i)^2  \\
+\delta y_i^p &amp; = \frac{\partial (\frac{1}{2} \sum\limits_i(y_i^p - y_i)^2)}{\partial y_i^p} = y_i^p - y_i \\
+\Rightarrow \delta Y^p &amp; = Y^p - Y
+\end{split}
+\]</p>
+<p>接着来实用一下，来修正一个XOR的神经网络，网络的运算与修正如下:</p>
+<p>\[
+\begin{array}{l}
+X  \in H_{4 \times 2}  &amp; W_1 \in H_{2 \times 8} \\
+Z_1  = X \cdot W_1 \in H_{4 \times 8} &amp; b_1 \in H_{1 \times 8}\\
+Z_2  = Z_1 + b_1 \in H_{4 \times 8} &amp; \\
+Z_3 = \sigma(Z_2) \in H_{4 \times 8} &amp; W_2 \in H_{8 \times 1} \\
+Z_4 = Z_3 \cdot W_2 \in H_{4 \times 1}
+ &amp; b_2 \in 1 \times 1 \\
+ Z_5 = Z_4 + b_2 \in H_{4 \times 1} &amp; \\
+ Y^p = \sigma(Z_5) \in H_{4 \times 1} &amp; \\
+ Loss = \frac{1}{2} \cdot (Y^p - Y)^2
+ \\
+ \\
+ \\
+ \\
+ \delta Y^p = Y^p - Y   &amp; \\
+ \delta Z_5 = \sigma(Z_5)(1 - \sigma(Z_5)) \delta Y^p &amp; \\
+ \delta Z_4 = \delta Z_5 &amp; \delta b_2 = \sum\limits_k(\delta Z_5)_k \\
+ \delta Z_3 = \delta Z_4 W_2^T &amp; \delta W_2 = Z_3^T \delta Z_4 \\
+ \delta Z_2 = \sigma(Z_2)(1  - \sigma(Z_2)) \delta Z_3 &amp; \delta b_1 = \sum\limits_k(\delta Z_2)_{k,:}  \\
+ \delta Z_1 = \delta Z_2 &amp; \delta W_1 = X^T \delta Z_1 \\
+ \end{array}
+\]</p>
+<p>最后附上matlab, python的代码实现：
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line">clear all</span><br><span class="line">close all</span><br><span class="line">clc</span><br><span class="line"></span><br><span class="line">X = [<span class="number">1</span> <span class="number">0</span>;<span class="number">0</span> <span class="number">1</span>; <span class="number">1</span> <span class="number">1</span>; <span class="number">0</span> <span class="number">0</span>];</span><br><span class="line">Y = [<span class="number">1</span>; <span class="number">1</span>; <span class="number">0</span>; <span class="number">0</span>];</span><br><span class="line"></span><br><span class="line">W1 = randn(<span class="number">2</span>, <span class="number">8</span>);</span><br><span class="line">b1 = randn(<span class="number">1</span>, <span class="number">8</span>);</span><br><span class="line"></span><br><span class="line">W2 = randn(<span class="number">8</span>, <span class="number">1</span>);</span><br><span class="line">b2 = randn(<span class="number">1</span>, <span class="number">1</span>);</span><br><span class="line"></span><br><span class="line">lr = <span class="number">0.5</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i = <span class="number">1</span>:<span class="number">10000</span></span><br><span class="line">    Z1 = X * W1;</span><br><span class="line">    Z2 = Z1 + b1;</span><br><span class="line">    Z3 = funcSig(Z2);</span><br><span class="line">    Z4 = Z3 * W2;</span><br><span class="line">    Z5 = Z4 + b2;</span><br><span class="line">    Yp = funcSig(Z5);</span><br><span class="line"></span><br><span class="line">    dYp = Yp - Y;</span><br><span class="line">    dZ5 = (funcSig(Z5) .* (<span class="number">1</span> - funcSig(Z5))) .* dYp;</span><br><span class="line">    dZ4 = dZ5;</span><br><span class="line">    dZ3 = dZ4 * W2<span class="string">';</span></span><br><span class="line"><span class="string">    dZ2 = (funcSig(Z2) .* (1 - funcSig(Z2))) .* dZ3;</span></span><br><span class="line"><span class="string">    dZ1 = dZ2;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    db2 = sum(dZ5);</span></span><br><span class="line"><span class="string">    dW2 = Z3'</span> * dZ4;</span><br><span class="line">    db1 = sum(dZ2, <span class="number">1</span>);</span><br><span class="line">    dW1 = X<span class="string">' * dZ1;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    W2 = W2 - dW2 * lr;</span></span><br><span class="line"><span class="string">    b2 = b2 - db2 * lr;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    W1 = W1 - dW1 * lr;</span></span><br><span class="line"><span class="string">    b1 = b1 - db1 * lr;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    if mod(i, 1000) == 0</span></span><br><span class="line"><span class="string">        loss = sum(0.5*(Yp - Y) .* (Yp - Y));</span></span><br><span class="line"><span class="string">        str = sprintf('</span>loss: %d<span class="string">', loss);</span></span><br><span class="line"><span class="string">        disp(str)</span></span><br><span class="line"><span class="string">    end</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">end</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">function re_value = funcSig(X)</span></span><br><span class="line"><span class="string">    re_value = X;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    [row column] = size(X);</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    for i = 1:row</span></span><br><span class="line"><span class="string">        for j = 1:column</span></span><br><span class="line"><span class="string">            re_value(i,j) = 1/(1 + exp(-X(i,j) ));</span></span><br><span class="line"><span class="string">        end</span></span><br><span class="line"><span class="string">    end</span></span><br><span class="line"><span class="string">end</span></span><br></pre></td></tr></table></figure></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> __future__ <span class="keyword">import</span> print_function</span><br><span class="line"><span class="keyword">import</span> torch</span><br><span class="line"><span class="keyword">from</span> torch.autograd <span class="keyword">import</span> Variable</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">X = torch.tensor([[<span class="number">1.0</span>,<span class="number">0.0</span>,<span class="number">0.0</span>,<span class="number">1.0</span>],[<span class="number">0.0</span>,<span class="number">0.0</span>,<span class="number">1.0</span>,<span class="number">1.0</span>]],dtype=torch.float32)</span><br><span class="line">X = torch.transpose(X,<span class="number">0</span>,<span class="number">1</span>)</span><br><span class="line">Y = torch.tensor([[<span class="number">1.0</span>,<span class="number">0.0</span>,<span class="number">1.0</span>,<span class="number">0.0</span>]],dtype=torch.float32)</span><br><span class="line">Y = torch.transpose(Y,<span class="number">0</span>,<span class="number">1</span>)</span><br><span class="line">print(<span class="string">"input: "</span>, X)</span><br><span class="line">print(<span class="string">"output: "</span>, Y)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">W1 = Variable(torch.torch.FloatTensor(<span class="number">2</span>, <span class="number">8</span>).uniform_(<span class="number">-1</span>, <span class="number">1</span>), requires_grad=<span class="keyword">True</span>)</span><br><span class="line">b1 = Variable(torch.zeros((<span class="number">1</span>,<span class="number">8</span>)), requires_grad=<span class="keyword">True</span>)</span><br><span class="line">W2 = Variable(torch.torch.FloatTensor(<span class="number">8</span>, <span class="number">1</span>).uniform_(<span class="number">-1</span>, <span class="number">1</span>), requires_grad=<span class="keyword">True</span>)</span><br><span class="line">b2 = Variable(torch.zeros([<span class="number">1</span>]), requires_grad=<span class="keyword">True</span>)</span><br><span class="line"></span><br><span class="line">learning_rate = <span class="number">0.5</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> step <span class="keyword">in</span> range(<span class="number">10000</span>):</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">  Z1 = torch.mm(X,W1)</span><br><span class="line">  Z2 = Z1 + b1</span><br><span class="line">  Z3 = torch.sigmoid(Z2)</span><br><span class="line">  Z4 = torch.mm(Z3,W2)</span><br><span class="line">  Z5 = Z4 + b2</span><br><span class="line">  Yp = torch.sigmoid(Z5)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">  dYp = Yp-Y</span><br><span class="line">  dZ5 = torch.sigmoid(Z5)*(<span class="number">1.0</span>-torch.sigmoid(Z5))*dYp</span><br><span class="line">  dZ4 = dZ5</span><br><span class="line">  dZ3 = torch.mm(dZ4,torch.transpose(W2,<span class="number">0</span>,<span class="number">1</span>))</span><br><span class="line">  dZ2 = torch.sigmoid(Z2)*(<span class="number">1.0</span>-torch.sigmoid(Z2))*dZ3</span><br><span class="line">  dZ1 = dZ2</span><br><span class="line"></span><br><span class="line">  dW1 = torch.mm(torch.transpose(X,<span class="number">0</span>,<span class="number">1</span>),dZ1)</span><br><span class="line">  db1 = torch.sum(dZ2,<span class="number">0</span>,<span class="keyword">True</span>)</span><br><span class="line">  dW2 = torch.mm(torch.transpose(Z3,<span class="number">0</span>,<span class="number">1</span>),dZ4)</span><br><span class="line">  db2 = torch.sum(dZ5)</span><br><span class="line"></span><br><span class="line">  W1 = W1 - learning_rate*dW1</span><br><span class="line">  b1 = b1 - learning_rate*db1</span><br><span class="line">  W2 = W2 - learning_rate*dW2</span><br><span class="line">  b2 = b2 - learning_rate*db2</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> step%<span class="number">1000</span> == <span class="number">0</span>:</span><br><span class="line">    loss = torch.sum((Yp-Y)**<span class="number">2</span>)</span><br><span class="line">    print(<span class="string">"loss:"</span>,loss)</span><br><span class="line"></span><br><span class="line">print(Yp)</span><br><span class="line">print(Y)</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer>
+      
+        
+        
+  
+  <div class="tags">
+    <a href="/tags/deep-learning/">deep learning</a>
+  </div>
+
+        
+  <div class="addthis addthis_toolbox addthis_default_style">
+    
+      <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
+    
+    
+      <a class="addthis_button_tweet"></a>
+    
+    
+      <a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
+    
+    
+      <a class="addthis_button_pinterest_pinit" pi:pinit:layout="horizontal"></a>
+    
+    <a class="addthis_counter addthis_pill_style"></a>
+  </div>
+  <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js"></script>
+
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+<section id="comment">
+  <h1 class="title">Comments</h1>
+
+  
+      <div id="fb-root"></div>
+<script>
+  (function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=378375629598606";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+</script>
+
+<div class="fb-comments" data-href="http://yoursite.com/2019/12/28/cnn_part1/index.html" data-num-posts="5" data-width="840" data-colorscheme="light"></div>
+
+      
+  
+</section>
+
+</div></div>
+    <aside id="sidebar" class="alignright">
+  <div class="search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="Search">
+    <input type="hidden" name="q" value="site:yoursite.com">
+  </form>
+</div>
+
+  
+
+  
+<div class="widget tag">
+  <h3 class="title">Tags</h3>
+  <ul class="entry">
+  
+    <li><a href="/tags/C-数据结构/">C++/数据结构</a><small>1</small></li>
+  
+    <li><a href="/tags/Linux/">Linux</a><small>5</small></li>
+  
+    <li><a href="/tags/Lua/">Lua</a><small>1</small></li>
+  
+    <li><a href="/tags/Pandoc/">Pandoc</a><small>1</small></li>
+  
+    <li><a href="/tags/RouterOs/">RouterOs</a><small>1</small></li>
+  
+    <li><a href="/tags/deep-learning/">deep learning</a><small>1</small></li>
+  
+    <li><a href="/tags/python/">python</a><small>1</small></li>
+  
+    <li><a href="/tags/图像处理/">图像处理</a><small>9</small></li>
+  
+    <li><a href="/tags/数学公式/">数学公式</a><small>1</small></li>
+  
+    <li><a href="/tags/杂文/">杂文</a><small>1</small></li>
+  
+    <li><a href="/tags/概率与统计/">概率与统计</a><small>1</small></li>
+  
+    <li><a href="/tags/算法/">算法</a><small>1</small></li>
+  
+    <li><a href="/tags/计算机网络/">计算机网络</a><small>1</small></li>
+  
+  </ul>
+</div>
+
+</aside>
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div class="alignleft">
+  
+  &copy; 2020 Zhao, Chenqiu
+  
+</div>
+<div class="clearfix"></div></footer>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+</body>
+</html>

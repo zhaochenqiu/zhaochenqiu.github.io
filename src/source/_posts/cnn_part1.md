@@ -8,37 +8,31 @@ tags: deep learning
 <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
 
-# Chain Rule
-Assume you have a function of x \\( z = f(g(x)) \\),
-the chain rule is shown as follows:
+# 链式法则(Chain Rule)
+微积分的链式法则(Chain Rule)是神经网络反向修正的核心。神经网络的每一层可以单独看成一个函数，
+每一个函数的输出是下一个函数的输入。而链式法则就是用来求出这些嵌套在一起的函数的导数，
+继而得到对应的梯度(gradient)来修正网络。
+假设现有函数：\\( z = f(g(x)) \\),x是输入，z是输出。
+那么z对于x的梯度，也就是z对x求导过程如下：
 \\[
-z = f(g(x)), \\\\
-\frac{dz}{dx} = \frac{df(g(x))}{dx} = \frac{df(g(x))}{dg(x)}\cdot \frac{dg(x)}{dx} = f'(g(x))\cdot g'(x) \\\\
-\Rightarrow (f(g(x)))' = f'(g(x))\cdot g'(x)
+\begin{split}
+\frac{dz}{dx} & = \frac{df(g(x))}{dx} = \frac{df(g(x))}{dg(x)}\cdot \frac{dg(x)}{dx} = f'(g(x))\cdot g'(x) \\\\
+\Rightarrow  & (f(g(x)))' = f'(g(x))\cdot g'(x)
+\end{split}
 \\]
+通过上式就可以得到x的梯度并用来修正，使得z最终趋近于0.
+此外，如果把\\( z = f(g(x)) \\) 看成一个只有两层的网络（g和f），
+上式中，首先是求出了f的导数，也就是最后一层的导数，接着乘上了g的导数，也就是上一层的导数，得到了用于修正的梯度（gradient）。
+也就是说**每一层用于修正网络的梯度，都依赖下一层的梯度。为了修正整个网络要从后向前，先求最后一层的梯度，然后是倒数第二层，接着导数第三层。**
+这样做的好处是为了避免重复计算。因为如果从前向后修正，根据链式法则(chain rule)计算第一层的梯度的时候，实际上是得到了之后所有层梯度的,所以计算复杂度实际成了\\(N!\\).
+但是如果是反向修正的话，就使得复杂度变成了\\(N\\).正是链式法则如此完美的应用，使得神经网络的修正变成简洁高效.更多这方面的细节可以参考[深度学习之美](https://book.douban.com/subject/30255692//).
 
 
-# Chain Rule and Backpropagation
-What is the relationship between Chain Rule and Backpropagation? The Backpropagration is actually an application of Chain Rule in the artificial neural network.
-
-## Chain Rule and Jacobian vector product
-Assume that we have the following functions:
-\\[
-f(x_1,x_2,x_3,x_4) = (x_1+10x_2)^2 + 5(x_3 - x_4)^2 + (x_2 + 2x_3)^4 + 10(x_1 - x_4)^4 \\\\
-\  \\\\
-x_1 = z_1 - z_2, \\\\
-x_2 = z_1^2, \\\\
-x_3 = z_2^2, \\\\
-x_4 = z_1^2 + z_1 z_2
-\\]
-Now, we use the Jacobian vector product to caculate the gradient of function \\(f\\) respect to \\(z\\).
-For more information about Jacobian vector product rule, please check [here](https://towardsdatascience.com/pytorch-autograd-understanding-the-heart-of-pytorchs-magic-2686cd94ec95)
-
-In a word, a Jacobian matrix is a matrix representing all the possible partial derivatives of two vectors.
-It is the gradient of a vector with respect to another vector.
-For example, 
-if a vector \\(X = [x_1, x_2, \cdots, x_n ] \\) is used to calculate some other vector \\( f(X)=[f_1, f_2, \cdots, f_n] \\) through a function \\(f\\),
-then the Jacobian matrix \\( (J) \\) simply contains all the partial derivative combinations as follows:
+## Chain Rule and Jacobian-vector product
+链式法则是一个一般性规则。具体实施还需要介绍Jacobian矩阵，因为神经网络都是用向量交互的。
+简单的说，Jacobian矩阵就是一个包含了两个向量元素之间所有可能的偏导的矩阵,他被认为两个向量之间的梯度。
+例如，假设有向量\\(X = [x_1, x_2, \cdots, x_n ] \\)用来计算另一个向量 \\( f(X)=[f_1, f_2, \cdots, f_n] \\)，通过一个函数f。
+Jacobian矩阵\\( (J) \\)就长下面这个样子:
 \\[
 J = [ \frac{\partial f}{\partial x_1} \ \cdots \ \frac{\partial f}{\partial x_n}] = \begin{bmatrix}
 \frac{\partial f_1}{\partial x_1} & \cdots & \frac{\partial f_1}{\partial x_n} \\\\
@@ -46,15 +40,14 @@ J = [ \frac{\partial f}{\partial x_1} \ \cdots \ \frac{\partial f}{\partial x_n}
 \frac{\partial f_m}{\partial x_1} &\cdots  & \frac{\partial f_m}{\partial x_n}
 \end{bmatrix}
 \\]
-Above matrix represents the gradient of \\( f(x) \\) with respect to \\( X \\)
 
-\\(X\\) undergoes some operations to form a vector \\(Y\\), \\(Y\\) is then used to calculate a scalar loss \\(l\\).
-Suppose a vector \\(v\\) happens to be the gradient of the scalar loss \\(l\\) with respect to the vector \\(Y\\) as follows
+当然Jaobian矩阵也适用于链式法则。假设有一个X用于计算Y，然后Y又用来计算一个标量l。
+假设Y对l的梯度是：
 \\[
 v = \left ( \frac{\partial l}{\partial y_1} \ \cdots \frac{\partial l}{\partial y_m} \right )^T
 \\]
 
-To get the gradient of the loss \\(l\\) with respect to the weigths \\(X\\) the Jacobian matrix \\(J\\) is vector-multiplied with the vector \\(v\\)
+X对已l的梯度就可以通过如下计算：
 \\[
 J\cdot v = \begin{pmatrix}
 \frac{\partial y_1}{\partial x_1} & \cdots & \frac{\partial y_m}{\partial x_1}\\\\
@@ -72,8 +65,8 @@ J\cdot v = \begin{pmatrix}
 \\]
 
 
-# 线性变换的反向修正 & 矩阵乘法的反向修正
-首先来简化问题，CNN的大部分操作都可以简化矩阵运算，所以先讨论矩阵运算，
+# 矩阵乘法的反向修正
+首先来简化问题，神经网络的大部分操作都可以简化矩阵运算，所以先讨论矩阵运算，
 也就是线性变换的反向修正（The backpropagation for Matrix multiplication)
 
 先来一个最简单的例子，假设\\( X = [x_1, x_2] \\), 和\\( W = [w_1, w_2]^T \\)
@@ -275,80 +268,126 @@ Z_4 = Z_3 \cdot W_2 \in H_{4 \times 1}
 \\]
 
 
-最后附上代码实现：
+最后附上matlab, python的代码实现：
 {% codeblock lang:python %}
+clear all
+close all
+clc
 
-#!/usr/bin/env python
+X = [1 0;0 1; 1 1; 0 0];
+Y = [1; 1; 0; 0];
 
+W1 = randn(2, 8);
+b1 = randn(1, 8);
 
-import loadMNIST as lm
-import numpy as np
-import matplotlib.pyplot as plt
-import random
+W2 = randn(8, 1);
+b2 = randn(1, 1);
 
+lr = 0.5;
 
-path_labs = '/data/dataset/MNIST/train-labels.idx1-ubyte'
-path_imgs = '/data/dataset/MNIST/train-images.idx3-ubyte'
+for i = 1:10000
+    Z1 = X * W1;
+    Z2 = Z1 + b1;
+    Z3 = funcSig(Z2);
+    Z4 = Z3 * W2;
+    Z5 = Z4 + b2;
+    Yp = funcSig(Z5);
 
-imgs, labs = lm.loadMNIST(path_imgs, path_labs)
+    dYp = Yp - Y;
+    dZ5 = (funcSig(Z5) .* (1 - funcSig(Z5))) .* dYp;
+    dZ4 = dZ5;
+    dZ3 = dZ4 * W2';
+    dZ2 = (funcSig(Z2) .* (1 - funcSig(Z2))) .* dZ3;
+    dZ1 = dZ2;
 
+    db2 = sum(dZ5);
+    dW2 = Z3' * dZ4;
+    db1 = sum(dZ2, 1);
+    dW1 = X' * dZ1;
 
-imgs0 = [imgs[i, :, :] for i in range(60000) if labs[i] == 0]
-imgs0 = np.array(imgs0)
+    W2 = W2 - dW2 * lr;
+    b2 = b2 - db2 * lr;
 
-imgs0 = imgs0[0:1000, :, :]
+    W1 = W1 - dW1 * lr;
+    b1 = b1 - db1 * lr;
 
+    if mod(i, 1000) == 0
+        loss = sum(0.5*(Yp - Y) .* (Yp - Y));
+        str = sprintf('loss: %d', loss);
+        disp(str)
+    end
 
-imgs1 = [imgs[i, :, :] for i in range(60000) if labs[i] == 1]
-imgs1 = np.array(imgs1)
-
-imgs1 = imgs1[0:1000, :, :]
-
-combimgs = np.zeros(shape=(2000, 28, 28))
-
-combimgs[0:1000, :, :] = imgs0
-combimgs[1000:2000, :, :] = imgs1
-
-idx = range(2000)
-random.shuffle(idx)
-
-# imgs = np.zeros(shape=(2000, 28, 28))
-imgs = [combimgs[i, :, :] for i in idx]
-imgs = np.array(imgs)
-
-
-comblabs = np.zeros(2000)
-comblabs[0:1000] = 1;
-
-labs = [comblabs[i] for i in idx]
-labs = np.array(labs)
-
-
-data = np.array([np.array(imgs[i, :, :]).flatten() for i in range(2000)])
-
-U, S, V = np.linalg.svd(data)
-
-row_data, column_data = data.shape
-
-sigma = np.zeros([row_data, column_data])
-
-for i in range(column_data):
-    sigma[i][i] = S[i]
-
-tmpdata = np.dot(U, sigma[:, 0:2])
-subdata = np.dot(tmpdata, V[0:2, :])
+end
 
 
-data0 = [tmpdata[i, :] for i in range(2000) if labs[i] == 0]
-data0 = np.array(data0)
+function re_value = funcSig(X)
+    re_value = X;
 
-data1 = [tmpdata[i, :] for i in range(2000) if labs[i] == 1]
-data1 = np.array(data1)
+    [row column] = size(X);
 
-plt.figure()
-plt.plot(data0[:, 0], data0[:, 1], 'b.')
-plt.plot(data1[:, 0], data1[:, 1], 'r.')
-plt.show()
+    for i = 1:row
+        for j = 1:column
+            re_value(i,j) = 1/(1 + exp(-X(i,j) ));
+        end
+    end
+end
+{% endcodeblock %}
+
+{% codeblock lang:python %}
+from __future__ import print_function
+import torch
+from torch.autograd import Variable
+
+
+X = torch.tensor([[1.0,0.0,0.0,1.0],[0.0,0.0,1.0,1.0]],dtype=torch.float32)
+X = torch.transpose(X,0,1)
+Y = torch.tensor([[1.0,0.0,1.0,0.0]],dtype=torch.float32)
+Y = torch.transpose(Y,0,1)
+print("input: ", X)
+print("output: ", Y)
+
+
+W1 = Variable(torch.torch.FloatTensor(2, 8).uniform_(-1, 1), requires_grad=True)
+b1 = Variable(torch.zeros((1,8)), requires_grad=True)
+W2 = Variable(torch.torch.FloatTensor(8, 1).uniform_(-1, 1), requires_grad=True)
+b2 = Variable(torch.zeros([1]), requires_grad=True)
+
+learning_rate = 0.5
+
+for step in range(10000):
+
+
+  Z1 = torch.mm(X,W1)
+  Z2 = Z1 + b1
+  Z3 = torch.sigmoid(Z2)
+  Z4 = torch.mm(Z3,W2)
+  Z5 = Z4 + b2
+  Yp = torch.sigmoid(Z5)
+
+
+  dYp = Yp-Y
+  dZ5 = torch.sigmoid(Z5)*(1.0-torch.sigmoid(Z5))*dYp
+  dZ4 = dZ5
+  dZ3 = torch.mm(dZ4,torch.transpose(W2,0,1))
+  dZ2 = torch.sigmoid(Z2)*(1.0-torch.sigmoid(Z2))*dZ3
+  dZ1 = dZ2
+
+  dW1 = torch.mm(torch.transpose(X,0,1),dZ1)
+  db1 = torch.sum(dZ2,0,True)
+  dW2 = torch.mm(torch.transpose(Z3,0,1),dZ4)
+  db2 = torch.sum(dZ5)
+
+  W1 = W1 - learning_rate*dW1
+  b1 = b1 - learning_rate*db1
+  W2 = W2 - learning_rate*dW2
+  b2 = b2 - learning_rate*db2
+
+  if step%1000 == 0:
+    loss = torch.sum((Yp-Y)**2)
+    print("loss:",loss)
+
+print(Yp)
+print(Y)
 {% endcodeblock %}
 
 
