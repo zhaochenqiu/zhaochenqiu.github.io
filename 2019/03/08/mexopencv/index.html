@@ -1,0 +1,265 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>mexopencv 安装笔记 | Chenqiu&#39;s Blog</title>
+  <meta name="author" content="Zhao, Chenqiu">
+  
+  <meta name="description" content="记录mexopencv 安装过程">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="mexopencv 安装笔记"/>
+  <meta property="og:site_name" content="Chenqiu&#39;s Blog"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  <link href="/favicon.png" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="Chenqiu&#39;s Blog" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+
+</head>
+
+
+<body>
+  <header id="header" class="inner"><div class="alignleft">
+  <h1><a href="/">Chenqiu&#39;s Blog</a></h1>
+  <h2><a href="/">Do What You Like, Like What You Do</a></h2>
+</div>
+<nav id="main-nav" class="alignright">
+  <ul>
+    
+      <li><a href="/">Home</a></li>
+    
+      <li><a href="/archives">Archives</a></li>
+    
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+<div class="clearfix"></div>
+</header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2019-03-08T21:01:56.000Z"><a href="/2019/03/08/mexopencv/">2019-03-08</a></time>
+      
+      
+  
+    <h1 class="title">mexopencv 安装笔记</h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>记录mexopencv 安装过程
+<a id="more"></a></p>
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+<h1 id="下载安装Opencv"><a href="#下载安装Opencv" class="headerlink" title="下载安装Opencv"></a>下载安装Opencv</h1><p>先下载<a href="https://github.com/opencv/opencv/releases/tag/3.4.1" target="_blank" rel="noopener">opencv 3.4.1</a>,
+和<a href="https://github.com/opencv/opencv_contrib/releases/tag/3.4.1" target="_blank" rel="noopener">opencv-3.4.1-contrib</a>.
+下载后解压i</p>
+<p>要装一下cmake,
+可以直接在opencv 3.4.1的目录里sudo apt-get install cmake.
+之后这个目录会多一个cmake文件夹如下：</p>
+<pre><code>cqzhao@hotchkiss-XPS-8700:~/libs/opencv/opencv-3.4.1$ ls
+3rdparty  build  CMakeLists.txt   data  include  modules    README.md
+apps      cmake  CONTRIBUTING.md  doc   LICENSE  platforms  samples
+cqzhao@hotchkiss-XPS-8700:~/libs/opencv/opencv-3.4.1$ 
+</code></pre><p>上面的那个cmake就是 apt-get install cmake后生成的.</p>
+<p>然后 mkdir build, cd build, cmake ../即可
+然后进入到build里make和sudo make install</p>
+<p>opencv_contrib 有点不同，文档在<a href="https://github.com/opencv/opencv_contrib" target="_blank" rel="noopener">这里</a>.
+他是个opencv的扩展，所以只是加在参数中命令</p>
+<pre><code>$ cd &lt;opencv_build_directory&gt;
+$ cmake -DOPENCV_EXTRA_MODULES_PATH=&lt;opencv_contrib&gt;/modules &lt;opencv_source_directory&gt;
+$ make -j5
+</code></pre><p>上的j5 是指最多同时允许5个任务，不加就是同时运行无限个任务.盗一个参数表：</p>
+<pre><code>用法：make [选项] [目标] ... 选项： -b, -m                      忽略兼容性。
+-B, --always-make           无条件 make 所有目标。
+-C DIRECTORY, --directory=DIRECTORY
+在执行前先切换到 DIRECTORY 目录。 -d                          打印大量调试信息。
+--debug[=FLAGS]             打印各种调试信息。
+-e, --environment-overrides
+环境变量覆盖 makefile 中的变量。 -f FILE, --file=FILE, --makefile=FILE
+从 FILE 中读入 makefile。 -h, --help                  打印该消息并退出。
+-i, --ignore-errors         Ignore errors from commands. //和-k参数结合使用能够得到所有的编译错误信息
+-I DIRECTORY, --include-dir=DIRECTORY
+在 DIRECTORY 中搜索被包含的 makefile。 -j [N], --jobs[=N]          同时允许 N 个任务；无参数表明允许无限个任务。
+-k, --keep-going            当某些目标无法创建时仍然继续。
+-l [N], --load-average[=N], --max-load[=N]
+在系统负载高于 N 时不启动多任务。 -L, --check-symlink-times   使用软链接及软链接目标中修改时间较晚的一个。
+-n, --just-print, --dry-run, --recon
+不要实际运行任何命令;仅仅输出他们 -o FILE, --old-file=FILE, --assume-old=FILE
+将 FILE 当做很旧，不必重新生成。 -p, --print-data-base       打印 make 的内部数据库。
+-q, --question               不运行任何命令；退出状态说明是否已全部更新。
+-r, --no-builtin-rules      禁用内置隐含规则。
+-R, --no-builtin-variables   禁用内置变量设置。
+-s, --silent, --quiet       不显示命令。
+-S, --no-keep-going, --stop
+关闭 -k。 -t, --touch                 touch 目标而不是重新创建它们。
+-v, --version               打印 make 的版本号并退出。
+-w, --print-directory       打印当前目录。
+--no-print-directory        关闭 -w，即使 -w 默认开启。
+-W FILE, --what-if=FILE, --new-file=FILE, --assume-new=FILE
+将 FILE 当做最新。 --warn-undefined-variables  当引用未定义变量的时候发出警告。
+该程序为 x86_64-pc-linux-gnu 编译 报告错误到 &lt;bug-make@gnu.org&gt; #### make completed successfully ####
+--------------------- 
+作者：007与狼共舞 
+来源：CSDN 
+原文：https://blog.csdn.net/manjianchao/article/details/54344855 
+版权声明：本文为博主原创文章，转载请附上博文链接！
+</code></pre><p>记住这里有一个巨坑的bug，cuda opencv编译只能用gcc 5，否则就
+cuda_compile_generated_mog.cu.o 有错.</p>
+<p>解决的办法是<a href="http://answers.opencv.org/question/189712/unable-to-compile-opencv-with-cuda9-and-gcc6/" target="_blank" rel="noopener">这里</a>.
+实际上是cmake那一步加上 
+    -D CUDA_HOST_COMPILER:FILEPATH=/usr/bin/gcc-5 ..</p>
+<p><strong>实际的命令就是 cmake -D CUDA_HOST_COMPILER:FILEPATH=/usr/bin/gcc-5 ../不是上面的</strong></p>
+<p>如果如下什么
+libopencv_imgcodecs.so.3.4: cannot open shared
+object file: No such file or directory.
+check 下面这个链接
+<a href="http://answers.opencv.org/question/6732/missing-shared-library/" target="_blank" rel="noopener">http://answers.opencv.org/question/6732/missing-shared-library/</a></p>
+<p>如果出现下面这个bug</p>
+<p>/lib/x86_64-linux-gnu/libz.so.1: version `ZLIB_1.2.9’ not found (required by
+/home/cqzhao/anaconda3/lib/libpng16.so.16).</p>
+<p>解决方法：
+<a href="https://stackoverflow.com/questions/48306849/lib-x86-64-linux-gnu-libz-so-1-version-zlib-1-2-9-not-found" target="_blank" rel="noopener">https://stackoverflow.com/questions/48306849/lib-x86-64-linux-gnu-libz-so-1-version-zlib-1-2-9-not-found</a></p>
+
+      
+    </div>
+    <footer>
+      
+        
+        
+  
+  <div class="tags">
+    <a href="/tags/图像处理/">图像处理</a>
+  </div>
+
+        
+  <div class="addthis addthis_toolbox addthis_default_style">
+    
+      <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
+    
+    
+      <a class="addthis_button_tweet"></a>
+    
+    
+      <a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
+    
+    
+      <a class="addthis_button_pinterest_pinit" pi:pinit:layout="horizontal"></a>
+    
+    <a class="addthis_counter addthis_pill_style"></a>
+  </div>
+  <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js"></script>
+
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+<section id="comment">
+  <h1 class="title">Comments</h1>
+
+  
+      <div id="fb-root"></div>
+<script>
+  (function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=378375629598606";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+</script>
+
+<div class="fb-comments" data-href="http://yoursite.com/2019/03/08/mexopencv/index.html" data-num-posts="5" data-width="840" data-colorscheme="light"></div>
+
+      
+  
+</section>
+
+</div></div>
+    <aside id="sidebar" class="alignright">
+  <div class="search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="Search">
+    <input type="hidden" name="q" value="site:yoursite.com">
+  </form>
+</div>
+
+  
+
+  
+<div class="widget tag">
+  <h3 class="title">Tags</h3>
+  <ul class="entry">
+  
+    <li><a href="/tags/C-数据结构/">C++/数据结构</a><small>1</small></li>
+  
+    <li><a href="/tags/Linux/">Linux</a><small>5</small></li>
+  
+    <li><a href="/tags/Lua/">Lua</a><small>1</small></li>
+  
+    <li><a href="/tags/Machine-Learning/">Machine Learning</a><small>1</small></li>
+  
+    <li><a href="/tags/Pandoc/">Pandoc</a><small>1</small></li>
+  
+    <li><a href="/tags/RouterOs/">RouterOs</a><small>1</small></li>
+  
+    <li><a href="/tags/deep-learning/">deep learning</a><small>1</small></li>
+  
+    <li><a href="/tags/python/">python</a><small>1</small></li>
+  
+    <li><a href="/tags/图像处理/">图像处理</a><small>10</small></li>
+  
+    <li><a href="/tags/数学公式/">数学公式</a><small>1</small></li>
+  
+    <li><a href="/tags/杂文/">杂文</a><small>1</small></li>
+  
+    <li><a href="/tags/概率与统计/">概率与统计</a><small>1</small></li>
+  
+    <li><a href="/tags/计算机网络/">计算机网络</a><small>1</small></li>
+  
+  </ul>
+</div>
+
+</aside>
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div class="alignleft">
+  
+  &copy; 2020 Zhao, Chenqiu
+  
+</div>
+<div class="clearfix"></div></footer>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+</body>
+</html>
